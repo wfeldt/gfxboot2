@@ -1,0 +1,100 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 56 entries (56 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  str    37 31 32 33              "123"
+     2       2  0x0000c  str    37 31 32 33              "123"
+     3       3  0x00010  str    37 31 32 33              "123"
+     4       4  0x00014  nil    00                       nil
+     5       5  0x00015  bool   12                       true
+             6  0x00016  bool   02                       false
+     6       7  0x00017  int    01                       0
+             8  0x00018  int    11                       1
+             9  0x00019  int    51                       5
+            10  0x0001a  int    71                       7
+            11  0x0001b  int    81 08                    8
+            12  0x0001d  int    81 09                    9
+            13  0x0001f  int    81 7f                    127
+            14  0x00021  int    91 80 00                 128
+            15  0x00024  int    91 ff 00                 255
+            16  0x00027  int    91 00 01                 256
+            17  0x0002a  int    91 01 01                 257
+     7      18  0x0002d  int    81 ff                    -1
+            19  0x0002f  int    81 fb                    -5
+            20  0x00031  int    81 81                    -127
+            21  0x00033  int    81 80                    -128
+            22  0x00035  int    91 7f ff                 -129
+            23  0x00038  int    91 01 ff                 -255
+            24  0x0003b  int    91 00 ff                 -256
+            25  0x0003e  int    91 ff fe                 -257
+     9      26  0x00041  int    f1 00 00 00 00 00 00 00  0x8000000000000000
+                                80
+    10      27  0x0004a  int    f1 00 00 00 00 00 00 00  -0x8000000000000000
+                                80
+    11      28  0x00053  int    81 ff                    0xffffffffffffffff
+    12      29  0x00055  str    07                       ""
+            30  0x00056  str    17 61                    "a"
+            31  0x00058  str    37 61 62 63              "abc"
+            32  0x0005c  str    b7 30 31 32 33 34 35 36  "0123456789a"
+                                37 38 39 61
+            33  0x00068  str    c7 0c 30 31 32 33 34 35  "0123456789ab"
+                                36 37 38 39 61 62
+            34  0x00076  str    c7 10 61 62 63 64 65 66  "abcdefsghlertert"
+                                73 67 68 6c 65 72 74 65
+                                72 74
+    13      35  0x00088  str    d7 00 01 68 6a 67 66 61  "hjgfahjgsdfahjgsdfahjgsfdjhasfdadfsjhajsdhfadjhsdfhajsdajhasdfgasdfgajksdgfkjasdgfasdfjkasdgfaskdfkasjdgfkjaasdfasdfjkasdgfkjashdgfjkasdgfjhasdgfjaksgdfkjasdgfkajsdgfkjasdgfkjasdfgkjasdfhgaksjdfasdkfjasdgfksajdhfgkajsdhgfjkasdgfjkasdgfkjasjkasdgfkjasdfkdds"
+                                68 6a 67 73 64 66 61 68
+                                6a 67 73 64 66 61 68 6a
+                                67 73 66 64 6a 68 61 73
+                                66 64 61 64 66 73 6a 68
+                                61 6a 73 64 68 66 61 64
+                                6a 68 73 64 66 68 61 6a
+                                73 64 61 6a 68 61 73 64
+                                66 67 61 73 64 66 67 61
+                                6a 6b 73 64 67 66 6b 6a
+                                61 73 64 67 66 61 73 64
+                                66 6a 6b 61 73 64 67 66
+                                61 73 6b 64 66 6b 61 73
+                                6a 64 67 66 6b 6a 61 61
+                                73 64 66 61 73 64 66 6a
+                                6b 61 73 64 67 66 6b 6a
+                                61 73 68 64 67 66 6a 6b
+                                61 73 64 67 66 6a 68 61
+                                73 64 67 66 6a 61 6b 73
+                                67 64 66 6b 6a 61 73 64
+                                67 66 6b 61 6a 73 64 67
+                                66 6b 6a 61 73 64 67 66
+                                6b 6a 61 73 64 66 67 6b
+                                6a 61 73 64 66 68 67 61
+                                6b 73 6a 64 66 61 73 64
+                                6b 66 6a 61 73 64 67 66
+                                6b 73 61 6a 64 68 66 67
+                                6b 61 6a 73 64 68 67 66
+                                6a 6b 61 73 64 67 66 6a
+                                6b 61 73 64 67 66 6b 6a
+                                61 73 6a 6b 61 73 64 67
+                                66 6b 6a 61 73 64 66 6b
+                                64 64 73
+    14      36  0x0018b  str    37 61 62 63              "abc"
+    15      37  0x0018f  str    37 61 62 63              "abc"
+    16      38  0x00193  ref    39 66 6f 6f              /foo
+            39  0x00197  code   56                       {
+            40  0x00198  int    81 0a                      10
+            41  0x0019a  int    81 14                      20
+            42  0x0019c  prim   13                       }
+            43  0x0019d  code   a6                       {
+            44  0x0019e  int    81 64                      100
+            45  0x001a0  int    91 2c 01                   300
+            46  0x001a3  int    91 90 01                   400
+            47  0x001a6  int    01                         0
+            48  0x001a7  prim   13                       }
+            49  0x001a8  code   b6                       {
+            50  0x001a9  int    81 64                      100
+            51  0x001ab  int    91 2c 01                   300
+            52  0x001ae  int    91 90 01                   400
+            53  0x001b1  int    81 0a                      10
+            54  0x001b3  prim   13                       }
+            55  0x001b4  word   38 64 65 66              def

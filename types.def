@@ -1,0 +1,39 @@
+# type definitions
+#
+# this file is used to generate vocabulary.h
+#
+# 1st column: printable name, 2nd column (optional): name used in source code
+
+# --- types < 16 ---
+# these types can be encoded in binary program code
+# number-like types
+nil
+int
+bool
+prim
+xref
+# string-like types start with t_comment
+comm	comment
+code
+str	string
+word
+ref
+get
+set
+	res1
+	res2
+	res3
+	res4
+
+# --- types >= 16 ---
+
+# internal type used during code optimization
+skip
+
+# context types
+func	ctx_func
+block	ctx_block
+loop	ctx_loop
+repeat	ctx_repeat
+for	ctx_for
+forall	ctx_forall

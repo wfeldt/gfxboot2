@@ -1,0 +1,41 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 34 entries (34 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  str    87 e2 82 ac 0a 41 42 32  "€\nAB23"
+                                33
+             2  0x00011  code   16                       {
+             3  0x00012  prim   13                       }
+             4  0x00013  word   68 66 6f 72 61 6c 6c     forall
+     2       5  0x0001a  word   18 5b                    [
+             6  0x0001c  word   18 5d                    ]
+             7  0x0001e  code   16                       {
+             8  0x0001f  prim   13                       }
+             9  0x00020  xref   84 0d                    forall
+     3      10  0x00022  word   18 28                    (
+            11  0x00024  word   18 29                    )
+            12  0x00026  code   16                       {
+            13  0x00027  prim   13                       }
+            14  0x00028  xref   84 15                    forall
+     4      15  0x0002a  word   18 5b                    [
+            16  0x0002c  int    81 0a                      10
+            17  0x0002e  int    81 14                      20
+            18  0x00030  int    81 1e                      30
+            19  0x00032  word   18 5d                    ]
+            20  0x00034  code   16                       {
+            21  0x00035  prim   13                       }
+            22  0x00036  xref   84 23                    forall
+     5      23  0x00038  word   18 28                    (
+            24  0x0003a  str    27 61 61                   "aa"
+            25  0x0003d  int    81 64                      100
+            26  0x0003f  str    27 62 62                   "bb"
+            27  0x00042  int    91 c8 00                   200
+            28  0x00045  str    27 63 63                   "cc"
+            29  0x00048  int    91 2c 01                   300
+            30  0x0004b  word   18 29                    )
+            31  0x0004d  code   16                       {
+            32  0x0004e  prim   13                       }
+            33  0x0004f  xref   84 3c                    forall

@@ -1,0 +1,201 @@
+#! /usr/bin/perl
+
+use strict;
+
+use Getopt::Long;
+
+sub prepare_test;
+sub run_test;
+sub verify_test;
+sub table_head;
+
+my $testdir = "tests";
+
+# store reference output, don't do checks
+my $opt_create_reference;
+my $opt_test_pattern = "*";
+
+GetOptions(
+  'create-reference|r' => \$opt_create_reference,
+  'test|t=s' => \$opt_test_pattern,
+);
+
+die "error: no gfxboot-compile\n" unless -x "./gfxboot-compile";
+die "error: no gfxboot-x11\n" unless -x "./gfxboot-x11";
+
+my $tests = [ qw ( code mem trace basic code1 opt1 code2 opt2 gc screen ) ];
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+my $count = 0;
+my $failed = 0;
+my $ok = 0;
+
+table_head if !$opt_create_reference;
+
+for my $test (<$testdir/$opt_test_pattern>) {
+  next unless -d $test;
+  $count++;
+  prepare_test $test;
+  run_test $test;
+  prepare_test $test, 1;
+  run_test $test, 1;
+  prepare_test $test, 2;
+  run_test $test, 2;
+  $failed += verify_test $test if !$opt_create_reference;
+}
+
+if($opt_create_reference) {
+  print "$count test results created\n";
+}
+else {
+  $ok = $count - $failed;
+  my $s = sprintf "%4d tests ok", $ok;
+  $s .= sprintf ", %3d failed", $failed if $failed;
+  table_head $s;
+}
+
+exit $failed ? 1 : 0;
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+sub prepare_test
+{
+  my $test = $_[0];
+  my $ref = $opt_create_reference ? ".ref" : "";
+  my $opt = $_[1] ? "-O$_[1]" : "";
+
+  system "./gfxboot-compile $opt -v -c $test/main.gc -l $test/code$_[1].log$ref $test/main.gs";
+
+  if($ref && $opt) {
+#    unlink "$test/code$_[1].log$ref";
+  }
+}
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+sub run_test
+{
+  my $test = $_[0];
+  my $opt = $_[1] ? "_opt$_[1]" : "";
+  my $opt_log = "opt$_[1].log";
+  my $ref = $opt_create_reference ? ".ref" : "";
+
+  system "./gfxboot-x11 --no-x11 --file tests/test_script $test >$test/test$opt.log";
+
+  if(open my $f, "$test/test$opt.log") {
+    local $/;
+    $_ = <$f>;
+    close $f;
+
+    if(/\n(# ---  trace  ---\n.*\n)# ---  trace_end  ---\n/s) {
+      my $s = $1;
+      $s =~ s/\n[^\n]+trace_end[^\n]+$//s;
+      if(!$opt) {
+        if(open my $f, ">$test/trace.log$ref") {
+          print $f $s;
+          close $f;
+        }
+      }
+      my $opt_log_name = "$test/opt.log.ref";
+      if($opt) {
+        $opt_log_name = "$test/$opt_log";
+      }
+      if(open my $f, ">", $opt_log_name) {
+        $s =~ s/, (ofs|current) 0x[0-9a-f]+\b//g;
+        $s =~ s/, ip 0x[0-9a-f]+ \(0x[0-9a-f]+\)//g;
+        $s =~ s/, size \d+\b//g;
+        $s =~ s/\nIP: [^\n]+//g;
+        $s =~ s/(\nerror [^\n]+):[^\n]+/$1/g;
+        print $f $s;
+        close $f;
+      }
+      if(open my $f, ">", "$test/basic.log$ref") {
+        $s =~ s/#\d+(\.\d+\.\d+\.)/#xxxx$1/g;
+        print $f $s;
+        close $f;
+      }
+      if($opt) {
+        link "$test/opt.log.ref", "$test/$opt_log.ref";
+      }
+    }
+
+    if(!$opt) {
+      if(/\n(# ---  mem  ---\n.*\n)# ---  mem_end  ---\n/s) {
+        my $s = $1;
+        $s =~ s/\n[^\n]+mem_end[^\n]+$//s;
+        if(open my $f, ">$test/mem.log$ref") {
+          print $f $s;
+          close $f;
+        }
+      }
+
+      if(/\n(# ---  gc  ---\n.*\n)# ---  gc_end  ---\n/s) {
+        my $s = $1;
+        $s =~ s/\n[^\n]+gc_end[^\n]+$//s;
+        if(open my $f, ">$test/gc.log$ref") {
+          print $f $s;
+          close $f;
+        }
+      }
+
+      if(/\n(# ---  screen  ---\n.*\n)# ---  screen_end  ---\n/s) {
+        my $s = $1;
+        $s =~ s/\n[^\n]+screen_end[^\n]+$//s;
+        if(open my $f, ">$test/screen.log$ref") {
+          print $f $s;
+          close $f;
+        }
+      }
+    }
+  }
+}
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+sub verify_test
+{
+  my $test = $_[0];
+  my $all_err = 0;
+
+  my $name = $test;
+  $name =~ s#^.*/##;
+
+  printf "%-26s|", $name;
+
+  my $msg;
+
+  for my $v (@$tests) {
+    my $res;
+    my $ref;
+    if(open my $f, "$test/$v.log") { local $/; $res = <$f>; close $f; }
+    if(open my $f, "$test/$v.log.ref") { local $/; $ref = <$f>; close $f; }
+
+    my $err;
+    if($v eq "gc" ) {
+      # gc should have cleaned up everything but for 2 objects:
+      #  - 1. object list
+      #  - 2. gc's own data
+      $err = $res !~ /olist <size 2,/;
+    }
+    else {
+      $err = $res eq "" || $res ne $ref ? ($ref eq "" ? 2 : 1) : 0;
+    }
+    $all_err ||= $err;
+    
+    $msg .= sprintf "%8s", ("ok", "fail", "new")[$err];
+  }
+
+  print "$msg\n";
+
+  return $all_err ? 1 : 0;
+}
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+sub table_head
+{
+  print "-" x (27 + 8 * @$tests), "\n";
+  printf "%-25s |", $_[0];
+  printf "%8s", $_ for (@$tests);
+  print "\n", "-" x (27 + 8 * @$tests), "\n";
+}

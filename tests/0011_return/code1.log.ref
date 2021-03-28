@@ -1,0 +1,92 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 86 entries (86 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  ref    59 66 6f 6f 5f 31        /foo_1
+             2  0x0000e  code   b6                       {
+     2       3  0x0000f  int    41                         4
+             4  0x00010  int    51                         5
+             5  0x00011  word   68 72 65 74 75 72 6e       return
+             6  0x00018  int    61                         6
+     3       7  0x00019  prim   13                       }
+             8  0x0001a  word   38 64 65 66              def
+     5       9  0x0001e  ref    59 66 6f 6f 5f 32        /foo_2
+            10  0x00024  code   c6 0f                    {
+     6      11  0x00026  bool   12                         true
+            12  0x00027  code   96                         {
+            13  0x00028  int    81 1e                        30
+            14  0x0002a  int    81 28                        40
+            15  0x0002c  xref   84 1b                        return
+            16  0x0002e  int    81 32                        50
+            17  0x00030  prim   13                         }
+            18  0x00031  word   28 69 66                   if
+     7      19  0x00034  prim   13                       }
+            20  0x00035  xref   84 1b                    def
+     9      21  0x00037  ref    59 66 6f 6f 5f 33        /foo_3
+            22  0x0003d  code   c6 18                    {
+    10      23  0x0003f  code   c6 10                      {
+            24  0x00041  bool   12                           true
+            25  0x00042  code   b6                           {
+            26  0x00043  int    81 64                          100
+            27  0x00045  int    91 c8 00                       200
+            28  0x00048  xref   84 37                          return
+            29  0x0004a  int    91 2c 01                       300
+            30  0x0004d  prim   13                           }
+            31  0x0004e  xref   84 1d                        if
+            32  0x00050  prim   13                         }
+            33  0x00051  word   48 6c 6f 6f 70             loop
+    11      34  0x00056  prim   13                       }
+            35  0x00057  xref   84 3d                    def
+    13      36  0x00059  ref    59 66 6f 6f 5f 34        /foo_4
+            37  0x0005f  code   c6 23                    {
+    14      38  0x00061  int    21                         2
+            39  0x00062  code   c6 18                      {
+            40  0x00064  bool   12                           true
+            41  0x00065  code   c6 12                        {
+            42  0x00067  int    91 e8 03                       1000
+            43  0x0006a  word   58 66 6f 6f 5f 31              foo_1
+            44  0x00070  int    91 d0 07                       2000
+            45  0x00073  xref   84 62                          return
+            46  0x00075  int    91 b8 0b                       3000
+            47  0x00078  prim   13                           }
+            48  0x00079  xref   84 48                        if
+            49  0x0007b  prim   13                         }
+            50  0x0007c  word   68 72 65 70 65 61 74       repeat
+    15      51  0x00083  prim   13                       }
+            52  0x00084  xref   84 6a                    def
+    17      53  0x00086  ref    59 66 6f 6f 5f 35        /foo_5
+            54  0x0008c  code   c6 33                    {
+    18      55  0x0008e  word   18 5b                      [
+            56  0x00090  int    11                           1
+            57  0x00091  int    21                           2
+            58  0x00092  int    31                           3
+            59  0x00093  word   18 5d                      ]
+            60  0x00095  code   c6 1e                      {
+            61  0x00097  bool   12                           true
+            62  0x00098  code   c6 18                        {
+            63  0x0009a  int    91 10 27                       10000
+            64  0x0009d  int    91 20 4e                       20000
+            65  0x000a0  xref   84 36                          foo_1
+            66  0x000a2  int    91 30 75                       30000
+            67  0x000a5  word   58 66 6f 6f 5f 34              foo_4
+            68  0x000ab  int    a1 40 9c 00                    40000
+            69  0x000af  xref   84 9e                          return
+            70  0x000b1  prim   13                           }
+            71  0x000b2  xref   84 81                        if
+            72  0x000b4  prim   13                         }
+            73  0x000b5  word   68 66 6f 72 61 6c 6c       forall
+    19      74  0x000bc  int    a1 50 c3 00                50000
+    20      75  0x000c0  prim   13                       }
+            76  0x000c1  xref   84 a7                    def
+    22      77  0x000c3  xref   84 59                    foo_1
+    23      78  0x000c5  word   58 66 6f 6f 5f 32        foo_2
+    24      79  0x000cb  word   58 66 6f 6f 5f 33        foo_3
+    25      80  0x000d1  xref   84 2c                    foo_4
+    26      81  0x000d3  word   58 66 6f 6f 5f 35        foo_5
+    28      82  0x000d9  int    71                       7
+            83  0x000da  int    81 08                    8
+            84  0x000dc  xref   84 cb                    return
+            85  0x000de  int    81 09                    9

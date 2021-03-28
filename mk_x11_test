@@ -1,0 +1,12 @@
+#! /bin/bash
+
+rm -rf x11
+mkdir x11
+
+cp files/* x11
+rm x11/*~
+
+for i in x11/*.gs ; do
+  # ./gfxboot-compile -Oc ${i/.gs/.gc} $i
+  ./gfxboot-compile -O1 -vc ${i/.gs/.gc} -l $i.log $i
+done

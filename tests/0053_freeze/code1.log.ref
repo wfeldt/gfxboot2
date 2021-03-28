@@ -1,0 +1,36 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 30 entries (30 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  ref    39 66 6f 6f              /foo
+             2  0x0000c  str    67 61 62 63 31 32 33     "abc123"
+             3  0x00013  word   68 73 74 72 69 6e 67     string
+             4  0x0001a  word   38 64 65 66              def
+     2       5  0x0001e  word   38 66 6f 6f              foo
+             6  0x00022  word   68 66 72 65 65 7a 65     freeze
+     4       7  0x00029  ref    39 62 61 72              /bar
+             8  0x0002d  word   18 28                    (
+             9  0x0002f  str    27 61 61                   "aa"
+            10  0x00032  int    81 0b                      11
+            11  0x00034  str    27 62 62                   "bb"
+            12  0x00037  int    81 16                      22
+            13  0x00039  word   18 29                    )
+            14  0x0003b  xref   84 21                    def
+     5      15  0x0003d  word   38 62 61 72              bar
+            16  0x00041  xref   84 1f                    freeze
+     7      17  0x00043  ref    49 7a 61 70 70           /zapp
+            18  0x00048  word   18 5b                    [
+            19  0x0004a  int    11                         1
+            20  0x0004b  int    21                         2
+            21  0x0004c  int    31                         3
+            22  0x0004d  word   18 5d                    ]
+            23  0x0004f  xref   84 35                    def
+     8      24  0x00051  word   48 7a 61 70 70           zapp
+            25  0x00056  xref   84 34                    freeze
+    10      26  0x00058  int    81 0a                    10
+            27  0x0005a  xref   84 38                    freeze
+    11      28  0x0005c  nil    00                       nil
+            29  0x0005d  xref   84 3b                    freeze

@@ -1,0 +1,2226 @@
+## Language reference
+
+Comments start with '#' and extend to the end of the line.
+
+To include some other source file, use the special `include` comment (note the double-`#`, and no quotes around the file name):
+
+.Examples
+```
+## include foo.gs
+```
+
+Numbers are 64 bit signed integers. Numerical and string constants are given in a C-like way.
+
+.Examples
+```
+123
+-456
+0x4567
+"Hi there\n"
+'\033'
+'\x1b'
+'\u20ac'
+```  
+
+Strings are not zero-terminated and can contain any data (including zeros). Use `\xNN` to set arbitray binary values.
+Use `\uNNNN` or `\UNNNNNNNN` to include UTF8-encoded Unicode characters.
+
+.Examples
+```
+"1 Euro = 1 €\n"
+"1 Euro = 1 \u20ac\n"
+"1 Euro = 1 \xe2\x82\xac\n"
+```
+
+Logical operations return values of type bool. They are not identical with integers.
+
+.Examples
+```
+true
+false
+```
+
+There is a special value nil. It is not the same as 0.
+
+.Examples
+```
+nil
+```
+
+### Primitive words
+
+* **+{+** - start code block [[code_start]]
++
+--
+** ( -- __code~1~__ )
+--
++
+Put a reference to the following code block on the stack. The code block
+starts after the opening `{` and extends to (and including) the matching
+closing `}`.
++
+This special word is handled while converting the source code into binary code with `gfxboot-compile`.
+For this reason, this is the only word that cannot be redefined.
++
+.Examples
+```
+
+{ "Hello!" show }
+```
++
+See also: xref:code_end[+}+], xref:hash_start[+(+], xref:hash_end[+)+], xref:array_start[+[+], xref:array_end[+]+], xref:getdict[+getdict+], xref:getparent[+getparent+], xref:setdict[+setdict+], xref:setparent[+setparent+]
+
+* **+}+** - finish code block [[code_end]]
++
+--
+** ( -- )
+--
++
+This marks the end of a code block. When the code is executed, the
+interpreter leaves the current execution context and returns to the
+parent context.
++
+.Examples
+```
+
+/hello { "Hello!" show } def
+hello                                # print "Hello!"
+```
++
+See also: xref:code_start[+{+], xref:hash_start[+(+], xref:hash_end[+)+], xref:array_start[+[+], xref:array_end[+]+], xref:getdict[+getdict+], xref:getparent[+getparent+], xref:setdict[+setdict+], xref:setparent[+setparent+]
+
+* **+(+** - start hash definition [[hash_start]]
++
+--
+** ( -- __mark~1~__ )
++
+__mark~1~__:		hash start marker
+--
++
+Put hash start marker on stack. Hash definition is completed with ).
++
+.Examples
+```
+
+( "foo" 10 "bar" 20 )        # hash with 2 keys "foo" and "bar"
+```
++
+See also: xref:code_start[+{+], xref:code_end[+}+], xref:hash_end[+)+], xref:array_start[+[+], xref:array_end[+]+], xref:getdict[+getdict+], xref:getparent[+getparent+], xref:setdict[+setdict+], xref:setparent[+setparent+]
+
+* **+)+** - finish hash definition [[hash_end]]
++
+--
+** ( __mark~1~__ __any~1~__ ... __any~n~__ -- __hash~1~__ )
++
+__mark~1~__:		array start marker
++
+__any~1~__ ... __any~n~__:	some key - value pairs
++
+__hash~1~__:		new hash
+--
++
+Search for __mark~1~__ on the stack and put everything between __mark~1~__ and TOS
+into a hash. The elements are interpreted alternatingly as key and value.
+If there's an odd number of elements on the stack, the last value is nil.
++
+.Examples
+```
+
+( "foo" 10 "bar" 20 )        # hash with 2 keys "foo" and "bar"
+```
++
+See also: xref:code_start[+{+], xref:code_end[+}+], xref:hash_start[+(+], xref:array_start[+[+], xref:array_end[+]+], xref:getdict[+getdict+], xref:getparent[+getparent+], xref:setdict[+setdict+], xref:setparent[+setparent+]
+
+* **+[+** - start array definition [[array_start]]
++
+--
+** ( -- __mark~1~__ )
++
+__mark~1~__:		array start marker
+--
++
+Put array start marker on stack. Array definition is completed with ].
++
+.Examples
+```
+
+[ 1 2 3 ]            # array with 3 elements
+```
++
+See also: xref:code_start[+{+], xref:code_end[+}+], xref:hash_start[+(+], xref:hash_end[+)+], xref:array_end[+]+], xref:getdict[+getdict+], xref:getparent[+getparent+], xref:setdict[+setdict+], xref:setparent[+setparent+]
+
+* **+]+** - finish array definition [[array_end]]
++
+--
+** ( __mark~1~__ __any~1~__ ... __any~n~__ -- __array~1~__ )
++
+__mark~1~__:		array start marker
++
+__any~1~__ ... __any~n~__:	some elements
++
+__array~1~__:		new array
+--
++
+Search for __mark~1~__ on the stack and put everything between __mark~1~__ and TOS
+into an array.
++
+.Examples
+```
+
+[ 10 20 "some" "text" ]      # array with 4 elements
+```
++
+See also: xref:code_start[+{+], xref:code_end[+}+], xref:hash_start[+(+], xref:hash_end[+)+], xref:array_start[+[+], xref:getdict[+getdict+], xref:getparent[+getparent+], xref:setdict[+setdict+], xref:setparent[+setparent+]
+
+* **+abs+** - absolute value [[abs]]
++
+--
+** ( __int~1~__ -- __int~2~__ )
++
+__int~2~__: |__int~1~__|
++
+** ( __bool~1~__ -- __bool~2~__ )
++
+__bool~2~__: __bool~1~__
+--
++
+Absolute value of __int~1~__ (change sign if __int~1~__ is negative).
++
+.Examples
+```
+
+For boolean 1 bit arithmetic the value is unchanged.
+
+-20 abs                      # 20
+true abs                     # true
+```
++
+See also: xref:add[+add+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+
+* **+add+** - addition [[add]]
++
+--
+** ( __int~1~__ __int~2~__ -- __int~3~__ )
++
+__int~3~__: __int~1~__ + __int~2~__
++
+** ( __bool~1~__ __bool~2~__ -- __bool~3~__ )
++
+__bool~3~__: __bool~1~__ xor __bool~2~__
++
+** ( __array~1~__ __array~2~__ -- __array~3~__ )
++
+__array~3~__: __array~2~__ appended to __array~1~__
++
+** ( __hash~1~__ __hash~2~__ -- __hash~3~__ )
++
+__hash~3~__: joined __hash~1~__ and __hash~2~__
++
+** ( __string~1~__ __string~2~__ -- __string~3~__ )
++
+__string~3~__: __string~2~__ appended to __string~1~__
+--
++
+Add two numbers, or concatenate two arrays, or join two hashes, or concatenate two strings.
++
+For boolean 1 bit arithmetic this is equivalent to 'xor'.
++
+.Examples
+```
+
+10 20 add                            # 30
+true true add                        # false
+[ 10 20 ] [ 30 40 ] add              # [ 10 20 30 40 ]
+( "foo" 10 ) ( "bar" 20 ) add        # ( "bar" 20 "foo" 10 )
+"abc" "def" add                      # "abcdef"
+```
++
+See also: xref:abs[+abs+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+
+* **+and+** - and [[and]]
++
+--
+** ( __int~1~__ __int~2~__ -- __int~3~__ )
++
+__int~3~__: __int~1~__ and __int~2~__
++
+** ( __bool~1~__ __bool~2~__ -- __bool~3~__ )
++
+__bool~3~__: __bool~1~__ and __bool~2~__
++
+--
++
+.Examples
+```
+
+15 4 and                     # 4
+true false and               # false
+```
++
+See also: xref:abs[+abs+], xref:add[+add+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+
+* **+blt+** - copy rectangular region [[blt]]
++
+--
+** ( __gstate~1~__ __gstate~2~__ -- )
+--
++
+Copy from the drawing region of __gstate~2~__ to the drawing region of __gstate~1~__, at the drawing pos of __gstate~1~__.
++
+.Examples
+```
+
+/cat_pic gstate def
+cat_pic "cat.jpg" readfile unpackimage setcanvas
+0 0 setpos getgstate cat_pic blt                     # show cat picture
+```
++
+See also: xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+canvas+** - create canvas [[canvas]]
++
+--
+** ( __int~1~__ __int~2~__ -- __canvas~1~__ )
++
+__int~1~__: width
++
+__int~2~__: height
+--
++
+Create a new empty canvas of the specified size.
++
+.Examples
+```
+
+800 600 canvas
+```
++
+See also: xref:blt[+blt+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+cmp+** - compare [[cmp]]
++
+--
+** ( __int~1~__ __int~2~__ -- __int~3~__ )
++
+__int~3~__: __int~1~__ <=> __int~2~__
++
+** ( __bool~1~__ __bool~2~__ -- __int~4~__ )
++
+__int~4~__: __bool~1~__ <=> __bool~2~__
++
+** ( __string~1~__ __string~2~__ -- __int~5~__ )
++
+__int~5~__: __string~1~__ <=> __string~2~__
++
+** ( __any~1~__ __any~2~__ -- __int~6~__ )
++
+__int~6~__: __any~1~__ <=> __any~2~__
+--
++
+For pairs of booleans, integers, and strings the values are compared. For
+all other combinations the internal object id is compared.
++
+The result is -1, 1, 0 if the first argument is less than, greater than,
+or equal to the second argument, respectively.
++
+.Examples
+```
+
+10 20 cmp                    # -1
+true false cmp               # 1
+"abc" "abc" cmp              # 0
+[ 10 20 ] [ 10 20 ] cmp      # varies
+0 false cmp                  # varies
+0 nil cmp                    # varies
+"abc" [ 10 ] cmp             # varies
+
+/foo [ 10 20 ] def
+/bar foo def
+foo bar cmp                  # 0
+```
++
+See also: xref:eq[+eq+], xref:ge[+ge+], xref:gt[+gt+], xref:le[+le+], xref:lt[+lt+], xref:ne[+ne+]
+
+* **+debug+** - start debug console [[debug]]
++
+--
+** ( -- )
+--
++
+Stop code execution and start debug console.
++
+You can leave (and re-enter) the debug console with `^D` but note that this
+doesn't resume program execution. Use the `run` (or `r`) console command for this.
++
+.Examples
+```
+
+/foo { debug 10 20 } def
+foo                                  # activate debug console when 'foo' is run
+```
++
+See also: xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+]
+
+* **+def+** - define new word [[def]]
++
+--
+** ( __word~1~__ __any~1~__ -- )
+--
++
+If __word~1~__ does not exist, define __word~1~__ in the current context.
++
+If __word~1~__ does already exist, redefine __word~1~__ in the context in which it is defined.
++
+.Examples
+```
+/x 100 def           # define x as 100
+/neg { -1 mul } def  # define a function that negates its argument
+```
++
+See also: xref:debug[+debug+], xref:gdef[+gdef+], xref:ldef[+ldef+]
+
+* **+delete+** - delete an array, hash, or string element [[delete]]
++
+--
+** ( __array~1~__ __int~1~__ -- )
++
+__array~1~__: array to modify
++
+__int~1~__: element index
++
+** ( __hash~1~__ __string~1~__ -- )
++
+__hash~1~__: hash to modify
++
+__string~1~__: key
++
+** ( __string~2~__ __int~2~__ -- )
++
+__string~2~__: string to modify
++
+__int~2~__: element index 
+--
++
+Delete the respective element of __array~1~__, __hash~1~__, or __string~2~__. The length
+of __array~1~__ andstring_2 will be reduced by 1.
++
+Note that string constants are read-only and cannot be modified.
++
+.Examples
+```
+
+/x [ 10 20 30 ] def
+x 1 delete                           # x is now [ 10 30 ]
+
+/y ( "foo" 10 "bar" 20 ) def
+y "foo" delete                       # y is now ( "bar" 20 )
+
+/z "ABC" mem def                     # mem is needed to create a writable copy
+z 1 delete                           # z is now "AC"
+```
++
+See also: xref:get[+get+], xref:length[+length+], xref:put[+put+]
+
+* **+dim+** - get graphics object dimension [[dim]]
++
+--
+** ( __canvas~1~__ -- __int~1~__ __int~2~__ )
+** ( __font~1~__ -- __int~1~__ __int~2~__ )
+** ( __gstate~1~__ -- __int~1~__ __int~2~__ )
++
+__int~1~__: width
++
+__int~2~__: height
+--
++
+Get dimension of graphics object. For a canvas it is its size, for a
+graphics state it is the size of the associated region, for a fixed size
+font it is its glyph size, for proportional font the width is 0 and the
+height is the font height.
++
+.Examples
+```
+
+getconsolegstate getcanvas dim               # 800 600
+getconsolegstate dim                         # 640 480
+getconsolegstate getfont dim                 # 8 16
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+div+** - division [[div]]
++
+--
+** ( __int~1~__ __int~2~__ -- __int~3~__ )
++
+__int~3~__: __int~1~__ / __int~2~__
++
+** ( __bool~1~__ __bool~2~__ -- __bool~3~__ )
++
+__bool~3~__: __bool~1~__ / __bool~2~__
+--
++
+Divide __int~1~__ by __int~2~__.
++
+You can do a 1 bit division with boolean values. Note that this will run
+into a division by zero exception if __bool~2~__ is false.
++
+.Examples
+```
+
+200 30 div                   # 6
+true true div                # true
+```
++
+See also: xref:abs[+abs+], xref:add[+add+], xref:and[+and+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+
+* **+dup+** - duplicate TOS [[dup]]
++
+--
+** ( __any~1~__ -- __any~1~__ __any~1~__ )
+--
++
+Duplicate the top-of-stack element.
++
+.Examples
+```
+
+10 dup               # 10 10
+```
++
+See also: xref:exch[+exch+], xref:index[+index+], xref:over[+over+], xref:pop[+pop+], xref:roll[+roll+], xref:rot[+rot+]
+
+* **+eq+** - equal [[eq]]
++
+--
+** ( __bool~1~__ __bool~2~__ -- __bool~3~__ )
++
+__bool~3~__: __bool~1~__ == __bool~2~__
++
+** ( __int~1~__ __int~2~__ -- __bool~4~__ )
++
+__bool~4~__: __int~1~__ == __int~2~__
++
+** ( __string~1~__ __string~2~__ -- __bool~5~__ )
++
+__bool~5~__: __string~1~__ == __string~2~__
++
+** ( __any~1~__ __any~2~__ -- __bool~6~__ )
++
+__bool~6~__: __any~1~__ == __any~2~__
+--
++
+For pairs of booleans, integers, and strings the values are compared. For all
+other combinations the internal object id is compared.
++
+.Examples
+```
+
+10 20 eq                     # false
+true false eq                # false
+"abc" "abc" eq               # true
+[ 10 20 ] [ 10 20 ] eq       # false
+0 false eq                   # false
+0 nil eq                     # false
+"abc" [ 10 ] eq              # false
+
+/foo [ 10 20 ] def
+/bar foo def
+foo bar eq                   # true
+```
++
+See also: xref:cmp[+cmp+], xref:ge[+ge+], xref:gt[+gt+], xref:le[+le+], xref:lt[+lt+], xref:ne[+ne+]
+
+* **+exch+** - swap upper two stack elements [[exch]]
++
+--
+** ( __any~1~__ __any~2~__ -- __any~2~__ __any~1~__ )
+--
++
+Swap the two topmost stack elements.
++
+.Examples
+```
+
+10 20 exch            # 20 10
+```
++
+See also: xref:dup[+dup+], xref:index[+index+], xref:over[+over+], xref:pop[+pop+], xref:roll[+roll+], xref:rot[+rot+]
+
+* **+exec+** - execute object [[exec]]
++
+--
+** ( __ref~1~__ -- )
++
+__ref~1~__: word reference
++
+** ( __code~1~__ -- )
++
+__code~1~__: code block
+--
++
+Executes the given code block or looks up and executes the word reference.
++
+.Examples
+```
+
+{ 10 20 } exec                       # 10 20
+
+/foo "abc" def
+foo                                  # "abc"
+/foo exec                            # "abc"
+```
++
+See also: xref:exit[+exit+], xref:for[+for+], xref:forall[+forall+], xref:loop[+loop+], xref:repeat[+repeat+], xref:return[+return+], xref:run[+run+]
+
+* **+exit+** - leave loop/repeat/for/forall loop [[exit]]
++
+--
+** ( -- )
+--
++
+Exit from current loop.
++
+.Examples
+```
+
+0 1 10 { dup 4 eq { exit } if } for          # 0 1 2 3 4
+```
++
+See also: xref:exec[+exec+], xref:for[+for+], xref:forall[+forall+], xref:if[+if+], xref:ifelse[+ifelse+], xref:loop[+loop+], xref:repeat[+repeat+], xref:return[+return+], xref:run[+run+]
+
+* **+fillrect+** - draw filled rectangle [[fillrect]]
++
+--
+** ( __int~1~__ __int~2~__ -- )
++
+__int~1~__: width
++
+__int~2~__: height
+--
++
+Draw filled rectangle (using current color) at current position. The
+rectangle is clipped at the current drawing region.
++
+.Examples
+```
+
+200 100 fillrect
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+for+** - run code block repeatedly, with counter [[for]]
++
+--
+** ( __int~1~__ __int~2~__ __int~3~__ __code~1~__ -- )
++
+__int~1~__: start value
++
+__int~2~__: increment value
++
+__int~3~__: maximum value (inclusive)
+--
++
+Run __code~1~__ repeatedly and put the current counter value on the stack in every iteration.
++
+The counter starts with __int~1~__ and is incremented by __int~2~__ until it
+reaches __int~3~__. The code block is executed with the start value and then
+as long as the counter is less than or equal to the maximum value.
++
+The increment may be negative. In that case the loop is executed as long as the counter
+is greater than or equal to the maximum value.
++
+If the increment is 0, the loop is not executed.
++
+.Examples
+```
+
+0 1 4 { } for                # 0 1 2 3 4
+0 -2 -5 { } for              # 0 -2 -4
+```
++
+See also: xref:exec[+exec+], xref:exit[+exit+], xref:forall[+forall+], xref:if[+if+], xref:ifelse[+ifelse+], xref:loop[+loop+], xref:repeat[+repeat+], xref:return[+return+], xref:run[+run+]
+
+* **+forall+** - loop over all elements [[forall]]
++
+--
+** ( __array~1~__ __code~1~__ -- )
+** ( __hash~1~__ __code~1~__ -- )
+** ( __string~1~__ __code~1~__ -- )
+--
++
+Run __code~1~__ for each element of __array~1~__, __hash~1~__, or __string~1~__.
++
+For __array~1~__ and __string~1~__, each element is put on the stack and __code~1~__ is run.
++
+For __hash~1~__, each key and value pair are put on the stack and __code~1~__ is run.
+The hash keys are sorted.
++
+Note that __string~1~__ is interpreted as a sequence of bytes, not UTF8-encoded characters.
++
+.Examples
+```
+
+[ 10 20 30 ] { } forall              # 10 20 30
+( "foo" 10 "bar" 20 ) { } forall     # "bar" 20 "foo" 10
+"ABC" { } forall                     # 65 66 67
+```
++
+See also: xref:exec[+exec+], xref:exit[+exit+], xref:for[+for+], xref:if[+if+], xref:ifelse[+ifelse+], xref:loop[+loop+], xref:repeat[+repeat+], xref:return[+return+], xref:run[+run+]
+
+* **+freeze+** - make object read-only [[freeze]]
++
+--
+** ( __any~1~__ -- __any~1~__ )
+--
++
+Make any object read-only. A read-only object cannot be modified.
++
+Note that string constants are read-only by default.
++
+.Examples
+```
+
+[ 10 20 30 ] freeze                  # [ 10 20 30 ]
+0 delete                             # raises 'readonly' exception
+```
++
+See also: xref:readfile[+readfile+], xref:string[+string+], xref:utf8decode[+utf8decode+], xref:utf8encode[+utf8encode+]
+
+* **+gdef+** - define new global word [[gdef]]
++
+--
+** ( __word~1~__ __any~1~__ -- )
+--
++
+Define __word~1~__ in the global context.
++
+.Examples
+```
+/foo 300 gdef        # define global word foo as 300
+```
++
+See also: xref:debug[+debug+], xref:def[+def+], xref:ldef[+ldef+]
+
+* **+ge+** - greater or equal [[ge]]
++
+--
+** ( __bool~1~__ __bool~2~__ -- __bool~3~__ )
++
+__bool~3~__: __bool~1~__ >= __bool~2~__
++
+** ( __int~1~__ __int~2~__ -- __bool~4~__ )
++
+__bool~4~__: __int~1~__ >= __int~2~__
++
+** ( __string~1~__ __string~2~__ -- __bool~5~__ )
++
+__bool~5~__: __string~1~__ >= __string~2~__
++
+** ( __any~1~__ __any~2~__ -- __bool~6~__ )
++
+__bool~6~__: __any~1~__ >= __any~2~__
+--
++
+For pairs of booleans, integers, and strings the values are compared. For all
+other combinations the internal object id is compared.
++
+.Examples
+```
+
+10 20 ge                     # false
+true false ge                # true
+"abd" "abc" ge               # true
+[ 10 20 ] [ 10 20 ] ge       # varies
+0 false ge                   # varies
+0 nil ge                     # varies
+"abc" [ 10 ] ge              # varies
+```
++
+See also: xref:cmp[+cmp+], xref:eq[+eq+], xref:gt[+gt+], xref:le[+le+], xref:lt[+lt+], xref:ne[+ne+]
+
+* **+get+** - get array, hash, or string element [[get]]
++
+--
+** ( __array~1~__ __int~1~__ -- )
++
+__array~1~__: array to modify
++
+__int~1~__: element index
++
+** ( __hash~1~__ __string~1~__ -- )
++
+__hash~1~__: hash to modify
++
+__string~1~__: key
++
+** ( __string~2~__ __int~2~__ -- )
++
+__string~2~__: string to modify
++
+__int~2~__: element index 
+--
++
+Read the respective element of __array~1~__, __hash~1~__, or __string~2~__.
++
+.Examples
+```
+
+[ 10 20 30 ] 2 get                   # 30
+( "foo" 10 "bar" 20 ) "foo" get      # 10
+"ABC" 1 get                          # 66
+```
++
+See also: xref:delete[+delete+], xref:length[+length+], xref:put[+put+]
+
+* **+getbgcolor+** - get background color [[getbgcolor]]
++
+--
+** ( -- __int~1~__ )
++
+__int~1~__: color
+--
++
+Return current background color.
++
+A color is a RGB value with red in bits 16-23, green in bits 8-15 and
+blue in bits 0-7. This is independent of what the graphics card is actually using.
++
+.Examples
+```
+
+getcolor                             # 0 (black)
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+getcanvas+** - get canvas [[getcanvas]]
++
+--
+** ( __gstate~1~__ -- __canvas~1~__ )
+** ( __gstate~1~__ -- __nil__ )
++
+__gstate~1~__: graphics state
++
+__canvas~1~__: canvas object
+--
++
+Get canvas object from graphics state. A canvas is a memory area with
+associated width and height. All drawing operations are done on canvas
+objects. If no canvas is associated with the graphics state, return __nil__.
++
+.Examples
+```
+
+getgstate getcanvas dim              # 800 600
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+getcolor+** - get drawing color [[getcolor]]
++
+--
+** ( -- __int~1~__ )
++
+__int~1~__: color
+--
++
+Return current drawing color.
++
+A color is a RGB value with red in bits 16-23, green in bits 8-15 and
+blue in bits 0-7. This is independent of what the graphics card is actually using.
++
+.Examples
+```
+
+getcolor                             # 0xffffff (white)
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+getconsolegstate+** - get graphics state of the debug console [[getconsolegstate]]
++
+--
+** ( -- __gstate~1~__ )
+** ( -- __nil__ )
+--
++
+Get graphics state of the debug console. If none has been set, return __nil__.
++
+.Examples
+```
+
+/saved_state getconsolegstate def            # save current debug console state
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+getdict+** - get active dictionary [[getdict]]
++
+--
+** ( -- __hash~1~__ )
+** ( -- __nil__ )
++
+__hash~1~__: dictionary
+--
++
+Return the currently active dictionary or __nil__, if the current context
+does not (yet) have a dictionary.
++
+A dictionary will only be created on demand - that is, the first time a
+word is defined in the current context.
++
+When a program is started the global context is created containing a
+dictionary with all primitive words.
++
+.Examples
+```
+
+/foo { getdict } def
+foo                                  # nil
+
+/bar { /x 10 ldef getdict } def
+bar                                  # ( /x 10 )
+```
++
+See also: xref:code_start[+{+], xref:code_end[+}+], xref:hash_start[+(+], xref:hash_end[+)+], xref:array_start[+[+], xref:array_end[+]+], xref:getparent[+getparent+], xref:setdict[+setdict+], xref:setparent[+setparent+]
+
+* **+getfont+** - get font [[getfont]]
++
+--
+** ( __gstate~1~__ -- __font~1~__ )
+** ( __gstate~1~__ -- __nil__ )
++
+__gstate~1~__: graphics state
++
+__font~1~__: font
+--
++
+Get font from graphics state. 
++
+.Examples
+```
+
+getgstate getfont                    # current font
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+getgstate+** - get graphics state [[getgstate]]
++
+--
+** ( -- __gstate~1~__ )
+** ( -- __nil__ )
+--
++
+Get current graphics state. If none has been set, return __nil__.
++
+The graphics state consists of a canvas to draw into, a region describing
+a rectangular drawing and clipping area in that canvas, a drawing
+position (relative to the drawing region), drawing color, background
+color (for text), and a text font.
++
+.Examples
+```
+
+/saved_state getgstate def                   # save current graphics state
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+getparent+** - get parent of context, font, or hash [[getparent]]
++
+--
+** ( __context~1~__ -- __context~2~__ )
++
+__context~2~__: parent of __context~1~__ or nil
++
+** ( __font~1~__ -- __font~2~__ )
++
+__font~2~__: parent of __font~1~__ or nil
++
+** ( __hash~1~__ -- __hash~2~__ )
++
+__hash~2~__: parent of __hash~1~__ or nil
+--
++
+If a word lookup fails in a context, the lookup continues in the parent
+context.
++
+If a glyph lookup fails in a font, the lookup continues in the parent
+font.
++
+If a key cannot be found in a hash, the lookup continues in the parent
+hash.
++
+.Examples
+```
+
+/x ( "foo" 10 "bar" 20 ) def
+/y ( "zap" 30 ) def
+x getparent                          # nil
+x y setparent
+x getparent                          # ( "zap" 30 )
+```
++
+See also: xref:code_start[+{+], xref:code_end[+}+], xref:hash_start[+(+], xref:hash_end[+)+], xref:array_start[+[+], xref:array_end[+]+], xref:getdict[+getdict+], xref:setdict[+setdict+], xref:setparent[+setparent+]
+
+* **+getpixel+** - read pixel [[getpixel]]
++
+--
+** ( -- __int~1~__ )
+** ( -- __nil__ )
++
+__int~1~__: color
+--
++
+Read pixel at drawing position from canvas in current graphics state. If
+the position is outside the drawing region, return __nil__.
++
+.Examples
+```
+
+getpixel
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+getpos+** - get drawing position [[getpos]]
++
+--
+** ( -- __int~1~__ __int~2~__ )
++
+__int~1~__: x
++
+__int~2~__: y
+--
++
+Return current drawing position. The position is relative to the drawing region in the graphics state.
++
+.Examples
+```
+
+getpos                               # 0 0
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+getregion+** - get drawing region [[getregion]]
++
+--
+** ( __gstate~1~__ -- __int~1~__ __int~2~__ __int~3~__ __int~4~__ )
++
+__gstate~1~__: graphics state
++
+__int~1~__: x
++
+__int~2~__: y
++
+__int~3~__: width
++
+__int~4~__: height
+--
++
+Get drawing region associated with graphics state. Any drawing operation
+will be relative to this region. Graphics output will be clipped at the
+region boundaries.
++
+.Examples
+```
+
+getgstate getregion                  # 0 0 800 600
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+gstate+** - create graphics state [[gstate]]
++
+--
+** ( -- __gstate~1~__ )
+--
++
+Create a new empty graphics state gate_1.
++
+.Examples
+```
+
+gstate
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+gt+** - greater than [[gt]]
++
+--
+** ( __bool~1~__ __bool~2~__ -- __bool~3~__ )
++
+__bool~3~__: __bool~1~__ > __bool~2~__
++
+** ( __int~1~__ __int~2~__ -- __bool~4~__ )
++
+__bool~4~__: __int~1~__ > __int~2~__
++
+** ( __string~1~__ __string~2~__ -- __bool~5~__ )
++
+__bool~5~__: __string~1~__ > __string~2~__
++
+** ( __any~1~__ __any~2~__ -- __bool~6~__ )
++
+__bool~6~__: __any~1~__ > __any~2~__
+--
++
+For pairs of booleans, integers, and strings the values are compared. For all
+other combinations the internal object id is compared.
++
+.Examples
+```
+
+10 20 gt                     # false
+true false gt                # true
+"abd" "abc" gt               # true
+[ 10 20 ] [ 10 20 ] gt       # varies
+0 false gt                   # varies
+0 nil gt                     # varies
+"abc" [ 10 ] gt              # varies
+```
++
+See also: xref:cmp[+cmp+], xref:eq[+eq+], xref:ge[+ge+], xref:le[+le+], xref:lt[+lt+], xref:ne[+ne+]
+
+* **+if+** - conditional execution [[if]]
++
+--
+** (__bool~1~__ __code~1~__ -- )
+** (__int~1~__ __code~1~__ -- )
+** (__nil__ __code~1~__ -- )
+** (__any~1~__ __code~1~__ -- )
++
+__code~1~__: code block to run if condition evaluates to 'true'
+--
++
+The condition is false for: boolean false, integer 0, or __nil__. In all other cases it is true.
++
+.Examples
+```
+
+true { "ok" show } if        # "ok"
+50 { "ok" show } if          # "ok"
+nil { "ok" show } if         # shows nothing
+"" { "ok" show } if          # "ok"
+```
++
+See also: xref:exit[+exit+], xref:for[+for+], xref:forall[+forall+], xref:ifelse[+ifelse+], xref:loop[+loop+], xref:repeat[+repeat+], xref:return[+return+]
+
+* **+ifelse+** - conditional execution [[ifelse]]
++
+--
+** (__bool~1~__ __code~1~__ __code~2~__ -- )
+** (__int~1~__ __code~1~__ __code~2~__ -- )
+** (__nil__ __code~1~__ __code~2~__ -- )
+** (__any~1~__ __code~1~__ __code~2~__ -- )
++
+__code~1~__: code block to run if condition evaluates to 'true'
++
+__code~2~__: code block to run if condition evaluates to 'false'
+--
++
+The condition is false for: boolean false, integer 0, or __nil__. In all other cases it is true.
++
+.Examples
+```
+
+false { "ok" } { "bad" } ifelse show         # "bad"
+20 { "ok" } { "bad" } ifelse show            # "ok"
+nil { "ok" } { "bad" } ifelse sho            # "bad"
+"" { "ok" } { "bad" } ifelse show            # "ok"
+```
++
+See also: xref:exit[+exit+], xref:for[+for+], xref:forall[+forall+], xref:if[+if+], xref:loop[+loop+], xref:repeat[+repeat+], xref:return[+return+]
+
+* **+index+** - copy stack element [[index]]
++
+--
+** ( __any~n~__ ... __any~0~__ __int~1~__ -- __any~n~__ ... __any~0~__ __any~n~__ )
++
+__int~1~__: element position on stack (n is equal to __int~1~__)
+--
++
+Copy the __int~1~__-th-from-top element on the top-of-stack.
++
+.Examples
+```
+
+10 20 30 40 3 index          # 10 20 30 40 10
+
+/dup { 0 index } def         # definition of 'dup'
+
+/over { 1 index } def        # definition of 'over'
+```
++
+See also: xref:dup[+dup+], xref:exch[+exch+], xref:over[+over+], xref:pop[+pop+], xref:roll[+roll+], xref:rot[+rot+]
+
+* **+ldef+** - define new local word [[ldef]]
++
+--
+** ( __word~1~__ __any~1~__ -- )
+--
++
+Define __word~1~__ in the current local context.
++
+.Examples
+```
+/foo 200 ldef        # define local word foo as 200
+```
++
+See also: xref:debug[+debug+], xref:def[+def+], xref:gdef[+gdef+]
+
+* **+le+** - less or equal [[le]]
++
+--
+** ( __bool~1~__ __bool~2~__ -- __bool~3~__ )
++
+__bool~3~__: __bool~1~__ <= __bool~2~__
++
+** ( __int~1~__ __int~2~__ -- __bool~4~__ )
++
+__bool~4~__: __int~1~__ <= __int~2~__
++
+** ( __string~1~__ __string~2~__ -- __bool~5~__ )
++
+__bool~5~__: __string~1~__ <= __string~2~__
++
+** ( __any~1~__ __any~2~__ -- __bool~6~__ )
++
+__bool~6~__: __any~1~__ <= __any~2~__
+--
++
+For pairs of booleans, integers, and strings the values are compared. For all
+other combinations the internal object id is compared.
++
+.Examples
+```
+
+10 20 le                     # true
+true false le                # false
+"abd" "abc" le               # false
+[ 10 20 ] [ 10 20 ] le       # varies
+0 false le                   # varies
+0 nil le                     # varies
+"abc" [ 10 ] le              # varies
+```
++
+See also: xref:cmp[+cmp+], xref:eq[+eq+], xref:ge[+ge+], xref:gt[+gt+], xref:lt[+lt+], xref:ne[+ne+]
+
+* **+length+** - get size of array, hash, or string [[length]]
++
+--
+** ( __array~1~__ -- __int~1~__ )
++
+__int~1~__: number of elements in __array~1~__
++
+** ( __hash~1~__ -- __int~2~__ )
++
+__int~2~__: number of key - value pairs in __hash~1~__
++
+** ( __string~1~__ -- __int~3~__ )
++
+__int~3~__: number of bytes in __string~1~__
+--
++
+Put the length of __array~1~__, __hash~1~__, or __string~1~__ on the stack.
++
+.Examples
+```
+
+[ 10 20 30 ] length                  # 3
+( "foo" 10 "bar" 20 ) length         # 2
+"ABC" length                         # 3
+```
++
+See also: xref:delete[+delete+], xref:get[+get+], xref:put[+put+]
+
+* **+lineto+** - draw line [[lineto]]
++
+--
+** ( __int~1~__ __int~2~__ -- )
++
+__int~1~__: x
++
+__int~2~__: y
+--
++
+Draw line from current position to the specified x and y coordinates
+using the current color. The drawing position is updated to the end
+position. Line segments outside the drawing region are not drawn.
++
+.Examples
+```
+
+100 200 lineto
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+loop+** - endless loop [[loop]]
++
+--
+** ( __code~1~__ -- )
+--
++
+Repeat __code~1~__ forever until you exit the loop explicitly.
++
+.Examples
+```
+
+{ "Help!" show } loop
+```
++
+See also: xref:exec[+exec+], xref:exit[+exit+], xref:for[+for+], xref:forall[+forall+], xref:if[+if+], xref:ifelse[+ifelse+], xref:repeat[+repeat+], xref:return[+return+], xref:run[+run+]
+
+* **+lt+** - less than [[lt]]
++
+--
+** ( __bool~1~__ __bool~2~__ -- __bool~3~__ )
++
+__bool~3~__: __bool~1~__ < __bool~2~__
++
+** ( __int~1~__ __int~2~__ -- __bool~4~__ )
++
+__bool~4~__: __int~1~__ < __int~2~__
++
+** ( __string~1~__ __string~2~__ -- __bool~5~__ )
++
+__bool~5~__: __string~1~__ < __string~2~__
++
+** ( __any~1~__ __any~2~__ -- __bool~6~__ )
++
+__bool~6~__: __any~1~__ < __any~2~__
+--
++
+For pairs of booleans, integers, and strings the values are compared. For all
+other combinations the internal object id is compared.
++
+.Examples
+```
+
+10 20 lt                     # true
+true false lt                # false
+"abd" "abc" lt               # false
+[ 10 20 ] [ 10 20 ] lt       # varies
+0 false lt                   # varies
+0 nil lt                     # varies
+"abc" [ 10 ] lt              # varies
+```
++
+See also: xref:cmp[+cmp+], xref:eq[+eq+], xref:ge[+ge+], xref:gt[+gt+], xref:le[+le+], xref:ne[+ne+]
+
+* **+max+** - maximum [[max]]
++
+--
+** ( __int~1~__ __int~2~__ -- __int~3~__ )
++
+__int~3~__: maximum(__int~1~__, __int~2~__)
++
+** ( __bool~1~__ __bool~2~__ -- __bool~3~__ )
++
+__bool~3~__: __bool~1~__ or __bool~2~__
++
+__int~3~__ is the larger value of __int~1~__ and __int~2~__.
+--
++
+For boolean 1 bit arithmetic this is equivalent to 'or'
++
+.Examples
+```
+
+10 20 max                    # 20
+true false max               # true
+```
++
+See also: xref:abs[+abs+], xref:add[+add+], xref:and[+and+], xref:div[+div+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+
+* **+min+** - minimum [[min]]
++
+--
+** ( __int~1~__ __int~2~__ -- __int~3~__ )
++
+__int~3~__: minimum(__int~1~__, __int~2~__)
++
+** ( __bool~1~__ __bool~2~__ -- __bool~3~__ )
++
+__bool~3~__: __bool~1~__ and __bool~2~__
++
+__int~3~__ is the smaller value of __int~1~__ and __int~2~__.
+--
++
+For boolean 1 bit arithmetic this is equivalent to 'and'
++
+.Examples
+```
+
+10 20 min                    # 10
+true false min               # false
+```
++
+See also: xref:abs[+abs+], xref:add[+add+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+
+* **+mod+** - remainder [[mod]]
++
+--
+** ( __int~1~__ __int~2~__ -- __int~3~__ )
++
+__int~3~__: __int~1~__ % __int~2~__
++
+** ( __bool~1~__ __bool~2~__ -- __bool~3~__ )
++
+__bool~3~__: __bool~1~__ / __bool~2~__
++
+__int~3~__ is the remainder dividing __int~1~__ by __int~2~__.
+--
++
+You can get the remainder from a 1 bit division with boolean values. Note
+that this will run into a division by zero exception if __bool~2~__ is false.
++
+.Examples
+```
+
+200 30 mod                   # 20
+true true mod                # false
+```
++
+See also: xref:abs[+abs+], xref:add[+add+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+
+* **+mul+** - multiplication [[mul]]
++
+--
+** ( __int~1~__ __int~2~__ -- __int~3~__ )
++
+__int~3~__: __int~1~__ * __int~2~__
++
+** ( __bool~1~__ __bool~2~__ -- __bool~3~__ )
++
+__bool~3~__: __bool~1~__ and __bool~2~__
+--
++
+Multiply __int~1~__ by __int~2~__.
++
+For boolean 1 bit arithmetic this is equivalent to 'and'.
++
+.Examples
+```
+
+20 30 mul                    # 600
+true false mul               # false
+```
++
+See also: xref:abs[+abs+], xref:add[+add+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+
+* **+ne+** - not equal [[ne]]
++
+--
+** ( __bool~1~__ __bool~2~__ -- __bool~3~__ )
++
+__bool~3~__: __bool~1~__ != __bool~2~__
++
+** ( __int~1~__ __int~2~__ -- __bool~4~__ )
++
+__bool~4~__: __int~1~__ != __int~2~__
++
+** ( __string~1~__ __string~2~__ -- __bool~5~__ )
++
+__bool~5~__: __string~1~__ != __string~2~__
++
+** ( __any~1~__ __any~2~__ -- __bool~6~__ )
++
+__bool~6~__: __any~1~__ != __any~2~__
+--
++
+For pairs of booleans, integers, and strings the values are compared. For all
+other combinations the internal object id is compared.
++
+.Examples
+```
+
+10 20 ne                     # true
+true false ne                # true
+"abc" "abc" ne               # false
+[ 10 20 ] [ 10 20 ] ne       # true
+0 false ne                   # true
+0 nil ne                     # true
+"abc" [ 10 ] ne              # true
+
+/foo [ 10 20 ] def
+/bar foo def
+foo bar ne                   # false
+```
++
+See also: xref:cmp[+cmp+], xref:eq[+eq+], xref:ge[+ge+], xref:gt[+gt+], xref:le[+le+], xref:lt[+lt+]
+
+* **+neg+** - negation [[neg]]
++
+--
+** ( __int~1~__ -- __int~2~__ )
++
+__int~2~__: -__int~1~__
++
+** ( __bool~1~__ -- __bool~2~__ )
++
+__bool~2~__: -__bool~1~__
+--
++
+Negate __int~1~__ (change sign).
++
+For boolean 1 bit arithmetic the value is unchanged (this is not a 'not' operation).
++
+.Examples
+```
+
+20 neg                       # -20
+true neg                     # true
+```
++
+See also: xref:abs[+abs+], xref:add[+add+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+
+* **+newfont+** - create font object [[newfont]]
++
+--
+** ( __string~1~__ -- __font~1~__ )
+** ( __string~1~__ -- __nil__ )
++
+__string~1~__: font data
++
+__font~1~__: font object
+--
++
+Parse font data in __string~1~__ and create font object. If __string~1~__ does not
+contain valid font data, return __nil__.
++
+.Examples
+```
+
+/foo_font "foo.fnt" readfile newfont def     # create font from file "foo.fnt"
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+not+** - not [[not]]
++
+--
+** ( __int~1~__ -- __int~2~__ )
++
+__int~2~__: -__int~1~__ - 1
++
+** ( __bool~1~__ -- __bool~2~__ )
++
+__bool~2~__: !__bool~1~__
++
+--
++
+.Examples
+```
+
+20 not                       # -21
+true not                     # false
+```
++
+See also: xref:abs[+abs+], xref:add[+add+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+
+* **+or+** - or [[or]]
++
+--
+** ( __int~1~__ __int~2~__ -- __int~3~__ )
++
+__int~3~__: __int~1~__ or __int~2~__
++
+** ( __bool~1~__ __bool~2~__ -- __bool~3~__ )
++
+__bool~3~__: __bool~1~__ or __bool~2~__
++
+--
++
+.Examples
+```
+
+15 4 or                      # 15
+true false or                # true
+```
++
+See also: xref:abs[+abs+], xref:add[+add+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+
+* **+over+** - copy TOS-1 to TOS [[over]]
++
+--
+** ( __any~1~__ __any~2~__ -- __any~1~__ __any~2~__ __any~1~__ )
+--
++
+Put a copy of the second-from-top element on the top-of-stack.
++
+.Examples
+```
+
+10 20 over           # 10 20 10
+```
++
+See also: xref:dup[+dup+], xref:exch[+exch+], xref:index[+index+], xref:pop[+pop+], xref:roll[+roll+], xref:rot[+rot+]
+
+* **+pop+** - remove TOS [[pop]]
++
+--
+** ( __any~1~__ -- )
+--
++
+Remove the top-of-stack element.
++
+.Examples
+```
+
+10 20 pop            # 10
+```
++
+See also: xref:dup[+dup+], xref:exch[+exch+], xref:index[+index+], xref:over[+over+], xref:roll[+roll+], xref:rot[+rot+]
+
+* **+put+** - set array, hash, or string element [[put]]
++
+--
+** ( __array~1~__ __int~1~__ __any~1~__  -- )
++
+__array~1~__: array to modify
++
+__int~1~__: element index
++
+__any~1~__: new value
++
+** ( __hash~1~__ __string~1~__ __any~2~__  -- )
++
+__hash~1~__: hash to modify
++
+__string~1~__: key
++
+__any~2~__: new value
++
+** ( __string~2~__ __int~2~__ __int~3~__  -- )
++
+__string~2~__: string to modify
++
+__int~2~__: element index 
++
+__int~3~__: new value
+--
++
+Set the respective element of __array~1~__, __hash~1~__, or __string~2~__.
++
+Note that string constants are read-only and cannot be modified.
++
+.Examples
+```
+
+/x [ 10 20 30 ] def
+x 2 40 put                           # x is now [ 10 20 40 ]
+
+/y ( "foo" 10 "bar" 20 ) def
+y "bar" 40 put                       # y is now ( "foo" 10 "bar" 40 )
+
+/z "ABC" mem def                     # mem is needed to create a writable copy
+z 1 68 put                           # z is now "ADC"
+```
++
+See also: xref:delete[+delete+], xref:get[+get+], xref:length[+length+]
+
+* **+putpixel+** - set pixel [[putpixel]]
++
+--
+** ( -- )
+--
++
+Set pixel with current color at drawing position in canvas in current
+graphics state. If the position is outside the drawing region, nothing is
+drawn.
++
+.Examples
+```
+
+setpixel
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+readfile+** - read file [[readfile]]
++
+--
+** ( __string~1~__ -- __string~2~__ )
+** ( __string~1~__ -- __nil__ )
++
+__string~1~__: file name
++
+__string~2~__: file content
+--
++
+Read entire file and return its content. If the file could not be read, return __nil__.
++
+.Examples
+```
+
+"foo" readfile
+```
++
+See also: xref:freeze[+freeze+], xref:string[+string+], xref:utf8decode[+utf8decode+], xref:utf8encode[+utf8encode+]
+
+* **+repeat+** - repeat code block [[repeat]]
++
+--
+** ( __int~1~__ __code~1~__ -- )
+--
++
+Repeat __code~1~__ __int~1~__ times. If __int~1~__ is less or equal to 0, __code~1~__ is not run.
++
+.Examples
+```
+
+3 { "Help!" show } repeat            # "Help!Help!Help!"
+```
++
+See also: xref:exec[+exec+], xref:exit[+exit+], xref:for[+for+], xref:forall[+forall+], xref:if[+if+], xref:ifelse[+ifelse+], xref:loop[+loop+], xref:return[+return+], xref:run[+run+]
+
+* **+return+** - leave current function [[return]]
++
+Exit from currently running function.
++
+.Examples
+```
+
+/foo { dup nil eq { return } if show } def
+"abc" foo                                    # shows "abc"
+nil foo                                      # does nothing
+```
++
+See also: xref:exec[+exec+], xref:exit[+exit+], xref:for[+for+], xref:forall[+forall+], xref:if[+if+], xref:ifelse[+ifelse+], xref:loop[+loop+], xref:repeat[+repeat+], xref:run[+run+]
+
+* **+roll+** - rotate stack elements [[roll]]
++
+--
+** ( __any~1~__ ... __any~n~__ __int~1~__ __int~2~__ -- __any~x~__ ... __any~y~__ )
++
+__int~1~__: number of stack elements to rotate (equal to index n)
++
+__int~2~__: rotation amount
+--
++
+Rotate the n elements __any~1~__ ... __any~n~__. The new positions are calculated as follows:
++
+x = (1 - __int~2~__) mod __int~1~__
++
+y = (n - __int~2~__) mod __int~1~__
++
+This can be seen as rotating __int~1~__ elements up by __int~2~__ resp. down by -__int~2~__.
++
+.Examples
+```
+
+10 20 30 40 50 5 2 roll      # 40 50 10 20 30
+
+/rot { 3 -1 roll } def       # definition of 'rot'
+```
++
+See also: xref:dup[+dup+], xref:exch[+exch+], xref:index[+index+], xref:over[+over+], xref:pop[+pop+], xref:rot[+rot+]
+
+* **+rot+** - rotate upper three stack elements [[rot]]
++
+--
+** ( __any~1~__ __any~2~__ __any~3~__ -- __any~2~__ __any~3~__ __any~1~__ )
+--
++
+Rotate __any~1~__ to the top-of-stack.
++
+.Examples
+```
+
+10 20 30 rot         # 20 30 10
+```
++
+See also: xref:dup[+dup+], xref:exch[+exch+], xref:index[+index+], xref:over[+over+], xref:pop[+pop+], xref:roll[+roll+]
+
+* **+run+** - run code [[run]]
++
+--
+** ( __string~1~__ -- )
++
+__string~1~__: binary code
+--
++
+Load binary code and run it.
++
+Note: unlike 'exec' this does not open a new context but replaces the
+currently running code with the new one.
++
+.Examples
+```
+
+"new_program" readfile run
+```
++
+See also: xref:exec[+exec+], xref:exit[+exit+], xref:for[+for+], xref:forall[+forall+], xref:loop[+loop+], xref:repeat[+repeat+], xref:return[+return+]
+
+* **+setbgcolor+** - set background color [[setbgcolor]]
++
+--
+** ( __int~1~__ -- )
++
+__int~1~__: color
+--
++
+Set current background color.
++
+A color is a RGB value with red in bits 16-23, green in bits 8-15 and
+blue in bits 0-7. This is independent of what the graphics card is actually using.
++
+.Examples
+```
+
+0xff00 setcolor                      # green
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+setcanvas+** - set canvas [[setcanvas]]
++
+--
+** ( __gstate~1~__ __canvas~1~__ -- )
+** ( __gstate~1~__ __nil__ -- )
++
+__gstate~1~__: graphics state
++
+__canvas~1~__: canvas object
+--
++
+Set canvas of graphics state. A canvas is a memory area with
+associated width and height. All drawing operations are done on canvas
+objects. If __nil__ is passed, the canvas is removed from the graphics state.
++
+The drawing region of __gstate~1~__ is adjusted to match the canvas size. The
+drawing position is reset to x = 0, y = 0.
++
+.Examples
+```
+
+getgstate 800 600 canvas setcanvas
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+setcolor+** - set drawing color [[setcolor]]
++
+--
+** ( __int~1~__ -- )
++
+__int~1~__: color
+--
++
+Set current drawing color.
++
+A color is a RGB value with red in bits 16-23, green in bits 8-15 and
+blue in bits 0-7. This is independent of what the graphics card is actually using.
++
+.Examples
+```
+
+0xff0000 setcolor                    # red
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+setconsolegstate+** - set graphics state of the debug console [[setconsolegstate]]
++
+--
+** ( __gstate~1~__ -- )
+** ( __nil__ -- )
+--
++
+Set graphics state of the debug console. If __nil__ is passed, the current state is removed.
++
+.Examples
+```
+
+/saved_state getconsolegstate def
+...
+saved_state setconsolegstate                 # restore saved debug console state
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+setdict+** - set active dictionary [[setdict]]
++
+--
+** ( __hash~1~__ -- )
+** ( __nil__ -- )
++
+__hash~1~__: new active dictionary
+--
++
+Set the currently active dictionary. With __nil__, the dictionary is removed
+from the current context.
++
+.Examples
+```
+
+/foo { /x 10 ldef x } def
+foo                                  # 10
+
+/bar { ( /x 10 ) setdict x } def
+bar                                  # 10
+```
++
+See also: xref:code_start[+{+], xref:code_end[+}+], xref:hash_start[+(+], xref:hash_end[+)+], xref:array_start[+[+], xref:array_end[+]+], xref:getdict[+getdict+], xref:getparent[+getparent+], xref:setparent[+setparent+]
+
+* **+setfont+** - set font [[setfont]]
++
+--
+** ( __gstate~1~__ __font~1~__ -- )
+** ( __gstate~1~__ __nil__ -- )
++
+__gstate~1~__: graphics state
++
+__font~1~__: font
+--
++
+Set font in graphics state. If __nil__ is passed, any font is removed from the graphics state.
++
+.Examples
+```
+
+/foo_font "foo.fnt" readfile newfont def
+getgstate foo_font setfont                   # use "foo.fnt"
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+setgstate+** - set graphics state [[setgstate]]
++
+--
+** ( __gstate~1~__ -- )
+** ( __nil__ -- )
+--
++
+Set current graphics state. If __nil__ is passed, the current state is removed.
++
+The graphics state consists of a canvas to draw into, a region describing
+a rectangular drawing and clipping area in that canvas, a drawing
+position (relative to the drawing region), drawing color, background
+color (for text), and a text font.
++
+.Examples
+```
+
+/saved_state getgstate def                   # save current graphics state
+...
+saved_state setgstate                        # restore saved graphics state
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+setparent+** - set parent of context, font, or hash [[setparent]]
++
+--
+** ( __context~1~__ __context~2~__ -- )
+** ( __context~1~__ __nil__ -- )
++
+__context~2~__: new parent of __context~1~__
++
+** ( __font~1~__ __font~2~__ -- )
+** ( __font~1~__ __nil__ -- )
++
+__font~2~__: new parent of __font~1~__
++
+** ( __hash~1~__ __hash~2~__ -- )
+** ( __hash~1~__ __nil__ -- )
++
+__hash~2~__: new parent of __hash~1~__
+--
++
+If __nil__ is used as second argument, any existing parent link is removed.
++
+If a word lookup fails in a context, the lookup continues in the parent
+context.
++
+If a glyph lookup fails in a font, the lookup continues in the parent
+font.
++
+If a key cannot be found in a hash, the lookup continues in the parent
+hash.
++
+.Examples
+```
+
+/x ( "foo" 10 "bar" 20 ) def
+/y ( "zap" 30 ) def
+x "zap" get                          # nil
+x y setparent
+x "zap" get                          # 30
+x nil setparent
+x "zap" get                          # nil
+```
++
+See also: xref:code_start[+{+], xref:code_end[+}+], xref:hash_start[+(+], xref:hash_end[+)+], xref:array_start[+[+], xref:array_end[+]+], xref:getdict[+getdict+], xref:getparent[+getparent+], xref:setdict[+setdict+]
+
+* **+setpos+** - set drawing position [[setpos]]
++
+--
+** ( __int~1~__ __int~2~__ -- )
++
+__int~1~__: x
++
+__int~2~__: y
+--
++
+Set drawing position. The position is relative to the drawing region in the graphics state.
++
+.Examples
+```
+
+20 30 setpos
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+setregion+** - set drawing region [[setregion]]
++
+--
+** ( __gstate~1~__ __int~1~__ __int~2~__ __int~3~__ __int~4~__ -- )
++
+__gstate~1~__: graphics state
++
+__int~1~__: x
++
+__int~2~__: y
++
+__int~3~__: width
++
+__int~4~__: height
+--
++
+Set drawing region associated with graphics state. Any drawing operation
+will be relative to this region. Graphics output will be clipped at the
+region boundaries.
++
+.Examples
+```
+
+getgstate 10 10 200 100 setregion
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:show[+show+], xref:unpackimage[+unpackimage+]
+
+* **+shl+** - shift left [[shl]]
++
+--
+** ( __int~1~__ __int~2~__ -- __int~3~__ )
++
+__int~3~__: __int~1~__ << __int~2~__
++
+** ( __bool~1~__ __bool~2~__ -- __bool~3~__ )
++
+__bool~3~__: __bool~1~__ and !__bool~2~__
++
+--
++
+.Examples
+```
+
+1 4 shl                      # 16
+true false shl               # true
+```
++
+See also: xref:abs[+abs+], xref:add[+add+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+
+* **+show+** - show [[show]]
++
+--
+** ( __string~1~__ -- )
+--
++
+Print __string~1~__ at current cursor position in canvas associated with
+current graphics state.
++
+The cursor position is advanced to point at the end of the printed text.
+Newline ('\x0a') and carriage return ('\x0d') characters are interpreted
+and the cursor position is adjusted relative to the starting position.
++
+.Examples
+```
+
+"Hello!" show                        # print "Hello!"
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:unpackimage[+unpackimage+]
+
+* **+shr+** - shift right [[shr]]
++
+--
+** ( __int~1~__ __int~2~__ -- __int~3~__ )
++
+__int~3~__: __int~1~__ >> __int~2~__
++
+** ( __bool~1~__ __bool~2~__ -- __bool~3~__ )
++
+__bool~3~__: __bool~1~__ and !__bool~2~__
++
+--
++
+.Examples
+```
+
+16 4 shr                     # 1
+true false shr               # true
+```
++
+See also: xref:abs[+abs+], xref:add[+add+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:sub[+sub+], xref:xor[+xor+]
+
+* **+string+** - create or duplicate string [[string]]
++
+--
+** ( __int~1~__ -- __string~1~__ )
++
+__int~1~__: length
++
+__string~1~__: new string with length __int~1~__
+** ( __string~2~__ -- __string~3~__ )
++
+__string~2~__: string to duplicate
++
+__string~3~__: copy of __string~2~__
+--
++
+There are two variants: given a number, a string of that length is
+created and initialized with zeros; given a string, a copy of that string is created.
++
+__int~1~__ may be 0 to create a zero-length string.
++
+Note: duplication works for all string-like objects. For example for word references and even code blocks.
++
+.Examples
+```
+
+2 string                    # creates an empty string of length 2: "\x00\x00"
+"abc" string                # creates a copy of "abc"
+
+# even this works:
+/abc mem                    # a copy of /abc
+{ 10 20 } mem               # a copy of the code block { 10 20 }
+```
++
+See also: xref:freeze[+freeze+], xref:readfile[+readfile+], xref:utf8decode[+utf8decode+], xref:utf8encode[+utf8encode+]
+
+* **+sub+** - subtraction [[sub]]
++
+--
+** ( __int~1~__ __int~2~__ -- __int~3~__ )
++
+__int~3~__: __int~1~__ - __int~2~__
++
+** ( __bool~1~__ __bool~2~__ -- __bool~3~__ )
++
+__bool~3~__: __bool~1~__ xor __bool~2~__
+--
++
+Subtract __int~2~__ from __int~1~__.
++
+For boolean 1 bit arithmetic this is equivalent to 'xor'.
++
+.Examples
+```
+
+100 30 sub                   # 70
+false true sub               # true
+```
++
+See also: xref:abs[+abs+], xref:add[+add+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:xor[+xor+]
+
+* **+unpackimage+** - unpack image [[unpackimage]]
++
+--
+** ( __string~1~__ -- __canvas~1~__ )
+** ( __string~1~__ -- __nil__ )
++
+__string~1~__: image file data
+--
++
+Unpacks image and returns a canvas object with the image or __nil__ if the
+data dos not contain image data.
++
+.Examples
+```
+
+"foo.jpg" readfile unpackimage
+```
++
+See also: xref:blt[+blt+], xref:canvas[+canvas+], xref:dim[+dim+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getconsolegstate[+getconsolegstate+], xref:getfont[+getfont+], xref:getgstate[+getgstate+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:gstate[+gstate+], xref:lineto[+lineto+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setconsolegstate[+setconsolegstate+], xref:setfont[+setfont+], xref:setgstate[+setgstate+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+]
+
+* **+utf8decode+** - decode Unicode string [[utf8decode]]
++
+--
+** (__string~1~__ -- __array~1~__ )
++
+__string~1~__: UTF8-encoded string
++
+__array~1~__: array with decoded chars
+--
++
+The array contains one element for each UTF8-encoded char. If __string~1~__
+contains non-UTF8-chars they are represented as the negated 8-bit value.
++
+.Examples
+```
+
+"ABC" utf8decode                     # [ 65 66 67 ]
+"Ä €" utf8decode                     # [ 196 32 8364 ]
+"A\xf0B" utf8decode                  # [ 65 -240 66 ]
+```
++
+See also: xref:freeze[+freeze+], xref:readfile[+readfile+], xref:string[+string+], xref:utf8encode[+utf8encode+]
+
+* **+utf8encode+** - encode Unicode string [[utf8encode]]
++
+--
+** (__array~1~__ -- __string~1~__ )
++
+__array~1~__: array with decoded chars
++
+__string~1~__: UTF8-encoded string
+--
++
+The array contains one element for each UTF8-encoded char. If __string~1~__
+should contain non-UTF8-chars they are represented as the negated 8-bit
+value in __array~1~__.
++
+.Examples
+```
+
+[ 65 66 67 ] utf8encode              # "ABC"
+[ 196 32 8364 ] utf8encode           # "Ä €"
+[ 65 -240 66 ] utf8encode            # "A\xf0B"
+```
++
+See also: xref:freeze[+freeze+], xref:readfile[+readfile+], xref:string[+string+], xref:utf8decode[+utf8decode+]
+
+* **+xor+** - exclusive or [[xor]]
++
+--
+** ( __int~1~__ __int~2~__ -- __int~3~__ )
++
+__int~3~__: __int~1~__ xor __int~2~__
++
+** ( __bool~1~__ __bool~2~__ -- __bool~3~__ )
++
+__bool~3~__: __bool~1~__ xor __bool~2~__
++
+--
++
+.Examples
+```
+
+15 4 xor                     # 11
+true false or                # true
+```
++
+See also: xref:abs[+abs+], xref:add[+add+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+]
+
+

@@ -1,0 +1,18 @@
+# this config file is sourced in build and test scripts
+
+su="sw 0"
+
+grub_root=~/g
+grub_build=b
+grub_dir="$grub_root/$grub_build"
+
+grub_module=gfxboot
+grub_files="gfxboot.c gfxboot.h gfxboot_*.c vocabulary.h"
+
+grub_module_bios=$grub_dir/build/grub-core/$grub_module.mod
+grub_module_efi=$grub_dir/build-efi/grub-core/$grub_module.mod
+
+grub_iso_src=files/cd
+grub_iso_dir=$PWD/grub
+grub_iso=$PWD/grub.iso
+

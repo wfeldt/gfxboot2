@@ -1,0 +1,56 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 47 entries (47 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     2       1  0x00008  ref    39 66 6f 6f              /foo
+             2  0x0000c  word   18 28                    (
+             3  0x0000e  str    27 61 61                   "aa"
+             4  0x00011  int    81 0b                      11
+             5  0x00013  str    27 62 62                   "bb"
+             6  0x00016  int    81 16                      22
+             7  0x00018  str    27 63 63                   "cc"
+             8  0x0001b  int    81 21                      33
+             9  0x0001d  word   18 29                    )
+            10  0x0001f  word   38 64 65 66              def
+     3      11  0x00023  ref    39 62 61 72              /bar
+            12  0x00027  word   18 28                    (
+            13  0x00029  str    27 78 78                   "xx"
+            14  0x0002c  int    81 58                      88
+            15  0x0002e  str    27 79 79                   "yy"
+            16  0x00031  int    81 63                      99
+            17  0x00033  word   18 29                    )
+            18  0x00035  word   38 64 65 66              def
+     5      19  0x00039  word   38 66 6f 6f              foo
+            20  0x0003d  word   38 62 61 72              bar
+            21  0x00041  word   98 73 65 74 70 61 72 65  setparent
+                                6e 74
+     7      22  0x0004b  word   38 66 6f 6f              foo
+     9      23  0x0004f  word   38 66 6f 6f              foo
+            24  0x00053  str    27 62 62                 "bb"
+            25  0x00056  word   38 67 65 74              get
+    10      26  0x0005a  word   38 66 6f 6f              foo
+            27  0x0005e  str    37 61 62 63              "abc"
+            28  0x00062  word   38 67 65 74              get
+    11      29  0x00066  word   38 66 6f 6f              foo
+            30  0x0006a  str    27 78 78                 "xx"
+            31  0x0006d  word   38 67 65 74              get
+    14      32  0x00071  word   38 62 61 72              bar
+            33  0x00075  word   38 66 6f 6f              foo
+            34  0x00079  word   98 73 65 74 70 61 72 65  setparent
+                                6e 74
+    16      35  0x00083  word   38 66 6f 6f              foo
+            36  0x00087  str    27 63 63                 "cc"
+            37  0x0008a  word   38 67 65 74              get
+    17      38  0x0008e  word   38 62 61 72              bar
+            39  0x00092  str    27 61 61                 "aa"
+            40  0x00095  word   38 67 65 74              get
+    18      41  0x00099  word   38 66 6f 6f              foo
+            42  0x0009d  str    37 78 79 7a              "xyz"
+            43  0x000a1  word   38 67 65 74              get
+    21      44  0x000a5  word   38 62 61 72              bar
+            45  0x000a9  nil    00                       nil
+            46  0x000aa  word   98 73 65 74 70 61 72 65  setparent
+                                6e 74

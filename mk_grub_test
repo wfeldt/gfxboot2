@@ -1,0 +1,75 @@
+#! /bin/bash
+
+# script to copy the updated gfxboot module from the grub2 tree and build a
+# test cd with them
+#
+
+. ./config_vars
+
+rm -rf $grub_iso_dir
+cp -a $grub_iso_src $grub_iso_dir
+
+mkdir -p $grub_iso_dir/EFI/BOOT
+
+test_grub_dir=$grub_iso_dir/boot/x86_64/grub2-efi
+mkdir $test_grub_dir
+
+mods="
+  gfxboot gfxterm
+  video videoinfo vga vbe
+  biosdisk linux
+  ext2 btrfs ext2 xfs jfs reiserfs
+  all_video boot cat chain configfile echo
+  font gzio halt iso9660
+  jpeg minicmd normal part_apple part_msdos part_gpt
+  password_pbkdf2 png reboot search search_fs_uuid
+  search_fs_file search_label sleep test video fat loadenv
+"
+
+efimods="
+  gfxboot gfxterm
+  video videoinfo efi_gop
+  linuxefi
+  ext2 btrfs ext2 xfs jfs reiserfs
+  all_video boot cat chain configfile echo
+  font gzio halt iso9660
+  jpeg minicmd normal part_apple part_msdos part_gpt
+  password_pbkdf2 png reboot search search_fs_uuid
+  search_fs_file search_label sleep test video fat loadenv
+"
+
+# - - -  lets start...  - - -
+
+echo re-building $grub_iso
+
+(
+  mods=$(echo $mods)
+  sw 0 chroot $grub_root/ sh -c "cd b/build ; ./grub-mkimage -d grub-core -O i386-pc -o core.img --prefix=/boot/x86_64/grub2-efi $mods"
+  cd $grub_dir/build
+  cat grub-core/cdboot.img core.img >cd.img
+)
+
+cp $grub_dir/build/cd.img $test_grub_dir
+
+cp files/grub.cfg $test_grub_dir
+perl -pi -e 's/(linux|initrd)efi/$1/' $test_grub_dir/grub.cfg
+
+(
+  efimods=$(echo $efimods)
+  sw 0 chroot $grub_root/ sh -c "cd b/build-efi ; ./grub-mkimage -d grub-core -O x86_64-efi -o grub.efi --prefix=  $efimods"
+  cd $grub_dir/build-efi
+  cp grub.efi $grub_iso_dir/EFI/BOOT/bootx64.efi
+  mcopy -i $grub_iso_dir/boot/x86_64/efi grub.efi ::/EFI/BOOT/bootx64.efi
+)
+
+cp files/grub.cfg $grub_iso_dir/EFI/BOOT/
+mcopy -i $grub_iso_dir/boot/x86_64/efi files/grub.cfg ::/EFI/BOOT
+
+cp files/* $test_grub_dir
+
+for i in $test_grub_dir/*.gs ; do
+  ./gfxboot-compile -c ${i/.gs/.gc} $i
+done
+
+mksusecd --nano --no-hybrid --no-digest --grub2 -c $grub_iso $grub_iso_dir
+

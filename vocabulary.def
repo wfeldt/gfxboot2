@@ -1,0 +1,95 @@
+# list of primitive words
+#
+# this file is used to generate vocabulary.h
+#
+# 1st column: printable name, 2nd column (optional): name used in source code
+
+{	code_start
+}	code_end
+[	array_start
+]	array_end
+(	hash_start
+)	hash_end
+def
+ldef
+gdef
+if
+ifelse
+loop
+repeat
+for
+forall
+exit
+return
+string
+get
+put
+delete
+length
+dup
+pop
+exch
+rot
+roll
+over
+index
+exec
+add
+sub
+mul
+div
+mod
+neg
+abs
+min
+max
+and
+or
+xor
+not
+shl
+shr
+eq
+ne
+gt
+ge
+lt
+le
+cmp
+getparent
+setparent
+getdict
+setdict
+freeze
+getcolor
+setcolor
+getbgcolor
+setbgcolor
+getpos
+setpos
+getfont
+setfont
+newfont
+getregion
+setregion
+canvas
+getcanvas
+setcanvas
+getgstate
+setgstate
+gstate
+getconsolegstate
+setconsolegstate
+show
+dim
+run
+readfile
+unpackimage
+blt
+debug
+getpixel
+putpixel
+lineto
+fillrect
+utf8decode
+utf8encode

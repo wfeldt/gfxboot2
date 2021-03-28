@@ -1,0 +1,52 @@
+## Language reference
+
+Comments start with '#' and extend to the end of the line.
+
+To include some other source file, use the special `include` comment (note the double-`#`, and no quotes around the file name):
+
+.Examples
+```
+## include foo.gs
+```
+
+Numbers are 64 bit signed integers. Numerical and string constants are given in a C-like way.
+
+.Examples
+```
+123
+-456
+0x4567
+"Hi there\n"
+'\033'
+'\x1b'
+'\u20ac'
+```  
+
+Strings are not zero-terminated and can contain any data (including zeros). Use `\xNN` to set arbitray binary values.
+Use `\uNNNN` or `\UNNNNNNNN` to include UTF8-encoded Unicode characters.
+
+.Examples
+```
+"1 Euro = 1 €\n"
+"1 Euro = 1 \u20ac\n"
+"1 Euro = 1 \xe2\x82\xac\n"
+```
+
+Logical operations return values of type bool. They are not identical with integers.
+
+.Examples
+```
+true
+false
+```
+
+There is a special value nil. It is not the same as 0.
+
+.Examples
+```
+nil
+```
+
+### Primitive words
+
+PRIMITIVE_WORD_LIST

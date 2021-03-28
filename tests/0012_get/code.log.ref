@@ -1,0 +1,71 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 64 entries (64 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  ref    59 66 6f 6f 5f 31        /foo_1
+             2  0x0000e  word   18 5b                    [
+             3  0x00010  int    81 0a                      10
+             4  0x00012  int    81 14                      20
+             5  0x00014  int    81 1e                      30
+             6  0x00016  int    81 28                      40
+             7  0x00018  word   18 5d                    ]
+             8  0x0001a  word   38 64 65 66              def
+     3       9  0x0001e  word   58 66 6f 6f 5f 31        foo_1
+            10  0x00024  int    01                       0
+            11  0x00025  word   38 67 65 74              get
+     4      12  0x00029  word   58 66 6f 6f 5f 31        foo_1
+            13  0x0002f  int    31                       3
+            14  0x00030  word   38 67 65 74              get
+     5      15  0x00034  word   58 66 6f 6f 5f 31        foo_1
+            16  0x0003a  int    41                       4
+            17  0x0003b  word   38 67 65 74              get
+     6      18  0x0003f  word   58 66 6f 6f 5f 31        foo_1
+            19  0x00045  int    81 fb                    -5
+            20  0x00047  word   38 67 65 74              get
+     7      21  0x0004b  word   58 66 6f 6f 5f 31        foo_1
+            22  0x00051  int    81 ff                    -1
+            23  0x00053  word   38 67 65 74              get
+     8      24  0x00057  word   58 66 6f 6f 5f 31        foo_1
+            25  0x0005d  int    81 fc                    -4
+            26  0x0005f  word   38 67 65 74              get
+    10      27  0x00063  ref    59 66 6f 6f 5f 32        /foo_2
+            28  0x00069  word   18 28                    (
+            29  0x0006b  str    27 61 61                   "aa"
+            30  0x0006e  int    81 0b                      11
+            31  0x00070  str    27 62 62                   "bb"
+            32  0x00073  int    81 16                      22
+            33  0x00075  str    27 63 63                   "cc"
+            34  0x00078  int    81 21                      33
+            35  0x0007a  word   18 29                    )
+            36  0x0007c  word   38 64 65 66              def
+    12      37  0x00080  word   58 66 6f 6f 5f 32        foo_2
+            38  0x00086  str    27 62 62                 "bb"
+            39  0x00089  word   38 67 65 74              get
+    13      40  0x0008d  word   58 66 6f 6f 5f 32        foo_2
+            41  0x00093  str    27 64 64                 "dd"
+            42  0x00096  word   38 67 65 74              get
+    15      43  0x0009a  ref    59 66 6f 6f 5f 33        /foo_3
+            44  0x000a0  str    a7 41 42 43 44 45 31 32  "ABCDE12345"
+                                33 34 35
+            45  0x000ab  word   38 64 65 66              def
+    17      46  0x000af  word   58 66 6f 6f 5f 33        foo_3
+            47  0x000b5  int    01                       0
+            48  0x000b6  word   38 67 65 74              get
+    18      49  0x000ba  word   58 66 6f 6f 5f 33        foo_3
+            50  0x000c0  int    81 09                    9
+            51  0x000c2  word   38 67 65 74              get
+    19      52  0x000c6  word   58 66 6f 6f 5f 33        foo_3
+            53  0x000cc  int    81 0a                    10
+            54  0x000ce  word   38 67 65 74              get
+    20      55  0x000d2  word   58 66 6f 6f 5f 33        foo_3
+            56  0x000d8  int    81 f5                    -11
+            57  0x000da  word   38 67 65 74              get
+    21      58  0x000de  word   58 66 6f 6f 5f 33        foo_3
+            59  0x000e4  int    81 ff                    -1
+            60  0x000e6  word   38 67 65 74              get
+    22      61  0x000ea  word   58 66 6f 6f 5f 33        foo_3
+            62  0x000f0  int    81 f6                    -10
+            63  0x000f2  word   38 67 65 74              get

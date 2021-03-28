@@ -1,0 +1,26 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 20 entries (20 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  int    11                       1
+             2  0x00009  int    21                       2
+             3  0x0000a  int    31                       3
+             4  0x0000b  int    41                       4
+             5  0x0000c  int    51                       5
+             6  0x0000d  int    61                       6
+             7  0x0000e  int    71                       7
+     2       8  0x0000f  int    71                       7
+             9  0x00010  int    11                       1
+            10  0x00011  word   48 72 6f 6c 6c           roll
+     3      11  0x00016  int    51                       5
+            12  0x00017  int    81 fe                    -2
+            13  0x00019  word   48 72 6f 6c 6c           roll
+     4      14  0x0001e  int    01                       0
+            15  0x0001f  int    01                       0
+            16  0x00020  word   48 72 6f 6c 6c           roll
+     5      17  0x00025  int    71                       7
+            18  0x00026  int    01                       0
+            19  0x00027  word   48 72 6f 6c 6c           roll

@@ -1,0 +1,49 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 43 entries (43 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  int    81 0a                    10
+             2  0x0000a  int    21                       2
+             3  0x0000b  int    81 14                    20
+             4  0x0000d  code   16                       {
+             5  0x0000e  prim   13                       }
+             6  0x0000f  prim   83 0d                    for
+     2       7  0x00011  int    81 64                    100
+             8  0x00013  int    21                       2
+             9  0x00014  int    81 6b                    107
+            10  0x00016  code   16                       {
+            11  0x00017  prim   13                       }
+            12  0x00018  prim   83 0d                    for
+     3      13  0x0001a  int    91 4c 04                 1100
+            14  0x0001d  int    81 fe                    -2
+            15  0x0001f  int    91 42 04                 1090
+            16  0x00022  code   16                       {
+            17  0x00023  prim   13                       }
+            18  0x00024  prim   83 0d                    for
+     4      19  0x00026  int    91 f8 2a                 11000
+            20  0x00029  int    81 fe                    -2
+            21  0x0002b  int    91 f1 2a                 10993
+            22  0x0002e  code   16                       {
+            23  0x0002f  prim   13                       }
+            24  0x00030  prim   83 0d                    for
+     5      25  0x00032  int    91 c8 00                 200
+            26  0x00035  int    11                       1
+            27  0x00036  int    91 be 00                 190
+            28  0x00039  code   16                       {
+            29  0x0003a  prim   13                       }
+            30  0x0003b  prim   83 0d                    for
+     6      31  0x0003d  int    91 c8 00                 200
+            32  0x00040  int    81 ff                    -1
+            33  0x00042  int    91 d2 00                 210
+            34  0x00045  code   16                       {
+            35  0x00046  prim   13                       }
+            36  0x00047  prim   83 0d                    for
+     7      37  0x00049  int    01                       0
+            38  0x0004a  int    01                       0
+            39  0x0004b  int    81 64                    100
+            40  0x0004d  code   16                       {
+            41  0x0004e  prim   13                       }
+            42  0x0004f  prim   83 0d                    for

@@ -1,0 +1,62 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 56 entries (56 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  ref    39 66 6f 6f              /foo
+             2  0x0000c  word   18 28                    (
+             3  0x0000e  str    27 61 61                   "aa"
+             4  0x00011  int    81 0b                      11
+             5  0x00013  str    27 62 62                   "bb"
+             6  0x00016  int    81 16                      22
+             7  0x00018  str    27 63 63                   "cc"
+             8  0x0001b  int    81 21                      33
+             9  0x0001d  str    27 64 64                   "dd"
+            10  0x00020  int    81 2c                      44
+            11  0x00022  str    27 65 65                   "ee"
+            12  0x00025  int    81 37                      55
+            13  0x00027  word   18 29                    )
+            14  0x00029  word   38 64 65 66              def
+     3      15  0x0002d  word   38 66 6f 6f              foo
+            16  0x00031  str    27 62 62                 "bb"
+            17  0x00034  word   68 64 65 6c 65 74 65     delete
+     4      18  0x0003b  word   38 66 6f 6f              foo
+            19  0x0003f  str    27 64 64                 "dd"
+            20  0x00042  word   68 64 65 6c 65 74 65     delete
+     5      21  0x00049  word   38 66 6f 6f              foo
+            22  0x0004d  str    27 66 66                 "ff"
+            23  0x00050  word   68 64 65 6c 65 74 65     delete
+     7      24  0x00057  word   38 66 6f 6f              foo
+            25  0x0005b  code   16                       {
+            26  0x0005c  prim   13                       }
+            27  0x0005d  word   68 66 6f 72 61 6c 6c     forall
+     9      28  0x00064  word   38 66 6f 6f              foo
+            29  0x00068  str    27 61 61                 "aa"
+            30  0x0006b  word   68 64 65 6c 65 74 65     delete
+    10      31  0x00072  word   38 66 6f 6f              foo
+            32  0x00076  str    27 65 65                 "ee"
+            33  0x00079  word   68 64 65 6c 65 74 65     delete
+    12      34  0x00080  word   38 66 6f 6f              foo
+            35  0x00084  code   16                       {
+            36  0x00085  prim   13                       }
+            37  0x00086  word   68 66 6f 72 61 6c 6c     forall
+    14      38  0x0008d  word   38 66 6f 6f              foo
+            39  0x00091  str    27 63 63                 "cc"
+            40  0x00094  word   68 64 65 6c 65 74 65     delete
+    16      41  0x0009b  word   38 66 6f 6f              foo
+            42  0x0009f  str    27 78 78                 "xx"
+            43  0x000a2  word   68 64 65 6c 65 74 65     delete
+    18      44  0x000a9  word   38 66 6f 6f              foo
+            45  0x000ad  code   16                       {
+            46  0x000ae  prim   13                       }
+            47  0x000af  word   68 66 6f 72 61 6c 6c     forall
+    20      48  0x000b6  word   38 66 6f 6f              foo
+            49  0x000ba  str    27 78 78                 "xx"
+            50  0x000bd  int    81 63                    99
+            51  0x000bf  word   38 70 75 74              put
+    22      52  0x000c3  word   38 66 6f 6f              foo
+            53  0x000c7  code   16                       {
+            54  0x000c8  prim   13                       }
+            55  0x000c9  word   68 66 6f 72 61 6c 6c     forall

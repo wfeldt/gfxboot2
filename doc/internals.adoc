@@ -1,0 +1,68 @@
+== Internal data structures
+
+=== Binary format
+
+The binary code is encoded as follows:
+
+1 opcode byte followed by 0 or more data bytes
+
+[source]
+----
+opcode [data] ...
+opcode [data] ...
+...
+
+opcode bits 0..3: type
+opcode bits 4..7: arg
+----
+
+There are 2 variants of opcodes:
+
+- the 1st decodes into type + signed/unsigned 64 bit value (arg1)
+- the 2nd decodes into type + unsigned 32 bit value (arg1, the size of the
+  following byte array) + byte array (arg2)
+
+The 1st group is for number-like data, the 2nd group for string-like data. Note that strings are not
+zero-terminated.
+
+[source]
+----
+if type < 5
+  # variant 1
+  if arg < 8
+    arg1 = arg
+  else	# arg >= 8
+    arg1 = decode_num(arg - 7)	# 1..8 bytes
+    # arg1 will be decoded as signed if type is 1 (integer), else unsigned
+    # (if signed, bit 7 of the last byte is the sign bit)
+  endif
+else # type >= 5
+  # variant 2
+  if arg < 12
+    arg1 = arg
+  else	# arg >= 12
+    arg1 = decode_num(arg - 11)	# 1..4 bytes
+    # arg1 will always be decoded as unsigned
+  endif
+  arg2 = the following arg1 bytes	# arg1 may be 0
+endif
+
+decode_num(n): read next n bytes as little-endian number
+----
+
+For type codes see `types.def`.
+
+The file has to start with the magic byte sequence `0x75 0x51 0x12 0xa9 0x42 0x7a 0xad 0x60`.
+(Which decodes as a 7 char long special comment.)
+
+Sample decoded byte sequences:
+
+[source]
+----
+# hex [type] decoded value
+00                                               [nil]  nil
+51                                               [int]  5
+81 ff                                            [int]  -1
+37 61 62 63                                      [str]  "abc"
+c7 0e 61 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e  [str]  "abcdefghijklmn"
+----

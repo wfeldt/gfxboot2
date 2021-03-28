@@ -1,0 +1,79 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 73 entries (73 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  int    51                       5
+             2  0x00009  int    51                       5
+             3  0x0000a  word   28 67 74                 gt
+     2       4  0x0000d  int    51                       5
+             5  0x0000e  int    61                       6
+             6  0x0000f  xref   54                       gt
+     3       7  0x00010  int    61                       6
+             8  0x00011  int    51                       5
+             9  0x00012  xref   84 08                    gt
+     4      10  0x00014  str    37 61 62 63              "abc"
+            11  0x00018  xref   44                       "abc"
+            12  0x00019  xref   84 0f                    gt
+     5      13  0x0001b  xref   74                       "abc"
+            14  0x0001c  str    37 61 62 64              "abd"
+            15  0x00020  xref   84 16                    gt
+     6      16  0x00022  xref   84 0e                    "abc"
+            17  0x00024  str    47 61 62 63 31           "abc1"
+            18  0x00029  xref   84 1f                    gt
+     7      19  0x0002b  xref   84 0f                    "abd"
+            20  0x0002d  xref   84 19                    "abc"
+            21  0x0002f  xref   84 25                    gt
+     8      22  0x00031  xref   84 0d                    "abc1"
+            23  0x00033  xref   84 1f                    "abc"
+            24  0x00035  xref   84 2b                    gt
+     9      25  0x00037  str    07                       ""
+            26  0x00038  str    07                       ""
+            27  0x00039  xref   84 2f                    gt
+    10      28  0x0003b  str    07                       ""
+            29  0x0003c  str    17 61                    "a"
+            30  0x0003e  xref   84 34                    gt
+    11      31  0x00040  xref   44                       "a"
+            32  0x00041  str    07                       ""
+            33  0x00042  xref   84 38                    gt
+    12      34  0x00044  ref    39 66 6f 6f              /foo
+            35  0x00048  str    37 66 6f 6f              "foo"
+            36  0x0004c  xref   84 42                    gt
+    13      37  0x0004e  nil    00                       nil
+            38  0x0004f  nil    00                       nil
+            39  0x00050  xref   84 46                    gt
+    14      40  0x00052  nil    00                       nil
+            41  0x00053  int    31                       3
+            42  0x00054  xref   84 4a                    gt
+    15      43  0x00056  int    51                       5
+            44  0x00057  xref   84 43                    "abc"
+            45  0x00059  xref   84 4f                    gt
+    16      46  0x0005b  code   36                       {
+            47  0x0005c  int    81 0a                      10
+            48  0x0005e  prim   13                       }
+            49  0x0005f  code   36                       {
+            50  0x00060  int    81 0a                      10
+            51  0x00062  prim   13                       }
+            52  0x00063  xref   84 59                    gt
+    17      53  0x00065  ref    59 66 6f 6f 5f 31        /foo_1
+            54  0x0006b  word   18 5b                    [
+            55  0x0006d  int    11                         1
+            56  0x0006e  int    21                         2
+            57  0x0006f  int    31                         3
+            58  0x00070  word   18 5d                    ]
+            59  0x00072  word   38 64 65 66              def
+    18      60  0x00076  ref    59 66 6f 6f 5f 32        /foo_2
+            61  0x0007c  word   58 66 6f 6f 5f 31        foo_1
+            62  0x00082  xref   84 10                    def
+    19      63  0x00084  xref   84 08                    foo_1
+            64  0x00086  word   58 66 6f 6f 5f 32        foo_2
+            65  0x0008c  xref   84 82                    gt
+    20      66  0x0008e  word   18 5b                    [
+            67  0x00090  int    61                         6
+            68  0x00091  word   18 5d                    ]
+            69  0x00093  word   18 5b                    [
+            70  0x00095  int    61                         6
+            71  0x00096  word   18 5d                    ]
+            72  0x00098  xref   84 8e                    gt

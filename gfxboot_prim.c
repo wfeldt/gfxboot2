@@ -1,0 +1,4399 @@
+#include <gfxboot/gfxboot.h>
+
+#define WITH_PRIM_NAMES 1
+#define WITH_PRIM_HEADERS 1
+#include <gfxboot/vocabulary.h>
+
+static obj_id_t prim_array_start_id = 0;
+static obj_id_t prim_hash_start_id = 0;
+
+typedef enum {
+  op_sub, op_mul, op_div, op_mod, op_and, op_or, op_xor, op_min, op_max, op_shl, op_shr,
+  op_neg, op_not, op_abs
+} op_t;
+
+typedef enum {
+  op_eq, op_ne, op_gt, op_ge, op_lt, op_le, op_cmp
+} cmp_op_t;
+
+typedef struct {
+  obj_id_t id;
+  obj_t *ptr;
+} arg_t;
+
+static arg_t *gfx_arg_1(uint8_t type);
+static arg_t *gfx_arg_n(unsigned argc, uint8_t arg_types[]);
+static int is_true(obj_id_t id);
+static error_id_t do_op(op_t op, int64_t *result, int64_t val1, int64_t val2, unsigned sub_type);
+static void binary_op_on_stack(op_t op);
+static void unary_op_on_stack(op_t op);
+static void binary_cmp_on_stack(cmp_op_t op);
+static void gfx_prim_def_at(unsigned where);
+
+#define IS_NIL		0x80
+#define IS_RW		0x40
+#define TYPE_MASK	0x3f
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+arg_t *gfx_arg_1(uint8_t type)
+{
+  static arg_t argv[1];
+  unsigned is_nil = type & IS_NIL;
+  unsigned is_rw = type & IS_RW;
+  type &= TYPE_MASK;
+
+  GFX_ERROR(err_ok);
+
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 1) {
+    GFX_ERROR(err_stack_underflow);
+
+    return 0;
+  }
+
+  obj_id_t id = argv[0].id = pstack->ptr[pstack->size - 1];
+  obj_t *ptr = argv[0].ptr = gfx_obj_ptr(id);
+
+  if(
+    (ptr && (type == ptr->base_type || type == OTYPE_ANY)) ||
+    (id == 0 && (type == OTYPE_NONE || is_nil))
+  ) {
+    if(is_rw && ptr && ptr->flags.ro) {
+      GFX_ERROR(err_readonly);
+
+      return 0;
+    }
+
+    return argv;
+  }
+
+  GFX_ERROR(err_invalid_arguments);
+
+  return 0;
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+arg_t *gfx_arg_n(unsigned argc, uint8_t arg_types[])
+{
+  unsigned i;
+  static arg_t argv[8];
+
+#if 0
+  if(argc >= sizeof argv / sizeof *argv) {
+    GFX_ERROR(err_internal);
+
+    return 0;
+  }
+#endif
+
+  GFX_ERROR(err_ok);
+
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < argc) {
+    GFX_ERROR(err_stack_underflow);
+
+    return 0;
+  }
+
+  unsigned stack_size = pstack->size;
+  obj_id_t *stack = pstack->ptr + stack_size - argc;
+
+  for(i = 0; i < argc; i++) {
+    obj_id_t id = argv[i].id = stack[i];
+    obj_t *ptr = argv[i].ptr = gfx_obj_ptr(id);
+
+    uint8_t type = arg_types[i];
+    unsigned is_nil = type & IS_NIL;
+    unsigned is_rw = type & IS_RW;
+    type &= TYPE_MASK;
+
+    if(
+      (ptr && (type == ptr->base_type || type == OTYPE_ANY)) ||
+      (id == 0 && (type == OTYPE_NONE || is_nil))
+    ) {
+      if(is_rw && ptr && ptr->flags.ro) {
+        GFX_ERROR(err_readonly);
+
+        return 0;
+      }
+      continue;
+    }
+
+    GFX_ERROR(err_invalid_arguments);
+
+    return 0;
+  }
+
+  return argv;
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// return: 0 = failed, 1 = ok
+//
+int gfx_setup_dict()
+{
+  unsigned u;
+  obj_id_t prim_id;
+
+  gfx_obj_ref_dec(gfxboot_data->vm.program.dict);
+  gfxboot_data->vm.program.dict = gfx_obj_hash_new(0);
+  if(!gfxboot_data->vm.program.dict) return 0;
+
+  for(u = 0; u < sizeof prim_names / sizeof *prim_names ; u++) {
+    gfx_obj_hash_set(
+      gfxboot_data->vm.program.dict,
+      gfx_obj_const_mem_nofree_new((const uint8_t *) prim_names[u], gfx_strlen(prim_names[u]), t_ref, 0),
+      prim_id = gfx_obj_num_new(u, t_prim),
+      0
+    );
+
+    switch(u) {
+      case prim_idx_array_start:
+        prim_array_start_id = prim_id;
+        break;
+      case prim_idx_hash_start:
+        prim_hash_start_id = prim_id;
+        break;
+    }
+  }
+
+  if(!prim_array_start_id || !prim_hash_start_id) return 0;
+
+  return 1;
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//
+error_id_t gfx_run_prim(unsigned prim)
+{
+  if(prim > sizeof gfx_prim_list / sizeof *gfx_prim_list) {
+    GFX_ERROR(err_invalid_code);
+    return gfxboot_data->vm.error.id;
+  }
+
+  gfx_prim_list[prim]();
+
+  return gfxboot_data->vm.error.id;
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// start code block
+//
+// group: code,array,hash
+//
+// ( -- code_1 )
+//
+// Put a reference to the following code block on the stack. The code block
+// starts after the opening `{` and extends to (and including) the matching
+// closing `}`.
+//
+// This special word is handled while converting the source code into binary code with `gfxboot-compile`.
+// For this reason, this is the only word that cannot be redefined.
+//
+// example:
+//
+// { "Hello!" show }
+//
+void gfx_prim_code_start()
+{
+  // will never be called
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// finish code block
+//
+// group: code,array,hash
+//
+// ( -- )
+//
+// This marks the end of a code block. When the code is executed, the
+// interpreter leaves the current execution context and returns to the
+// parent context.
+//
+// example:
+//
+// /hello { "Hello!" show } def
+// hello                                # print "Hello!"
+//
+void gfx_prim_code_end()
+{
+  context_t *context = gfx_obj_context_ptr(gfxboot_data->vm.program.context);
+
+  if(!context) {
+    GFX_ERROR(err_invalid_instruction);
+    return;
+  }
+
+  obj_id_t parent_id = context->parent_id;
+
+  switch(context->type) {
+    case t_ctx_block:
+    case t_ctx_func:
+      OBJ_ID_ASSIGN(gfxboot_data->vm.program.context, parent_id);
+      break;
+
+    case t_ctx_loop:
+      context->ip = 0;
+      break;
+
+    case t_ctx_repeat:
+      if(--context->index) {
+        context->ip = 0;
+      }
+      else {
+        OBJ_ID_ASSIGN(gfxboot_data->vm.program.context, parent_id);
+      }
+      break;
+
+    case t_ctx_for:
+      context->index += context->inc;
+      if(
+        (context->inc > 0 && context->index <= context->max) ||
+        (context->inc < 0 && context->index >= context->max)
+      ) {
+        context->ip = 0;
+        gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(context->index, t_int), 0);
+      }
+      else {
+        OBJ_ID_ASSIGN(gfxboot_data->vm.program.context, parent_id);
+      }
+      break;
+
+    case t_ctx_forall:
+      ;
+      obj_id_t val1, val2;
+      unsigned idx = context->index;
+      unsigned items = gfx_obj_iterate(context->iterate_id, &idx, &val1, &val2);
+      context->index = idx;
+
+      if(items) {
+        context->ip = 0;
+        // note: reference counting for val1 and val2 has been done inside gfx_obj_iterate()
+        gfx_obj_array_push(gfxboot_data->vm.program.pstack, val1, 0);
+        if(items > 1) gfx_obj_array_push(gfxboot_data->vm.program.pstack, val2, 0);
+      }
+      else {
+        OBJ_ID_ASSIGN(gfxboot_data->vm.program.context, parent_id);
+      }
+      break;
+
+    default:
+      GFX_ERROR(err_invalid_instruction);
+      break;
+  }
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// start array definition
+//
+// group: array,code,hash
+//
+// ( -- mark_1 )
+//
+// mark_1:		array start marker
+//
+// Put array start marker on stack. Array definition is completed with ].
+//
+// example:
+//
+// [ 1 2 3 ]            # array with 3 elements
+//
+void gfx_prim_array_start()
+{
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, prim_array_start_id, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// finish array definition
+//
+// group: array,code,hash
+//
+// ( mark_1 any_1 ... any_n -- array_1 )
+//
+// mark_1:		array start marker
+// any_1 ... any_n:	some elements
+// array_1:		new array
+//
+// Search for mark_1 on the stack and put everything between mark_1 and TOS
+// into an array.
+//
+// example:
+//
+// [ 10 20 "some" "text" ]      # array with 4 elements
+//
+void gfx_prim_array_end()
+{
+  array_t *a = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!a) return;
+
+  unsigned idx = a->size;
+  unsigned start_idx = -1u;
+
+  while(idx-- > 0) {
+    if(a->ptr[idx] == prim_array_start_id) {
+      start_idx = idx;
+      break;
+    }
+  }
+
+  if(start_idx == -1u) {
+    GFX_ERROR(err_no_array_start);
+    return;
+  }
+
+  obj_id_t array_id = gfx_obj_array_new(a->size - start_idx - 1);
+
+  if(!array_id) {
+    GFX_ERROR(err_no_memory);
+    return;
+  }
+
+  // no ref counting neded as the elements are just moved
+  for(idx = start_idx + 1; idx < a->size; idx++) {
+    gfx_obj_array_push(array_id, a->ptr[idx], 0);
+  }
+
+  a->size = start_idx + 1;
+  a->ptr[start_idx] = array_id;
+
+  gfx_obj_ref_dec(prim_array_start_id);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// start hash definition
+//
+// group: hash,array,code
+//
+// ( -- mark_1 )
+//
+// mark_1:		hash start marker
+//
+// Put hash start marker on stack. Hash definition is completed with ).
+//
+// example:
+//
+// ( "foo" 10 "bar" 20 )        # hash with 2 keys "foo" and "bar"
+//
+void gfx_prim_hash_start()
+{
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, prim_hash_start_id, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// finish hash definition
+//
+// group: hash,array,code
+//
+// ( mark_1 any_1 ... any_n -- hash_1 )
+//
+// mark_1:		array start marker
+// any_1 ... any_n:	some key - value pairs
+// hash_1:		new hash
+//
+// Search for mark_1 on the stack and put everything between mark_1 and TOS
+// into a hash. The elements are interpreted alternatingly as key and value.
+// If there's an odd number of elements on the stack, the last value is nil.
+//
+// example:
+//
+// ( "foo" 10 "bar" 20 )        # hash with 2 keys "foo" and "bar"
+//
+void gfx_prim_hash_end()
+{
+  array_t *a = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!a) return;
+
+  unsigned idx = a->size;
+  unsigned start_idx = -1u;
+
+  while(idx-- > 0) {
+    if(a->ptr[idx] == prim_hash_start_id) {
+      start_idx = idx;
+      break;
+    }
+  }
+
+  if(start_idx == -1u) {
+    GFX_ERROR(err_no_hash_start);
+    return;
+  }
+
+  obj_id_t hash_id = gfx_obj_hash_new((a->size - start_idx) / 2);
+
+  if(!hash_id) {
+    GFX_ERROR(err_no_memory);
+    return;
+  }
+
+  // no ref counting neded as the elements are just moved
+  for(idx = start_idx + 1; idx < a->size; idx += 2) {
+    obj_id_t key = a->ptr[idx];
+    obj_id_t val = idx + 1 < a->size ? a->ptr[idx + 1] : 0;
+    if(gfx_obj_mem_ptr(key)) {
+      gfx_obj_hash_set(hash_id, key, val, 0);
+    }
+    else {
+      GFX_ERROR(err_invalid_hash_key);
+      gfx_obj_ref_dec(hash_id);
+      return;
+    }
+  }
+
+  a->size = start_idx + 1;
+  a->ptr[start_idx] = hash_id;
+
+  gfx_obj_ref_dec(prim_hash_start_id);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//
+// where: 0 (existing), 1 (local), 2 (global)
+//
+void gfx_prim_def_at(unsigned where)
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 2) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 2];
+  obj_id_t id2 = pstack->ptr[pstack->size - 1];
+
+  obj_t *ptr1 = gfx_obj_ptr(id1);
+
+  if(!ptr1 || ptr1->sub_type != t_ref) {
+    GFX_ERROR(err_invalid_instruction);
+    return;
+  }
+
+  obj_id_t dict_id = 0;
+
+  if(where == 0) {
+    obj_id_pair_t pair = gfx_lookup_dict(OBJ_DATA_FROM_PTR(ptr1));
+    if(pair.id1) {
+      dict_id = pair.id1;
+    }
+    else {
+      where = 1;
+    }
+  }
+
+  if(where) {
+    context_t *context = gfx_obj_context_ptr(gfxboot_data->vm.program.context);
+    if(!context) {
+      GFX_ERROR(err_internal);
+      return;
+    }
+
+    if(where == 2) {
+      while(context->parent_id) {
+        context = gfx_obj_context_ptr(context->parent_id);
+        if(!context) {
+          GFX_ERROR(err_internal);
+          return;
+        }
+      }
+    }
+
+    if(!context->dict_id) context->dict_id = gfx_obj_hash_new(0);
+
+    dict_id = context->dict_id;
+
+    if(!dict_id) {
+      GFX_ERROR(err_internal);
+      return;
+    }
+  }
+
+  gfx_obj_hash_set(dict_id, id1, id2, 1);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// define new word
+//
+// group: def
+//
+// ( word_1 any_1 -- )
+//
+// If word_1 does not exist, define word_1 in the current context.
+//
+// If word_1 does already exist, redefine word_1 in the context in which it is defined.
+//
+// example:
+// /x 100 def           # define x as 100
+// /neg { -1 mul } def  # define a function that negates its argument
+//
+void gfx_prim_def()
+{
+  gfx_prim_def_at(0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// define new local word
+//
+// group: def
+//
+// ( word_1 any_1 -- )
+//
+// Define word_1 in the current local context.
+//
+// example:
+// /foo 200 ldef        # define local word foo as 200
+//
+void gfx_prim_ldef()
+{
+  gfx_prim_def_at(1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// define new global word
+//
+// group: def
+//
+// ( word_1 any_1 -- )
+//
+// Define word_1 in the global context.
+//
+// example:
+// /foo 300 gdef        # define global word foo as 300
+//
+void gfx_prim_gdef()
+{
+  gfx_prim_def_at(2);
+}
+
+
+#if 0
+/* not really needed... */
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+void gfx_prim_class()
+{
+  arg_t *argv;
+
+  argv = gfx_arg_n(3, (uint8_t [3]) { OTYPE_MEM, OTYPE_HASH, OTYPE_HASH | IS_RW });
+
+  if(argv) {
+    if(argv[0].ptr->sub_type != t_ref) {
+      GFX_ERROR(err_invalid_arguments);
+      return;
+    }
+
+    context_t *context = gfx_obj_context_ptr(gfxboot_data->vm.program.context);
+    if(!context) {
+      GFX_ERROR(err_internal);
+      return;
+    }
+
+    while(context->parent_id) {
+      context = gfx_obj_context_ptr(context->parent_id);
+      if(!context) {
+        GFX_ERROR(err_internal);
+        return;
+      }
+    }
+
+    if(!context->dict_id) context->dict_id = gfx_obj_hash_new(0);
+
+    obj_id_t dict_id = context->dict_id;
+
+    gfx_obj_hash_set(dict_id, argv[0].id, argv[2].id, 1);
+
+    hash_t *hash = OBJ_HASH_FROM_PTR(argv[2].ptr);
+    obj_id_t old_id = hash->parent_id;
+    hash->parent_id = gfx_obj_ref_inc(argv[1].id);
+    gfx_obj_ref_dec(old_id);
+
+    gfx_obj_array_pop_n(3, gfxboot_data->vm.program.pstack, 1);
+  }
+}
+#endif
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// conditional execution
+//
+// group: if
+//
+// (bool_1 code_1 -- )
+// (int_1 code_1 -- )
+// (nil code_1 -- )
+// (any_1 code_1 -- )
+//
+// code_1: code block to run if condition evaluates to 'true'
+//
+// The condition is false for: boolean false, integer 0, or nil. In all other cases it is true.
+//
+// example:
+//
+// true { "ok" show } if        # "ok"
+// 50 { "ok" show } if          # "ok"
+// nil { "ok" show } if         # shows nothing
+// "" { "ok" show } if          # "ok"
+//
+void gfx_prim_if()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 2) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 2];
+  obj_id_t id2 = pstack->ptr[pstack->size - 1];
+
+  if(!gfx_is_code(id2)) {
+    GFX_ERROR(err_invalid_code);
+    return;
+  }
+
+  if(is_true(id1)) {
+    obj_id_t context_id = gfx_obj_context_new(t_ctx_block);
+    context_t *context = gfx_obj_context_ptr(context_id);
+
+    if(!context) {
+      GFX_ERROR(err_no_memory);
+      return;
+    }
+
+    context->code_id = gfx_obj_ref_inc(id2);
+
+    context->parent_id = gfxboot_data->vm.program.context;
+    gfxboot_data->vm.program.context = context_id;
+  }
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// conditional execution
+//
+// group: if
+//
+// (bool_1 code_1 code_2 -- )
+// (int_1 code_1 code_2 -- )
+// (nil code_1 code_2 -- )
+// (any_1 code_1 code_2 -- )
+//
+// code_1: code block to run if condition evaluates to 'true'
+// code_2: code block to run if condition evaluates to 'false'
+//
+// The condition is false for: boolean false, integer 0, or nil. In all other cases it is true.
+//
+// example:
+//
+// false { "ok" } { "bad" } ifelse show         # "bad"
+// 20 { "ok" } { "bad" } ifelse show            # "ok"
+// nil { "ok" } { "bad" } ifelse sho            # "bad"
+// "" { "ok" } { "bad" } ifelse show            # "ok"
+//
+void gfx_prim_ifelse()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 3) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 3];
+  obj_id_t id2 = pstack->ptr[pstack->size - 2];
+  obj_id_t id3 = pstack->ptr[pstack->size - 1];
+
+  if(!gfx_is_code(id2) || !gfx_is_code(id3)) {
+    GFX_ERROR(err_invalid_code);
+    return;
+  }
+
+  obj_id_t context_id = gfx_obj_context_new(t_ctx_block);
+  context_t *context = gfx_obj_context_ptr(context_id);
+
+  if(!context) {
+    GFX_ERROR(err_no_memory);
+    return;
+  }
+
+  context->code_id = gfx_obj_ref_inc(is_true(id1) ? id2 : id3);
+
+  context->parent_id = gfxboot_data->vm.program.context;
+  gfxboot_data->vm.program.context = context_id;
+
+  for(int i = 0; i < 3; i++) gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// endless loop
+//
+// group: if,loop
+//
+// ( code_1 -- )
+//
+// Repeat code_1 forever until you exit the loop explicitly.
+//
+// example:
+//
+// { "Help!" show } loop
+//
+void gfx_prim_loop()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 1) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 1];
+
+  if(!gfx_is_code(id1)) {
+    GFX_ERROR(err_invalid_code);
+    return;
+  }
+
+  obj_id_t context_id = gfx_obj_context_new(t_ctx_loop);
+  context_t *context = gfx_obj_context_ptr(context_id);
+
+  if(!context) {
+    GFX_ERROR(err_no_memory);
+    return;
+  }
+
+  context->code_id = gfx_obj_ref_inc(id1);
+
+  context->parent_id = gfxboot_data->vm.program.context;
+  gfxboot_data->vm.program.context = context_id;
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// repeat code block
+//
+// group: if,loop
+//
+// ( int_1 code_1 -- )
+//
+// Repeat code_1 int_1 times. If int_1 is less or equal to 0, code_1 is not run.
+//
+// example:
+//
+// 3 { "Help!" show } repeat            # "Help!Help!Help!"
+//
+void gfx_prim_repeat()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 2) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 2];
+  obj_id_t id2 = pstack->ptr[pstack->size - 1];
+
+  int64_t *count = gfx_obj_num_subtype_ptr(id1, t_int);
+
+  if(!count || !gfx_is_code(id2)) {
+    GFX_ERROR(err_invalid_code);
+    return;
+  }
+
+  if(*count > 0) {
+    obj_id_t context_id = gfx_obj_context_new(t_ctx_repeat);
+    context_t *context = gfx_obj_context_ptr(context_id);
+
+    if(!context) {
+      GFX_ERROR(err_no_memory);
+      return;
+    }
+
+    context->code_id = gfx_obj_ref_inc(id2);
+    context->index = *count;
+
+    context->parent_id = gfxboot_data->vm.program.context;
+    gfxboot_data->vm.program.context = context_id;
+  }
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// run code block repeatedly, with counter
+//
+// group: if,loop
+//
+// ( int_1 int_2 int_3 code_1 -- )
+// int_1: start value
+// int_2: increment value
+// int_3: maximum value (inclusive)
+//
+// Run code_1 repeatedly and put the current counter value on the stack in every iteration.
+//
+// The counter starts with int_1 and is incremented by int_2 until it
+// reaches int_3. The code block is executed with the start value and then
+// as long as the counter is less than or equal to the maximum value.
+//
+// The increment may be negative. In that case the loop is executed as long as the counter
+// is greater than or equal to the maximum value.
+//
+// If the increment is 0, the loop is not executed.
+//
+// example:
+//
+// 0 1 4 { } for                # 0 1 2 3 4
+// 0 -2 -5 { } for              # 0 -2 -4
+//
+void gfx_prim_for()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 4) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 4];
+  obj_id_t id2 = pstack->ptr[pstack->size - 3];
+  obj_id_t id3 = pstack->ptr[pstack->size - 2];
+  obj_id_t id4 = pstack->ptr[pstack->size - 1];
+
+  int64_t *start = gfx_obj_num_subtype_ptr(id1, t_int);
+  int64_t *inc = gfx_obj_num_subtype_ptr(id2, t_int);
+  int64_t *max = gfx_obj_num_subtype_ptr(id3, t_int);
+
+  if(!start || !inc || !max || !gfx_is_code(id4)) {
+    GFX_ERROR(err_invalid_arguments);
+    return;
+  }
+
+  int pop_count = 4;
+
+  if(
+    (*inc > 0 && *start <= *max) ||
+    (*inc < 0 && *start >= *max)
+  ) {
+    obj_id_t context_id = gfx_obj_context_new(t_ctx_for);
+    context_t *context = gfx_obj_context_ptr(context_id);
+
+    if(!context) {
+      GFX_ERROR(err_no_memory);
+      return;
+    }
+
+    context->code_id = gfx_obj_ref_inc(id4);
+    context->index = *start;
+    context->inc = *inc;
+    context->max = *max;
+
+    context->parent_id = gfxboot_data->vm.program.context;
+    gfxboot_data->vm.program.context = context_id;
+
+    pop_count--;
+  }
+
+  for(int i = 0; i < pop_count; i++) gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// loop over all elements
+//
+// group: if,loop
+//
+// ( array_1 code_1 -- )
+// ( hash_1 code_1 -- )
+// ( string_1 code_1 -- )
+//
+// Run code_1 for each element of array_1, hash_1, or string_1.
+//
+// For array_1 and string_1, each element is put on the stack and code_1 is run.
+//
+// For hash_1, each key and value pair are put on the stack and code_1 is run.
+// The hash keys are iterated in alphanumerical order.
+//
+// Note that string_1 is interpreted as a sequence of bytes, not UTF8-encoded characters.
+//
+// example:
+//
+// [ 10 20 30 ] { } forall              # 10 20 30
+// ( "foo" 10 "bar" 20 ) { } forall     # "bar" 20 "foo" 10
+// "ABC" { } forall                     # 65 66 67
+//
+void gfx_prim_forall()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 2) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 2];
+  obj_id_t id2 = pstack->ptr[pstack->size - 1];
+
+  obj_t *ptr1 = gfx_obj_ptr(id1);
+
+  if(
+    !gfx_is_code(id2) ||
+    !ptr1 ||
+    (ptr1->base_type != OTYPE_ARRAY && ptr1->base_type != OTYPE_HASH && ptr1->base_type != OTYPE_MEM)
+  ) {
+    GFX_ERROR(err_invalid_arguments);
+    return;
+  }
+
+  obj_id_t val1, val2;
+  unsigned idx = 0;
+  unsigned items = gfx_obj_iterate(id1, &idx, &val1, &val2);
+
+  if(items) {
+    obj_id_t context_id = gfx_obj_context_new(t_ctx_forall);
+    context_t *context = gfx_obj_context_ptr(context_id);
+
+    if(!context) {
+      GFX_ERROR(err_no_memory);
+      return;
+    }
+
+    context->code_id = gfx_obj_ref_inc(id2);
+    context->index = idx;
+    context->iterate_id = gfx_obj_ref_inc(id1);
+
+    context->parent_id = gfxboot_data->vm.program.context;
+    gfxboot_data->vm.program.context = context_id;
+
+    gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+    gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+    // note: reference counting for val1 and val2 has been done inside gfx_obj_iterate()
+    gfx_obj_array_push(gfxboot_data->vm.program.pstack, val1, 0);
+    if(items > 1) gfx_obj_array_push(gfxboot_data->vm.program.pstack, val2, 0);
+  }
+  else {
+    gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+    gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+  }
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// leave loop/repeat/for/forall loop
+//
+// group: if,loop
+//
+// ( -- )
+//
+// Exit from current loop.
+//
+// example:
+//
+// 0 1 10 { dup 4 eq { exit } if } for          # 0 1 2 3 4
+//
+void gfx_prim_exit()
+{
+  context_t *context = gfx_obj_context_ptr(gfxboot_data->vm.program.context);
+
+  if(!context) {
+    GFX_ERROR(err_internal);
+    return;
+  }
+
+  for(; context; context = gfx_obj_context_ptr(context->parent_id)) {
+    if(context->type == t_ctx_block) continue;
+
+    if(context->type == t_ctx_func) {
+      GFX_ERROR(err_no_loop_context);
+      return;
+    }
+
+    OBJ_ID_ASSIGN(gfxboot_data->vm.program.context, context->parent_id);
+
+    return;
+  }
+
+  GFX_ERROR(err_no_loop_context);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// leave current function
+//
+// group: if,loop
+//
+// Exit from currently running function.
+//
+// example:
+//
+// /foo { dup nil eq { return } if show } def
+// "abc" foo                                    # shows "abc"
+// nil foo                                      # does nothing
+//
+void gfx_prim_return()
+{
+  context_t *context = gfx_obj_context_ptr(gfxboot_data->vm.program.context);
+
+  if(!context) {
+    GFX_ERROR(err_internal);
+    return;
+  }
+
+  for(; context; context = gfx_obj_context_ptr(context->parent_id)) {
+    if(context->type == t_ctx_func) break;
+  }
+
+  if(!context) gfxboot_data->vm.program.stop = 1;
+
+  OBJ_ID_ASSIGN(gfxboot_data->vm.program.context, context ? context->parent_id : 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// create or duplicate string
+//
+// group: mem
+//
+// ( int_1 -- string_1 )
+// int_1: length
+// string_1: new string with length int_1
+// ( string_2 -- string_3 )
+// string_2: string to duplicate
+// string_3: copy of string_2
+//
+// There are two variants: given a number, a string of that length is
+// created and initialized with zeros; given a string, a copy of that string is created.
+//
+// int_1 may be 0 to create a zero-length string.
+//
+// Note: duplication works for all string-like objects. For example for word references and even code blocks.
+//
+// example:
+//
+// 2 string                    # creates an empty string of length 2: "\x00\x00"
+// "abc" string                # creates a copy of "abc"
+//
+// # even this works:
+// /abc mem                    # a copy of /abc
+// { 10 20 } mem               # a copy of the code block { 10 20 }
+//
+void gfx_prim_string()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 1) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 1];
+
+  obj_t *ptr1 = gfx_obj_ptr(id1);
+  if(!ptr1) {
+    GFX_ERROR(err_invalid_arguments);
+    return;
+  }
+
+  obj_id_t val_id = 0;
+
+  switch(ptr1->base_type) {
+    case OTYPE_NUM:
+      {
+        int64_t value = OBJ_VALUE_FROM_PTR(ptr1);
+
+        if(value < 0 || value >= (1ll << 32)) {
+          GFX_ERROR(err_invalid_range);
+          return;
+        }
+
+        val_id = gfx_obj_mem_new(value);
+
+        if(!val_id) {
+          GFX_ERROR(err_no_memory);
+          return;
+        }
+      }
+      break;
+
+    case OTYPE_MEM:
+      val_id = gfx_obj_mem_dup(id1, 0);
+      break;
+
+    default:
+      GFX_ERROR(err_invalid_arguments);
+      return;
+  }
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  // we did the ref counting already above
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, val_id, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// get array, hash, or string element
+//
+// group: get
+//
+// ( array_1 int_1 -- )
+// array_1: array to modify
+// int_1: element index
+//
+// ( hash_1 string_1 -- )
+// hash_1: hash to modify
+// string_1: key
+//
+// ( string_2 int_2 -- )
+// string_2: string to modify
+// int_2: element index 
+//
+// Read the respective element of array_1, hash_1, or string_2.
+//
+// example:
+//
+// [ 10 20 30 ] 2 get                   # 30
+// ( "foo" 10 "bar" 20 ) "foo" get      # 10
+// "ABC" 1 get                          # 66
+//
+void gfx_prim_get()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 2) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 2];
+  obj_id_t id2 = pstack->ptr[pstack->size - 1];
+
+  obj_t *ptr1 = gfx_obj_ptr(id1);
+  if(!ptr1) {
+    GFX_ERROR(err_invalid_arguments);
+    return;
+  }
+
+  obj_id_t val = 0;
+
+  switch(ptr1->base_type) {
+    case OTYPE_ARRAY:
+      {
+        int64_t *idx = gfx_obj_num_ptr(id2);
+        if(!idx) {
+          GFX_ERROR(err_invalid_range);
+          return;
+        }
+        val = gfx_obj_array_get(id1, *idx);
+        gfx_obj_ref_inc(val);
+      }
+      break;
+
+    case OTYPE_HASH:
+      {
+        data_t *key = gfx_obj_mem_ptr(id2);
+        if(!key) {
+          GFX_ERROR(err_invalid_hash_key);
+          return;
+        }
+        val = gfx_obj_hash_get(id1, key).id2;
+        gfx_obj_ref_inc(val);
+      }
+      break;
+
+    case OTYPE_MEM:
+      {
+        int64_t *idx = gfx_obj_num_ptr(id2);
+        if(!idx) {
+          GFX_ERROR(err_invalid_range);
+          return;
+        }
+        int i = gfx_obj_mem_get(id1, *idx);
+        if(i != -1) {
+          val = gfx_obj_num_new(i, t_int);
+        }
+      }
+      break;
+
+    default:
+      GFX_ERROR(err_invalid_arguments);
+      return;
+  }
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  // we did the ref counting already above
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, val, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+void gfx_prim_get_x(data_t *key)
+{
+  arg_t *argv;
+
+  argv = gfx_arg_1(OTYPE_HASH);
+
+  if(argv) {
+    obj_id_pair_t pair = gfx_obj_hash_get(argv[0].id, key);
+    if(!pair.id1) {
+      GFX_ERROR(err_invalid_arguments);
+      return;
+    }
+    gfx_exec_id(argv[0].id, pair.id2, 1);
+  }
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+void gfx_prim_put_x(obj_id_t key)
+{
+  arg_t *argv;
+
+  argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_HASH | IS_RW, OTYPE_ANY | IS_NIL });
+
+  if(argv) {
+    if(!gfx_obj_hash_set(argv[0].id, key, argv[1].id, 1)) {
+      GFX_ERROR(err_invalid_hash_key);
+      return;
+    }
+
+    gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
+  }
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// set array, hash, or string element
+//
+// group: get
+//
+// ( array_1 int_1 any_1  -- )
+// array_1: array to modify
+// int_1: element index
+// any_1: new value
+//
+// ( hash_1 string_1 any_2  -- )
+// hash_1: hash to modify
+// string_1: key
+// any_2: new value
+//
+// ( string_2 int_2 int_3  -- )
+// string_2: string to modify
+// int_2: element index 
+// int_3: new value
+//
+// Set the respective element of array_1, hash_1, or string_2.
+//
+// Note that string constants are read-only and cannot be modified.
+//
+// example:
+//
+// /x [ 10 20 30 ] def
+// x 2 40 put                           # x is now [ 10 20 40 ]
+//
+// /y ( "foo" 10 "bar" 20 ) def
+// y "bar" 40 put                       # y is now ( "foo" 10 "bar" 40 )
+//
+// /z "ABC" mem def                     # mem is needed to create a writable copy
+// z 1 68 put                           # z is now "ADC"
+//
+void gfx_prim_put()
+{
+  arg_t *argv;
+
+  argv = gfx_arg_n(3, (uint8_t [3]) { OTYPE_ARRAY | IS_RW, OTYPE_NUM, OTYPE_ANY | IS_NIL });
+
+  if(argv) {
+    int pos = OBJ_VALUE_FROM_PTR(argv[1].ptr);
+
+    if(!gfx_obj_array_set(argv[0].id, argv[2].id, pos, 1)) {
+      GFX_ERROR(err_invalid_range);
+      return;
+    }
+
+    gfx_obj_array_pop_n(3, gfxboot_data->vm.program.pstack, 1);
+    return;
+  }
+
+  if(gfxboot_data->vm.error.id == err_readonly) return;
+
+  argv = gfx_arg_n(3, (uint8_t [3]) { OTYPE_HASH | IS_RW, OTYPE_MEM, OTYPE_ANY | IS_NIL });
+
+  if(argv) {
+    if(!gfx_obj_hash_set(argv[0].id, argv[1].id, argv[2].id, 1)) {
+      GFX_ERROR(err_invalid_hash_key);
+      return;
+    }
+
+    gfx_obj_array_pop_n(3, gfxboot_data->vm.program.pstack, 1);
+    return;
+  }
+
+  if(gfxboot_data->vm.error.id == err_readonly) return;
+
+  argv = gfx_arg_n(3, (uint8_t [3]) { OTYPE_MEM | IS_RW, OTYPE_NUM, OTYPE_NUM });
+
+  if(argv) {
+    uint8_t val = OBJ_VALUE_FROM_PTR(argv[2].ptr);
+    int pos = OBJ_VALUE_FROM_PTR(argv[1].ptr);
+
+    if(!gfx_obj_mem_set(argv[0].id, val, pos)) {
+      GFX_ERROR(err_invalid_range);
+      return;
+    }
+
+    gfx_obj_array_pop_n(3, gfxboot_data->vm.program.pstack, 1);
+    return;
+  }
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// delete an array, hash, or string element
+//
+// group: get
+//
+// ( array_1 int_1 -- )
+// array_1: array to modify
+// int_1: element index
+//
+// ( hash_1 string_1 -- )
+// hash_1: hash to modify
+// string_1: key
+//
+// ( string_2 int_2 -- )
+// string_2: string to modify
+// int_2: element index 
+//
+// Delete the respective element of array_1, hash_1, or string_2. The length
+// of array_1 andstring_2 will be reduced by 1.
+//
+// Note that string constants are read-only and cannot be modified.
+//
+// example:
+//
+// /x [ 10 20 30 ] def
+// x 1 delete                           # x is now [ 10 30 ]
+//
+// /y ( "foo" 10 "bar" 20 ) def
+// y "foo" delete                       # y is now ( "bar" 20 )
+//
+// /z "ABC" mem def                     # mem is needed to create a writable copy
+// z 1 delete                           # z is now "AC"
+//
+void gfx_prim_delete()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 2) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 2];
+  obj_id_t id2 = pstack->ptr[pstack->size - 1];
+
+  obj_t *ptr1 = gfx_obj_ptr(id1);
+  if(!ptr1) {
+    GFX_ERROR(err_invalid_arguments);
+    return;
+  }
+
+  if(ptr1->flags.ro) {
+    GFX_ERROR(err_readonly);
+    return;
+  }
+
+  switch(ptr1->base_type) {
+    case OTYPE_ARRAY:
+      {
+        int64_t *idx = gfx_obj_num_ptr(id2);
+        if(!idx) {
+          GFX_ERROR(err_invalid_range);
+          return;
+        }
+        gfx_obj_array_del(id1, *idx, 1);
+      }
+      break;
+
+    case OTYPE_HASH:
+      {
+        data_t *key = gfx_obj_mem_ptr(id2);
+        if(!key) {
+          GFX_ERROR(err_invalid_hash_key);
+          return;
+        }
+        gfx_obj_hash_del(id1, id2, 1);
+      }
+      break;
+
+    case OTYPE_MEM:
+      {
+        int64_t *idx = gfx_obj_num_ptr(id2);
+        if(!idx) {
+          GFX_ERROR(err_invalid_range);
+          return;
+        }
+        gfx_obj_mem_del(id1, *idx);
+      }
+      break;
+
+    default:
+      GFX_ERROR(err_invalid_arguments);
+      return;
+  }
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// get size of array, hash, or string
+//
+// group: get
+//
+// ( array_1 -- int_1 )
+// int_1: number of elements in array_1
+//
+// ( hash_1 -- int_2 )
+// int_2: number of key - value pairs in hash_1
+//
+// ( string_1 -- int_3 )
+// int_3: number of bytes in string_1
+//
+// Put the length of array_1, hash_1, or string_1 on the stack.
+//
+// example:
+//
+// [ 10 20 30 ] length                  # 3
+// ( "foo" 10 "bar" 20 ) length         # 2
+// "ABC" length                         # 3
+//
+void gfx_prim_length()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 1) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 1];
+
+  obj_t *ptr1 = gfx_obj_ptr(id1);
+  if(!ptr1) {
+    GFX_ERROR(err_invalid_arguments);
+    return;
+  }
+
+  int64_t val = 0;
+
+  switch(ptr1->base_type) {
+    case OTYPE_ARRAY:
+      val = OBJ_ARRAY_FROM_PTR(ptr1)->size;
+      break;
+
+    case OTYPE_HASH:
+      val = OBJ_HASH_FROM_PTR(ptr1)->size;
+      break;
+
+    case OTYPE_MEM:
+      val = OBJ_DATA_FROM_PTR(ptr1)->size;
+      break;
+
+    default:
+      GFX_ERROR(err_invalid_arguments);
+      return;
+  }
+
+  obj_id_t val_id = gfx_obj_num_new(val, t_int);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  // we did the ref counting already above
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, val_id, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// duplicate TOS
+//
+// group: stack
+//
+// ( any_1 -- any_1 any_1 )
+//
+// Duplicate the top-of-stack element.
+//
+// example:
+//
+// 10 dup               # 10 10
+//
+void gfx_prim_dup()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 1) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 1];
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, id1, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// remove TOS
+//
+// group: stack
+//
+// ( any_1 -- )
+//
+// Remove the top-of-stack element.
+//
+// example:
+//
+// 10 20 pop            # 10
+//
+void gfx_prim_pop()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 1) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// swap upper two stack elements
+//
+// group: stack
+//
+// ( any_1 any_2 -- any_2 any_1 )
+//
+// Swap the two topmost stack elements.
+//
+// example:
+//
+// 10 20 exch            # 20 10
+//
+void gfx_prim_exch()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 2) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 2];
+  obj_id_t id2 = pstack->ptr[pstack->size - 1];
+
+  gfx_obj_array_set(gfxboot_data->vm.program.pstack, id2, (int) pstack->size - 2, 0);
+  gfx_obj_array_set(gfxboot_data->vm.program.pstack, id1, (int) pstack->size - 1, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// rotate upper three stack elements
+//
+// group: stack
+//
+// ( any_1 any_2 any_3 -- any_2 any_3 any_1 )
+//
+// Rotate any_1 to the top-of-stack.
+//
+// example:
+//
+// 10 20 30 rot         # 20 30 10
+//
+void gfx_prim_rot()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 3) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 3];
+  obj_id_t id2 = pstack->ptr[pstack->size - 2];
+  obj_id_t id3 = pstack->ptr[pstack->size - 1];
+
+  gfx_obj_array_set(gfxboot_data->vm.program.pstack, id2, (int) pstack->size - 3, 0);
+  gfx_obj_array_set(gfxboot_data->vm.program.pstack, id3, (int) pstack->size - 2, 0);
+  gfx_obj_array_set(gfxboot_data->vm.program.pstack, id1, (int) pstack->size - 1, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// rotate stack elements
+//
+// group: stack
+//
+// ( any_1 ... any_n int_1 int_2 -- any_x ... any_y )
+// int_1: number of stack elements to rotate (equal to index n)
+// int_2: rotation amount
+//
+// Rotate the n elements any_1 ... any_n. The new positions are calculated as follows:
+//
+// x = (1 - int_2) mod int_1
+//
+// y = (n - int_2) mod int_1
+//
+// This can be seen as rotating int_1 elements up by int_2 resp. down by -int_2.
+//
+// example:
+//
+// 10 20 30 40 50 5 2 roll      # 40 50 10 20 30
+//
+// /rot { 3 -1 roll } def       # definition of 'rot'
+//
+void gfx_prim_roll()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 2) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 2];
+  obj_id_t id2 = pstack->ptr[pstack->size - 1];
+
+  int64_t *xlen = gfx_obj_num_ptr(id1);
+  int64_t *xofs = gfx_obj_num_ptr(id2);
+
+  if(!xlen || *xlen < 0 || !xofs) {
+    GFX_ERROR(err_invalid_arguments);
+    return;
+  }
+
+  int len = *xlen;
+  int ofs = *xofs;
+
+  if((unsigned) len + 2 > pstack->size) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  if(!len) return;
+
+  ofs %= len;
+  if(ofs < 0) ofs += len;
+  if(!ofs) return;
+
+  ofs = len - ofs;
+
+  // FIXME: it's a bit inefficient this way
+  while(ofs--) {
+    obj_id_t tmp_id = pstack->ptr[(int) pstack->size - len];
+    for(int i = 0; i < len - 1; i++) {
+      pstack->ptr[(int) pstack->size - len + i] = pstack->ptr[(int) pstack->size - len + i + 1];
+    }
+    pstack->ptr[pstack->size - 1] = tmp_id;
+  }
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// copy TOS-1 to TOS
+//
+// group: stack
+//
+// ( any_1 any_2 -- any_1 any_2 any_1 )
+//
+// Put a copy of the second-from-top element on the top-of-stack.
+//
+// example:
+//
+// 10 20 over           # 10 20 10
+//
+void gfx_prim_over()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 2) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 2];
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, id1, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// copy stack element
+//
+// group: stack
+//
+// ( any_n ... any_0 int_1 -- any_n ... any_0 any_n )
+// int_1: element position on stack (n is equal to int_1)
+//
+// Copy the int_1-th-from-top element on the top-of-stack.
+//
+// example:
+//
+// 10 20 30 40 3 index          # 10 20 30 40 10
+//
+// /dup { 0 index } def         # definition of 'dup'
+//
+// /over { 1 index } def        # definition of 'over'
+//
+void gfx_prim_index()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 2) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 1];
+  int64_t *idx = gfx_obj_num_ptr(id1);
+
+  if(!idx || *idx < 0) {
+    GFX_ERROR(err_invalid_range);
+    return;
+  }
+
+  if(*idx + 2 > pstack->size) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id2 = pstack->ptr[pstack->size - 2 - *idx];
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, id2, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+void gfx_exec_id(obj_id_t dict_id, obj_id_t id, int on_stack)
+{
+  int64_t *val;
+
+  if((val = gfx_obj_num_subtype_ptr(id, t_prim))) {
+    if(on_stack) gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+    gfx_run_prim(*val);
+  }
+  else if(gfx_obj_mem_subtype_ptr(id, t_code)) {
+    obj_id_t context_id = gfx_obj_context_new(t_ctx_func);
+    context_t *context = gfx_obj_context_ptr(context_id);
+    if(!context) {
+      GFX_ERROR(err_no_memory);
+      return;
+    }
+    context->code_id = gfx_obj_ref_inc(id);
+
+    context->parent_id = gfxboot_data->vm.program.context;
+    gfxboot_data->vm.program.context = context_id;
+
+    if(dict_id) {
+      context->dict_id = gfx_obj_hash_new(0);
+      hash_t *hash = gfx_obj_hash_ptr(context->dict_id);
+      if(!hash) {
+        GFX_ERROR(err_no_memory);
+        return;
+      }
+      hash->parent_id = gfx_obj_ref_inc(dict_id);
+    }
+
+    if(on_stack) gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+  }
+  else {
+    gfx_obj_ref_inc(id);
+    if(on_stack) gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+    gfx_obj_array_push(gfxboot_data->vm.program.pstack, id, 0);
+  }
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// execute object
+//
+// group: loop
+//
+// ( ref_1 -- )
+// ref_1: word reference
+//
+// ( code_1 -- )
+// code_1: code block
+//
+// Executes the given code block or looks up and executes the word reference.
+//
+// example:
+//
+// { 10 20 } exec                       # 10 20
+//
+// /foo "abc" def
+// foo                                  # "abc"
+// /foo exec                            # "abc"
+//
+void gfx_prim_exec()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 1) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id = pstack->ptr[pstack->size - 1];
+  obj_t *ptr = gfx_obj_ptr(id);
+
+  if(!ptr) return;
+
+  if(
+    ptr->base_type == OTYPE_MEM &&
+    (ptr->sub_type == t_word || ptr->sub_type == t_ref)
+  ) {
+    id = gfx_lookup_dict(OBJ_DATA_FROM_PTR(ptr)).id2;
+  }
+
+  gfx_exec_id(0, id, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// addition
+//
+// group: calc
+//
+// ( int_1 int_2 -- int_3 )
+// int_3: int_1 + int_2
+//
+// ( bool_1 bool_2 -- bool_3 )
+// bool_3: bool_1 xor bool_2
+//
+// ( array_1 array_2 -- array_3 )
+// array_3: array_2 appended to array_1
+//
+// ( hash_1 hash_2 -- hash_3 )
+// hash_3: joined hash_1 and hash_2
+//
+// ( string_1 string_2 -- string_3 )
+// string_3: string_2 appended to string_1
+//
+// Add two numbers, or concatenate two arrays, or join two hashes, or concatenate two strings.
+//
+// For boolean 1 bit arithmetic this is equivalent to 'xor'.
+//
+// example:
+//
+// 10 20 add                            # 30
+// true true add                        # false
+// [ 10 20 ] [ 30 40 ] add              # [ 10 20 30 40 ]
+// ( "foo" 10 ) ( "bar" 20 ) add        # ( "bar" 20 "foo" 10 )
+// "abc" "def" add                      # "abcdef"
+//
+void gfx_prim_add()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 2) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 2];
+  obj_id_t id2 = pstack->ptr[pstack->size - 1];
+
+  obj_t *ptr1 = gfx_obj_ptr(id1);
+  obj_t *ptr2 = gfx_obj_ptr(id2);
+
+  // FIXME: maybe allow 'mem_ref + int'?
+
+  if(!ptr1 || !ptr2 || ptr1->base_type != ptr2->base_type) {
+    GFX_ERROR(err_invalid_arguments);
+    return;
+  }
+
+  obj_id_t result_id = 0;
+
+  switch(ptr1->base_type) {
+    case OTYPE_NUM:
+      {
+        int64_t result = ptr1->data.value + ptr2->data.value;
+        if(ptr1->sub_type == t_bool) result &= 1;
+        result_id = gfx_obj_num_new(result, ptr1->sub_type);
+      }
+      break;
+
+    case OTYPE_MEM:
+      {
+        result_id = gfx_obj_mem_new(ptr1->data.size + ptr2->data.size);
+        obj_t *result_ptr = gfx_obj_ptr(result_id);
+        if(!result_ptr) {
+          GFX_ERROR(err_no_memory);
+          return;
+        }
+        result_ptr->sub_type = ptr1->sub_type;
+        gfx_memcpy(result_ptr->data.ptr, ptr1->data.ptr, ptr1->data.size);
+        gfx_memcpy(result_ptr->data.ptr + ptr1->data.size, ptr2->data.ptr, ptr2->data.size);
+      }
+      break;
+
+    case OTYPE_ARRAY:
+      {
+        array_t *array1 = gfx_obj_array_ptr(id1);
+        array_t *array2 = gfx_obj_array_ptr(id2);
+        if(array1 && array2) {
+          result_id = gfx_obj_array_new(array1->size + array2->size + 0x10);
+        }
+        if(!result_id) {
+          GFX_ERROR(err_no_memory);
+          return;
+        }
+        obj_id_t val;
+        unsigned idx = 0;
+        while(gfx_obj_iterate(id1, &idx, &val, 0)) {
+          // note: reference counting for val has been done inside gfx_obj_iterate()
+          gfx_obj_array_push(result_id, val, 0);
+        }
+        idx = 0;
+        while(gfx_obj_iterate(id2, &idx, &val, 0)) {
+          // note: reference counting for val has been done inside gfx_obj_iterate()
+          gfx_obj_array_push(result_id, val, 0);
+        }
+      }
+      break;
+
+    case OTYPE_HASH:
+      {
+        hash_t *hash1 = gfx_obj_hash_ptr(id1);
+        hash_t *hash2 = gfx_obj_hash_ptr(id2);
+        if(hash1 && hash2) {
+          result_id = gfx_obj_hash_new(hash1->size + hash2->size + 0x10);
+        }
+        if(!result_id) {
+          GFX_ERROR(err_no_memory);
+          return;
+        }
+        obj_id_t key, val;
+        unsigned idx = 0;
+        while(gfx_obj_iterate(id1, &idx, &key, &val)) {
+          // note: reference counting for key & val has been done inside gfx_obj_iterate()
+          gfx_obj_hash_set(result_id, key, val, 0);
+        }
+        idx = 0;
+        while(gfx_obj_iterate(id2, &idx, &key, &val)) {
+          // note: reference counting for key & val has been done inside gfx_obj_iterate()
+          gfx_obj_hash_set(result_id, key, val, 0);
+        }
+      }
+      break;
+
+    default:
+      GFX_ERROR(err_invalid_arguments);
+      return;
+  }
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, result_id, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// subtraction
+//
+// group: calc
+//
+// ( int_1 int_2 -- int_3 )
+// int_3: int_1 - int_2
+//
+// ( bool_1 bool_2 -- bool_3 )
+// bool_3: bool_1 xor bool_2
+//
+// Subtract int_2 from int_1.
+//
+// For boolean 1 bit arithmetic this is equivalent to 'xor'.
+//
+// example:
+//
+// 100 30 sub                   # 70
+// false true sub               # true
+//
+void gfx_prim_sub()
+{
+  binary_op_on_stack(op_sub);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// multiplication
+//
+// group: calc
+//
+// ( int_1 int_2 -- int_3 )
+// int_3: int_1 * int_2
+//
+// ( bool_1 bool_2 -- bool_3 )
+// bool_3: bool_1 and bool_2
+//
+// Multiply int_1 by int_2.
+//
+// For boolean 1 bit arithmetic this is equivalent to 'and'.
+//
+// example:
+//
+// 20 30 mul                    # 600
+// true false mul               # false
+//
+void gfx_prim_mul()
+{
+  binary_op_on_stack(op_mul);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// division
+//
+// group: calc
+//
+// ( int_1 int_2 -- int_3 )
+// int_3: int_1 / int_2
+//
+// ( bool_1 bool_2 -- bool_3 )
+// bool_3: bool_1 / bool_2
+//
+// Divide int_1 by int_2.
+//
+// You can do a 1 bit division with boolean values. Note that this will run
+// into a division by zero exception if bool_2 is false.
+//
+// example:
+//
+// 200 30 div                   # 6
+// true true div                # true
+//
+void gfx_prim_div()
+{
+  binary_op_on_stack(op_div);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// remainder
+//
+// group: calc
+//
+// ( int_1 int_2 -- int_3 )
+// int_3: int_1 % int_2
+//
+// ( bool_1 bool_2 -- bool_3 )
+// bool_3: bool_1 / bool_2
+//
+// int_3 is the remainder dividing int_1 by int_2.
+//
+// You can get the remainder from a 1 bit division with boolean values. Note
+// that this will run into a division by zero exception if bool_2 is false.
+//
+// example:
+//
+// 200 30 mod                   # 20
+// true true mod                # false
+//
+void gfx_prim_mod()
+{
+  binary_op_on_stack(op_mod);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// negation
+//
+// group: calc
+//
+// ( int_1 -- int_2 )
+// int_2: -int_1
+//
+// ( bool_1 -- bool_2 )
+// bool_2: -bool_1
+//
+// Negate int_1 (change sign).
+//
+// For boolean 1 bit arithmetic the value is unchanged (this is not a 'not' operation).
+//
+// example:
+//
+// 20 neg                       # -20
+// true neg                     # true
+//
+void gfx_prim_neg()
+{
+  unary_op_on_stack(op_neg);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// absolute value
+//
+// group: calc
+//
+// ( int_1 -- int_2 )
+// int_2: |int_1|
+//
+// ( bool_1 -- bool_2 )
+// bool_2: bool_1
+//
+// Absolute value of int_1 (change sign if int_1 is negative).
+//
+// example:
+//
+// For boolean 1 bit arithmetic the value is unchanged.
+//
+// -20 abs                      # 20
+// true abs                     # true
+//
+void gfx_prim_abs()
+{
+  unary_op_on_stack(op_abs);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// minimum
+//
+// group: calc
+//
+// ( int_1 int_2 -- int_3 )
+// int_3: minimum(int_1, int_2)
+//
+// ( bool_1 bool_2 -- bool_3 )
+// bool_3: bool_1 and bool_2
+//
+// int_3 is the smaller value of int_1 and int_2.
+//
+// For boolean 1 bit arithmetic this is equivalent to 'and'
+//
+// example:
+//
+// 10 20 min                    # 10
+// true false min               # false
+//
+void gfx_prim_min()
+{
+  binary_op_on_stack(op_min);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// maximum
+//
+// group: calc
+//
+// ( int_1 int_2 -- int_3 )
+// int_3: maximum(int_1, int_2)
+//
+// ( bool_1 bool_2 -- bool_3 )
+// bool_3: bool_1 or bool_2
+//
+// int_3 is the larger value of int_1 and int_2.
+//
+// For boolean 1 bit arithmetic this is equivalent to 'or'
+//
+// example:
+//
+// 10 20 max                    # 20
+// true false max               # true
+//
+void gfx_prim_max()
+{
+  binary_op_on_stack(op_max);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// and
+//
+// group: calc
+//
+// ( int_1 int_2 -- int_3 )
+// int_3: int_1 and int_2
+//
+// ( bool_1 bool_2 -- bool_3 )
+// bool_3: bool_1 and bool_2
+//
+// example:
+//
+// 15 4 and                     # 4
+// true false and               # false
+//
+void gfx_prim_and()
+{
+  binary_op_on_stack(op_and);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// or
+//
+// group: calc
+//
+// ( int_1 int_2 -- int_3 )
+// int_3: int_1 or int_2
+//
+// ( bool_1 bool_2 -- bool_3 )
+// bool_3: bool_1 or bool_2
+//
+// example:
+//
+// 15 4 or                      # 15
+// true false or                # true
+//
+void gfx_prim_or()
+{
+  binary_op_on_stack(op_or);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// exclusive or
+//
+// group: calc
+//
+// ( int_1 int_2 -- int_3 )
+// int_3: int_1 xor int_2
+//
+// ( bool_1 bool_2 -- bool_3 )
+// bool_3: bool_1 xor bool_2
+//
+// example:
+//
+// 15 4 xor                     # 11
+// true false or                # true
+//
+void gfx_prim_xor()
+{
+  binary_op_on_stack(op_xor);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// not
+//
+// group: calc
+//
+// ( int_1 -- int_2 )
+// int_2: -int_1 - 1
+//
+// ( bool_1 -- bool_2 )
+// bool_2: !bool_1
+//
+// example:
+//
+// 20 not                       # -21
+// true not                     # false
+//
+void gfx_prim_not()
+{
+  unary_op_on_stack(op_not);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// shift left
+//
+// group: calc
+//
+// ( int_1 int_2 -- int_3 )
+// int_3: int_1 << int_2
+//
+// ( bool_1 bool_2 -- bool_3 )
+// bool_3: bool_1 and !bool_2
+//
+// example:
+//
+// 1 4 shl                      # 16
+// true false shl               # true
+//
+void gfx_prim_shl()
+{
+  binary_op_on_stack(op_shl);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// shift right
+//
+// group: calc
+//
+// ( int_1 int_2 -- int_3 )
+// int_3: int_1 >> int_2
+//
+// ( bool_1 bool_2 -- bool_3 )
+// bool_3: bool_1 and !bool_2
+//
+// example:
+//
+// 16 4 shr                     # 1
+// true false shr               # true
+//
+void gfx_prim_shr()
+{
+  binary_op_on_stack(op_shr);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// equal
+//
+// group: cmp
+//
+// ( bool_1 bool_2 -- bool_3 )
+// bool_3: bool_1 == bool_2
+//
+// ( int_1 int_2 -- bool_4 )
+// bool_4: int_1 == int_2
+//
+// ( string_1 string_2 -- bool_5 )
+// bool_5: string_1 == string_2
+//
+// ( any_1 any_2 -- bool_6 )
+// bool_6: any_1 == any_2
+//
+// For pairs of booleans, integers, and strings the values are compared. For all
+// other combinations the internal object id is compared.
+//
+// example:
+//
+// 10 20 eq                     # false
+// true false eq                # false
+// "abc" "abc" eq               # true
+// [ 10 20 ] [ 10 20 ] eq       # false
+// 0 false eq                   # false
+// 0 nil eq                     # false
+// "abc" [ 10 ] eq              # false
+//
+// /foo [ 10 20 ] def
+// /bar foo def
+// foo bar eq                   # true
+//
+void gfx_prim_eq()
+{
+  binary_cmp_on_stack(op_eq);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// not equal
+//
+// group: cmp
+//
+// ( bool_1 bool_2 -- bool_3 )
+// bool_3: bool_1 != bool_2
+//
+// ( int_1 int_2 -- bool_4 )
+// bool_4: int_1 != int_2
+//
+// ( string_1 string_2 -- bool_5 )
+// bool_5: string_1 != string_2
+//
+// ( any_1 any_2 -- bool_6 )
+// bool_6: any_1 != any_2
+//
+// For pairs of booleans, integers, and strings the values are compared. For all
+// other combinations the internal object id is compared.
+//
+// example:
+//
+// 10 20 ne                     # true
+// true false ne                # true
+// "abc" "abc" ne               # false
+// [ 10 20 ] [ 10 20 ] ne       # true
+// 0 false ne                   # true
+// 0 nil ne                     # true
+// "abc" [ 10 ] ne              # true
+//
+// /foo [ 10 20 ] def
+// /bar foo def
+// foo bar ne                   # false
+//
+void gfx_prim_ne()
+{
+  binary_cmp_on_stack(op_ne);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// greater than
+//
+// group: cmp
+//
+// ( bool_1 bool_2 -- bool_3 )
+// bool_3: bool_1 > bool_2
+//
+// ( int_1 int_2 -- bool_4 )
+// bool_4: int_1 > int_2
+//
+// ( string_1 string_2 -- bool_5 )
+// bool_5: string_1 > string_2
+//
+// ( any_1 any_2 -- bool_6 )
+// bool_6: any_1 > any_2
+//
+// For pairs of booleans, integers, and strings the values are compared. For all
+// other combinations the internal object id is compared.
+//
+// example:
+//
+// 10 20 gt                     # false
+// true false gt                # true
+// "abd" "abc" gt               # true
+// [ 10 20 ] [ 10 20 ] gt       # varies
+// 0 false gt                   # varies
+// 0 nil gt                     # varies
+// "abc" [ 10 ] gt              # varies
+//
+void gfx_prim_gt()
+{
+  binary_cmp_on_stack(op_gt);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// greater or equal
+//
+// group: cmp
+//
+// ( bool_1 bool_2 -- bool_3 )
+// bool_3: bool_1 >= bool_2
+//
+// ( int_1 int_2 -- bool_4 )
+// bool_4: int_1 >= int_2
+//
+// ( string_1 string_2 -- bool_5 )
+// bool_5: string_1 >= string_2
+//
+// ( any_1 any_2 -- bool_6 )
+// bool_6: any_1 >= any_2
+//
+// For pairs of booleans, integers, and strings the values are compared. For all
+// other combinations the internal object id is compared.
+//
+// example:
+//
+// 10 20 ge                     # false
+// true false ge                # true
+// "abd" "abc" ge               # true
+// [ 10 20 ] [ 10 20 ] ge       # varies
+// 0 false ge                   # varies
+// 0 nil ge                     # varies
+// "abc" [ 10 ] ge              # varies
+//
+void gfx_prim_ge()
+{
+  binary_cmp_on_stack(op_ge);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// less than
+//
+// group: cmp
+//
+// ( bool_1 bool_2 -- bool_3 )
+// bool_3: bool_1 < bool_2
+//
+// ( int_1 int_2 -- bool_4 )
+// bool_4: int_1 < int_2
+//
+// ( string_1 string_2 -- bool_5 )
+// bool_5: string_1 < string_2
+//
+// ( any_1 any_2 -- bool_6 )
+// bool_6: any_1 < any_2
+//
+// For pairs of booleans, integers, and strings the values are compared. For all
+// other combinations the internal object id is compared.
+//
+// example:
+//
+// 10 20 lt                     # true
+// true false lt                # false
+// "abd" "abc" lt               # false
+// [ 10 20 ] [ 10 20 ] lt       # varies
+// 0 false lt                   # varies
+// 0 nil lt                     # varies
+// "abc" [ 10 ] lt              # varies
+//
+void gfx_prim_lt()
+{
+  binary_cmp_on_stack(op_lt);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// less or equal
+//
+// group: cmp
+//
+// ( bool_1 bool_2 -- bool_3 )
+// bool_3: bool_1 <= bool_2
+//
+// ( int_1 int_2 -- bool_4 )
+// bool_4: int_1 <= int_2
+//
+// ( string_1 string_2 -- bool_5 )
+// bool_5: string_1 <= string_2
+//
+// ( any_1 any_2 -- bool_6 )
+// bool_6: any_1 <= any_2
+//
+// For pairs of booleans, integers, and strings the values are compared. For all
+// other combinations the internal object id is compared.
+//
+// example:
+//
+// 10 20 le                     # true
+// true false le                # false
+// "abd" "abc" le               # false
+// [ 10 20 ] [ 10 20 ] le       # varies
+// 0 false le                   # varies
+// 0 nil le                     # varies
+// "abc" [ 10 ] le              # varies
+//
+void gfx_prim_le()
+{
+  binary_cmp_on_stack(op_le);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// compare
+//
+// group: cmp
+//
+// ( int_1 int_2 -- int_3 )
+// int_3: int_1 <=> int_2
+//
+// ( bool_1 bool_2 -- int_4 )
+// int_4: bool_1 <=> bool_2
+//
+// ( string_1 string_2 -- int_5 )
+// int_5: string_1 <=> string_2
+//
+// ( any_1 any_2 -- int_6 )
+// int_6: any_1 <=> any_2
+//
+// For pairs of booleans, integers, and strings the values are compared. For
+// all other combinations the internal object id is compared.
+//
+// The result is -1, 1, 0 if the first argument is less than, greater than,
+// or equal to the second argument, respectively.
+//
+// example:
+//
+// 10 20 cmp                    # -1
+// true false cmp               # 1
+// "abc" "abc" cmp              # 0
+// [ 10 20 ] [ 10 20 ] cmp      # varies
+// 0 false cmp                  # varies
+// 0 nil cmp                    # varies
+// "abc" [ 10 ] cmp             # varies
+//
+// /foo [ 10 20 ] def
+// /bar foo def
+// foo bar cmp                  # 0
+//
+void gfx_prim_cmp()
+{
+  binary_cmp_on_stack(op_cmp);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+int is_true(obj_id_t id)
+{
+  obj_t *ptr = gfx_obj_ptr(id);
+  int val = 0;
+
+  if(ptr) {
+    if(ptr->base_type == OTYPE_NUM) {
+      val = ptr->data.value ? 1 : 0;
+    }
+    else {
+      val = 1;
+    }
+  }
+
+  return val;
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+error_id_t do_op(op_t op, int64_t *result, int64_t val1, int64_t val2, unsigned sub_type)
+{
+  error_id_t err = 0;
+
+  switch(op) {
+    case op_sub:
+      *result = val1 - val2;
+      break;
+
+    case op_mul:
+      if(sub_type == t_bool) {
+        *result = (val1 & val2) & 1;
+      }
+      else {
+        *result = val1 * val2;
+      }
+      break;
+
+    case op_div:
+      if(sub_type == t_bool) {
+        int i1 = val1 & 1;
+        int i2 = val2 & 1;
+        if(i2 == 0) {
+          err = err_div_by_zero;
+        }
+        else {
+          *result = i1;
+        }
+      }
+      else {
+        if(
+          val2 == 0 ||
+          ((uint64_t) val1 == 0x8000000000000000ll && val2 == -1)
+        ) {
+          err = err_div_by_zero;
+        }
+        else {
+          *result = val1 / val2;
+        }
+      }
+      break;
+
+    case op_mod:
+      if(sub_type == t_bool) {
+        int i1 = val1 & 1;
+        int i2 = val2 & 1;
+        if(i2 == 0) {
+          err = err_div_by_zero;
+        }
+        else {
+          *result = i1;
+        }
+      }
+      else {
+        if(
+          val2 == 0 ||
+          ((uint64_t) val1 == 0x8000000000000000ll && val2 == -1)
+        ) {
+          err = err_div_by_zero;
+        }
+        else {
+          *result = val1 % val2;
+        }
+      }
+      break;
+
+    case op_and:
+      *result = val1 & val2;
+      break;
+
+    case op_or:
+      *result = val1 | val2;
+      break;
+
+    case op_xor:
+      *result = val1 ^ val2;
+      break;
+
+    case op_min:
+      *result = val1 < val2 ? val1 : val2;
+      break;
+
+    case op_max:
+      *result = val1 > val2 ? val1 : val2;
+      break;
+
+    case op_shl:
+      *result = val1 << val2;
+      break;
+
+    case op_shr:
+      *result = val1 >> val2;
+      break;
+
+    case op_neg:
+      *result = -val1;
+      break;
+
+    case op_not:
+      *result = ~val1;
+      break;
+
+    case op_abs:
+      *result = val1 > 0 ? val1 : -val1;
+      break;
+
+    default:
+      *result = 0;
+      break;
+  }
+
+  if(sub_type == t_bool) *result &= 1;
+
+  return err;
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+void binary_op_on_stack(op_t op)
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 2) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 2];
+  obj_id_t id2 = pstack->ptr[pstack->size - 1];
+
+  obj_t *ptr1 = gfx_obj_ptr(id1);
+  obj_t *ptr2 = gfx_obj_ptr(id2);
+
+  if(!ptr1 || !ptr2 || ptr1->base_type != ptr2->base_type || ptr1->base_type != OTYPE_NUM) {
+    GFX_ERROR(err_invalid_arguments);
+    return;
+  }
+
+  int64_t result;
+
+  error_id_t err = do_op(op, &result, ptr1->data.value, ptr2->data.value, ptr1->sub_type);
+
+  if(err) {
+    GFX_ERROR(err);
+    return;
+  }
+
+  obj_id_t result_id = gfx_obj_num_new(result, ptr1->sub_type);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, result_id, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+void unary_op_on_stack(op_t op)
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 1) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id = pstack->ptr[pstack->size - 1];
+  obj_t *ptr = gfx_obj_ptr(id);
+
+  if(!ptr || ptr->base_type != OTYPE_NUM) {
+    GFX_ERROR(err_invalid_arguments);
+    return;
+  }
+
+  int64_t result;
+
+  error_id_t err = do_op(op, &result, ptr->data.value, 0, ptr->sub_type);
+
+  if(err) {
+    GFX_ERROR(err);
+    return;
+  }
+
+  obj_id_t result_id = gfx_obj_num_new(result, ptr->sub_type);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, result_id, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+void binary_cmp_on_stack(cmp_op_t op)
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 2) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 2];
+  obj_id_t id2 = pstack->ptr[pstack->size - 1];
+
+  obj_t *ptr1 = gfx_obj_ptr(id1);
+  obj_t *ptr2 = gfx_obj_ptr(id2);
+
+  int result = 0;
+
+  if(id1 != 0 || id2 != 0) {
+    if(!ptr1 || !ptr2) {
+      result = id1 > id2 ? 1 : -1;
+    }
+    else if(ptr1->base_type != ptr2->base_type) {
+      result = ptr1->base_type > ptr2->base_type ? 1 : -1;
+    }
+    else {
+      switch(ptr1->base_type) {
+        case OTYPE_NUM:
+          if(ptr1->sub_type != ptr2->sub_type) {
+            result = ptr1->sub_type > ptr2->sub_type ? 1 : -1;
+          }
+          else {
+            if(ptr1->data.value != ptr2->data.value) {
+              result = ptr1->data.value > ptr2->data.value ? 1 : -1;
+            }
+          }
+          break;
+
+        case OTYPE_MEM:
+          if(ptr1->sub_type != ptr2->sub_type) {
+            result = ptr1->sub_type > ptr2->sub_type ? 1 : -1;
+          }
+          else {
+            result = gfx_obj_mem_cmp(&ptr1->data, &ptr2->data);
+          }
+          break;
+
+        default:
+          if(id1 != id2) {
+            result = id1 > id2 ? 1 : -1;
+          }
+          break;
+      }
+    }
+  }
+
+  uint8_t subtype = t_bool;
+
+  switch(op) {
+    case op_eq:
+      result = result == 0 ? 1 : 0;
+      break;
+
+    case op_ne:
+      result = result != 0 ? 1 : 0;
+      break;
+
+    case op_gt:
+      result = result > 0 ? 1 : 0;
+      break;
+
+    case op_ge:
+      result = result >= 0 ? 1 : 0;
+      break;
+
+    case op_lt:
+      result = result < 0 ? 1 : 0;
+      break;
+
+    case op_le:
+      result = result <= 0 ? 1 : 0;
+      break;
+
+    case op_cmp:
+      subtype = t_int;
+      break;
+  }
+
+  obj_id_t result_id = gfx_obj_num_new(result, subtype);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, result_id, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// get parent of context, font, or hash
+//
+// group: hash
+//
+// ( context_1 -- context_2 )
+// context_2: parent of context_1 or nil
+//
+// ( font_1 -- font_2 )
+// font_2: parent of font_1 or nil
+//
+// ( hash_1 -- hash_2 )
+// hash_2: parent of hash_1 or nil
+//
+// If a word lookup fails in a context, the lookup continues in the parent
+// context.
+//
+// If a glyph lookup fails in a font, the lookup continues in the parent
+// font.
+//
+// If a key cannot be found in a hash, the lookup continues in the parent
+// hash.
+//
+// example:
+//
+// /x ( "foo" 10 "bar" 20 ) def
+// /y ( "zap" 30 ) def
+// x getparent                          # nil
+// x y setparent
+// x getparent                          # ( "zap" 30 )
+//
+void gfx_prim_getparent()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 1) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 1];
+
+  obj_t *ptr1 = gfx_obj_ptr(id1);
+  if(!ptr1) {
+    GFX_ERROR(err_invalid_arguments);
+    return;
+  }
+
+  obj_id_t parent_id = 0;
+
+  switch(ptr1->base_type) {
+    case OTYPE_HASH:
+      ;
+      hash_t *hash = OBJ_HASH_FROM_PTR(ptr1);
+      parent_id = hash->parent_id;
+      break;
+
+    case OTYPE_FONT:
+      ;
+      font_t *font = OBJ_FONT_FROM_PTR(ptr1);
+      parent_id = font->parent_id;
+      break;
+
+    case OTYPE_CONTEXT:
+      ;
+      context_t *ctx = OBJ_CONTEXT_FROM_PTR(ptr1);
+      parent_id = ctx->parent_id;
+      break;
+
+    default:
+      GFX_ERROR(err_invalid_arguments);
+      return;
+  }
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, parent_id, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// set parent of context, font, or hash
+//
+// group: hash
+//
+// ( context_1 context_2 -- )
+// ( context_1 nil -- )
+// context_2: new parent of context_1
+//
+// ( font_1 font_2 -- )
+// ( font_1 nil -- )
+// font_2: new parent of font_1
+//
+// ( hash_1 hash_2 -- )
+// ( hash_1 nil -- )
+// hash_2: new parent of hash_1
+//
+// If nil is used as second argument, any existing parent link is removed.
+//
+// If a word lookup fails in a context, the lookup continues in the parent
+// context.
+//
+// If a glyph lookup fails in a font, the lookup continues in the parent
+// font.
+//
+// If a key cannot be found in a hash, the lookup continues in the parent
+// hash.
+//
+// example:
+//
+// /x ( "foo" 10 "bar" 20 ) def
+// /y ( "zap" 30 ) def
+// x "zap" get                          # nil
+// x y setparent
+// x "zap" get                          # 30
+// x nil setparent
+// x "zap" get                          # nil
+//
+void gfx_prim_setparent()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 2) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 2];
+  obj_id_t id2 = pstack->ptr[pstack->size - 1];
+
+  obj_t *ptr1 = gfx_obj_ptr(id1);
+
+  if(!ptr1) {
+    GFX_ERROR(err_invalid_arguments);
+    return;
+  }
+
+  if(ptr1->flags.ro) {
+    GFX_ERROR(err_readonly);
+    return;
+  }
+
+  obj_id_t old_parent_id = 0;
+
+  switch(ptr1->base_type) {
+    case OTYPE_HASH:
+      if(id2 && !gfx_obj_hash_ptr(id2)) {
+        GFX_ERROR(err_invalid_arguments);
+        return;
+      }
+      hash_t *hash = OBJ_HASH_FROM_PTR(ptr1);
+      old_parent_id = hash->parent_id;
+      hash->parent_id = gfx_obj_ref_inc(id2);
+      break;
+
+    case OTYPE_FONT:
+      if(id2 && !gfx_obj_font_ptr(id2)) {
+        GFX_ERROR(err_invalid_arguments);
+        return;
+      }
+      font_t *font = OBJ_FONT_FROM_PTR(ptr1);
+      old_parent_id = font->parent_id;
+      font->parent_id = gfx_obj_ref_inc(id2);
+      break;
+
+    case OTYPE_CONTEXT:
+      if(id2 && !gfx_obj_context_ptr(id2)) {
+        GFX_ERROR(err_invalid_arguments);
+        return;
+      }
+      context_t *ctx = OBJ_CONTEXT_FROM_PTR(ptr1);
+      old_parent_id = ctx->parent_id;
+      ctx->parent_id = gfx_obj_ref_inc(id2);
+      break;
+
+    default:
+      GFX_ERROR(err_invalid_arguments);
+      return;
+  }
+
+  gfx_obj_ref_dec(old_parent_id);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// get active dictionary
+//
+// group: hash
+//
+// ( -- hash_1 )
+// ( -- nil )
+// hash_1: dictionary
+//
+// Return the currently active dictionary or nil, if the current context
+// does not (yet) have a dictionary.
+//
+// A dictionary will only be created on demand - that is, the first time a
+// word is defined in the current context.
+//
+// When a program is started the global context is created containing a
+// dictionary with all primitive words.
+//
+// example:
+//
+// /foo { getdict } def
+// foo                                  # nil
+//
+// /bar { /x 10 ldef getdict } def
+// bar                                  # ( /x 10 )
+//
+void gfx_prim_getdict()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  context_t *context = gfx_obj_context_ptr(gfxboot_data->vm.program.context);
+  if(!context) {
+    GFX_ERROR(err_internal);
+    return;
+  }
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, context->dict_id, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// set active dictionary
+//
+// group: hash
+//
+// ( hash_1 -- )
+// ( nil -- )
+// hash_1: new active dictionary
+//
+// Set the currently active dictionary. With nil, the dictionary is removed
+// from the current context.
+//
+// example:
+//
+// /foo { /x 10 ldef x } def
+// foo                                  # 10
+//
+// /bar { ( /x 10 ) setdict x } def
+// bar                                  # 10
+//
+void gfx_prim_setdict()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 1) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 1];
+
+  if(id1 && !gfx_obj_hash_ptr(id1)) {
+    GFX_ERROR(err_invalid_arguments);
+    return;
+  }
+
+  context_t *context = gfx_obj_context_ptr(gfxboot_data->vm.program.context);
+  if(!context) {
+    GFX_ERROR(err_internal);
+    return;
+  }
+
+  OBJ_ID_ASSIGN(context->dict_id, id1);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// make object read-only
+//
+// group: mem
+//
+// ( any_1 -- any_1 )
+//
+// Make any object read-only. A read-only object cannot be modified.
+//
+// Note that string constants are read-only by default.
+//
+// example:
+//
+// [ 10 20 30 ] freeze                  # [ 10 20 30 ]
+// 0 delete                             # raises 'readonly' exception
+//
+void gfx_prim_freeze()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_ANY | IS_NIL);
+
+  if(!argv) return;
+
+  if(argv[0].ptr) argv[0].ptr->flags.ro = 1;
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// get drawing color
+//
+// group: gfx
+//
+// ( -- int_1 )
+// int_1: color
+//
+// Return current drawing color.
+//
+// A color is a RGB value with red in bits 16-23, green in bits 8-15 and
+// blue in bits 0-7. This is independent of what the graphics card is actually using.
+//
+// example:
+//
+// getcolor                             # 0xffffff (white)
+//
+void gfx_prim_getcolor()
+{
+  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->color : 0, t_int), 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// set drawing color
+//
+// group: gfx
+//
+// ( int_1 -- )
+// int_1: color
+//
+// Set current drawing color.
+//
+// A color is a RGB value with red in bits 16-23, green in bits 8-15 and
+// blue in bits 0-7. This is independent of what the graphics card is actually using.
+//
+// example:
+//
+// 0xff0000 setcolor                    # red
+//
+void gfx_prim_setcolor()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_NUM);
+
+  if(!argv) return;
+
+  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+
+  if(gstate) gstate->color = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// get background color
+//
+// group: gfx
+//
+// ( -- int_1 )
+// int_1: color
+//
+// Return current background color.
+//
+// A color is a RGB value with red in bits 16-23, green in bits 8-15 and
+// blue in bits 0-7. This is independent of what the graphics card is actually using.
+//
+// example:
+//
+// getcolor                             # 0 (black)
+//
+void gfx_prim_getbgcolor()
+{
+  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->bg_color : 0, t_int), 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// set background color
+//
+// group: gfx
+//
+// ( int_1 -- )
+// int_1: color
+//
+// Set current background color.
+//
+// A color is a RGB value with red in bits 16-23, green in bits 8-15 and
+// blue in bits 0-7. This is independent of what the graphics card is actually using.
+//
+// example:
+//
+// 0xff00 setcolor                      # green
+//
+void gfx_prim_setbgcolor()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_NUM);
+
+  if(!argv) return;
+
+  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+
+  if(gstate) gstate->bg_color = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// get drawing position
+//
+// group: gfx
+//
+// ( -- int_1 int_2 )
+// int_1: x
+// int_2: y
+// 
+// Return current drawing position. The position is relative to the drawing region in the graphics state.
+//
+// example:
+//
+// getpos                               # 0 0
+//
+void gfx_prim_getpos()
+{
+  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->pos.x : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->pos.y : 0, t_int), 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// set drawing position
+//
+// group: gfx
+//
+// ( int_1 int_2 -- )
+// int_1: x
+// int_2: y
+// 
+// Set drawing position. The position is relative to the drawing region in the graphics state.
+//
+// example:
+//
+// 20 30 setpos
+//
+void gfx_prim_setpos()
+{
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_NUM, OTYPE_NUM });
+
+  if(!argv) return;
+
+  int64_t val1 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+  int64_t val2 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
+
+  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+
+  if(gstate) {
+    gstate->pos.x = val1;
+    gstate->pos.y = val2;
+  }
+
+  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// get font
+//
+// group: gfx
+//
+// ( gstate_1 -- font_1 )
+// ( gstate_1 -- nil )
+// gstate_1: graphics state
+// font_1: font
+//
+// Get font from graphics state. 
+//
+// example:
+//
+// getgstate getfont                    # current font
+//
+void gfx_prim_getfont()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_GSTATE);
+
+  if(!argv) return;
+
+  gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gstate->font_id, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// set font
+//
+// group: gfx
+//
+// ( gstate_1 font_1 -- )
+// ( gstate_1 nil -- )
+// gstate_1: graphics state
+// font_1: font
+//
+// Set font in graphics state. If nil is passed, any font is removed from the graphics state.
+//
+// example:
+//
+// /foo_font "foo.fnt" readfile newfont def
+// getgstate foo_font setfont                   # use "foo.fnt"
+//
+void gfx_prim_setfont()
+{
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_GSTATE, OTYPE_FONT | IS_NIL });
+
+  if(!argv) return;
+
+  gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
+
+  OBJ_ID_ASSIGN(gstate->font_id, argv[1].id);
+
+  area_t area = gfx_font_dim(gstate->font_id);
+
+  gstate->pos.width = area.width;
+  gstate->pos.height = area.height;
+
+  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// create font object
+//
+// group: gfx
+//
+// ( string_1 -- font_1 )
+// ( string_1 -- nil )
+// string_1: font data
+// font_1: font object
+//
+// Parse font data in string_1 and create font object. If string_1 does not
+// contain valid font data, return nil.
+//
+// example:
+//
+// /foo_font "foo.fnt" readfile newfont def     # create font from file "foo.fnt"
+//
+void gfx_prim_newfont()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_MEM);
+
+  if(!argv) return;
+
+  obj_id_t font_id = gfx_obj_font_open(argv[0].id);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, font_id, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// get drawing region
+//
+// group: gfx
+//
+// ( gstate_1 -- int_1 int_2 int_3 int_4 )
+// gstate_1: graphics state
+// int_1: x
+// int_2: y
+// int_3: width
+// int_4: height
+//
+// Get drawing region associated with graphics state. Any drawing operation
+// will be relative to this region. Graphics output will be clipped at the
+// region boundaries.
+//
+// example:
+//
+// getgstate getregion                  # 0 0 800 600
+//
+void gfx_prim_getregion()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_GSTATE);
+
+  if(!argv) return;
+
+  gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->region.x : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->region.y : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->region.width : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->region.height : 0, t_int), 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// set drawing region
+//
+// group: gfx
+//
+// ( gstate_1 int_1 int_2 int_3 int_4 -- )
+// gstate_1: graphics state
+// int_1: x
+// int_2: y
+// int_3: width
+// int_4: height
+//
+// Set drawing region associated with graphics state. Any drawing operation
+// will be relative to this region. Graphics output will be clipped at the
+// region boundaries.
+//
+// example:
+//
+// getgstate 10 10 200 100 setregion
+//
+void gfx_prim_setregion()
+{
+  arg_t *argv = gfx_arg_n(5, (uint8_t [5]) { OTYPE_GSTATE, OTYPE_NUM, OTYPE_NUM, OTYPE_NUM, OTYPE_NUM });
+
+  if(!argv) return;
+
+  gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
+
+  int64_t val1 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
+  int64_t val2 = OBJ_VALUE_FROM_PTR(argv[2].ptr);
+  int64_t val3 = OBJ_VALUE_FROM_PTR(argv[3].ptr);
+  int64_t val4 = OBJ_VALUE_FROM_PTR(argv[4].ptr);
+
+  area_t area = { .x = val1, .y = val2, .width = val3, .height = val4 };
+  canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
+  if(canvas) {
+    area_t clip = { .width = canvas->width, .height = canvas->height };
+    gfx_clip(&area, &clip);
+  }
+  gstate->region = area;
+
+  gfx_obj_array_pop_n(5, gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// create canvas
+//
+// group: gfx
+//
+// ( int_1 int_2 -- canvas_1 )
+// int_1: width
+// int_2: height
+//
+// Create a new empty canvas of the specified size.
+//
+// example:
+//
+// 800 600 canvas
+//
+void gfx_prim_canvas()
+{
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_NUM, OTYPE_NUM });
+
+  if(!argv) return;
+
+  int64_t val1 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+  int64_t val2 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
+
+  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_canvas_new(val1, val2), 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// get canvas
+//
+// group: gfx
+//
+// ( gstate_1 -- canvas_1 )
+// ( gstate_1 -- nil )
+// gstate_1: graphics state
+// canvas_1: canvas object
+//
+// Get canvas object from graphics state. A canvas is a memory area with
+// associated width and height. All drawing operations are done on canvas
+// objects. If no canvas is associated with the graphics state, return nil.
+//
+// example:
+//
+// getgstate getcanvas dim              # 800 600
+//
+void gfx_prim_getcanvas()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_GSTATE);
+
+  if(!argv) return;
+
+  gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gstate->canvas_id, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// set canvas
+//
+// group: gfx
+//
+// ( gstate_1 canvas_1 -- )
+// ( gstate_1 nil -- )
+// gstate_1: graphics state
+// canvas_1: canvas object
+//
+// Set canvas of graphics state. A canvas is a memory area with
+// associated width and height. All drawing operations are done on canvas
+// objects. If nil is passed, the canvas is removed from the graphics state.
+//
+// The drawing region of gstate_1 is adjusted to match the canvas size. The
+// drawing position is reset to x = 0, y = 0.
+//
+// example:
+//
+// getgstate 800 600 canvas setcanvas
+//
+void gfx_prim_setcanvas()
+{
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_GSTATE, OTYPE_CANVAS | IS_NIL });
+
+  if(!argv) return;
+
+  gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
+
+  OBJ_ID_ASSIGN(gstate->canvas_id, argv[1].id);
+
+  if(argv[1].id) {
+    canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[1].ptr);
+
+    gstate->region = (area_t) {0, 0, canvas->width, canvas->height};
+    gstate->pos.x = gstate->pos.y = 0;
+  }
+
+  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// get graphics state
+//
+// group: gfx
+//
+// ( -- gstate_1 )
+// ( -- nil )
+//
+// Get current graphics state. If none has been set, return nil.
+//
+// The graphics state consists of a canvas to draw into, a region describing
+// a rectangular drawing and clipping area in that canvas, a drawing
+// position (relative to the drawing region), drawing color, background
+// color (for text), and a text font.
+//
+// example:
+//
+// /saved_state getgstate def                   # save current graphics state
+//
+void gfx_prim_getgstate()
+{
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfxboot_data->gstate_id, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// set graphics state
+//
+// group: gfx
+//
+// ( gstate_1 -- )
+// ( nil -- )
+//
+// Set current graphics state. If nil is passed, the current state is removed.
+//
+// The graphics state consists of a canvas to draw into, a region describing
+// a rectangular drawing and clipping area in that canvas, a drawing
+// position (relative to the drawing region), drawing color, background
+// color (for text), and a text font.
+//
+// example:
+//
+// /saved_state getgstate def                   # save current graphics state
+// ...
+// saved_state setgstate                        # restore saved graphics state
+//
+void gfx_prim_setgstate()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_GSTATE | IS_NIL);
+
+  if(!argv) return;
+
+  OBJ_ID_ASSIGN(gfxboot_data->gstate_id, argv[0].id);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// create graphics state
+//
+// group: gfx
+//
+// ( -- gstate_1 )
+//
+// Create a new empty graphics state gate_1.
+//
+// example:
+//
+// gstate
+//
+void gfx_prim_gstate()
+{
+  obj_id_t gstate_id = gfx_obj_gstate_new();
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gstate_id, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// get graphics state of the debug console
+//
+// group: gfx
+//
+// ( -- gstate_1 )
+// ( -- nil )
+//
+// Get graphics state of the debug console. If none has been set, return nil.
+//
+// example:
+//
+// /saved_state getconsolegstate def            # save current debug console state
+//
+void gfx_prim_getconsolegstate()
+{
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfxboot_data->console.gstate_id, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// set graphics state of the debug console
+//
+// group: gfx
+//
+// ( gstate_1 -- )
+// ( nil -- )
+//
+// Set graphics state of the debug console. If nil is passed, the current state is removed.
+//
+// example:
+//
+// /saved_state getconsolegstate def
+// ...
+// saved_state setconsolegstate                 # restore saved debug console state
+//
+void gfx_prim_setconsolegstate()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_GSTATE | IS_NIL);
+
+  if(!argv) return;
+
+  OBJ_ID_ASSIGN(gfxboot_data->console.gstate_id, argv[0].id);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// show
+//
+// group: gfx
+//
+// ( string_1 -- )
+//
+// Print string_1 at current cursor position in canvas associated with
+// current graphics state.
+//
+// The cursor position is advanced to point at the end of the printed text.
+// Newline ('\x0a') and carriage return ('\x0d') characters are interpreted
+// and the cursor position is adjusted relative to the starting position.
+//
+// example:
+//
+// "Hello!" show                        # print "Hello!"
+//
+void gfx_prim_show()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_MEM);
+
+  if(!argv) return;
+
+  data_t *data = OBJ_DATA_FROM_PTR(argv[0].ptr);
+
+  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+
+  if(gstate) {
+    gfx_puts(gstate, data->ptr, data->size);
+  }
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// get graphics object dimension
+//
+// group: gfx
+//
+// ( canvas_1 -- int_1 int_2 )
+// ( font_1 -- int_1 int_2 )
+// ( gstate_1 -- int_1 int_2 )
+// int_1: width
+// int_2: height
+//
+// Get dimension of graphics object. For a canvas it is its size, for a
+// graphics state it is the size of the associated region, for a fixed size
+// font it is its glyph size, for proportional font the width is 0 and the
+// height is the font height.
+//
+// example:
+//
+// getconsolegstate getcanvas dim               # 800 600
+// getconsolegstate dim                         # 640 480
+// getconsolegstate getfont dim                 # 8 16
+//
+void gfx_prim_dim()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_ANY);
+
+  if(!argv) return;
+
+  area_t area;
+
+  switch(argv[0].ptr->base_type) {
+    case OTYPE_FONT:
+      area = gfx_font_dim(argv[0].id);
+      break;
+
+    case OTYPE_CANVAS:
+      ;
+      canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[0].ptr);
+      area.width = canvas->width;
+      area.height = canvas->height;
+      break;
+
+    case OTYPE_GSTATE:
+      ;
+      gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
+      area.width = gstate->region.width;
+      area.height = gstate->region.height;
+      break;
+
+    default:
+      GFX_ERROR(err_invalid_arguments);
+      return;
+  }
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(area.width, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(area.height, t_int), 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// run code
+//
+// group: loop
+//
+// ( string_1 -- )
+// string_1: binary code
+//
+// Load binary code and run it.
+//
+// Note: unlike 'exec' this does not open a new context but replaces the
+// currently running code with the new one.
+//
+// example:
+//
+// "new_program" readfile run
+//
+void gfx_prim_run()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_MEM);
+
+  if(!argv) return;
+
+  if(!gfx_is_code(argv[0].id)) {
+    GFX_ERROR(err_invalid_code);
+
+    return;
+  }
+
+  context_t *context = gfx_obj_context_ptr(gfxboot_data->vm.program.context);
+
+  if(!context) {
+    GFX_ERROR(err_internal);
+
+    return;
+  }
+
+  OBJ_ID_ASSIGN(context->code_id, argv[0].id);
+
+  context->ip = context->current_ip = 0;
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// read file
+//
+// group: mem
+//
+// ( string_1 -- string_2 )
+// ( string_1 -- nil )
+// string_1: file name
+// string_2: file content
+// 
+// Read entire file and return its content. If the file could not be read, return nil.
+//
+// example:
+//
+// "foo" readfile
+//
+void gfx_prim_readfile()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_MEM);
+
+  if(!argv) return;
+
+  // interface expects 0-terminated string
+  // so we create a 1 byte larger copy
+  obj_id_t tmp_id = gfx_obj_mem_dup(argv[0].id, 1);
+  data_t *data = gfx_obj_mem_ptr(tmp_id);
+
+  if(!data) {
+    GFX_ERROR(err_invalid_arguments);
+    return;
+  }
+
+  obj_id_t file_id = gfx_read_file(data->ptr);
+
+  gfx_obj_ref_dec(tmp_id);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, file_id, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// unpack image
+//
+// group: gfx
+//
+// ( string_1 -- canvas_1 )
+// ( string_1 -- nil )
+// string_1: image file data
+//
+// Unpacks image and returns a canvas object with the image or nil if the
+// data dos not contain image data.
+//
+// example:
+//
+// "foo.jpg" readfile unpackimage
+//
+void gfx_prim_unpackimage()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_MEM);
+
+  if(!argv) return;
+
+  obj_id_t image_id = gfx_image_open(argv[0].id);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, image_id, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// copy rectangular region
+//
+// group: gfx
+//
+// ( gstate_1 gstate_2 -- )
+//
+// Copy from the drawing region of gstate_2 to the drawing region of gstate_1, at the drawing pos of gstate_1.
+//
+// example:
+//
+// /cat_pic gstate def
+// cat_pic "cat.jpg" readfile unpackimage setcanvas
+// 0 0 setpos getgstate cat_pic blt                     # show cat picture
+//
+void gfx_prim_blt()
+{
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_GSTATE, OTYPE_GSTATE });
+
+  if(!argv) return;
+
+  gstate_t *gstate1 = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
+  gstate_t *gstate2 = OBJ_GSTATE_FROM_PTR(argv[1].ptr);
+
+  area_t area2 = gstate2->region;
+  area_t area1 = {
+    .x = gstate1->region.x + gstate1->pos.x,
+    .y = gstate1->region.y + gstate1->pos.y,
+    .width = area2.width,
+    .height = area2.height
+  };
+
+#if 0
+  gfxboot_serial(4, "blt area1 %dx%d_%dx%d, area2 %dx%d_%dx%d\n",
+    area1.x, area1.y, area1.width, area1.height,
+    area2.x, area2.y, area2.width, area2.height
+  );
+#endif
+
+  area_t diff = gfx_clip(&area1, &gstate1->region);
+
+  ADD_AREA(area2, diff);
+
+#if 0
+  gfxboot_serial(4, "blt clipped area1 %dx%d_%dx%d\n",
+    area1.x, area1.y, area1.width, area1.height
+  );
+#endif
+
+  gfx_blt(1, gstate1->canvas_id, area1, gstate2->canvas_id, area2);
+
+  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// start debug console
+//
+// group: def
+//
+// ( -- )
+//
+// Stop code execution and start debug console.
+//
+// You can leave (and re-enter) the debug console with `^D` but note that this
+// doesn't resume program execution. Use the `run` (or `r`) console command for this.
+//
+// example:
+//
+// /foo { debug 10 20 } def
+// foo                                  # activate debug console when 'foo' is run
+//
+void gfx_prim_debug()
+{
+  gfxboot_data->vm.program.stop = 1;
+  gfx_program_debug_on_off(1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// read pixel
+//
+// group: gfx 
+//
+// ( -- int_1 )
+// ( -- nil )
+// int_1: color
+//
+// Read pixel at drawing position from canvas in current graphics state. If
+// the position is outside the drawing region, return nil.
+//
+// example:
+//
+// getpixel
+//
+void gfx_prim_getpixel()
+{
+  obj_id_t val = 0;
+
+  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+
+  if(gstate) {
+    canvas_t *canvas = gfx_obj_canvas_ptr(gstate ? gstate->canvas_id : 0);
+
+    if(canvas) {
+      color_t color;
+      if(gfx_getpixel(gstate, canvas, gstate->pos.x, gstate->pos.y, &color)) {
+        val = gfx_obj_num_new(color, t_int);
+      }
+    }
+  }
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, val, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// set pixel
+//
+// group: gfx 
+//
+// ( -- )
+//
+// Set pixel with current color at drawing position in canvas in current
+// graphics state. If the position is outside the drawing region, nothing is
+// drawn.
+//
+// example:
+//
+// setpixel
+//
+void gfx_prim_putpixel()
+{
+  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+
+  if(gstate) {
+    canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
+
+    if(canvas) {
+      gfx_putpixel(gstate, canvas, gstate->pos.x, gstate->pos.y, gstate->color);
+    }
+  }
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// draw line
+//
+//group: gfx
+//
+// ( int_1 int_2 -- )
+// int_1: x
+// int_2: y
+//
+// Draw line from current position to the specified x and y coordinates
+// using the current color. The drawing position is updated to the end
+// position. Line segments outside the drawing region are not drawn.
+//
+// example:
+//
+// 100 200 lineto
+//
+void gfx_prim_lineto()
+{
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_NUM, OTYPE_NUM });
+
+  if(!argv) return;
+
+  int64_t val1 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+  int64_t val2 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
+
+  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+
+  if(gstate) {
+    canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
+
+    if(canvas) {
+      gfx_line(gstate, canvas, gstate->pos.x, gstate->pos.y, val1, val2, gstate->color);
+    }
+
+    gstate->pos.x = val1;
+    gstate->pos.y = val2;
+  }
+
+  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// draw filled rectangle
+//
+// group: gfx
+//
+// ( int_1 int_2 -- )
+// int_1: width
+// int_2: height
+//
+// Draw filled rectangle (using current color) at current position. The
+// rectangle is clipped at the current drawing region.
+//
+// example:
+//
+// 200 100 fillrect
+//
+void gfx_prim_fillrect()
+{
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_NUM, OTYPE_NUM });
+
+  if(!argv) return;
+
+  int64_t val1 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+  int64_t val2 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
+
+  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+
+  if(gstate) {
+    gfx_rect(gstate, gstate->pos.x, gstate->pos.y, val1, val2, gstate->color);
+  }
+
+  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// decode Unicode string
+//
+// group: mem
+//
+// (string_1 -- array_1 )
+// string_1: UTF8-encoded string
+// array_1: array with decoded chars
+//
+// The array contains one element for each UTF8-encoded char. If string_1
+// contains non-UTF8-chars they are represented as the negated 8-bit value.
+//
+// example:
+//
+// "ABC" utf8decode                     # [ 65 66 67 ]
+// "Ä €" utf8decode                     # [ 196 32 8364 ]
+// "A\xf0B" utf8decode                  # [ 65 -240 66 ]
+//
+void gfx_prim_utf8decode()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_MEM);
+
+  if(!argv) return;
+
+  data_t *mem = OBJ_DATA_FROM_PTR(argv[0].ptr);
+
+  char *data = (char *) mem->ptr;
+  unsigned data_len = mem->size;
+
+  unsigned uni_len = 0;
+  while(data_len) {
+    uni_len++;
+    gfx_utf8_dec(&data, &data_len);
+  }
+
+  obj_id_t array_id = gfx_obj_array_new(uni_len);
+  if(!array_id) {
+    GFX_ERROR(err_no_memory);
+    return;
+  }
+
+  data = (char *) mem->ptr;
+  data_len = mem->size;
+
+  int i = 0;
+  while(data_len) {
+    int c = gfx_utf8_dec(&data, &data_len);
+    gfx_obj_array_set(array_id, gfx_obj_num_new(c, t_int), i++, 0);
+  }
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, array_id, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// encode Unicode string
+//
+// group: mem
+//
+// (array_1 -- string_1 )
+// array_1: array with decoded chars
+// string_1: UTF8-encoded string
+//
+// The array contains one element for each UTF8-encoded char. If string_1
+// should contain non-UTF8-chars they are represented as the negated 8-bit
+// value in array_1.
+//
+// example:
+//
+// [ 65 66 67 ] utf8encode              # "ABC"
+// [ 196 32 8364 ] utf8encode           # "Ä €"
+// [ 65 -240 66 ] utf8encode            # "A\xf0B"
+//
+void gfx_prim_utf8encode()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_ARRAY);
+
+  if(!argv) return;
+
+  obj_id_t array_id = argv[0].id;
+  unsigned array_size = OBJ_ARRAY_FROM_PTR(argv[0].ptr)->size;
+
+  obj_id_t mem_id = gfx_obj_mem_new(array_size*6);
+  if(!mem_id) {
+    GFX_ERROR(err_no_memory);
+    return;
+  }
+
+  obj_t *ptr = gfx_obj_ptr(mem_id);
+  ptr->sub_type = t_string;
+  data_t *mem = OBJ_DATA_FROM_PTR(ptr);
+
+  uint8_t *data = (uint8_t *) mem->ptr;
+
+  for(int i = 0; i < (int) array_size; i++) {
+    int64_t *val = gfx_obj_num_ptr(gfx_obj_array_get(array_id, i));
+
+    if(!val) {
+      gfx_obj_ref_dec(mem_id);
+      GFX_ERROR(err_invalid_data);
+      return;
+    }
+
+    if(*val <= 0) {
+      *data++ = -*val;
+    }
+    else {
+      uint8_t *str = gfx_utf8_enc(*val);
+      while(*str) *data++ = *str++;
+    }
+  }
+
+  gfx_obj_realloc(mem_id, data - (uint8_t *) mem->ptr);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, mem_id, 0);
+}

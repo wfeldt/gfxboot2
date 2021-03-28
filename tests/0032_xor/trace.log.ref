@@ -1,0 +1,194 @@
+# ---  trace  ---
+IP: #186:0x0, type 5, 1[7]
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x8 (0x0), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+IP: #186:0x8, type 2, 1 (0x1)
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x9 (0x8), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #189.1.1.num.bool <1 (0x1)>
+IP: #186:0x9, type 2, 1 (0x1)
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0xa (0x9), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #190.1.1.num.bool <1 (0x1)>
+  [1] #189.1.1.num.bool <1 (0x1)>
+IP: #186:0xa, type 8, 11[3]
+GC: --#190.1.1.num.bool
+GC: --#189.1.1.num.bool
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0xe (0xa), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #191.1.1.num.bool <0 (0x0)>
+IP: #186:0xe, type 2, 1 (0x1)
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0xf (0xe), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #193.1.1.num.bool <1 (0x1)>
+  [1] #191.1.1.num.bool <0 (0x0)>
+IP: #186:0xf, type 2, 0 (0x0)
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x10 (0xf), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #194.1.1.num.bool <0 (0x0)>
+  [1] #193.1.1.num.bool <1 (0x1)>
+  [2] #191.1.1.num.bool <0 (0x0)>
+IP: #186:0x10, type 8, 17[3]
+GC: --#194.1.1.num.bool
+GC: --#193.1.1.num.bool
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x14 (0x10), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #195.1.1.num.bool <1 (0x1)>
+  [1] #191.1.1.num.bool <0 (0x0)>
+IP: #186:0x14, type 2, 0 (0x0)
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x15 (0x14), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #196.1.1.num.bool <0 (0x0)>
+  [1] #195.1.1.num.bool <1 (0x1)>
+  [2] #191.1.1.num.bool <0 (0x0)>
+IP: #186:0x15, type 2, 1 (0x1)
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x16 (0x15), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #197.1.1.num.bool <1 (0x1)>
+  [1] #196.1.1.num.bool <0 (0x0)>
+  [2] #195.1.1.num.bool <1 (0x1)>
+  [3] #191.1.1.num.bool <0 (0x0)>
+IP: #186:0x16, type 8, 23[3]
+GC: --#197.1.1.num.bool
+GC: --#196.1.1.num.bool
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x1a (0x16), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #198.1.1.num.bool <1 (0x1)>
+  [1] #195.1.1.num.bool <1 (0x1)>
+  [2] #191.1.1.num.bool <0 (0x0)>
+IP: #186:0x1a, type 2, 0 (0x0)
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x1b (0x1a), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #199.1.1.num.bool <0 (0x0)>
+  [1] #198.1.1.num.bool <1 (0x1)>
+  [2] #195.1.1.num.bool <1 (0x1)>
+  [3] #191.1.1.num.bool <0 (0x0)>
+IP: #186:0x1b, type 2, 0 (0x0)
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x1c (0x1b), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #200.1.1.num.bool <0 (0x0)>
+  [1] #199.1.1.num.bool <0 (0x0)>
+  [2] #198.1.1.num.bool <1 (0x1)>
+  [3] #195.1.1.num.bool <1 (0x1)>
+  [4] #191.1.1.num.bool <0 (0x0)>
+IP: #186:0x1c, type 8, 29[3]
+GC: --#200.1.1.num.bool
+GC: --#199.1.1.num.bool
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x20 (0x1c), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #201.1.1.num.bool <0 (0x0)>
+  [1] #198.1.1.num.bool <1 (0x1)>
+  [2] #195.1.1.num.bool <1 (0x1)>
+  [3] #191.1.1.num.bool <0 (0x0)>
+IP: #186:0x20, type 1, 240 (0xf0)
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x23 (0x20), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #202.1.1.num.int <240 (0xf0)>
+  [1] #201.1.1.num.bool <0 (0x0)>
+  [2] #198.1.1.num.bool <1 (0x1)>
+  [3] #195.1.1.num.bool <1 (0x1)>
+  [4] #191.1.1.num.bool <0 (0x0)>
+IP: #186:0x23, type 1, 53 (0x35)
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x25 (0x23), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #203.1.1.num.int <53 (0x35)>
+  [1] #202.1.1.num.int <240 (0xf0)>
+  [2] #201.1.1.num.bool <0 (0x0)>
+  [3] #198.1.1.num.bool <1 (0x1)>
+  [4] #195.1.1.num.bool <1 (0x1)>
+  [5] #191.1.1.num.bool <0 (0x0)>
+IP: #186:0x25, type 8, 38[3]
+GC: --#203.1.1.num.int
+GC: --#202.1.1.num.int
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x29 (0x25), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #204.1.1.num.int <197 (0xc5)>
+  [1] #201.1.1.num.bool <0 (0x0)>
+  [2] #198.1.1.num.bool <1 (0x1)>
+  [3] #195.1.1.num.bool <1 (0x1)>
+  [4] #191.1.1.num.bool <0 (0x0)>
+IP: #186:0x29, type 1, 131 (0x83)
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x2c (0x29), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #205.1.1.num.int <131 (0x83)>
+  [1] #204.1.1.num.int <197 (0xc5)>
+  [2] #201.1.1.num.bool <0 (0x0)>
+  [3] #198.1.1.num.bool <1 (0x1)>
+  [4] #195.1.1.num.bool <1 (0x1)>
+  [5] #191.1.1.num.bool <0 (0x0)>
+IP: #186:0x2c, type 2, 1 (0x1)
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x2d (0x2c), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #206.1.1.num.bool <1 (0x1)>
+  [1] #205.1.1.num.int <131 (0x83)>
+  [2] #204.1.1.num.int <197 (0xc5)>
+  [3] #201.1.1.num.bool <0 (0x0)>
+  [4] #198.1.1.num.bool <1 (0x1)>
+  [5] #195.1.1.num.bool <1 (0x1)>
+  [6] #191.1.1.num.bool <0 (0x0)>
+IP: #186:0x2d, type 8, 46[3]
+GC: --#206.1.1.num.bool
+GC: --#205.1.1.num.int
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x31 (0x2d), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #207.1.1.num.int <130 (0x82)>
+  [1] #204.1.1.num.int <197 (0xc5)>
+  [2] #201.1.1.num.bool <0 (0x0)>
+  [3] #198.1.1.num.bool <1 (0x1)>
+  [4] #195.1.1.num.bool <1 (0x1)>
+  [5] #191.1.1.num.bool <0 (0x0)>
+IP: #186:0x31, type 2, 1 (0x1)
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x32 (0x31), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #208.1.1.num.bool <1 (0x1)>
+  [1] #207.1.1.num.int <130 (0x82)>
+  [2] #204.1.1.num.int <197 (0xc5)>
+  [3] #201.1.1.num.bool <0 (0x0)>
+  [4] #198.1.1.num.bool <1 (0x1)>
+  [5] #195.1.1.num.bool <1 (0x1)>
+  [6] #191.1.1.num.bool <0 (0x0)>
+IP: #186:0x32, type 1, 131 (0x83)
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x35 (0x32), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #209.1.1.num.int <131 (0x83)>
+  [1] #208.1.1.num.bool <1 (0x1)>
+  [2] #207.1.1.num.int <130 (0x82)>
+  [3] #204.1.1.num.int <197 (0xc5)>
+  [4] #201.1.1.num.bool <0 (0x0)>
+  [5] #198.1.1.num.bool <1 (0x1)>
+  [6] #195.1.1.num.bool <1 (0x1)>
+  [7] #191.1.1.num.bool <0 (0x0)>
+IP: #186:0x35, type 8, 54[3]
+GC: --#209.1.1.num.int
+GC: --#208.1.1.num.bool
+== backtrace ==
+  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x39 (0x35), dict #4.1.2.hash>
+== stack (#187.1.1.array) ==
+  [0] #210.1.1.num.bool <0 (0x0)>
+  [1] #207.1.1.num.int <130 (0x82)>
+  [2] #204.1.1.num.int <197 (0xc5)>
+  [3] #201.1.1.num.bool <0 (0x0)>
+  [4] #198.1.1.num.bool <1 (0x1)>
+  [5] #195.1.1.num.bool <1 (0x1)>
+  [6] #191.1.1.num.bool <0 (0x0)>

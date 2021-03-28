@@ -1,0 +1,1370 @@
+# ---  trace  ---
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+GC: ++#xxxx.1.1.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.2.mem.ro, "foo_1">
+GC: ++#xxxx.1.2.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.3.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.3.mem.ro>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.3.mem.ro, "foo_1">
+GC: ++#xxxx.1.1.mem.ref.ro
+GC: ++#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.1.2.mem.ref.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.3.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+GC: ++#xxxx.1.3.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.4.mem.ro, "foo_2">
+GC: ++#xxxx.1.4.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.5.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.5.mem.ro>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.5.mem.ro, "foo_2">
+GC: ++#xxxx.1.1.mem.ref.ro
+GC: ++#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.1.2.mem.ref.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.5.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+GC: ++#xxxx.1.5.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.6.mem.ro, "foo_3">
+GC: ++#xxxx.1.6.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.7.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.7.mem.ro>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.7.mem.ro, "foo_3">
+GC: ++#xxxx.1.1.mem.ref.ro
+GC: ++#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.1.2.mem.ref.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.7.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+GC: ++#xxxx.1.7.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.8.mem.ro, "foo_4">
+GC: ++#xxxx.1.8.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.9.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.9.mem.ro>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.9.mem.ro, "foo_4">
+GC: ++#xxxx.1.1.mem.ref.ro
+GC: ++#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.1.2.mem.ref.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.9.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+GC: ++#xxxx.1.9.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.10.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.10.mem.ro, "foo_5">
+GC: ++#xxxx.1.10.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.11.mem.ro>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.11.mem.ro, "foo_5">
+GC: ++#xxxx.1.1.mem.ref.ro
+GC: ++#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.1.2.mem.ref.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+GC: ++#xxxx.1.1.mem.code.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <5 (0x5)>
+  [1] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.ctx.func
+GC: --#xxxx.1.1.ctx.func
+GC: --#xxxx.1.2.ctx.func
+GC: --#xxxx.1.2.mem.code.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <5 (0x5)>
+  [1] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.mem.code.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <5 (0x5)>
+  [1] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.bool <1 (0x1)>
+  [1] #xxxx.1.1.num.int <5 (0x5)>
+  [2] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.11.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.12.mem.ro>
+  [1] #xxxx.1.1.num.bool <1 (0x1)>
+  [2] #xxxx.1.1.num.int <5 (0x5)>
+  [3] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.1.1.num.bool
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <5 (0x5)>
+  [1] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <30 (0x1e)>
+  [1] #xxxx.1.1.num.int <5 (0x5)>
+  [2] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <40 (0x28)>
+  [1] #xxxx.1.1.num.int <30 (0x1e)>
+  [2] #xxxx.1.1.num.int <5 (0x5)>
+  [3] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.ctx.func
+GC: --#xxxx.1.1.ctx.block
+GC: --#xxxx.1.1.ctx.func
+GC: --#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.2.ctx.func
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.1.12.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <40 (0x28)>
+  [1] #xxxx.1.1.num.int <30 (0x1e)>
+  [2] #xxxx.1.1.num.int <5 (0x5)>
+  [3] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.mem.code.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <40 (0x28)>
+  [1] #xxxx.1.1.num.int <30 (0x1e)>
+  [2] #xxxx.1.1.num.int <5 (0x5)>
+  [3] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.11.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.12.mem.ro>
+  [1] #xxxx.1.1.num.int <40 (0x28)>
+  [2] #xxxx.1.1.num.int <30 (0x1e)>
+  [3] #xxxx.1.1.num.int <5 (0x5)>
+  [4] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.2.mem.code.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.loop <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <40 (0x28)>
+  [1] #xxxx.1.1.num.int <30 (0x1e)>
+  [2] #xxxx.1.1.num.int <5 (0x5)>
+  [3] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.loop <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.bool <1 (0x1)>
+  [1] #xxxx.1.1.num.int <40 (0x28)>
+  [2] #xxxx.1.1.num.int <30 (0x1e)>
+  [3] #xxxx.1.1.num.int <5 (0x5)>
+  [4] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.12.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.loop <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.13.mem.ro>
+  [1] #xxxx.1.1.num.bool <1 (0x1)>
+  [2] #xxxx.1.1.num.int <40 (0x28)>
+  [3] #xxxx.1.1.num.int <30 (0x1e)>
+  [4] #xxxx.1.1.num.int <5 (0x5)>
+  [5] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.1.1.num.bool
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.loop <code #xxxx.1.1.mem.code.ro>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <40 (0x28)>
+  [1] #xxxx.1.1.num.int <30 (0x1e)>
+  [2] #xxxx.1.1.num.int <5 (0x5)>
+  [3] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.loop <code #xxxx.1.1.mem.code.ro>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <100 (0x64)>
+  [1] #xxxx.1.1.num.int <40 (0x28)>
+  [2] #xxxx.1.1.num.int <30 (0x1e)>
+  [3] #xxxx.1.1.num.int <5 (0x5)>
+  [4] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.loop <code #xxxx.1.1.mem.code.ro>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <200 (0xc8)>
+  [1] #xxxx.1.1.num.int <100 (0x64)>
+  [2] #xxxx.1.1.num.int <40 (0x28)>
+  [3] #xxxx.1.1.num.int <30 (0x1e)>
+  [4] #xxxx.1.1.num.int <5 (0x5)>
+  [5] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.ctx.func
+GC: --#xxxx.1.1.ctx.block
+GC: --#xxxx.1.1.ctx.loop
+GC: --#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.1.ctx.func
+GC: --#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.13.mem.ro
+GC: --#xxxx.1.2.ctx.func
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.1.12.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <200 (0xc8)>
+  [1] #xxxx.1.1.num.int <100 (0x64)>
+  [2] #xxxx.1.1.num.int <40 (0x28)>
+  [3] #xxxx.1.1.num.int <30 (0x1e)>
+  [4] #xxxx.1.1.num.int <5 (0x5)>
+  [5] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.mem.code.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <200 (0xc8)>
+  [1] #xxxx.1.1.num.int <100 (0x64)>
+  [2] #xxxx.1.1.num.int <40 (0x28)>
+  [3] #xxxx.1.1.num.int <30 (0x1e)>
+  [4] #xxxx.1.1.num.int <5 (0x5)>
+  [5] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <2 (0x2)>
+  [1] #xxxx.1.1.num.int <200 (0xc8)>
+  [2] #xxxx.1.1.num.int <100 (0x64)>
+  [3] #xxxx.1.1.num.int <40 (0x28)>
+  [4] #xxxx.1.1.num.int <30 (0x1e)>
+  [5] #xxxx.1.1.num.int <5 (0x5)>
+  [6] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.11.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.12.mem.ro>
+  [1] #xxxx.1.1.num.int <2 (0x2)>
+  [2] #xxxx.1.1.num.int <200 (0xc8)>
+  [3] #xxxx.1.1.num.int <100 (0x64)>
+  [4] #xxxx.1.1.num.int <40 (0x28)>
+  [5] #xxxx.1.1.num.int <30 (0x1e)>
+  [6] #xxxx.1.1.num.int <5 (0x5)>
+  [7] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.1.1.num.int
+== backtrace ==
+  [0] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <200 (0xc8)>
+  [1] #xxxx.1.1.num.int <100 (0x64)>
+  [2] #xxxx.1.1.num.int <40 (0x28)>
+  [3] #xxxx.1.1.num.int <30 (0x1e)>
+  [4] #xxxx.1.1.num.int <5 (0x5)>
+  [5] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.bool <1 (0x1)>
+  [1] #xxxx.1.1.num.int <200 (0xc8)>
+  [2] #xxxx.1.1.num.int <100 (0x64)>
+  [3] #xxxx.1.1.num.int <40 (0x28)>
+  [4] #xxxx.1.1.num.int <30 (0x1e)>
+  [5] #xxxx.1.1.num.int <5 (0x5)>
+  [6] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.12.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.13.mem.ro>
+  [1] #xxxx.1.1.num.bool <1 (0x1)>
+  [2] #xxxx.1.1.num.int <200 (0xc8)>
+  [3] #xxxx.1.1.num.int <100 (0x64)>
+  [4] #xxxx.1.1.num.int <40 (0x28)>
+  [5] #xxxx.1.1.num.int <30 (0x1e)>
+  [6] #xxxx.1.1.num.int <5 (0x5)>
+  [7] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.1.1.num.bool
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <200 (0xc8)>
+  [1] #xxxx.1.1.num.int <100 (0x64)>
+  [2] #xxxx.1.1.num.int <40 (0x28)>
+  [3] #xxxx.1.1.num.int <30 (0x1e)>
+  [4] #xxxx.1.1.num.int <5 (0x5)>
+  [5] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [1] #xxxx.1.1.num.int <200 (0xc8)>
+  [2] #xxxx.1.1.num.int <100 (0x64)>
+  [3] #xxxx.1.1.num.int <40 (0x28)>
+  [4] #xxxx.1.1.num.int <30 (0x1e)>
+  [5] #xxxx.1.1.num.int <5 (0x5)>
+  [6] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.mem.code.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [2] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [4] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [1] #xxxx.1.1.num.int <200 (0xc8)>
+  [2] #xxxx.1.1.num.int <100 (0x64)>
+  [3] #xxxx.1.1.num.int <40 (0x28)>
+  [4] #xxxx.1.1.num.int <30 (0x1e)>
+  [5] #xxxx.1.1.num.int <5 (0x5)>
+  [6] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [2] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [4] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <4 (0x4)>
+  [1] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [2] #xxxx.1.1.num.int <200 (0xc8)>
+  [3] #xxxx.1.1.num.int <100 (0x64)>
+  [4] #xxxx.1.1.num.int <40 (0x28)>
+  [5] #xxxx.1.1.num.int <30 (0x1e)>
+  [6] #xxxx.1.1.num.int <5 (0x5)>
+  [7] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [2] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [4] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <5 (0x5)>
+  [1] #xxxx.1.1.num.int <4 (0x4)>
+  [2] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [3] #xxxx.1.1.num.int <200 (0xc8)>
+  [4] #xxxx.1.1.num.int <100 (0x64)>
+  [5] #xxxx.1.1.num.int <40 (0x28)>
+  [6] #xxxx.1.1.num.int <30 (0x1e)>
+  [7] #xxxx.1.1.num.int <5 (0x5)>
+  [8] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.ctx.block
+GC: --#xxxx.1.1.ctx.func
+GC: --#xxxx.1.2.ctx.block
+GC: --#xxxx.1.2.mem.code.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <5 (0x5)>
+  [1] #xxxx.1.1.num.int <4 (0x4)>
+  [2] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [3] #xxxx.1.1.num.int <200 (0xc8)>
+  [4] #xxxx.1.1.num.int <100 (0x64)>
+  [5] #xxxx.1.1.num.int <40 (0x28)>
+  [6] #xxxx.1.1.num.int <30 (0x1e)>
+  [7] #xxxx.1.1.num.int <5 (0x5)>
+  [8] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [1] #xxxx.1.1.num.int <5 (0x5)>
+  [2] #xxxx.1.1.num.int <4 (0x4)>
+  [3] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [4] #xxxx.1.1.num.int <200 (0xc8)>
+  [5] #xxxx.1.1.num.int <100 (0x64)>
+  [6] #xxxx.1.1.num.int <40 (0x28)>
+  [7] #xxxx.1.1.num.int <30 (0x1e)>
+  [8] #xxxx.1.1.num.int <5 (0x5)>
+  [9] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.ctx.func
+GC: --#xxxx.1.1.ctx.block
+GC: --#xxxx.1.1.ctx.repeat
+GC: --#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.1.ctx.func
+GC: --#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.13.mem.ro
+GC: --#xxxx.1.2.ctx.func
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.1.12.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [1] #xxxx.1.1.num.int <5 (0x5)>
+  [2] #xxxx.1.1.num.int <4 (0x4)>
+  [3] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [4] #xxxx.1.1.num.int <200 (0xc8)>
+  [5] #xxxx.1.1.num.int <100 (0x64)>
+  [6] #xxxx.1.1.num.int <40 (0x28)>
+  [7] #xxxx.1.1.num.int <30 (0x1e)>
+  [8] #xxxx.1.1.num.int <5 (0x5)>
+  [9] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.mem.code.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [1] #xxxx.1.1.num.int <5 (0x5)>
+  [2] #xxxx.1.1.num.int <4 (0x4)>
+  [3] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [4] #xxxx.1.1.num.int <200 (0xc8)>
+  [5] #xxxx.1.1.num.int <100 (0x64)>
+  [6] #xxxx.1.1.num.int <40 (0x28)>
+  [7] #xxxx.1.1.num.int <30 (0x1e)>
+  [8] #xxxx.1.1.num.int <5 (0x5)>
+  [9] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.num.prim <2 (0x2)>
+  [1] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [2] #xxxx.1.1.num.int <5 (0x5)>
+  [3] #xxxx.1.1.num.int <4 (0x4)>
+  [4] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [5] #xxxx.1.1.num.int <200 (0xc8)>
+  [6] #xxxx.1.1.num.int <100 (0x64)>
+  [7] #xxxx.1.1.num.int <40 (0x28)>
+  [8] #xxxx.1.1.num.int <30 (0x1e)>
+  [9] #xxxx.1.1.num.int <5 (0x5)>
+  [10] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <1 (0x1)>
+  [1] #xxxx.1.2.num.prim <2 (0x2)>
+  [2] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [3] #xxxx.1.1.num.int <5 (0x5)>
+  [4] #xxxx.1.1.num.int <4 (0x4)>
+  [5] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [6] #xxxx.1.1.num.int <200 (0xc8)>
+  [7] #xxxx.1.1.num.int <100 (0x64)>
+  [8] #xxxx.1.1.num.int <40 (0x28)>
+  [9] #xxxx.1.1.num.int <30 (0x1e)>
+  [10] #xxxx.1.1.num.int <5 (0x5)>
+  [11] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <2 (0x2)>
+  [1] #xxxx.1.1.num.int <1 (0x1)>
+  [2] #xxxx.1.2.num.prim <2 (0x2)>
+  [3] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [4] #xxxx.1.1.num.int <5 (0x5)>
+  [5] #xxxx.1.1.num.int <4 (0x4)>
+  [6] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [7] #xxxx.1.1.num.int <200 (0xc8)>
+  [8] #xxxx.1.1.num.int <100 (0x64)>
+  [9] #xxxx.1.1.num.int <40 (0x28)>
+  [10] #xxxx.1.1.num.int <30 (0x1e)>
+  [11] #xxxx.1.1.num.int <5 (0x5)>
+  [12] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <3 (0x3)>
+  [1] #xxxx.1.1.num.int <2 (0x2)>
+  [2] #xxxx.1.1.num.int <1 (0x1)>
+  [3] #xxxx.1.2.num.prim <2 (0x2)>
+  [4] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [5] #xxxx.1.1.num.int <5 (0x5)>
+  [6] #xxxx.1.1.num.int <4 (0x4)>
+  [7] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [8] #xxxx.1.1.num.int <200 (0xc8)>
+  [9] #xxxx.1.1.num.int <100 (0x64)>
+  [10] #xxxx.1.1.num.int <40 (0x28)>
+  [11] #xxxx.1.1.num.int <30 (0x1e)>
+  [12] #xxxx.1.1.num.int <5 (0x5)>
+  [13] #xxxx.1.1.num.int <4 (0x4)>
+GC: --#xxxx.1.2.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.array <size 3, max 3>
+  [1] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [2] #xxxx.1.1.num.int <5 (0x5)>
+  [3] #xxxx.1.1.num.int <4 (0x4)>
+  [4] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [5] #xxxx.1.1.num.int <200 (0xc8)>
+  [6] #xxxx.1.1.num.int <100 (0x64)>
+  [7] #xxxx.1.1.num.int <40 (0x28)>
+  [8] #xxxx.1.1.num.int <30 (0x1e)>
+  [9] #xxxx.1.1.num.int <5 (0x5)>
+  [10] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.11.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.12.mem.ro>
+  [1] #xxxx.1.1.array <size 3, max 3>
+  [2] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [3] #xxxx.1.1.num.int <5 (0x5)>
+  [4] #xxxx.1.1.num.int <4 (0x4)>
+  [5] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [6] #xxxx.1.1.num.int <200 (0xc8)>
+  [7] #xxxx.1.1.num.int <100 (0x64)>
+  [8] #xxxx.1.1.num.int <40 (0x28)>
+  [9] #xxxx.1.1.num.int <30 (0x1e)>
+  [10] #xxxx.1.1.num.int <5 (0x5)>
+  [11] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.num.int
+GC: ++#xxxx.1.1.mem.code.ro
+GC: ++#xxxx.1.1.array
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.1.2.array
+== backtrace ==
+  [0] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.num.int <1 (0x1)>
+  [1] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [2] #xxxx.1.1.num.int <5 (0x5)>
+  [3] #xxxx.1.1.num.int <4 (0x4)>
+  [4] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [5] #xxxx.1.1.num.int <200 (0xc8)>
+  [6] #xxxx.1.1.num.int <100 (0x64)>
+  [7] #xxxx.1.1.num.int <40 (0x28)>
+  [8] #xxxx.1.1.num.int <30 (0x1e)>
+  [9] #xxxx.1.1.num.int <5 (0x5)>
+  [10] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.bool <1 (0x1)>
+  [1] #xxxx.1.2.num.int <1 (0x1)>
+  [2] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [3] #xxxx.1.1.num.int <5 (0x5)>
+  [4] #xxxx.1.1.num.int <4 (0x4)>
+  [5] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [6] #xxxx.1.1.num.int <200 (0xc8)>
+  [7] #xxxx.1.1.num.int <100 (0x64)>
+  [8] #xxxx.1.1.num.int <40 (0x28)>
+  [9] #xxxx.1.1.num.int <30 (0x1e)>
+  [10] #xxxx.1.1.num.int <5 (0x5)>
+  [11] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.12.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.13.mem.ro>
+  [1] #xxxx.1.1.num.bool <1 (0x1)>
+  [2] #xxxx.1.2.num.int <1 (0x1)>
+  [3] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [4] #xxxx.1.1.num.int <5 (0x5)>
+  [5] #xxxx.1.1.num.int <4 (0x4)>
+  [6] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [7] #xxxx.1.1.num.int <200 (0xc8)>
+  [8] #xxxx.1.1.num.int <100 (0x64)>
+  [9] #xxxx.1.1.num.int <40 (0x28)>
+  [10] #xxxx.1.1.num.int <30 (0x1e)>
+  [11] #xxxx.1.1.num.int <5 (0x5)>
+  [12] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.1.1.num.bool
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.num.int <1 (0x1)>
+  [1] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [2] #xxxx.1.1.num.int <5 (0x5)>
+  [3] #xxxx.1.1.num.int <4 (0x4)>
+  [4] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [5] #xxxx.1.1.num.int <200 (0xc8)>
+  [6] #xxxx.1.1.num.int <100 (0x64)>
+  [7] #xxxx.1.1.num.int <40 (0x28)>
+  [8] #xxxx.1.1.num.int <30 (0x1e)>
+  [9] #xxxx.1.1.num.int <5 (0x5)>
+  [10] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <10000 (0x2710)>
+  [1] #xxxx.1.2.num.int <1 (0x1)>
+  [2] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [3] #xxxx.1.1.num.int <5 (0x5)>
+  [4] #xxxx.1.1.num.int <4 (0x4)>
+  [5] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [6] #xxxx.1.1.num.int <200 (0xc8)>
+  [7] #xxxx.1.1.num.int <100 (0x64)>
+  [8] #xxxx.1.1.num.int <40 (0x28)>
+  [9] #xxxx.1.1.num.int <30 (0x1e)>
+  [10] #xxxx.1.1.num.int <5 (0x5)>
+  [11] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [1] #xxxx.1.1.num.int <10000 (0x2710)>
+  [2] #xxxx.1.2.num.int <1 (0x1)>
+  [3] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [4] #xxxx.1.1.num.int <5 (0x5)>
+  [5] #xxxx.1.1.num.int <4 (0x4)>
+  [6] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [7] #xxxx.1.1.num.int <200 (0xc8)>
+  [8] #xxxx.1.1.num.int <100 (0x64)>
+  [9] #xxxx.1.1.num.int <40 (0x28)>
+  [10] #xxxx.1.1.num.int <30 (0x1e)>
+  [11] #xxxx.1.1.num.int <5 (0x5)>
+  [12] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.mem.code.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [2] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [4] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [1] #xxxx.1.1.num.int <10000 (0x2710)>
+  [2] #xxxx.1.2.num.int <1 (0x1)>
+  [3] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [4] #xxxx.1.1.num.int <5 (0x5)>
+  [5] #xxxx.1.1.num.int <4 (0x4)>
+  [6] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [7] #xxxx.1.1.num.int <200 (0xc8)>
+  [8] #xxxx.1.1.num.int <100 (0x64)>
+  [9] #xxxx.1.1.num.int <40 (0x28)>
+  [10] #xxxx.1.1.num.int <30 (0x1e)>
+  [11] #xxxx.1.1.num.int <5 (0x5)>
+  [12] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [2] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [4] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <4 (0x4)>
+  [1] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [2] #xxxx.1.1.num.int <10000 (0x2710)>
+  [3] #xxxx.1.2.num.int <1 (0x1)>
+  [4] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [5] #xxxx.1.1.num.int <5 (0x5)>
+  [6] #xxxx.1.1.num.int <4 (0x4)>
+  [7] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [8] #xxxx.1.1.num.int <200 (0xc8)>
+  [9] #xxxx.1.1.num.int <100 (0x64)>
+  [10] #xxxx.1.1.num.int <40 (0x28)>
+  [11] #xxxx.1.1.num.int <30 (0x1e)>
+  [12] #xxxx.1.1.num.int <5 (0x5)>
+  [13] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [2] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [4] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <5 (0x5)>
+  [1] #xxxx.1.1.num.int <4 (0x4)>
+  [2] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [3] #xxxx.1.1.num.int <10000 (0x2710)>
+  [4] #xxxx.1.2.num.int <1 (0x1)>
+  [5] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [6] #xxxx.1.1.num.int <5 (0x5)>
+  [7] #xxxx.1.1.num.int <4 (0x4)>
+  [8] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [9] #xxxx.1.1.num.int <200 (0xc8)>
+  [10] #xxxx.1.1.num.int <100 (0x64)>
+  [11] #xxxx.1.1.num.int <40 (0x28)>
+  [12] #xxxx.1.1.num.int <30 (0x1e)>
+  [13] #xxxx.1.1.num.int <5 (0x5)>
+  [14] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.ctx.block
+GC: --#xxxx.1.1.ctx.func
+GC: --#xxxx.1.2.ctx.block
+GC: --#xxxx.1.2.mem.code.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <5 (0x5)>
+  [1] #xxxx.1.1.num.int <4 (0x4)>
+  [2] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [3] #xxxx.1.1.num.int <10000 (0x2710)>
+  [4] #xxxx.1.2.num.int <1 (0x1)>
+  [5] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [6] #xxxx.1.1.num.int <5 (0x5)>
+  [7] #xxxx.1.1.num.int <4 (0x4)>
+  [8] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [9] #xxxx.1.1.num.int <200 (0xc8)>
+  [10] #xxxx.1.1.num.int <100 (0x64)>
+  [11] #xxxx.1.1.num.int <40 (0x28)>
+  [12] #xxxx.1.1.num.int <30 (0x1e)>
+  [13] #xxxx.1.1.num.int <5 (0x5)>
+  [14] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <30000 (0x7530)>
+  [1] #xxxx.1.1.num.int <5 (0x5)>
+  [2] #xxxx.1.1.num.int <4 (0x4)>
+  [3] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [4] #xxxx.1.1.num.int <10000 (0x2710)>
+  [5] #xxxx.1.2.num.int <1 (0x1)>
+  [6] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [7] #xxxx.1.1.num.int <5 (0x5)>
+  [8] #xxxx.1.1.num.int <4 (0x4)>
+  [9] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [10] #xxxx.1.1.num.int <200 (0xc8)>
+  [11] #xxxx.1.1.num.int <100 (0x64)>
+  [12] #xxxx.1.1.num.int <40 (0x28)>
+  [13] #xxxx.1.1.num.int <30 (0x1e)>
+  [14] #xxxx.1.1.num.int <5 (0x5)>
+  [15] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.mem.code.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [2] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [4] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <30000 (0x7530)>
+  [1] #xxxx.1.1.num.int <5 (0x5)>
+  [2] #xxxx.1.1.num.int <4 (0x4)>
+  [3] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [4] #xxxx.1.1.num.int <10000 (0x2710)>
+  [5] #xxxx.1.2.num.int <1 (0x1)>
+  [6] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [7] #xxxx.1.1.num.int <5 (0x5)>
+  [8] #xxxx.1.1.num.int <4 (0x4)>
+  [9] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [10] #xxxx.1.1.num.int <200 (0xc8)>
+  [11] #xxxx.1.1.num.int <100 (0x64)>
+  [12] #xxxx.1.1.num.int <40 (0x28)>
+  [13] #xxxx.1.1.num.int <30 (0x1e)>
+  [14] #xxxx.1.1.num.int <5 (0x5)>
+  [15] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [2] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [4] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <2 (0x2)>
+  [1] #xxxx.1.1.num.int <30000 (0x7530)>
+  [2] #xxxx.1.1.num.int <5 (0x5)>
+  [3] #xxxx.1.1.num.int <4 (0x4)>
+  [4] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [5] #xxxx.1.1.num.int <10000 (0x2710)>
+  [6] #xxxx.1.2.num.int <1 (0x1)>
+  [7] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [8] #xxxx.1.1.num.int <5 (0x5)>
+  [9] #xxxx.1.1.num.int <4 (0x4)>
+  [10] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [11] #xxxx.1.1.num.int <200 (0xc8)>
+  [12] #xxxx.1.1.num.int <100 (0x64)>
+  [13] #xxxx.1.1.num.int <40 (0x28)>
+  [14] #xxxx.1.1.num.int <30 (0x1e)>
+  [15] #xxxx.1.1.num.int <5 (0x5)>
+  [16] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.13.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [2] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [4] #xxxx.1.1.ctx.func <code #xxxx.1.14.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.14.mem.ro>
+  [1] #xxxx.1.1.num.int <2 (0x2)>
+  [2] #xxxx.1.1.num.int <30000 (0x7530)>
+  [3] #xxxx.1.1.num.int <5 (0x5)>
+  [4] #xxxx.1.1.num.int <4 (0x4)>
+  [5] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [6] #xxxx.1.1.num.int <10000 (0x2710)>
+  [7] #xxxx.1.2.num.int <1 (0x1)>
+  [8] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [9] #xxxx.1.1.num.int <5 (0x5)>
+  [10] #xxxx.1.1.num.int <4 (0x4)>
+  [11] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [12] #xxxx.1.1.num.int <200 (0xc8)>
+  [13] #xxxx.1.1.num.int <100 (0x64)>
+  [14] #xxxx.1.1.num.int <40 (0x28)>
+  [15] #xxxx.1.1.num.int <30 (0x1e)>
+  [16] #xxxx.1.1.num.int <5 (0x5)>
+  [17] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.1.1.num.int
+== backtrace ==
+  [0] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [2] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [3] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [4] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [5] #xxxx.1.1.ctx.func <code #xxxx.1.14.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <30000 (0x7530)>
+  [1] #xxxx.1.1.num.int <5 (0x5)>
+  [2] #xxxx.1.1.num.int <4 (0x4)>
+  [3] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [4] #xxxx.1.1.num.int <10000 (0x2710)>
+  [5] #xxxx.1.2.num.int <1 (0x1)>
+  [6] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [7] #xxxx.1.1.num.int <5 (0x5)>
+  [8] #xxxx.1.1.num.int <4 (0x4)>
+  [9] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [10] #xxxx.1.1.num.int <200 (0xc8)>
+  [11] #xxxx.1.1.num.int <100 (0x64)>
+  [12] #xxxx.1.1.num.int <40 (0x28)>
+  [13] #xxxx.1.1.num.int <30 (0x1e)>
+  [14] #xxxx.1.1.num.int <5 (0x5)>
+  [15] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [2] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [3] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [4] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [5] #xxxx.1.1.ctx.func <code #xxxx.1.14.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.bool <1 (0x1)>
+  [1] #xxxx.1.1.num.int <30000 (0x7530)>
+  [2] #xxxx.1.1.num.int <5 (0x5)>
+  [3] #xxxx.1.1.num.int <4 (0x4)>
+  [4] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [5] #xxxx.1.1.num.int <10000 (0x2710)>
+  [6] #xxxx.1.2.num.int <1 (0x1)>
+  [7] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [8] #xxxx.1.1.num.int <5 (0x5)>
+  [9] #xxxx.1.1.num.int <4 (0x4)>
+  [10] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [11] #xxxx.1.1.num.int <200 (0xc8)>
+  [12] #xxxx.1.1.num.int <100 (0x64)>
+  [13] #xxxx.1.1.num.int <40 (0x28)>
+  [14] #xxxx.1.1.num.int <30 (0x1e)>
+  [15] #xxxx.1.1.num.int <5 (0x5)>
+  [16] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.14.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [2] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [3] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [4] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [5] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.15.mem.ro>
+  [1] #xxxx.1.1.num.bool <1 (0x1)>
+  [2] #xxxx.1.1.num.int <30000 (0x7530)>
+  [3] #xxxx.1.1.num.int <5 (0x5)>
+  [4] #xxxx.1.1.num.int <4 (0x4)>
+  [5] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [6] #xxxx.1.1.num.int <10000 (0x2710)>
+  [7] #xxxx.1.2.num.int <1 (0x1)>
+  [8] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [9] #xxxx.1.1.num.int <5 (0x5)>
+  [10] #xxxx.1.1.num.int <4 (0x4)>
+  [11] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [12] #xxxx.1.1.num.int <200 (0xc8)>
+  [13] #xxxx.1.1.num.int <100 (0x64)>
+  [14] #xxxx.1.1.num.int <40 (0x28)>
+  [15] #xxxx.1.1.num.int <30 (0x1e)>
+  [16] #xxxx.1.1.num.int <5 (0x5)>
+  [17] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.1.1.num.bool
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [3] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [4] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [5] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [6] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <30000 (0x7530)>
+  [1] #xxxx.1.1.num.int <5 (0x5)>
+  [2] #xxxx.1.1.num.int <4 (0x4)>
+  [3] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [4] #xxxx.1.1.num.int <10000 (0x2710)>
+  [5] #xxxx.1.2.num.int <1 (0x1)>
+  [6] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [7] #xxxx.1.1.num.int <5 (0x5)>
+  [8] #xxxx.1.1.num.int <4 (0x4)>
+  [9] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [10] #xxxx.1.1.num.int <200 (0xc8)>
+  [11] #xxxx.1.1.num.int <100 (0x64)>
+  [12] #xxxx.1.1.num.int <40 (0x28)>
+  [13] #xxxx.1.1.num.int <30 (0x1e)>
+  [14] #xxxx.1.1.num.int <5 (0x5)>
+  [15] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [3] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [4] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [5] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [6] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [1] #xxxx.1.1.num.int <30000 (0x7530)>
+  [2] #xxxx.1.1.num.int <5 (0x5)>
+  [3] #xxxx.1.1.num.int <4 (0x4)>
+  [4] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [5] #xxxx.1.1.num.int <10000 (0x2710)>
+  [6] #xxxx.1.2.num.int <1 (0x1)>
+  [7] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [8] #xxxx.1.1.num.int <5 (0x5)>
+  [9] #xxxx.1.1.num.int <4 (0x4)>
+  [10] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [11] #xxxx.1.1.num.int <200 (0xc8)>
+  [12] #xxxx.1.1.num.int <100 (0x64)>
+  [13] #xxxx.1.1.num.int <40 (0x28)>
+  [14] #xxxx.1.1.num.int <30 (0x1e)>
+  [15] #xxxx.1.1.num.int <5 (0x5)>
+  [16] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.mem.code.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [2] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [4] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [5] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [6] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [7] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [1] #xxxx.1.1.num.int <30000 (0x7530)>
+  [2] #xxxx.1.1.num.int <5 (0x5)>
+  [3] #xxxx.1.1.num.int <4 (0x4)>
+  [4] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [5] #xxxx.1.1.num.int <10000 (0x2710)>
+  [6] #xxxx.1.2.num.int <1 (0x1)>
+  [7] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [8] #xxxx.1.1.num.int <5 (0x5)>
+  [9] #xxxx.1.1.num.int <4 (0x4)>
+  [10] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [11] #xxxx.1.1.num.int <200 (0xc8)>
+  [12] #xxxx.1.1.num.int <100 (0x64)>
+  [13] #xxxx.1.1.num.int <40 (0x28)>
+  [14] #xxxx.1.1.num.int <30 (0x1e)>
+  [15] #xxxx.1.1.num.int <5 (0x5)>
+  [16] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [2] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [4] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [5] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [6] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [7] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <4 (0x4)>
+  [1] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [2] #xxxx.1.1.num.int <30000 (0x7530)>
+  [3] #xxxx.1.1.num.int <5 (0x5)>
+  [4] #xxxx.1.1.num.int <4 (0x4)>
+  [5] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [6] #xxxx.1.1.num.int <10000 (0x2710)>
+  [7] #xxxx.1.2.num.int <1 (0x1)>
+  [8] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [9] #xxxx.1.1.num.int <5 (0x5)>
+  [10] #xxxx.1.1.num.int <4 (0x4)>
+  [11] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [12] #xxxx.1.1.num.int <200 (0xc8)>
+  [13] #xxxx.1.1.num.int <100 (0x64)>
+  [14] #xxxx.1.1.num.int <40 (0x28)>
+  [15] #xxxx.1.1.num.int <30 (0x1e)>
+  [16] #xxxx.1.1.num.int <5 (0x5)>
+  [17] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [1] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [2] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [4] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [5] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [6] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [7] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <5 (0x5)>
+  [1] #xxxx.1.1.num.int <4 (0x4)>
+  [2] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [3] #xxxx.1.1.num.int <30000 (0x7530)>
+  [4] #xxxx.1.1.num.int <5 (0x5)>
+  [5] #xxxx.1.1.num.int <4 (0x4)>
+  [6] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [7] #xxxx.1.1.num.int <10000 (0x2710)>
+  [8] #xxxx.1.2.num.int <1 (0x1)>
+  [9] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [10] #xxxx.1.1.num.int <5 (0x5)>
+  [11] #xxxx.1.1.num.int <4 (0x4)>
+  [12] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [13] #xxxx.1.1.num.int <200 (0xc8)>
+  [14] #xxxx.1.1.num.int <100 (0x64)>
+  [15] #xxxx.1.1.num.int <40 (0x28)>
+  [16] #xxxx.1.1.num.int <30 (0x1e)>
+  [17] #xxxx.1.1.num.int <5 (0x5)>
+  [18] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.ctx.block
+GC: --#xxxx.1.1.ctx.func
+GC: --#xxxx.1.2.ctx.block
+GC: --#xxxx.1.2.mem.code.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [3] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [4] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [5] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [6] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <5 (0x5)>
+  [1] #xxxx.1.1.num.int <4 (0x4)>
+  [2] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [3] #xxxx.1.1.num.int <30000 (0x7530)>
+  [4] #xxxx.1.1.num.int <5 (0x5)>
+  [5] #xxxx.1.1.num.int <4 (0x4)>
+  [6] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [7] #xxxx.1.1.num.int <10000 (0x2710)>
+  [8] #xxxx.1.2.num.int <1 (0x1)>
+  [9] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [10] #xxxx.1.1.num.int <5 (0x5)>
+  [11] #xxxx.1.1.num.int <4 (0x4)>
+  [12] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [13] #xxxx.1.1.num.int <200 (0xc8)>
+  [14] #xxxx.1.1.num.int <100 (0x64)>
+  [15] #xxxx.1.1.num.int <40 (0x28)>
+  [16] #xxxx.1.1.num.int <30 (0x1e)>
+  [17] #xxxx.1.1.num.int <5 (0x5)>
+  [18] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.repeat <code #xxxx.1.1.mem.code.ro, index 2>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [3] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [4] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [5] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [6] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [1] #xxxx.1.1.num.int <5 (0x5)>
+  [2] #xxxx.1.1.num.int <4 (0x4)>
+  [3] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [4] #xxxx.1.1.num.int <30000 (0x7530)>
+  [5] #xxxx.1.1.num.int <5 (0x5)>
+  [6] #xxxx.1.1.num.int <4 (0x4)>
+  [7] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [8] #xxxx.1.1.num.int <10000 (0x2710)>
+  [9] #xxxx.1.2.num.int <1 (0x1)>
+  [10] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [11] #xxxx.1.1.num.int <5 (0x5)>
+  [12] #xxxx.1.1.num.int <4 (0x4)>
+  [13] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [14] #xxxx.1.1.num.int <200 (0xc8)>
+  [15] #xxxx.1.1.num.int <100 (0x64)>
+  [16] #xxxx.1.1.num.int <40 (0x28)>
+  [17] #xxxx.1.1.num.int <30 (0x1e)>
+  [18] #xxxx.1.1.num.int <5 (0x5)>
+  [19] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.ctx.block
+GC: --#xxxx.1.1.ctx.block
+GC: --#xxxx.1.1.ctx.repeat
+GC: --#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.1.ctx.func
+GC: --#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.15.mem.ro
+GC: --#xxxx.1.2.ctx.block
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.1.14.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [1] #xxxx.1.1.num.int <5 (0x5)>
+  [2] #xxxx.1.1.num.int <4 (0x4)>
+  [3] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [4] #xxxx.1.1.num.int <30000 (0x7530)>
+  [5] #xxxx.1.1.num.int <5 (0x5)>
+  [6] #xxxx.1.1.num.int <4 (0x4)>
+  [7] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [8] #xxxx.1.1.num.int <10000 (0x2710)>
+  [9] #xxxx.1.2.num.int <1 (0x1)>
+  [10] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [11] #xxxx.1.1.num.int <5 (0x5)>
+  [12] #xxxx.1.1.num.int <4 (0x4)>
+  [13] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [14] #xxxx.1.1.num.int <200 (0xc8)>
+  [15] #xxxx.1.1.num.int <100 (0x64)>
+  [16] #xxxx.1.1.num.int <40 (0x28)>
+  [17] #xxxx.1.1.num.int <30 (0x1e)>
+  [18] #xxxx.1.1.num.int <5 (0x5)>
+  [19] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.block <code #xxxx.1.1.mem.code.ro>
+  [1] #xxxx.1.1.ctx.forall <code #xxxx.1.1.mem.code.ro, index 1, iterate #xxxx.1.1.array>
+  [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
+  [3] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <40000 (0x9c40)>
+  [1] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [2] #xxxx.1.1.num.int <5 (0x5)>
+  [3] #xxxx.1.1.num.int <4 (0x4)>
+  [4] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [5] #xxxx.1.1.num.int <30000 (0x7530)>
+  [6] #xxxx.1.1.num.int <5 (0x5)>
+  [7] #xxxx.1.1.num.int <4 (0x4)>
+  [8] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [9] #xxxx.1.1.num.int <10000 (0x2710)>
+  [10] #xxxx.1.2.num.int <1 (0x1)>
+  [11] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [12] #xxxx.1.1.num.int <5 (0x5)>
+  [13] #xxxx.1.1.num.int <4 (0x4)>
+  [14] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [15] #xxxx.1.1.num.int <200 (0xc8)>
+  [16] #xxxx.1.1.num.int <100 (0x64)>
+  [17] #xxxx.1.1.num.int <40 (0x28)>
+  [18] #xxxx.1.1.num.int <30 (0x1e)>
+  [19] #xxxx.1.1.num.int <5 (0x5)>
+  [20] #xxxx.1.1.num.int <4 (0x4)>
+GC: ++#xxxx.1.1.ctx.func
+GC: --#xxxx.1.1.ctx.block
+GC: --#xxxx.1.1.ctx.forall
+GC: --#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.1.ctx.func
+GC: --#xxxx.1.1.mem.code.ro
+GC: --#xxxx.1.1.array
+GC: --#xxxx.1.13.mem.ro
+GC: --#xxxx.1.2.ctx.func
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.1.12.mem.ro
+GC: --#xxxx.1.2.num.int
+GC: --#xxxx.1.1.num.int
+GC: --#xxxx.1.1.num.int
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <40000 (0x9c40)>
+  [1] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [2] #xxxx.1.1.num.int <5 (0x5)>
+  [3] #xxxx.1.1.num.int <4 (0x4)>
+  [4] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [5] #xxxx.1.1.num.int <30000 (0x7530)>
+  [6] #xxxx.1.1.num.int <5 (0x5)>
+  [7] #xxxx.1.1.num.int <4 (0x4)>
+  [8] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [9] #xxxx.1.1.num.int <10000 (0x2710)>
+  [10] #xxxx.1.1.num.int <1 (0x1)>
+  [11] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [12] #xxxx.1.1.num.int <5 (0x5)>
+  [13] #xxxx.1.1.num.int <4 (0x4)>
+  [14] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [15] #xxxx.1.1.num.int <200 (0xc8)>
+  [16] #xxxx.1.1.num.int <100 (0x64)>
+  [17] #xxxx.1.1.num.int <40 (0x28)>
+  [18] #xxxx.1.1.num.int <30 (0x1e)>
+  [19] #xxxx.1.1.num.int <5 (0x5)>
+  [20] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.2.1.num.int <7 (0x7)>
+  [1] #xxxx.1.1.num.int <40000 (0x9c40)>
+  [2] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [3] #xxxx.1.1.num.int <5 (0x5)>
+  [4] #xxxx.1.1.num.int <4 (0x4)>
+  [5] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [6] #xxxx.1.1.num.int <30000 (0x7530)>
+  [7] #xxxx.1.1.num.int <5 (0x5)>
+  [8] #xxxx.1.1.num.int <4 (0x4)>
+  [9] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [10] #xxxx.1.1.num.int <10000 (0x2710)>
+  [11] #xxxx.1.1.num.int <1 (0x1)>
+  [12] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [13] #xxxx.1.1.num.int <5 (0x5)>
+  [14] #xxxx.1.1.num.int <4 (0x4)>
+  [15] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [16] #xxxx.1.1.num.int <200 (0xc8)>
+  [17] #xxxx.1.1.num.int <100 (0x64)>
+  [18] #xxxx.1.1.num.int <40 (0x28)>
+  [19] #xxxx.1.1.num.int <30 (0x1e)>
+  [20] #xxxx.1.1.num.int <5 (0x5)>
+  [21] #xxxx.1.1.num.int <4 (0x4)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.2.1.num.int <8 (0x8)>
+  [1] #xxxx.2.1.num.int <7 (0x7)>
+  [2] #xxxx.1.1.num.int <40000 (0x9c40)>
+  [3] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [4] #xxxx.1.1.num.int <5 (0x5)>
+  [5] #xxxx.1.1.num.int <4 (0x4)>
+  [6] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [7] #xxxx.1.1.num.int <30000 (0x7530)>
+  [8] #xxxx.1.1.num.int <5 (0x5)>
+  [9] #xxxx.1.1.num.int <4 (0x4)>
+  [10] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [11] #xxxx.1.1.num.int <10000 (0x2710)>
+  [12] #xxxx.1.1.num.int <1 (0x1)>
+  [13] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [14] #xxxx.1.1.num.int <5 (0x5)>
+  [15] #xxxx.1.1.num.int <4 (0x4)>
+  [16] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [17] #xxxx.1.1.num.int <200 (0xc8)>
+  [18] #xxxx.1.1.num.int <100 (0x64)>
+  [19] #xxxx.1.1.num.int <40 (0x28)>
+  [20] #xxxx.1.1.num.int <30 (0x1e)>
+  [21] #xxxx.1.1.num.int <5 (0x5)>
+  [22] #xxxx.1.1.num.int <4 (0x4)>
+GC: --#xxxx.1.1.ctx.func
+GC: --#xxxx.1.11.mem.ro
+GC: --#xxxx.1.2.hash
+== backtrace ==
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.2.1.num.int <8 (0x8)>
+  [1] #xxxx.2.1.num.int <7 (0x7)>
+  [2] #xxxx.1.1.num.int <40000 (0x9c40)>
+  [3] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [4] #xxxx.1.1.num.int <5 (0x5)>
+  [5] #xxxx.1.1.num.int <4 (0x4)>
+  [6] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [7] #xxxx.1.1.num.int <30000 (0x7530)>
+  [8] #xxxx.1.1.num.int <5 (0x5)>
+  [9] #xxxx.1.1.num.int <4 (0x4)>
+  [10] #xxxx.1.1.num.int <20000 (0x4e20)>
+  [11] #xxxx.1.1.num.int <10000 (0x2710)>
+  [12] #xxxx.1.1.num.int <1 (0x1)>
+  [13] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [14] #xxxx.1.1.num.int <5 (0x5)>
+  [15] #xxxx.1.1.num.int <4 (0x4)>
+  [16] #xxxx.1.1.num.int <1000 (0x3e8)>
+  [17] #xxxx.1.1.num.int <200 (0xc8)>
+  [18] #xxxx.1.1.num.int <100 (0x64)>
+  [19] #xxxx.1.1.num.int <40 (0x28)>
+  [20] #xxxx.1.1.num.int <30 (0x1e)>
+  [21] #xxxx.1.1.num.int <5 (0x5)>
+  [22] #xxxx.1.1.num.int <4 (0x4)>

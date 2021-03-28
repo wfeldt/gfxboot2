@@ -1,0 +1,247 @@
+#! /usr/bin/perl
+
+use strict;
+
+use Data::Dumper;
+$Data::Dumper::Sortkeys = 1;
+$Data::Dumper::Terse = 1;
+$Data::Dumper::Indent = 1;
+
+sub word_sort;
+sub process_comment;
+sub xref;
+
+# vocabulary definitions
+my $prim = $ARGV[0];
+# C source
+my $source = $ARGV[1];
+# doc template
+my $doc = $ARGV[2];
+# generated doc
+my $dst = $ARGV[3];
+
+my $vocab;
+my $groups;
+
+open my $f, $prim or die "$prim: $!\n";
+
+while(<$f>) {
+  next if /^\s*(#|$)/;
+  my @i = split /\s+/;
+  my $name = $i[1] ? $i[1] : $i[0];
+  $vocab->{$name}{name} = $name;
+  $vocab->{$name}{str} = $i[0];
+}
+
+close $f;
+
+open my $f, $source or die "$source: $!\n";
+
+my $comm;
+while(<$f>) {
+  if(m#^// ?(.*?)$#) {
+    my $c = $1;
+    push @$comm, $c unless $c =~ /^- - -/;
+    next;
+  }
+  if(/^void gfx_prim_([^\(]+)/ && exists $vocab->{$1}) {
+    $vocab->{$1}{doc} = $comm;
+    undef $comm;
+    next;
+  }
+  if(/^\}/) {
+    undef $comm;
+    next;
+  }
+}
+
+close $f;
+
+process_comment $vocab->{$_} for keys %$vocab;
+
+my $doc_template;
+
+open my $f, $doc or die "$doc: $!\n";
+{
+  local $/;
+  $doc_template = <$f>;
+}
+close $f;
+
+my $all_docs;
+
+for (sort { word_sort } keys %$vocab) {
+  next if @{$vocab->{$_}{doc}} == 0;
+  my $str = $vocab->{$_}{doc_str};
+
+  $str = xref $str, $_;
+
+  $all_docs .= $str;
+  $all_docs .= "\n";
+}
+
+$doc_template =~ s/PRIMITIVE_WORD_LIST/$all_docs/;
+
+open my $f, ">", $dst or die "$dst: $!\n";
+
+print $f $doc_template;
+
+close $f;
+
+my $undoc;
+
+for (sort { word_sort } keys %$vocab) {
+  next if @{$vocab->{$_}{doc}} != 0;
+  push @$undoc, $vocab->{$_}{name};
+}
+
+print "undocumented words: ", join(", ", @$undoc), "\n" if $undoc;
+
+# print Dumper $vocab;
+
+
+sub process_comment
+{
+  my $d = $_[0];
+
+  if($d->{doc}) {
+    while(@{$d->{doc}} >= 1) {
+      if($d->{doc}[-1] eq "") {
+        pop @{$d->{doc}}
+      }
+      else {
+        last;
+      }
+    }
+  }
+
+  my $vars;
+  for my $c (@{$d->{doc}}) {
+    if($c =~ /^\(.*--.*\)/) {
+      while($c =~ m/([a-z0-9_]+)/g) {
+        my $v1 = $1;
+        my $v2 = $v1;
+        $v2 =~ s/_(\S+)/~$1~/;
+        $vars->{$v1} = "__${v2}__";
+      }
+    }
+  }
+
+  my $all_vars = join '|', keys %$vars;
+
+  my $doc;
+  my $new_para;
+  my $example;
+  my $cnt = 0;
+  my $item_start;
+  my $notes;
+  for my $c (@{$d->{doc}}) {
+    $cnt++;
+    if($cnt == 1) {
+      $doc = "* **+$d->{str}+** - $c [[$d->{name}]]\n";
+      next;
+    }
+    if($example) {
+      $doc .= "$c\n";
+      next;
+    }
+    if($c eq "") {
+      $doc .= "+\n" unless $new_para;
+      $new_para = 1;
+      next;
+    }
+    if($c =~ /^groups?:\s*(\S+)/i) {
+      for my $g (split /,/, $1) {
+        $groups->{$g}{$d->{name}} = 1;
+        $d->{groups}{$g} = 1;
+      }
+      next;
+    }
+    if($c =~ /^examples?:/i) {
+      if($item_start) {
+        $doc .= "--\n+\n";
+        $item_start = 0;
+      }
+      $doc .= ".Examples\n```\n";
+      $example = 1;
+      next;
+    }
+    $new_para = 0;
+    my $x = $c;
+    if($c =~ /^\(.*--.*\)/) {
+      $x = "** $x";
+      $x = "--\n$x" if !$item_start;
+      $item_start = 1;
+    }
+    elsif(
+      $item_start &&
+      $c ne "" &&
+      (!($c =~ /^($all_vars):/ || ($c =~ /^($all_vars)\b/ && $c =~ /\b($all_vars)\b/)) || $all_vars eq "")
+    ) {
+      $x = "XXX--\n$x";
+      $item_start = 0;
+      $notes = 1;
+    }
+    else {
+      $x = "+\n$x" unless $notes;
+    }
+    for my $v (keys %$vars) {
+      $x =~ s/\b$v\b/$vars->{$v}/g;
+    }
+    $doc .= "$x\n";
+  }
+
+  $doc .= "--\n" if $item_start;
+  $doc =~ s/\+\nXXX--\n/--\n+\n/;
+  $doc .= "```\n" if $example;
+
+  if($d->{groups}) {
+#    $doc .= "+\nSee also: XXX_XREF\n";
+    $doc .= "XXX_XREF";
+  }
+
+  $doc =~ s/\+\n\+\n/+\n/g;
+
+  $d->{doc_str} = $doc;
+}
+
+
+sub xref
+{
+  my $doc = $_[0];
+  my $name = $_[1];
+
+  my $refs;
+
+  if($vocab->{$name}{groups}) {
+    for my $g (keys %{$vocab->{$name}{groups}}) {
+      for my $n (keys %{$groups->{$g}}) {
+        $refs->{$n} = "xref:$n\[+$vocab->{$n}{str}+\]";
+      }
+    }
+    delete $refs->{$name};
+
+    my $r = join ", ", map { $refs->{$_} } sort { word_sort } keys %$refs;
+
+    if($r ne "") {
+      $doc =~ s/XXX_XREF/+\nSee also: $r\n/;
+    }
+    else {
+      $doc =~ s/XXX_XREF//;
+    }
+  }
+
+  return $doc;
+}
+
+
+sub word_sort
+{
+  my $x = $vocab->{$a}{str};
+  my $y = $vocab->{$b}{str};
+
+  my $x = $x eq '{' || $x eq '}' ? " $x" : $x;
+  my $y = $y eq '{' || $y eq '}' ? " $y" : $y;
+
+  return $x cmp $y;
+}

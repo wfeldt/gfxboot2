@@ -1,0 +1,35 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 29 entries (29 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  int    81 10                    0x10
+             2  0x0000a  int    01                       0
+             3  0x0000b  prim   83 2b                    shl
+     2       4  0x0000d  int    81 10                    0x10
+             5  0x0000f  int    81 08                    8
+             6  0x00011  prim   83 2b                    shl
+     3       7  0x00013  int    81 f0                    -0x10
+             8  0x00015  int    81 08                    8
+             9  0x00017  prim   83 2b                    shl
+     4      10  0x00019  int    11                       1
+            11  0x0001a  int    81 fe                    -2
+            12  0x0001c  prim   83 2b                    shl
+     5      13  0x0001e  int    81 3e                    62
+     6      14  0x00020  int    11                       1
+            15  0x00021  int    81 3e                    62
+            16  0x00023  prim   83 2b                    shl
+     7      17  0x00025  int    81 3f                    63
+     8      18  0x00027  int    11                       1
+            19  0x00028  int    81 3f                    63
+            20  0x0002a  prim   83 2b                    shl
+     9      21  0x0002c  int    81 40                    64
+    10      22  0x0002e  int    11                       1
+            23  0x0002f  int    81 40                    64
+            24  0x00031  prim   83 2b                    shl
+    11      25  0x00033  int    81 41                    65
+    12      26  0x00035  int    11                       1
+            27  0x00036  int    81 41                    65
+            28  0x00038  prim   83 2b                    shl

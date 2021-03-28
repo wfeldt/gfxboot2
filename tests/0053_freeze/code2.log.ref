@@ -1,0 +1,36 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 30 entries (30 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  ref    39 66 6f 6f              /foo
+             2  0x0000c  str    67 61 62 63 31 32 33     "abc123"
+             3  0x00013  prim   83 11                    string
+             4  0x00015  prim   63                       def
+     2       5  0x00016  word   38 66 6f 6f              foo
+             6  0x0001a  prim   83 38                    freeze
+     4       7  0x0001c  ref    39 62 61 72              /bar
+             8  0x00020  prim   43                       (
+             9  0x00021  str    27 61 61                   "aa"
+            10  0x00024  int    81 0b                      11
+            11  0x00026  str    27 62 62                   "bb"
+            12  0x00029  int    81 16                      22
+            13  0x0002b  prim   53                       )
+            14  0x0002c  prim   63                       def
+     5      15  0x0002d  word   38 62 61 72              bar
+            16  0x00031  prim   83 38                    freeze
+     7      17  0x00033  ref    49 7a 61 70 70           /zapp
+            18  0x00038  prim   23                       [
+            19  0x00039  int    11                         1
+            20  0x0003a  int    21                         2
+            21  0x0003b  int    31                         3
+            22  0x0003c  prim   33                       ]
+            23  0x0003d  prim   63                       def
+     8      24  0x0003e  word   48 7a 61 70 70           zapp
+            25  0x00043  prim   83 38                    freeze
+    10      26  0x00045  int    81 0a                    10
+            27  0x00047  prim   83 38                    freeze
+    11      28  0x00049  nil    00                       nil
+            29  0x0004a  prim   83 38                    freeze

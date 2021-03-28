@@ -1,0 +1,46 @@
+== Prepare grub builds
+
+=== check out grub2 package
+osc co openSUSE:Factory/grub2
+cd openSUSE:Factory/grub2
+
+=== build it locally
+osc build --clean --download-api-only standard x86_64
+
+=== prepare $HOME/g and $HOME/g/b symlinks pointing to grub2 build directory
+ln -snf $OBS_BUILD_DIR/obs-openSUSE:Factory-standard-grub2 ~/g
+cd ~g
+ln -snf .build.packages/BUILD/grub-2.04 b
+
+=== apply gfxboot2 patches
+cd ~g/b
+patch -p1 < $GFXBOOT2_DIR/patches/grub-2.04.diff
+
+== required packages
+
+- mksusecd
+- qemu
+- vm (TBD)
+- freetype2-devel
+- libX11-devel
+
+== building 32bit binaries
+- packages
+  - glibc-devel-32bit
+  - freetype2-devel-32bit
+  - libX11-devel-32bit
+  - gcc-32bit
+
+- run 'make 32BIT=1 ...'
+
+== make targets
+- (default target): build gfxboot tools: gfxboot-compile, gfxboot-font, gfxboot-x11
+- tests: run test suite
+- grub-bios: legacy grub
+- grub-efi: efi grub
+- grub-iso: build grub bootable iso
+- test-x11: build & run x11 variant
+- test-console: build & run text console variant (no gfx shown)
+- test-bios: build & legacy boot iso with qemu
+- test-efi: build & efi boot iso with qemu
+- test-XXX builds use the files in the 'files' subdirectory - main.gs contains the main program

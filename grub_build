@@ -1,0 +1,39 @@
+#! /bin/sh
+
+# script to update gfxboot sources in grub2 and rebuild it
+#
+# use --bios or --efi option to rebuild only either target
+#
+
+. ./config_vars
+
+
+# - - -  lets start...  - - -
+
+user_spec=`stat -c '%u:%g' $HOME`
+
+if [ ! -d $grub_dir ] ; then
+  echo "no grub build project prepared"
+  exit 1
+fi
+
+(
+  cd $grub_dir
+
+  if [ `stat -c '%u:%g' .` != "$user_spec" ] ; then
+     $su chown "$user_spec" -R .
+     echo adjusting grub build tree ownership
+  fi
+)
+
+mkdir -p $grub_dir/grub-core/$grub_module
+cp -a $grub_files $grub_dir/grub-core/$grub_module
+
+if [ "$1" != "--efi" ] ; then
+  $su chroot --userspec "$user_spec" $grub_root/ sh -c "cd $grub_build/build ; make"
+fi
+
+if [ "$1" != "--bios" ] ; then
+  $su chroot --userspec "$user_spec" $grub_root/ sh -c "cd $grub_build/build-efi ; make"
+fi
+

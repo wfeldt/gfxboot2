@@ -1,0 +1,74 @@
+== Tests
+
+Individual tests are subdirectories in the `tests` directory. Each test has
+a code snippet `main.gs` that is run using the debug script
+`tests/test_script` and leaves the result in `test.log`. That log is then additionally post-processed into
+other `+*.log+` files. `+*.log.ref+` are corresponding reference results.
+
+Run tests with `./run_tests`. Re-generate reference output with `./run_tests -r`.
+
+Each test runs a sample code snippet and compares the result in several ways with a stored reference.
+
+=== Test details
+
+Test results should be stable but for core language changes. Tests compare
+results in varying degrees of detail (e.g. 'mem' - 'trace' - 'basic') to
+make it easier to decide whether a change is to be expected or not.
+
+Basically every core language change will invalidate 'mem' results but leave
+'basic' intact. 'trace' changes but not that often.
+
+'code1' and 'code2' are the same as 'code' but with code optimizations enabled.
+
+'opt1' and 'opt2' are the same level of detail as 'trace' but with code optimizations enabled.
+
+==== 1. code
+
+Check the compiled binary code (no optimizations).
+
+==== 2. mem
+
+Check a full execution log including binary data content and memory layout.
+
+==== 3. trace
+
+Check a full execution log including variable values and internal object ids.
+
+==== 4. basic
+
+Check a simplified execution log including variable values but no internal object ids.
+
+==== 5. code1
+
+Check the compiled binary code (optimization with -O1).
+
+==== 6. opt1
+
+Check a full execution log including variable values and internal object ids (like
+'trace' but optimization with -O1).
+
+==== 7. code2
+
+Check the compiled binary code (optimization with -O2).
+
+==== 8. opt2
+
+Check a full execution log including variable values and internal object ids (like
+'trace' but optimization with -O2).
+
+==== 9. gc
+
+Check the garbage collector. This test is a bit different. It does not
+compare against a stored reference. After releasing all object references,
+the test verifies that the memory is in the initial state again.
+
+==== 10. screen
+
+Check the final screen (the drawing frame buffer). This includes a
+simplified graphical representation as well as a checksum over the frame
+buffer content.
+
+=== 64 bit vs. 32 bit code
+
+Tests will succeeed for both 64 bit and 32 bit compiled variants. Except for
+the `mem` tests as these tests are data structure size dependent.

@@ -1,0 +1,39 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 33 entries (33 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  ref    59 66 6f 6f 5f 31        /foo_1
+             2  0x0000e  word   18 5b                    [
+             3  0x00010  int    81 0a                      10
+             4  0x00012  int    81 14                      20
+             5  0x00014  int    81 1e                      30
+             6  0x00016  int    81 28                      40
+             7  0x00018  word   18 5d                    ]
+             8  0x0001a  word   38 64 65 66              def
+     3       9  0x0001e  ref    59 66 6f 6f 5f 32        /foo_2
+            10  0x00024  word   18 28                    (
+            11  0x00026  str    27 61 61                   "aa"
+            12  0x00029  int    81 0b                      11
+            13  0x0002b  str    27 62 62                   "bb"
+            14  0x0002e  int    81 16                      22
+            15  0x00030  str    27 63 63                   "cc"
+            16  0x00033  int    81 21                      33
+            17  0x00035  str    27 64 64                   "dd"
+            18  0x00038  int    81 2c                      44
+            19  0x0003a  word   18 29                    )
+            20  0x0003c  word   38 64 65 66              def
+     5      21  0x00040  ref    59 66 6f 6f 5f 33        /foo_3
+            22  0x00046  str    67 41 42 43 31 32 33     "ABC123"
+            23  0x0004d  word   38 64 65 66              def
+     7      24  0x00051  word   58 66 6f 6f 5f 32        foo_2
+            25  0x00057  str    27 62 62                 "bb"
+            26  0x0005a  word   68 64 65 6c 65 74 65     delete
+     9      27  0x00061  word   58 66 6f 6f 5f 31        foo_1
+            28  0x00067  word   68 6c 65 6e 67 74 68     length
+    10      29  0x0006e  word   58 66 6f 6f 5f 32        foo_2
+            30  0x00074  word   68 6c 65 6e 67 74 68     length
+    11      31  0x0007b  word   58 66 6f 6f 5f 33        foo_3
+            32  0x00081  word   68 6c 65 6e 67 74 68     length

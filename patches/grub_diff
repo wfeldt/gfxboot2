@@ -1,0 +1,6 @@
+#! /bin/bash
+
+cd ~/g/usr/src/packages/BUILD
+
+diff -ru grub-2.04{.orig,}/include >/tmp/dif
+diff -ru -x Makefile.core.am -x Makefile.in -x ChangeLog grub-2.04{.orig,}/grub-core >>/tmp/dif

@@ -1,0 +1,51 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 41 entries (41 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  int    91 00 10                 0x1000
+             2  0x0000b  int    01                       0
+             3  0x0000c  prim   83 2c                    shr
+     2       4  0x0000e  int    91 00 10                 0x1000
+             5  0x00011  int    81 08                    8
+             6  0x00013  prim   83 2c                    shr
+     3       7  0x00015  int    91 00 f0                 -0x1000
+             8  0x00018  int    81 08                    8
+             9  0x0001a  prim   83 2c                    shr
+     4      10  0x0001c  int    91 00 10                 0x1000
+            11  0x0001f  int    81 c4                    -60
+            12  0x00021  prim   83 2c                    shr
+     5      13  0x00023  int    81 3e                    62
+     6      14  0x00025  int    f1 ff ff ff ff ff ff ff  0x7fffffffffffffff
+                                7f
+            15  0x0002e  int    81 3e                    62
+            16  0x00030  prim   83 2c                    shr
+     7      17  0x00032  int    81 ff                    0xffffffffffffffff
+            18  0x00034  int    81 3e                    62
+            19  0x00036  prim   83 2c                    shr
+     8      20  0x00038  int    81 3f                    63
+     9      21  0x0003a  int    f1 ff ff ff ff ff ff ff  0x7fffffffffffffff
+                                7f
+            22  0x00043  int    81 3f                    63
+            23  0x00045  prim   83 2c                    shr
+    10      24  0x00047  int    81 ff                    0xffffffffffffffff
+            25  0x00049  int    81 3f                    63
+            26  0x0004b  prim   83 2c                    shr
+    11      27  0x0004d  int    81 40                    64
+    12      28  0x0004f  int    f1 ff ff ff ff ff ff ff  0x7fffffffffffffff
+                                7f
+            29  0x00058  int    81 40                    64
+            30  0x0005a  prim   83 2c                    shr
+    13      31  0x0005c  int    81 ff                    0xffffffffffffffff
+            32  0x0005e  int    81 40                    64
+            33  0x00060  prim   83 2c                    shr
+    14      34  0x00062  int    81 41                    65
+    15      35  0x00064  int    f1 ff ff ff ff ff ff ff  0x7fffffffffffffff
+                                7f
+            36  0x0006d  int    81 41                    65
+            37  0x0006f  prim   83 2c                    shr
+    16      38  0x00071  int    81 ff                    0xffffffffffffffff
+            39  0x00073  int    81 41                    65
+            40  0x00075  prim   83 2c                    shr

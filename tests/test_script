@@ -1,0 +1,26 @@
+log prompt 0 gc stack context ip
+# ---  trace  ---
+run
+# ---  trace_end  ---
+# ---  mem  ---
+d mem
+d *
+# ---  mem_end  ---
+# ---  screen  ---
+d screen
+# ---  screen_end  ---
+p st
+# ---  cleanup  ---
+return
+set stack 0
+set context 0
+set gstate 0
+set consolegstate 0
+set screen 0
+set dict 0
+d mem
+d 0
+# ---  cleanup_end  ---
+# ---  gc  ---
+i 0
+# ---  gc_end  ---

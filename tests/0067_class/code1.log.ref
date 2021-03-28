@@ -1,0 +1,74 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 64 entries (64 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     8       1  0x00008  ref    59 63 6c 61 73 73        /class
+             2  0x0000e  code   c6 25                    {
+     9       3  0x00010  int    21                         2
+             4  0x00011  word   58 69 6e 64 65 78          index
+             5  0x00017  word   48 65 78 63 68             exch
+             6  0x0001c  word   48 67 64 65 66             gdef
+    10       7  0x00021  xref   84 0a                      exch
+             8  0x00023  word   48 65 78 65 63             exec
+             9  0x00028  xref   84 11                      exch
+            10  0x0002a  word   98 73 65 74 70 61 72 65    setparent
+                                6e 74
+    11      11  0x00034  prim   13                       }
+            12  0x00035  word   38 64 65 66              def
+    14      13  0x00039  word   98 67 65 74 67 73 74 61  getgstate
+                                74 65
+            14  0x00043  word   c8 10 67 65 74 63 6f 6e  getconsolegstate
+                                73 6f 6c 65 67 73 74 61
+                                74 65
+            15  0x00055  word   78 67 65 74 66 6f 6e 74  getfont
+            16  0x0005d  word   78 73 65 74 66 6f 6e 74  setfont
+    16      17  0x00065  ref    69 77 69 64 67 65 74     /widget
+            18  0x0006c  word   18 28                    (
+    17      19  0x0006e  ref    59 64 72 61 77 31          /draw1
+            20  0x00074  code   c6 16                      {
+    18      21  0x00076  int    81 0a                        10
+            22  0x00078  word   18 79                        y
+            23  0x0007a  word   68 73 65 74 70 6f 73         setpos
+    19      24  0x00081  word   48 74 65 78 74               text
+            25  0x00086  word   48 73 68 6f 77               show
+    20      26  0x0008b  prim   13                         }
+    21      27  0x0008c  word   18 29                    )
+            28  0x0008e  xref   84 59                    def
+    23      29  0x00090  ref    39 77 69 6e              /win
+            30  0x00094  word   68 77 69 64 67 65 74     widget
+            31  0x0009b  word   18 28                    (
+    24      32  0x0009d  ref    19 79                      /y
+            33  0x0009f  int    81 14                      20
+    25      34  0x000a1  ref    49 74 65 78 74             /text
+            35  0x000a6  str    27 58 58                   "XX"
+    26      36  0x000a9  ref    59 64 72 61 77 32          /draw2
+            37  0x000af  code   c6 23                      {
+    27      38  0x000b1  int    81 0a                        10
+            39  0x000b3  word   18 79                        y
+            40  0x000b5  xref   84 3b                        setpos
+    28      41  0x000b7  xref   84 36                        text
+            42  0x000b9  xref   84 33                        show
+    29      43  0x000bb  ref    19 79                        /y
+            44  0x000bd  word   18 79                        y
+            45  0x000bf  int    81 14                        20
+            46  0x000c1  word   38 61 64 64                  add
+            47  0x000c5  xref   84 90                        def
+    30      48  0x000c7  xref   84 26                        /text
+            49  0x000c9  xref   84 48                        text
+            50  0x000cb  str    37 20 58 58                  " XX"
+            51  0x000cf  xref   84 0e                        add
+            52  0x000d1  xref   84 9c                        def
+    31      53  0x000d3  prim   13                         }
+    32      54  0x000d4  word   18 29                    )
+            55  0x000d6  word   58 63 6c 61 73 73        class
+    34      56  0x000dc  word   38 77 69 6e              win
+            57  0x000e0  get    5a 64 72 61 77 32        .draw2
+    35      58  0x000e6  xref   84 0a                    win
+            59  0x000e8  xref   84 08                    .draw2
+    36      60  0x000ea  xref   84 0e                    win
+            61  0x000ec  xref   84 0c                    .draw2
+    38      62  0x000ee  xref   84 12                    win
+            63  0x000f0  get    5a 64 72 61 77 31        .draw1

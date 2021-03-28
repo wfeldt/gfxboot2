@@ -1,0 +1,48 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 42 entries (42 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  ref    59 66 6f 6f 5f 31        /foo_1
+             2  0x0000e  code   56                       {
+             3  0x0000f  int    81 0a                      10
+             4  0x00011  int    81 14                      20
+             5  0x00013  prim   13                       }
+             6  0x00014  prim   63                       def
+     2       7  0x00015  ref    59 66 6f 6f 5f 32        /foo_2
+             8  0x0001b  xref   84 13                    /foo_1
+             9  0x0001d  prim   63                       def
+     3      10  0x0001e  ref    59 66 6f 6f 5f 33        /foo_3
+            11  0x00024  int    81 32                    50
+            12  0x00026  prim   63                       def
+     4      13  0x00027  ref    59 66 6f 6f 5f 34        /foo_4
+            14  0x0002d  prim   43                       (
+            15  0x0002e  str    57 66 6f 6f 5f 35          "foo_5"
+            16  0x00034  xref   84 2c                      /foo_1
+            17  0x00036  prim   53                       )
+            18  0x00037  prim   63                       def
+     5      19  0x00038  xref   84 30                    /foo_1
+            20  0x0003a  prim   83 1d                    exec
+     7      21  0x0003c  code   76                       {
+            22  0x0003d  int    91 2c 01                   300
+            23  0x00040  int    91 90 01                   400
+            24  0x00043  prim   13                       }
+            25  0x00044  prim   83 1d                    exec
+     9      26  0x00046  xref   84 31                    /foo_2
+            27  0x00048  prim   83 1d                    exec
+    10      28  0x0004a  word   58 66 6f 6f 5f 32        foo_2
+            29  0x00050  prim   83 1d                    exec
+    11      30  0x00052  xref   84 34                    /foo_3
+            31  0x00054  prim   83 1d                    exec
+    13      32  0x00056  str    37 61 62 63              "abc"
+            33  0x0005a  prim   83 1d                    exec
+    14      34  0x0005c  int    81 1e                    30
+            35  0x0005e  prim   83 1d                    exec
+    15      36  0x00060  nil    00                       nil
+            37  0x00061  prim   83 1d                    exec
+    16      38  0x00063  word   58 66 6f 6f 5f 34        foo_4
+            39  0x00069  xref   84 3b                    "foo_5"
+            40  0x0006b  prim   83 12                    get
+            41  0x0006d  prim   83 1d                    exec

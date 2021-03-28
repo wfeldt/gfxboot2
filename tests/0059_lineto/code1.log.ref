@@ -1,0 +1,225 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 216 entries (216 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  word   98 67 65 74 67 73 74 61  getgstate
+                                74 65
+             2  0x00012  int    81 32                    50
+             3  0x00014  int    81 14                    20
+             4  0x00016  int    91 90 01                 400
+             5  0x00019  int    91 90 01                 400
+             6  0x0001c  word   98 73 65 74 72 65 67 69  setregion
+                                6f 6e
+     2       7  0x00026  int    b1 ff ff ff 00           0x00ffffff
+             8  0x0002b  word   88 73 65 74 63 6f 6c 6f  setcolor
+                                72
+     5       9  0x00034  ref    19 72                    /r
+            10  0x00036  code   c6 25                    {
+     6      11  0x00038  word   68 67 65 74 70 6f 73       getpos
+     7      12  0x0003f  int    41                         4
+            13  0x00040  int    11                         1
+            14  0x00041  word   48 72 6f 6c 6c             roll
+            15  0x00046  word   38 61 64 64                add
+     8      16  0x0004a  int    31                         3
+            17  0x0004b  int    11                         1
+            18  0x0004c  xref   84 0b                      roll
+            19  0x0004e  xref   84 08                      add
+            20  0x00050  word   48 65 78 63 68             exch
+     9      21  0x00055  word   68 6c 69 6e 65 74 6f       lineto
+    10      22  0x0005c  prim   13                       }
+            23  0x0005d  word   38 64 65 66              def
+    12      24  0x00061  int    91 c8 00                 200
+            25  0x00064  int    91 c8 00                 200
+            26  0x00067  word   68 73 65 74 70 6f 73     setpos
+            27  0x0006e  int    91 c8 00                 200
+            28  0x00071  int    01                       0
+            29  0x00072  word   18 72                    r
+    14      30  0x00074  int    91 c8 00                 200
+            31  0x00077  int    91 c8 00                 200
+            32  0x0007a  xref   84 13                    setpos
+            33  0x0007c  int    91 c8 00                 200
+            34  0x0007f  int    81 3c                    60
+            35  0x00081  word   18 72                    r
+    15      36  0x00083  int    91 c8 00                 200
+            37  0x00086  int    91 c8 00                 200
+            38  0x00089  xref   84 22                    setpos
+            39  0x0008b  int    91 c8 00                 200
+            40  0x0008e  int    81 64                    100
+            41  0x00090  word   18 72                    r
+    16      42  0x00092  int    91 c8 00                 200
+            43  0x00095  int    91 c8 00                 200
+            44  0x00098  xref   84 31                    setpos
+            45  0x0009a  int    91 c8 00                 200
+            46  0x0009d  int    91 a0 00                 160
+            47  0x000a0  word   18 72                    r
+    18      48  0x000a2  int    91 c8 00                 200
+            49  0x000a5  int    91 c8 00                 200
+            50  0x000a8  xref   84 41                    setpos
+            51  0x000aa  int    91 c8 00                 200
+            52  0x000ad  int    91 c8 00                 200
+            53  0x000b0  word   18 72                    r
+    20      54  0x000b2  int    91 c8 00                 200
+            55  0x000b5  int    91 c8 00                 200
+            56  0x000b8  xref   84 51                    setpos
+            57  0x000ba  int    91 a0 00                 160
+            58  0x000bd  int    91 c8 00                 200
+            59  0x000c0  word   18 72                    r
+    21      60  0x000c2  int    91 c8 00                 200
+            61  0x000c5  int    91 c8 00                 200
+            62  0x000c8  xref   84 61                    setpos
+            63  0x000ca  int    81 64                    100
+            64  0x000cc  int    91 c8 00                 200
+            65  0x000cf  word   18 72                    r
+    22      66  0x000d1  int    91 c8 00                 200
+            67  0x000d4  int    91 c8 00                 200
+            68  0x000d7  xref   84 70                    setpos
+            69  0x000d9  int    81 3c                    60
+            70  0x000db  int    91 c8 00                 200
+            71  0x000de  word   18 72                    r
+    24      72  0x000e0  int    91 c8 00                 200
+            73  0x000e3  int    91 c8 00                 200
+            74  0x000e6  xref   84 7f                    setpos
+            75  0x000e8  int    01                       0
+            76  0x000e9  int    91 c8 00                 200
+            77  0x000ec  word   18 72                    r
+    26      78  0x000ee  int    91 c8 00                 200
+            79  0x000f1  int    91 c8 00                 200
+            80  0x000f4  xref   84 8d                    setpos
+            81  0x000f6  int    81 c4                    -60
+            82  0x000f8  int    91 c8 00                 200
+            83  0x000fb  word   18 72                    r
+    27      84  0x000fd  int    91 c8 00                 200
+            85  0x00100  int    91 c8 00                 200
+            86  0x00103  xref   84 9c                    setpos
+            87  0x00105  int    81 9c                    -100
+            88  0x00107  int    91 c8 00                 200
+            89  0x0010a  word   18 72                    r
+    28      90  0x0010c  int    91 c8 00                 200
+            91  0x0010f  int    91 c8 00                 200
+            92  0x00112  xref   84 ab                    setpos
+            93  0x00114  int    91 60 ff                 -160
+            94  0x00117  int    91 c8 00                 200
+            95  0x0011a  word   18 72                    r
+    30      96  0x0011c  int    91 c8 00                 200
+            97  0x0011f  int    91 c8 00                 200
+            98  0x00122  xref   84 bb                    setpos
+            99  0x00124  int    91 38 ff                 -200
+           100  0x00127  int    91 c8 00                 200
+           101  0x0012a  word   18 72                    r
+    32     102  0x0012c  int    91 c8 00                 200
+           103  0x0012f  int    91 c8 00                 200
+           104  0x00132  xref   84 cb                    setpos
+           105  0x00134  int    91 38 ff                 -200
+           106  0x00137  int    91 a0 00                 160
+           107  0x0013a  word   18 72                    r
+    33     108  0x0013c  int    91 c8 00                 200
+           109  0x0013f  int    91 c8 00                 200
+           110  0x00142  xref   84 db                    setpos
+           111  0x00144  int    91 38 ff                 -200
+           112  0x00147  int    81 64                    100
+           113  0x00149  word   18 72                    r
+    34     114  0x0014b  int    91 c8 00                 200
+           115  0x0014e  int    91 c8 00                 200
+           116  0x00151  xref   84 ea                    setpos
+           117  0x00153  int    91 38 ff                 -200
+           118  0x00156  int    81 3c                    60
+           119  0x00158  word   18 72                    r
+    36     120  0x0015a  int    91 c8 00                 200
+           121  0x0015d  int    91 c8 00                 200
+           122  0x00160  xref   84 f9                    setpos
+           123  0x00162  int    91 38 ff                 -200
+           124  0x00165  int    01                       0
+           125  0x00166  word   18 72                    r
+    38     126  0x00168  int    91 c8 00                 200
+           127  0x0016b  int    91 c8 00                 200
+           128  0x0016e  xref   94 07 01                 setpos
+           129  0x00171  int    91 38 ff                 -200
+           130  0x00174  int    81 c4                    -60
+           131  0x00176  word   18 72                    r
+    39     132  0x00178  int    91 c8 00                 200
+           133  0x0017b  int    91 c8 00                 200
+           134  0x0017e  xref   94 17 01                 setpos
+           135  0x00181  int    91 38 ff                 -200
+           136  0x00184  int    81 9c                    -100
+           137  0x00186  word   18 72                    r
+    40     138  0x00188  int    91 c8 00                 200
+           139  0x0018b  int    91 c8 00                 200
+           140  0x0018e  xref   94 27 01                 setpos
+           141  0x00191  int    91 38 ff                 -200
+           142  0x00194  int    91 60 ff                 -160
+           143  0x00197  word   18 72                    r
+    42     144  0x00199  int    91 c8 00                 200
+           145  0x0019c  int    91 c8 00                 200
+           146  0x0019f  xref   94 38 01                 setpos
+           147  0x001a2  int    91 38 ff                 -200
+           148  0x001a5  int    91 38 ff                 -200
+           149  0x001a8  word   18 72                    r
+    44     150  0x001aa  int    91 c8 00                 200
+           151  0x001ad  int    91 c8 00                 200
+           152  0x001b0  xref   94 49 01                 setpos
+           153  0x001b3  int    91 60 ff                 -160
+           154  0x001b6  int    91 38 ff                 -200
+           155  0x001b9  word   18 72                    r
+    45     156  0x001bb  int    91 c8 00                 200
+           157  0x001be  int    91 c8 00                 200
+           158  0x001c1  xref   94 5a 01                 setpos
+           159  0x001c4  int    81 9c                    -100
+           160  0x001c6  int    91 38 ff                 -200
+           161  0x001c9  word   18 72                    r
+    46     162  0x001cb  int    91 c8 00                 200
+           163  0x001ce  int    91 c8 00                 200
+           164  0x001d1  xref   94 6a 01                 setpos
+           165  0x001d4  int    81 c4                    -60
+           166  0x001d6  int    91 38 ff                 -200
+           167  0x001d9  word   18 72                    r
+    48     168  0x001db  int    91 c8 00                 200
+           169  0x001de  int    91 c8 00                 200
+           170  0x001e1  xref   94 7a 01                 setpos
+           171  0x001e4  int    01                       0
+           172  0x001e5  int    91 38 ff                 -200
+           173  0x001e8  word   18 72                    r
+    50     174  0x001ea  int    91 c8 00                 200
+           175  0x001ed  int    91 c8 00                 200
+           176  0x001f0  xref   94 89 01                 setpos
+           177  0x001f3  int    81 3c                    60
+           178  0x001f5  int    91 38 ff                 -200
+           179  0x001f8  word   18 72                    r
+    51     180  0x001fa  int    91 c8 00                 200
+           181  0x001fd  int    91 c8 00                 200
+           182  0x00200  xref   94 99 01                 setpos
+           183  0x00203  int    81 64                    100
+           184  0x00205  int    91 38 ff                 -200
+           185  0x00208  word   18 72                    r
+    52     186  0x0020a  int    91 c8 00                 200
+           187  0x0020d  int    91 c8 00                 200
+           188  0x00210  xref   94 a9 01                 setpos
+           189  0x00213  int    91 a0 00                 160
+           190  0x00216  int    91 38 ff                 -200
+           191  0x00219  word   18 72                    r
+    54     192  0x0021b  int    91 c8 00                 200
+           193  0x0021e  int    91 c8 00                 200
+           194  0x00221  xref   94 ba 01                 setpos
+           195  0x00224  int    91 c8 00                 200
+           196  0x00227  int    91 38 ff                 -200
+           197  0x0022a  word   18 72                    r
+    56     198  0x0022c  int    91 c8 00                 200
+           199  0x0022f  int    91 c8 00                 200
+           200  0x00232  xref   94 cb 01                 setpos
+           201  0x00235  int    91 c8 00                 200
+           202  0x00238  int    91 60 ff                 -160
+           203  0x0023b  word   18 72                    r
+    57     204  0x0023d  int    91 c8 00                 200
+           205  0x00240  int    91 c8 00                 200
+           206  0x00243  xref   94 dc 01                 setpos
+           207  0x00246  int    91 c8 00                 200
+           208  0x00249  int    81 9c                    -100
+           209  0x0024b  word   18 72                    r
+    58     210  0x0024d  int    91 c8 00                 200
+           211  0x00250  int    91 c8 00                 200
+           212  0x00253  xref   94 ec 01                 setpos
+           213  0x00256  int    91 c8 00                 200
+           214  0x00259  int    81 c4                    -60
+           215  0x0025b  word   18 72                    r

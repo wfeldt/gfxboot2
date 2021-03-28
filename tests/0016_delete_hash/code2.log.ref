@@ -1,0 +1,62 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 56 entries (56 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  ref    39 66 6f 6f              /foo
+             2  0x0000c  prim   43                       (
+             3  0x0000d  str    27 61 61                   "aa"
+             4  0x00010  int    81 0b                      11
+             5  0x00012  str    27 62 62                   "bb"
+             6  0x00015  int    81 16                      22
+             7  0x00017  str    27 63 63                   "cc"
+             8  0x0001a  int    81 21                      33
+             9  0x0001c  str    27 64 64                   "dd"
+            10  0x0001f  int    81 2c                      44
+            11  0x00021  str    27 65 65                   "ee"
+            12  0x00024  int    81 37                      55
+            13  0x00026  prim   53                       )
+            14  0x00027  prim   63                       def
+     3      15  0x00028  word   38 66 6f 6f              foo
+            16  0x0002c  xref   84 1a                    "bb"
+            17  0x0002e  prim   83 14                    delete
+     4      18  0x00030  xref   84 08                    foo
+            19  0x00032  xref   84 16                    "dd"
+            20  0x00034  prim   83 14                    delete
+     5      21  0x00036  xref   84 0e                    foo
+            22  0x00038  str    27 66 66                 "ff"
+            23  0x0003b  prim   83 14                    delete
+     7      24  0x0003d  xref   84 15                    foo
+            25  0x0003f  code   16                       {
+            26  0x00040  prim   13                       }
+            27  0x00041  prim   83 0e                    forall
+     9      28  0x00043  xref   84 1b                    foo
+            29  0x00045  xref   84 38                    "aa"
+            30  0x00047  prim   83 14                    delete
+    10      31  0x00049  xref   84 21                    foo
+            32  0x0004b  xref   84 2a                    "ee"
+            33  0x0004d  prim   83 14                    delete
+    12      34  0x0004f  xref   84 27                    foo
+            35  0x00051  code   16                       {
+            36  0x00052  prim   13                       }
+            37  0x00053  prim   83 0e                    forall
+    14      38  0x00055  xref   84 2d                    foo
+            39  0x00057  xref   84 40                    "cc"
+            40  0x00059  prim   83 14                    delete
+    16      41  0x0005b  xref   84 33                    foo
+            42  0x0005d  str    27 78 78                 "xx"
+            43  0x00060  prim   83 14                    delete
+    18      44  0x00062  xref   84 3a                    foo
+            45  0x00064  code   16                       {
+            46  0x00065  prim   13                       }
+            47  0x00066  prim   83 0e                    forall
+    20      48  0x00068  xref   84 40                    foo
+            49  0x0006a  xref   84 0d                    "xx"
+            50  0x0006c  int    81 63                    99
+            51  0x0006e  prim   83 13                    put
+    22      52  0x00070  xref   84 48                    foo
+            53  0x00072  code   16                       {
+            54  0x00073  prim   13                       }
+            55  0x00074  prim   83 0e                    forall

@@ -1,0 +1,1049 @@
+# ---  trace  ---
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+GC: ++#xxxx.1.1.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.2.mem.ro, "123">
+GC: ++#xxxx.1.2.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.3.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.3.mem.ro, "123">
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.3.mem.ro, "123">
+GC: ++#xxxx.1.3.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #0.0.nil <nil>
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.bool <1 (0x1)>
+  [1] #0.0.nil <nil>
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.bool <0 (0x0)>
+  [1] #xxxx.1.1.num.bool <1 (0x1)>
+  [2] #0.0.nil <nil>
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <0 (0x0)>
+  [1] #xxxx.1.1.num.bool <0 (0x0)>
+  [2] #xxxx.1.1.num.bool <1 (0x1)>
+  [3] #0.0.nil <nil>
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <1 (0x1)>
+  [1] #xxxx.1.1.num.int <0 (0x0)>
+  [2] #xxxx.1.1.num.bool <0 (0x0)>
+  [3] #xxxx.1.1.num.bool <1 (0x1)>
+  [4] #0.0.nil <nil>
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <5 (0x5)>
+  [1] #xxxx.1.1.num.int <1 (0x1)>
+  [2] #xxxx.1.1.num.int <0 (0x0)>
+  [3] #xxxx.1.1.num.bool <0 (0x0)>
+  [4] #xxxx.1.1.num.bool <1 (0x1)>
+  [5] #0.0.nil <nil>
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <7 (0x7)>
+  [1] #xxxx.1.1.num.int <5 (0x5)>
+  [2] #xxxx.1.1.num.int <1 (0x1)>
+  [3] #xxxx.1.1.num.int <0 (0x0)>
+  [4] #xxxx.1.1.num.bool <0 (0x0)>
+  [5] #xxxx.1.1.num.bool <1 (0x1)>
+  [6] #0.0.nil <nil>
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <8 (0x8)>
+  [1] #xxxx.1.1.num.int <7 (0x7)>
+  [2] #xxxx.1.1.num.int <5 (0x5)>
+  [3] #xxxx.1.1.num.int <1 (0x1)>
+  [4] #xxxx.1.1.num.int <0 (0x0)>
+  [5] #xxxx.1.1.num.bool <0 (0x0)>
+  [6] #xxxx.1.1.num.bool <1 (0x1)>
+  [7] #0.0.nil <nil>
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <9 (0x9)>
+  [1] #xxxx.1.1.num.int <8 (0x8)>
+  [2] #xxxx.1.1.num.int <7 (0x7)>
+  [3] #xxxx.1.1.num.int <5 (0x5)>
+  [4] #xxxx.1.1.num.int <1 (0x1)>
+  [5] #xxxx.1.1.num.int <0 (0x0)>
+  [6] #xxxx.1.1.num.bool <0 (0x0)>
+  [7] #xxxx.1.1.num.bool <1 (0x1)>
+  [8] #0.0.nil <nil>
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [11] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <127 (0x7f)>
+  [1] #xxxx.1.1.num.int <9 (0x9)>
+  [2] #xxxx.1.1.num.int <8 (0x8)>
+  [3] #xxxx.1.1.num.int <7 (0x7)>
+  [4] #xxxx.1.1.num.int <5 (0x5)>
+  [5] #xxxx.1.1.num.int <1 (0x1)>
+  [6] #xxxx.1.1.num.int <0 (0x0)>
+  [7] #xxxx.1.1.num.bool <0 (0x0)>
+  [8] #xxxx.1.1.num.bool <1 (0x1)>
+  [9] #0.0.nil <nil>
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [11] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [12] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <128 (0x80)>
+  [1] #xxxx.1.1.num.int <127 (0x7f)>
+  [2] #xxxx.1.1.num.int <9 (0x9)>
+  [3] #xxxx.1.1.num.int <8 (0x8)>
+  [4] #xxxx.1.1.num.int <7 (0x7)>
+  [5] #xxxx.1.1.num.int <5 (0x5)>
+  [6] #xxxx.1.1.num.int <1 (0x1)>
+  [7] #xxxx.1.1.num.int <0 (0x0)>
+  [8] #xxxx.1.1.num.bool <0 (0x0)>
+  [9] #xxxx.1.1.num.bool <1 (0x1)>
+  [10] #0.0.nil <nil>
+  [11] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [12] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [13] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <255 (0xff)>
+  [1] #xxxx.1.1.num.int <128 (0x80)>
+  [2] #xxxx.1.1.num.int <127 (0x7f)>
+  [3] #xxxx.1.1.num.int <9 (0x9)>
+  [4] #xxxx.1.1.num.int <8 (0x8)>
+  [5] #xxxx.1.1.num.int <7 (0x7)>
+  [6] #xxxx.1.1.num.int <5 (0x5)>
+  [7] #xxxx.1.1.num.int <1 (0x1)>
+  [8] #xxxx.1.1.num.int <0 (0x0)>
+  [9] #xxxx.1.1.num.bool <0 (0x0)>
+  [10] #xxxx.1.1.num.bool <1 (0x1)>
+  [11] #0.0.nil <nil>
+  [12] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [13] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [14] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <256 (0x100)>
+  [1] #xxxx.1.1.num.int <255 (0xff)>
+  [2] #xxxx.1.1.num.int <128 (0x80)>
+  [3] #xxxx.1.1.num.int <127 (0x7f)>
+  [4] #xxxx.1.1.num.int <9 (0x9)>
+  [5] #xxxx.1.1.num.int <8 (0x8)>
+  [6] #xxxx.1.1.num.int <7 (0x7)>
+  [7] #xxxx.1.1.num.int <5 (0x5)>
+  [8] #xxxx.1.1.num.int <1 (0x1)>
+  [9] #xxxx.1.1.num.int <0 (0x0)>
+  [10] #xxxx.1.1.num.bool <0 (0x0)>
+  [11] #xxxx.1.1.num.bool <1 (0x1)>
+  [12] #0.0.nil <nil>
+  [13] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [14] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [15] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <257 (0x101)>
+  [1] #xxxx.1.1.num.int <256 (0x100)>
+  [2] #xxxx.1.1.num.int <255 (0xff)>
+  [3] #xxxx.1.1.num.int <128 (0x80)>
+  [4] #xxxx.1.1.num.int <127 (0x7f)>
+  [5] #xxxx.1.1.num.int <9 (0x9)>
+  [6] #xxxx.1.1.num.int <8 (0x8)>
+  [7] #xxxx.1.1.num.int <7 (0x7)>
+  [8] #xxxx.1.1.num.int <5 (0x5)>
+  [9] #xxxx.1.1.num.int <1 (0x1)>
+  [10] #xxxx.1.1.num.int <0 (0x0)>
+  [11] #xxxx.1.1.num.bool <0 (0x0)>
+  [12] #xxxx.1.1.num.bool <1 (0x1)>
+  [13] #0.0.nil <nil>
+  [14] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [15] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [16] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [1] #xxxx.1.1.num.int <257 (0x101)>
+  [2] #xxxx.1.1.num.int <256 (0x100)>
+  [3] #xxxx.1.1.num.int <255 (0xff)>
+  [4] #xxxx.1.1.num.int <128 (0x80)>
+  [5] #xxxx.1.1.num.int <127 (0x7f)>
+  [6] #xxxx.1.1.num.int <9 (0x9)>
+  [7] #xxxx.1.1.num.int <8 (0x8)>
+  [8] #xxxx.1.1.num.int <7 (0x7)>
+  [9] #xxxx.1.1.num.int <5 (0x5)>
+  [10] #xxxx.1.1.num.int <1 (0x1)>
+  [11] #xxxx.1.1.num.int <0 (0x0)>
+  [12] #xxxx.1.1.num.bool <0 (0x0)>
+  [13] #xxxx.1.1.num.bool <1 (0x1)>
+  [14] #0.0.nil <nil>
+  [15] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [16] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [17] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [1] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [2] #xxxx.1.1.num.int <257 (0x101)>
+  [3] #xxxx.1.1.num.int <256 (0x100)>
+  [4] #xxxx.1.1.num.int <255 (0xff)>
+  [5] #xxxx.1.1.num.int <128 (0x80)>
+  [6] #xxxx.1.1.num.int <127 (0x7f)>
+  [7] #xxxx.1.1.num.int <9 (0x9)>
+  [8] #xxxx.1.1.num.int <8 (0x8)>
+  [9] #xxxx.1.1.num.int <7 (0x7)>
+  [10] #xxxx.1.1.num.int <5 (0x5)>
+  [11] #xxxx.1.1.num.int <1 (0x1)>
+  [12] #xxxx.1.1.num.int <0 (0x0)>
+  [13] #xxxx.1.1.num.bool <0 (0x0)>
+  [14] #xxxx.1.1.num.bool <1 (0x1)>
+  [15] #0.0.nil <nil>
+  [16] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [17] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [18] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [1] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [2] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [3] #xxxx.1.1.num.int <257 (0x101)>
+  [4] #xxxx.1.1.num.int <256 (0x100)>
+  [5] #xxxx.1.1.num.int <255 (0xff)>
+  [6] #xxxx.1.1.num.int <128 (0x80)>
+  [7] #xxxx.1.1.num.int <127 (0x7f)>
+  [8] #xxxx.1.1.num.int <9 (0x9)>
+  [9] #xxxx.1.1.num.int <8 (0x8)>
+  [10] #xxxx.1.1.num.int <7 (0x7)>
+  [11] #xxxx.1.1.num.int <5 (0x5)>
+  [12] #xxxx.1.1.num.int <1 (0x1)>
+  [13] #xxxx.1.1.num.int <0 (0x0)>
+  [14] #xxxx.1.1.num.bool <0 (0x0)>
+  [15] #xxxx.1.1.num.bool <1 (0x1)>
+  [16] #0.0.nil <nil>
+  [17] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [18] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [19] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [1] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [2] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [3] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [4] #xxxx.1.1.num.int <257 (0x101)>
+  [5] #xxxx.1.1.num.int <256 (0x100)>
+  [6] #xxxx.1.1.num.int <255 (0xff)>
+  [7] #xxxx.1.1.num.int <128 (0x80)>
+  [8] #xxxx.1.1.num.int <127 (0x7f)>
+  [9] #xxxx.1.1.num.int <9 (0x9)>
+  [10] #xxxx.1.1.num.int <8 (0x8)>
+  [11] #xxxx.1.1.num.int <7 (0x7)>
+  [12] #xxxx.1.1.num.int <5 (0x5)>
+  [13] #xxxx.1.1.num.int <1 (0x1)>
+  [14] #xxxx.1.1.num.int <0 (0x0)>
+  [15] #xxxx.1.1.num.bool <0 (0x0)>
+  [16] #xxxx.1.1.num.bool <1 (0x1)>
+  [17] #0.0.nil <nil>
+  [18] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [19] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [20] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [1] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [2] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [3] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [4] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [5] #xxxx.1.1.num.int <257 (0x101)>
+  [6] #xxxx.1.1.num.int <256 (0x100)>
+  [7] #xxxx.1.1.num.int <255 (0xff)>
+  [8] #xxxx.1.1.num.int <128 (0x80)>
+  [9] #xxxx.1.1.num.int <127 (0x7f)>
+  [10] #xxxx.1.1.num.int <9 (0x9)>
+  [11] #xxxx.1.1.num.int <8 (0x8)>
+  [12] #xxxx.1.1.num.int <7 (0x7)>
+  [13] #xxxx.1.1.num.int <5 (0x5)>
+  [14] #xxxx.1.1.num.int <1 (0x1)>
+  [15] #xxxx.1.1.num.int <0 (0x0)>
+  [16] #xxxx.1.1.num.bool <0 (0x0)>
+  [17] #xxxx.1.1.num.bool <1 (0x1)>
+  [18] #0.0.nil <nil>
+  [19] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [20] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [21] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [1] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [2] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [3] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [4] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [5] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [6] #xxxx.1.1.num.int <257 (0x101)>
+  [7] #xxxx.1.1.num.int <256 (0x100)>
+  [8] #xxxx.1.1.num.int <255 (0xff)>
+  [9] #xxxx.1.1.num.int <128 (0x80)>
+  [10] #xxxx.1.1.num.int <127 (0x7f)>
+  [11] #xxxx.1.1.num.int <9 (0x9)>
+  [12] #xxxx.1.1.num.int <8 (0x8)>
+  [13] #xxxx.1.1.num.int <7 (0x7)>
+  [14] #xxxx.1.1.num.int <5 (0x5)>
+  [15] #xxxx.1.1.num.int <1 (0x1)>
+  [16] #xxxx.1.1.num.int <0 (0x0)>
+  [17] #xxxx.1.1.num.bool <0 (0x0)>
+  [18] #xxxx.1.1.num.bool <1 (0x1)>
+  [19] #0.0.nil <nil>
+  [20] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [21] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [22] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-256 (0xffffffffffffff00)>
+  [1] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [2] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [3] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [4] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [5] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [6] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [7] #xxxx.1.1.num.int <257 (0x101)>
+  [8] #xxxx.1.1.num.int <256 (0x100)>
+  [9] #xxxx.1.1.num.int <255 (0xff)>
+  [10] #xxxx.1.1.num.int <128 (0x80)>
+  [11] #xxxx.1.1.num.int <127 (0x7f)>
+  [12] #xxxx.1.1.num.int <9 (0x9)>
+  [13] #xxxx.1.1.num.int <8 (0x8)>
+  [14] #xxxx.1.1.num.int <7 (0x7)>
+  [15] #xxxx.1.1.num.int <5 (0x5)>
+  [16] #xxxx.1.1.num.int <1 (0x1)>
+  [17] #xxxx.1.1.num.int <0 (0x0)>
+  [18] #xxxx.1.1.num.bool <0 (0x0)>
+  [19] #xxxx.1.1.num.bool <1 (0x1)>
+  [20] #0.0.nil <nil>
+  [21] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [22] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [23] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-257 (0xfffffffffffffeff)>
+  [1] #xxxx.1.1.num.int <-256 (0xffffffffffffff00)>
+  [2] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [3] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [4] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [5] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [6] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [7] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [8] #xxxx.1.1.num.int <257 (0x101)>
+  [9] #xxxx.1.1.num.int <256 (0x100)>
+  [10] #xxxx.1.1.num.int <255 (0xff)>
+  [11] #xxxx.1.1.num.int <128 (0x80)>
+  [12] #xxxx.1.1.num.int <127 (0x7f)>
+  [13] #xxxx.1.1.num.int <9 (0x9)>
+  [14] #xxxx.1.1.num.int <8 (0x8)>
+  [15] #xxxx.1.1.num.int <7 (0x7)>
+  [16] #xxxx.1.1.num.int <5 (0x5)>
+  [17] #xxxx.1.1.num.int <1 (0x1)>
+  [18] #xxxx.1.1.num.int <0 (0x0)>
+  [19] #xxxx.1.1.num.bool <0 (0x0)>
+  [20] #xxxx.1.1.num.bool <1 (0x1)>
+  [21] #0.0.nil <nil>
+  [22] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [23] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [24] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [1] #xxxx.1.1.num.int <-257 (0xfffffffffffffeff)>
+  [2] #xxxx.1.1.num.int <-256 (0xffffffffffffff00)>
+  [3] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [4] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [5] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [6] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [7] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [8] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [9] #xxxx.1.1.num.int <257 (0x101)>
+  [10] #xxxx.1.1.num.int <256 (0x100)>
+  [11] #xxxx.1.1.num.int <255 (0xff)>
+  [12] #xxxx.1.1.num.int <128 (0x80)>
+  [13] #xxxx.1.1.num.int <127 (0x7f)>
+  [14] #xxxx.1.1.num.int <9 (0x9)>
+  [15] #xxxx.1.1.num.int <8 (0x8)>
+  [16] #xxxx.1.1.num.int <7 (0x7)>
+  [17] #xxxx.1.1.num.int <5 (0x5)>
+  [18] #xxxx.1.1.num.int <1 (0x1)>
+  [19] #xxxx.1.1.num.int <0 (0x0)>
+  [20] #xxxx.1.1.num.bool <0 (0x0)>
+  [21] #xxxx.1.1.num.bool <1 (0x1)>
+  [22] #0.0.nil <nil>
+  [23] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [24] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [25] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [1] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [2] #xxxx.1.1.num.int <-257 (0xfffffffffffffeff)>
+  [3] #xxxx.1.1.num.int <-256 (0xffffffffffffff00)>
+  [4] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [5] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [6] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [7] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [8] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [9] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [10] #xxxx.1.1.num.int <257 (0x101)>
+  [11] #xxxx.1.1.num.int <256 (0x100)>
+  [12] #xxxx.1.1.num.int <255 (0xff)>
+  [13] #xxxx.1.1.num.int <128 (0x80)>
+  [14] #xxxx.1.1.num.int <127 (0x7f)>
+  [15] #xxxx.1.1.num.int <9 (0x9)>
+  [16] #xxxx.1.1.num.int <8 (0x8)>
+  [17] #xxxx.1.1.num.int <7 (0x7)>
+  [18] #xxxx.1.1.num.int <5 (0x5)>
+  [19] #xxxx.1.1.num.int <1 (0x1)>
+  [20] #xxxx.1.1.num.int <0 (0x0)>
+  [21] #xxxx.1.1.num.bool <0 (0x0)>
+  [22] #xxxx.1.1.num.bool <1 (0x1)>
+  [23] #0.0.nil <nil>
+  [24] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [25] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [26] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [1] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [2] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [3] #xxxx.1.1.num.int <-257 (0xfffffffffffffeff)>
+  [4] #xxxx.1.1.num.int <-256 (0xffffffffffffff00)>
+  [5] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [6] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [7] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [8] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [9] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [10] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [11] #xxxx.1.1.num.int <257 (0x101)>
+  [12] #xxxx.1.1.num.int <256 (0x100)>
+  [13] #xxxx.1.1.num.int <255 (0xff)>
+  [14] #xxxx.1.1.num.int <128 (0x80)>
+  [15] #xxxx.1.1.num.int <127 (0x7f)>
+  [16] #xxxx.1.1.num.int <9 (0x9)>
+  [17] #xxxx.1.1.num.int <8 (0x8)>
+  [18] #xxxx.1.1.num.int <7 (0x7)>
+  [19] #xxxx.1.1.num.int <5 (0x5)>
+  [20] #xxxx.1.1.num.int <1 (0x1)>
+  [21] #xxxx.1.1.num.int <0 (0x0)>
+  [22] #xxxx.1.1.num.bool <0 (0x0)>
+  [23] #xxxx.1.1.num.bool <1 (0x1)>
+  [24] #0.0.nil <nil>
+  [25] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [26] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+  [27] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "123">
+GC: ++#xxxx.1.4.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.5.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.5.mem.ro, "">
+  [1] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [2] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [3] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [4] #xxxx.1.1.num.int <-257 (0xfffffffffffffeff)>
+  [5] #xxxx.1.1.num.int <-256 (0xffffffffffffff00)>
+  [6] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [7] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [8] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [9] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [10] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [11] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [12] #xxxx.1.1.num.int <257 (0x101)>
+  [13] #xxxx.1.1.num.int <256 (0x100)>
+  [14] #xxxx.1.1.num.int <255 (0xff)>
+  [15] #xxxx.1.1.num.int <128 (0x80)>
+  [16] #xxxx.1.1.num.int <127 (0x7f)>
+  [17] #xxxx.1.1.num.int <9 (0x9)>
+  [18] #xxxx.1.1.num.int <8 (0x8)>
+  [19] #xxxx.1.1.num.int <7 (0x7)>
+  [20] #xxxx.1.1.num.int <5 (0x5)>
+  [21] #xxxx.1.1.num.int <1 (0x1)>
+  [22] #xxxx.1.1.num.int <0 (0x0)>
+  [23] #xxxx.1.1.num.bool <0 (0x0)>
+  [24] #xxxx.1.1.num.bool <1 (0x1)>
+  [25] #0.0.nil <nil>
+  [26] #xxxx.1.1.mem.str.ro <#xxxx.1.5.mem.ro, "123">
+  [27] #xxxx.1.1.mem.str.ro <#xxxx.1.5.mem.ro, "123">
+  [28] #xxxx.1.1.mem.str.ro <#xxxx.1.5.mem.ro, "123">
+GC: ++#xxxx.1.5.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "a">
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "">
+  [2] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [3] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [4] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [5] #xxxx.1.1.num.int <-257 (0xfffffffffffffeff)>
+  [6] #xxxx.1.1.num.int <-256 (0xffffffffffffff00)>
+  [7] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [8] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [9] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [10] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [11] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [12] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [13] #xxxx.1.1.num.int <257 (0x101)>
+  [14] #xxxx.1.1.num.int <256 (0x100)>
+  [15] #xxxx.1.1.num.int <255 (0xff)>
+  [16] #xxxx.1.1.num.int <128 (0x80)>
+  [17] #xxxx.1.1.num.int <127 (0x7f)>
+  [18] #xxxx.1.1.num.int <9 (0x9)>
+  [19] #xxxx.1.1.num.int <8 (0x8)>
+  [20] #xxxx.1.1.num.int <7 (0x7)>
+  [21] #xxxx.1.1.num.int <5 (0x5)>
+  [22] #xxxx.1.1.num.int <1 (0x1)>
+  [23] #xxxx.1.1.num.int <0 (0x0)>
+  [24] #xxxx.1.1.num.bool <0 (0x0)>
+  [25] #xxxx.1.1.num.bool <1 (0x1)>
+  [26] #0.0.nil <nil>
+  [27] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "123">
+  [28] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "123">
+  [29] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "123">
+GC: ++#xxxx.1.6.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.7.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.7.mem.ro, "abc">
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.7.mem.ro, "a">
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.7.mem.ro, "">
+  [3] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [4] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [5] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [6] #xxxx.1.1.num.int <-257 (0xfffffffffffffeff)>
+  [7] #xxxx.1.1.num.int <-256 (0xffffffffffffff00)>
+  [8] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [9] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [10] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [11] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [12] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [13] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [14] #xxxx.1.1.num.int <257 (0x101)>
+  [15] #xxxx.1.1.num.int <256 (0x100)>
+  [16] #xxxx.1.1.num.int <255 (0xff)>
+  [17] #xxxx.1.1.num.int <128 (0x80)>
+  [18] #xxxx.1.1.num.int <127 (0x7f)>
+  [19] #xxxx.1.1.num.int <9 (0x9)>
+  [20] #xxxx.1.1.num.int <8 (0x8)>
+  [21] #xxxx.1.1.num.int <7 (0x7)>
+  [22] #xxxx.1.1.num.int <5 (0x5)>
+  [23] #xxxx.1.1.num.int <1 (0x1)>
+  [24] #xxxx.1.1.num.int <0 (0x0)>
+  [25] #xxxx.1.1.num.bool <0 (0x0)>
+  [26] #xxxx.1.1.num.bool <1 (0x1)>
+  [27] #0.0.nil <nil>
+  [28] #xxxx.1.1.mem.str.ro <#xxxx.1.7.mem.ro, "123">
+  [29] #xxxx.1.1.mem.str.ro <#xxxx.1.7.mem.ro, "123">
+  [30] #xxxx.1.1.mem.str.ro <#xxxx.1.7.mem.ro, "123">
+GC: ++#xxxx.1.7.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "0123456789a">
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "abc">
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "a">
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "">
+  [4] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [5] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [6] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [7] #xxxx.1.1.num.int <-257 (0xfffffffffffffeff)>
+  [8] #xxxx.1.1.num.int <-256 (0xffffffffffffff00)>
+  [9] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [10] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [11] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [12] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [13] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [14] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [15] #xxxx.1.1.num.int <257 (0x101)>
+  [16] #xxxx.1.1.num.int <256 (0x100)>
+  [17] #xxxx.1.1.num.int <255 (0xff)>
+  [18] #xxxx.1.1.num.int <128 (0x80)>
+  [19] #xxxx.1.1.num.int <127 (0x7f)>
+  [20] #xxxx.1.1.num.int <9 (0x9)>
+  [21] #xxxx.1.1.num.int <8 (0x8)>
+  [22] #xxxx.1.1.num.int <7 (0x7)>
+  [23] #xxxx.1.1.num.int <5 (0x5)>
+  [24] #xxxx.1.1.num.int <1 (0x1)>
+  [25] #xxxx.1.1.num.int <0 (0x0)>
+  [26] #xxxx.1.1.num.bool <0 (0x0)>
+  [27] #xxxx.1.1.num.bool <1 (0x1)>
+  [28] #0.0.nil <nil>
+  [29] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "123">
+  [30] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "123">
+  [31] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "123">
+GC: ++#xxxx.1.8.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.9.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.9.mem.ro, "0123456789ab">
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.9.mem.ro, "0123456789a">
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.9.mem.ro, "abc">
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.9.mem.ro, "a">
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.9.mem.ro, "">
+  [5] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [6] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [7] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [8] #xxxx.1.1.num.int <-257 (0xfffffffffffffeff)>
+  [9] #xxxx.1.1.num.int <-256 (0xffffffffffffff00)>
+  [10] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [11] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [12] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [13] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [14] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [15] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [16] #xxxx.1.1.num.int <257 (0x101)>
+  [17] #xxxx.1.1.num.int <256 (0x100)>
+  [18] #xxxx.1.1.num.int <255 (0xff)>
+  [19] #xxxx.1.1.num.int <128 (0x80)>
+  [20] #xxxx.1.1.num.int <127 (0x7f)>
+  [21] #xxxx.1.1.num.int <9 (0x9)>
+  [22] #xxxx.1.1.num.int <8 (0x8)>
+  [23] #xxxx.1.1.num.int <7 (0x7)>
+  [24] #xxxx.1.1.num.int <5 (0x5)>
+  [25] #xxxx.1.1.num.int <1 (0x1)>
+  [26] #xxxx.1.1.num.int <0 (0x0)>
+  [27] #xxxx.1.1.num.bool <0 (0x0)>
+  [28] #xxxx.1.1.num.bool <1 (0x1)>
+  [29] #0.0.nil <nil>
+  [30] #xxxx.1.1.mem.str.ro <#xxxx.1.9.mem.ro, "123">
+  [31] #xxxx.1.1.mem.str.ro <#xxxx.1.9.mem.ro, "123">
+  [32] #xxxx.1.1.mem.str.ro <#xxxx.1.9.mem.ro, "123">
+GC: ++#xxxx.1.9.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.10.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "abcdefsghlertert">
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "0123456789ab">
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "0123456789a">
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "abc">
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "a">
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "">
+  [6] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [7] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [8] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [9] #xxxx.1.1.num.int <-257 (0xfffffffffffffeff)>
+  [10] #xxxx.1.1.num.int <-256 (0xffffffffffffff00)>
+  [11] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [12] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [13] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [14] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [15] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [16] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [17] #xxxx.1.1.num.int <257 (0x101)>
+  [18] #xxxx.1.1.num.int <256 (0x100)>
+  [19] #xxxx.1.1.num.int <255 (0xff)>
+  [20] #xxxx.1.1.num.int <128 (0x80)>
+  [21] #xxxx.1.1.num.int <127 (0x7f)>
+  [22] #xxxx.1.1.num.int <9 (0x9)>
+  [23] #xxxx.1.1.num.int <8 (0x8)>
+  [24] #xxxx.1.1.num.int <7 (0x7)>
+  [25] #xxxx.1.1.num.int <5 (0x5)>
+  [26] #xxxx.1.1.num.int <1 (0x1)>
+  [27] #xxxx.1.1.num.int <0 (0x0)>
+  [28] #xxxx.1.1.num.bool <0 (0x0)>
+  [29] #xxxx.1.1.num.bool <1 (0x1)>
+  [30] #0.0.nil <nil>
+  [31] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "123">
+  [32] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "123">
+  [33] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "123">
+GC: ++#xxxx.1.10.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "hjgfahjgsdfahjgsdfahjgsfdjhasfdadfsjhajsdhfadjhsdfhajsdajhasdfgasdfgajksdgfkjasdgfasdfjkasdgfaskdfkasjdgfkjaasdfasdfjkasdgfkjashdgfjkasdgfjhasdgfjaksgdfkjasdgfkajsdgfkjasdgfkjasdfgkjasdfhgaksjdfasdkfjasdgfksajdhfgkajsdhgfjkasdgfjkasdgfkjasjkasdgfkjasdfkdds">
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "abcdefsghlertert">
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "0123456789ab">
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "0123456789a">
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "abc">
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "a">
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "">
+  [7] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [8] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [9] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [10] #xxxx.1.1.num.int <-257 (0xfffffffffffffeff)>
+  [11] #xxxx.1.1.num.int <-256 (0xffffffffffffff00)>
+  [12] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [13] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [14] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [15] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [16] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [17] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [18] #xxxx.1.1.num.int <257 (0x101)>
+  [19] #xxxx.1.1.num.int <256 (0x100)>
+  [20] #xxxx.1.1.num.int <255 (0xff)>
+  [21] #xxxx.1.1.num.int <128 (0x80)>
+  [22] #xxxx.1.1.num.int <127 (0x7f)>
+  [23] #xxxx.1.1.num.int <9 (0x9)>
+  [24] #xxxx.1.1.num.int <8 (0x8)>
+  [25] #xxxx.1.1.num.int <7 (0x7)>
+  [26] #xxxx.1.1.num.int <5 (0x5)>
+  [27] #xxxx.1.1.num.int <1 (0x1)>
+  [28] #xxxx.1.1.num.int <0 (0x0)>
+  [29] #xxxx.1.1.num.bool <0 (0x0)>
+  [30] #xxxx.1.1.num.bool <1 (0x1)>
+  [31] #0.0.nil <nil>
+  [32] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "123">
+  [33] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "123">
+  [34] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "123">
+GC: ++#xxxx.1.11.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "abc">
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "hjgfahjgsdfahjgsdfahjgsfdjhasfdadfsjhajsdhfadjhsdfhajsdajhasdfgasdfgajksdgfkjasdgfasdfjkasdgfaskdfkasjdgfkjaasdfasdfjkasdgfkjashdgfjkasdgfjhasdgfjaksgdfkjasdgfkajsdgfkjasdgfkjasdfgkjasdfhgaksjdfasdkfjasdgfksajdhfgkajsdhgfjkasdgfjkasdgfkjasjkasdgfkjasdfkdds">
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "abcdefsghlertert">
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "0123456789ab">
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "0123456789a">
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "abc">
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "a">
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "">
+  [8] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [9] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [10] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [11] #xxxx.1.1.num.int <-257 (0xfffffffffffffeff)>
+  [12] #xxxx.1.1.num.int <-256 (0xffffffffffffff00)>
+  [13] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [14] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [15] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [16] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [17] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [18] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [19] #xxxx.1.1.num.int <257 (0x101)>
+  [20] #xxxx.1.1.num.int <256 (0x100)>
+  [21] #xxxx.1.1.num.int <255 (0xff)>
+  [22] #xxxx.1.1.num.int <128 (0x80)>
+  [23] #xxxx.1.1.num.int <127 (0x7f)>
+  [24] #xxxx.1.1.num.int <9 (0x9)>
+  [25] #xxxx.1.1.num.int <8 (0x8)>
+  [26] #xxxx.1.1.num.int <7 (0x7)>
+  [27] #xxxx.1.1.num.int <5 (0x5)>
+  [28] #xxxx.1.1.num.int <1 (0x1)>
+  [29] #xxxx.1.1.num.int <0 (0x0)>
+  [30] #xxxx.1.1.num.bool <0 (0x0)>
+  [31] #xxxx.1.1.num.bool <1 (0x1)>
+  [32] #0.0.nil <nil>
+  [33] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "123">
+  [34] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "123">
+  [35] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "123">
+GC: ++#xxxx.1.12.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "abc">
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "abc">
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "hjgfahjgsdfahjgsdfahjgsfdjhasfdadfsjhajsdhfadjhsdfhajsdajhasdfgasdfgajksdgfkjasdgfasdfjkasdgfaskdfkasjdgfkjaasdfasdfjkasdgfkjashdgfjkasdgfjhasdgfjaksgdfkjasdgfkajsdgfkjasdgfkjasdfgkjasdfhgaksjdfasdkfjasdgfksajdhfgkajsdhgfjkasdgfjkasdgfkjasjkasdgfkjasdfkdds">
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "abcdefsghlertert">
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "0123456789ab">
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "0123456789a">
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "abc">
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "a">
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "">
+  [9] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [10] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [11] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [12] #xxxx.1.1.num.int <-257 (0xfffffffffffffeff)>
+  [13] #xxxx.1.1.num.int <-256 (0xffffffffffffff00)>
+  [14] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [15] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [16] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [17] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [18] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [19] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [20] #xxxx.1.1.num.int <257 (0x101)>
+  [21] #xxxx.1.1.num.int <256 (0x100)>
+  [22] #xxxx.1.1.num.int <255 (0xff)>
+  [23] #xxxx.1.1.num.int <128 (0x80)>
+  [24] #xxxx.1.1.num.int <127 (0x7f)>
+  [25] #xxxx.1.1.num.int <9 (0x9)>
+  [26] #xxxx.1.1.num.int <8 (0x8)>
+  [27] #xxxx.1.1.num.int <7 (0x7)>
+  [28] #xxxx.1.1.num.int <5 (0x5)>
+  [29] #xxxx.1.1.num.int <1 (0x1)>
+  [30] #xxxx.1.1.num.int <0 (0x0)>
+  [31] #xxxx.1.1.num.bool <0 (0x0)>
+  [32] #xxxx.1.1.num.bool <1 (0x1)>
+  [33] #0.0.nil <nil>
+  [34] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "123">
+  [35] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "123">
+  [36] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "123">
+GC: ++#xxxx.1.13.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.14.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.14.mem.ro, "foo">
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "abc">
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "abc">
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "hjgfahjgsdfahjgsdfahjgsfdjhasfdadfsjhajsdhfadjhsdfhajsdajhasdfgasdfgajksdgfkjasdgfasdfjkasdgfaskdfkasjdgfkjaasdfasdfjkasdgfkjashdgfjkasdgfjhasdgfjaksgdfkjasdgfkajsdgfkjasdgfkjasdfgkjasdfhgaksjdfasdkfjasdgfksajdhfgkajsdhgfjkasdgfjkasdgfkjasjkasdgfkjasdfkdds">
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "abcdefsghlertert">
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "0123456789ab">
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "0123456789a">
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "abc">
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "a">
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "">
+  [10] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [11] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [12] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [13] #xxxx.1.1.num.int <-257 (0xfffffffffffffeff)>
+  [14] #xxxx.1.1.num.int <-256 (0xffffffffffffff00)>
+  [15] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [16] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [17] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [18] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [19] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [20] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [21] #xxxx.1.1.num.int <257 (0x101)>
+  [22] #xxxx.1.1.num.int <256 (0x100)>
+  [23] #xxxx.1.1.num.int <255 (0xff)>
+  [24] #xxxx.1.1.num.int <128 (0x80)>
+  [25] #xxxx.1.1.num.int <127 (0x7f)>
+  [26] #xxxx.1.1.num.int <9 (0x9)>
+  [27] #xxxx.1.1.num.int <8 (0x8)>
+  [28] #xxxx.1.1.num.int <7 (0x7)>
+  [29] #xxxx.1.1.num.int <5 (0x5)>
+  [30] #xxxx.1.1.num.int <1 (0x1)>
+  [31] #xxxx.1.1.num.int <0 (0x0)>
+  [32] #xxxx.1.1.num.bool <0 (0x0)>
+  [33] #xxxx.1.1.num.bool <1 (0x1)>
+  [34] #0.0.nil <nil>
+  [35] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "123">
+  [36] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "123">
+  [37] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "123">
+GC: ++#xxxx.1.14.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.15.mem.ro>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.15.mem.ro, "foo">
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.15.mem.ro, "abc">
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.15.mem.ro, "abc">
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.15.mem.ro, "hjgfahjgsdfahjgsdfahjgsfdjhasfdadfsjhajsdhfadjhsdfhajsdajhasdfgasdfgajksdgfkjasdgfasdfjkasdgfaskdfkasjdgfkjaasdfasdfjkasdgfkjashdgfjkasdgfjhasdgfjaksgdfkjasdgfkajsdgfkjasdgfkjasdfgkjasdfhgaksjdfasdkfjasdgfksajdhfgkajsdhgfjkasdgfjkasdgfkjasjkasdgfkjasdfkdds">
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.15.mem.ro, "abcdefsghlertert">
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.15.mem.ro, "0123456789ab">
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.15.mem.ro, "0123456789a">
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.15.mem.ro, "abc">
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.15.mem.ro, "a">
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.15.mem.ro, "">
+  [11] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [12] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [13] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [14] #xxxx.1.1.num.int <-257 (0xfffffffffffffeff)>
+  [15] #xxxx.1.1.num.int <-256 (0xffffffffffffff00)>
+  [16] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [17] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [18] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [19] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [20] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [21] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [22] #xxxx.1.1.num.int <257 (0x101)>
+  [23] #xxxx.1.1.num.int <256 (0x100)>
+  [24] #xxxx.1.1.num.int <255 (0xff)>
+  [25] #xxxx.1.1.num.int <128 (0x80)>
+  [26] #xxxx.1.1.num.int <127 (0x7f)>
+  [27] #xxxx.1.1.num.int <9 (0x9)>
+  [28] #xxxx.1.1.num.int <8 (0x8)>
+  [29] #xxxx.1.1.num.int <7 (0x7)>
+  [30] #xxxx.1.1.num.int <5 (0x5)>
+  [31] #xxxx.1.1.num.int <1 (0x1)>
+  [32] #xxxx.1.1.num.int <0 (0x0)>
+  [33] #xxxx.1.1.num.bool <0 (0x0)>
+  [34] #xxxx.1.1.num.bool <1 (0x1)>
+  [35] #0.0.nil <nil>
+  [36] #xxxx.1.1.mem.str.ro <#xxxx.1.15.mem.ro, "123">
+  [37] #xxxx.1.1.mem.str.ro <#xxxx.1.15.mem.ro, "123">
+  [38] #xxxx.1.1.mem.str.ro <#xxxx.1.15.mem.ro, "123">
+GC: ++#xxxx.1.15.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.16.mem.ro>
+  [1] #xxxx.1.1.mem.code.ro <#xxxx.1.16.mem.ro>
+  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.16.mem.ro, "foo">
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.16.mem.ro, "abc">
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.16.mem.ro, "abc">
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.16.mem.ro, "hjgfahjgsdfahjgsdfahjgsfdjhasfdadfsjhajsdhfadjhsdfhajsdajhasdfgasdfgajksdgfkjasdgfasdfjkasdgfaskdfkasjdgfkjaasdfasdfjkasdgfkjashdgfjkasdgfjhasdgfjaksgdfkjasdgfkajsdgfkjasdgfkjasdfgkjasdfhgaksjdfasdkfjasdgfksajdhfgkajsdhgfjkasdgfjkasdgfkjasjkasdgfkjasdfkdds">
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.16.mem.ro, "abcdefsghlertert">
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.16.mem.ro, "0123456789ab">
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.16.mem.ro, "0123456789a">
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.16.mem.ro, "abc">
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.16.mem.ro, "a">
+  [11] #xxxx.1.1.mem.str.ro <#xxxx.1.16.mem.ro, "">
+  [12] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [13] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [14] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [15] #xxxx.1.1.num.int <-257 (0xfffffffffffffeff)>
+  [16] #xxxx.1.1.num.int <-256 (0xffffffffffffff00)>
+  [17] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [18] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [19] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [20] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [21] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [22] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [23] #xxxx.1.1.num.int <257 (0x101)>
+  [24] #xxxx.1.1.num.int <256 (0x100)>
+  [25] #xxxx.1.1.num.int <255 (0xff)>
+  [26] #xxxx.1.1.num.int <128 (0x80)>
+  [27] #xxxx.1.1.num.int <127 (0x7f)>
+  [28] #xxxx.1.1.num.int <9 (0x9)>
+  [29] #xxxx.1.1.num.int <8 (0x8)>
+  [30] #xxxx.1.1.num.int <7 (0x7)>
+  [31] #xxxx.1.1.num.int <5 (0x5)>
+  [32] #xxxx.1.1.num.int <1 (0x1)>
+  [33] #xxxx.1.1.num.int <0 (0x0)>
+  [34] #xxxx.1.1.num.bool <0 (0x0)>
+  [35] #xxxx.1.1.num.bool <1 (0x1)>
+  [36] #0.0.nil <nil>
+  [37] #xxxx.1.1.mem.str.ro <#xxxx.1.16.mem.ro, "123">
+  [38] #xxxx.1.1.mem.str.ro <#xxxx.1.16.mem.ro, "123">
+  [39] #xxxx.1.1.mem.str.ro <#xxxx.1.16.mem.ro, "123">
+GC: ++#xxxx.1.16.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.17.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.17.mem.ro>
+  [1] #xxxx.1.1.mem.code.ro <#xxxx.1.17.mem.ro>
+  [2] #xxxx.1.1.mem.code.ro <#xxxx.1.17.mem.ro>
+  [3] #xxxx.1.1.mem.ref.ro <#xxxx.1.17.mem.ro, "foo">
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "abc">
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "abc">
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "hjgfahjgsdfahjgsdfahjgsfdjhasfdadfsjhajsdhfadjhsdfhajsdajhasdfgasdfgajksdgfkjasdgfasdfjkasdgfaskdfkasjdgfkjaasdfasdfjkasdgfkjashdgfjkasdgfjhasdgfjaksgdfkjasdgfkajsdgfkjasdgfkjasdfgkjasdfhgaksjdfasdkfjasdgfksajdhfgkajsdhgfjkasdgfjkasdgfkjasjkasdgfkjasdfkdds">
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "abcdefsghlertert">
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "0123456789ab">
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "0123456789a">
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "abc">
+  [11] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "a">
+  [12] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "">
+  [13] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [14] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [15] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [16] #xxxx.1.1.num.int <-257 (0xfffffffffffffeff)>
+  [17] #xxxx.1.1.num.int <-256 (0xffffffffffffff00)>
+  [18] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [19] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [20] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [21] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [22] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [23] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [24] #xxxx.1.1.num.int <257 (0x101)>
+  [25] #xxxx.1.1.num.int <256 (0x100)>
+  [26] #xxxx.1.1.num.int <255 (0xff)>
+  [27] #xxxx.1.1.num.int <128 (0x80)>
+  [28] #xxxx.1.1.num.int <127 (0x7f)>
+  [29] #xxxx.1.1.num.int <9 (0x9)>
+  [30] #xxxx.1.1.num.int <8 (0x8)>
+  [31] #xxxx.1.1.num.int <7 (0x7)>
+  [32] #xxxx.1.1.num.int <5 (0x5)>
+  [33] #xxxx.1.1.num.int <1 (0x1)>
+  [34] #xxxx.1.1.num.int <0 (0x0)>
+  [35] #xxxx.1.1.num.bool <0 (0x0)>
+  [36] #xxxx.1.1.num.bool <1 (0x1)>
+  [37] #0.0.nil <nil>
+  [38] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "123">
+  [39] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "123">
+  [40] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "123">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.17.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.17.mem.ro>
+  [1] #xxxx.1.1.mem.code.ro <#xxxx.1.17.mem.ro>
+  [2] #xxxx.1.1.mem.code.ro <#xxxx.1.17.mem.ro>
+  [3] #xxxx.1.1.mem.ref.ro <#xxxx.1.17.mem.ro, "foo">
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "abc">
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "abc">
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "hjgfahjgsdfahjgsdfahjgsfdjhasfdadfsjhajsdhfadjhsdfhajsdajhasdfgasdfgajksdgfkjasdgfasdfjkasdgfaskdfkasjdgfkjaasdfasdfjkasdgfkjashdgfjkasdgfjhasdgfjaksgdfkjasdgfkajsdgfkjasdgfkjasdfgkjasdfhgaksjdfasdkfjasdgfksajdhfgkajsdhgfjkasdgfjkasdgfkjasjkasdgfkjasdfkdds">
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "abcdefsghlertert">
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "0123456789ab">
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "0123456789a">
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "abc">
+  [11] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "a">
+  [12] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "">
+  [13] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [14] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [15] #xxxx.1.1.num.int <-9223372036854775808 (0x8000000000000000)>
+  [16] #xxxx.1.1.num.int <-257 (0xfffffffffffffeff)>
+  [17] #xxxx.1.1.num.int <-256 (0xffffffffffffff00)>
+  [18] #xxxx.1.1.num.int <-255 (0xffffffffffffff01)>
+  [19] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [20] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [21] #xxxx.1.1.num.int <-127 (0xffffffffffffff81)>
+  [22] #xxxx.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [23] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [24] #xxxx.1.1.num.int <257 (0x101)>
+  [25] #xxxx.1.1.num.int <256 (0x100)>
+  [26] #xxxx.1.1.num.int <255 (0xff)>
+  [27] #xxxx.1.1.num.int <128 (0x80)>
+  [28] #xxxx.1.1.num.int <127 (0x7f)>
+  [29] #xxxx.1.1.num.int <9 (0x9)>
+  [30] #xxxx.1.1.num.int <8 (0x8)>
+  [31] #xxxx.1.1.num.int <7 (0x7)>
+  [32] #xxxx.1.1.num.int <5 (0x5)>
+  [33] #xxxx.1.1.num.int <1 (0x1)>
+  [34] #xxxx.1.1.num.int <0 (0x0)>
+  [35] #xxxx.1.1.num.bool <0 (0x0)>
+  [36] #xxxx.1.1.num.bool <1 (0x1)>
+  [37] #0.0.nil <nil>
+  [38] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "123">
+  [39] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "123">
+  [40] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "123">
+error 2 (invalid instruction), ip = #186

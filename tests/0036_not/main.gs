@@ -1,0 +1,4 @@
+-0x200 not
+0xff not
+false not
+true not

@@ -1,0 +1,2832 @@
+# ---  trace  ---
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.bool <0 (0x0)>
+  [1] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #0.0.nil <nil>
+  [1] #xxxx.1.1.num.bool <0 (0x0)>
+  [2] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <0 (0x0)>
+  [1] #0.0.nil <nil>
+  [2] #xxxx.1.1.num.bool <0 (0x0)>
+  [3] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <18 (0x12)>
+  [1] #xxxx.1.1.num.int <0 (0x0)>
+  [2] #0.0.nil <nil>
+  [3] #xxxx.1.1.num.bool <0 (0x0)>
+  [4] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <4660 (0x1234)>
+  [1] #xxxx.1.1.num.int <18 (0x12)>
+  [2] #xxxx.1.1.num.int <0 (0x0)>
+  [3] #0.0.nil <nil>
+  [4] #xxxx.1.1.num.bool <0 (0x0)>
+  [5] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [1] #xxxx.1.1.num.int <4660 (0x1234)>
+  [2] #xxxx.1.1.num.int <18 (0x12)>
+  [3] #xxxx.1.1.num.int <0 (0x0)>
+  [4] #0.0.nil <nil>
+  [5] #xxxx.1.1.num.bool <0 (0x0)>
+  [6] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [1] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [2] #xxxx.1.1.num.int <4660 (0x1234)>
+  [3] #xxxx.1.1.num.int <18 (0x12)>
+  [4] #xxxx.1.1.num.int <0 (0x0)>
+  [5] #0.0.nil <nil>
+  [6] #xxxx.1.1.num.bool <0 (0x0)>
+  [7] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [1] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [2] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [3] #xxxx.1.1.num.int <4660 (0x1234)>
+  [4] #xxxx.1.1.num.int <18 (0x12)>
+  [5] #xxxx.1.1.num.int <0 (0x0)>
+  [6] #0.0.nil <nil>
+  [7] #xxxx.1.1.num.bool <0 (0x0)>
+  [8] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [1] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [2] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [3] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [4] #xxxx.1.1.num.int <4660 (0x1234)>
+  [5] #xxxx.1.1.num.int <18 (0x12)>
+  [6] #xxxx.1.1.num.int <0 (0x0)>
+  [7] #0.0.nil <nil>
+  [8] #xxxx.1.1.num.bool <0 (0x0)>
+  [9] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [1] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [2] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [3] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [4] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [5] #xxxx.1.1.num.int <4660 (0x1234)>
+  [6] #xxxx.1.1.num.int <18 (0x12)>
+  [7] #xxxx.1.1.num.int <0 (0x0)>
+  [8] #0.0.nil <nil>
+  [9] #xxxx.1.1.num.bool <0 (0x0)>
+  [10] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [1] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [2] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [3] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [4] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [5] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [6] #xxxx.1.1.num.int <4660 (0x1234)>
+  [7] #xxxx.1.1.num.int <18 (0x12)>
+  [8] #xxxx.1.1.num.int <0 (0x0)>
+  [9] #0.0.nil <nil>
+  [10] #xxxx.1.1.num.bool <0 (0x0)>
+  [11] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [1] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [2] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [3] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [4] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [5] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [6] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [7] #xxxx.1.1.num.int <4660 (0x1234)>
+  [8] #xxxx.1.1.num.int <18 (0x12)>
+  [9] #xxxx.1.1.num.int <0 (0x0)>
+  [10] #0.0.nil <nil>
+  [11] #xxxx.1.1.num.bool <0 (0x0)>
+  [12] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [1] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [2] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [3] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [4] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [5] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [6] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [7] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [8] #xxxx.1.1.num.int <4660 (0x1234)>
+  [9] #xxxx.1.1.num.int <18 (0x12)>
+  [10] #xxxx.1.1.num.int <0 (0x0)>
+  [11] #0.0.nil <nil>
+  [12] #xxxx.1.1.num.bool <0 (0x0)>
+  [13] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [1] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [2] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [3] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [4] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [5] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [6] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [7] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [8] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [9] #xxxx.1.1.num.int <4660 (0x1234)>
+  [10] #xxxx.1.1.num.int <18 (0x12)>
+  [11] #xxxx.1.1.num.int <0 (0x0)>
+  [12] #0.0.nil <nil>
+  [13] #xxxx.1.1.num.bool <0 (0x0)>
+  [14] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <127 (0x7f)>
+  [1] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [2] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [3] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [4] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [5] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [6] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [7] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [8] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [9] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [10] #xxxx.1.1.num.int <4660 (0x1234)>
+  [11] #xxxx.1.1.num.int <18 (0x12)>
+  [12] #xxxx.1.1.num.int <0 (0x0)>
+  [13] #0.0.nil <nil>
+  [14] #xxxx.1.1.num.bool <0 (0x0)>
+  [15] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <128 (0x80)>
+  [1] #xxxx.1.1.num.int <127 (0x7f)>
+  [2] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [3] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [4] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [5] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [6] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [7] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [8] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [9] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [10] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [11] #xxxx.1.1.num.int <4660 (0x1234)>
+  [12] #xxxx.1.1.num.int <18 (0x12)>
+  [13] #xxxx.1.1.num.int <0 (0x0)>
+  [14] #0.0.nil <nil>
+  [15] #xxxx.1.1.num.bool <0 (0x0)>
+  [16] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <256 (0x100)>
+  [1] #xxxx.1.1.num.int <128 (0x80)>
+  [2] #xxxx.1.1.num.int <127 (0x7f)>
+  [3] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [4] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [5] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [6] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [7] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [8] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [9] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [10] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [11] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [12] #xxxx.1.1.num.int <4660 (0x1234)>
+  [13] #xxxx.1.1.num.int <18 (0x12)>
+  [14] #xxxx.1.1.num.int <0 (0x0)>
+  [15] #0.0.nil <nil>
+  [16] #xxxx.1.1.num.bool <0 (0x0)>
+  [17] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [1] #xxxx.1.1.num.int <256 (0x100)>
+  [2] #xxxx.1.1.num.int <128 (0x80)>
+  [3] #xxxx.1.1.num.int <127 (0x7f)>
+  [4] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [5] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [6] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [7] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [8] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [9] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [10] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [11] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [12] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [13] #xxxx.1.1.num.int <4660 (0x1234)>
+  [14] #xxxx.1.1.num.int <18 (0x12)>
+  [15] #xxxx.1.1.num.int <0 (0x0)>
+  [16] #0.0.nil <nil>
+  [17] #xxxx.1.1.num.bool <0 (0x0)>
+  [18] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [1] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [2] #xxxx.1.1.num.int <256 (0x100)>
+  [3] #xxxx.1.1.num.int <128 (0x80)>
+  [4] #xxxx.1.1.num.int <127 (0x7f)>
+  [5] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [6] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [7] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [8] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [9] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [10] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [11] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [12] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [13] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [14] #xxxx.1.1.num.int <4660 (0x1234)>
+  [15] #xxxx.1.1.num.int <18 (0x12)>
+  [16] #xxxx.1.1.num.int <0 (0x0)>
+  [17] #0.0.nil <nil>
+  [18] #xxxx.1.1.num.bool <0 (0x0)>
+  [19] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [1] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [2] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [3] #xxxx.1.1.num.int <256 (0x100)>
+  [4] #xxxx.1.1.num.int <128 (0x80)>
+  [5] #xxxx.1.1.num.int <127 (0x7f)>
+  [6] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [7] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [8] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [9] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [10] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [11] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [12] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [13] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [14] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [15] #xxxx.1.1.num.int <4660 (0x1234)>
+  [16] #xxxx.1.1.num.int <18 (0x12)>
+  [17] #xxxx.1.1.num.int <0 (0x0)>
+  [18] #0.0.nil <nil>
+  [19] #xxxx.1.1.num.bool <0 (0x0)>
+  [20] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [1] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [2] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [3] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [4] #xxxx.1.1.num.int <256 (0x100)>
+  [5] #xxxx.1.1.num.int <128 (0x80)>
+  [6] #xxxx.1.1.num.int <127 (0x7f)>
+  [7] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [8] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [9] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [10] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [11] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [12] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [13] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [14] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [15] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [16] #xxxx.1.1.num.int <4660 (0x1234)>
+  [17] #xxxx.1.1.num.int <18 (0x12)>
+  [18] #xxxx.1.1.num.int <0 (0x0)>
+  [19] #0.0.nil <nil>
+  [20] #xxxx.1.1.num.bool <0 (0x0)>
+  [21] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [1] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [2] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [3] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [4] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [5] #xxxx.1.1.num.int <256 (0x100)>
+  [6] #xxxx.1.1.num.int <128 (0x80)>
+  [7] #xxxx.1.1.num.int <127 (0x7f)>
+  [8] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [9] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [10] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [11] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [12] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [13] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [14] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [15] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [16] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [17] #xxxx.1.1.num.int <4660 (0x1234)>
+  [18] #xxxx.1.1.num.int <18 (0x12)>
+  [19] #xxxx.1.1.num.int <0 (0x0)>
+  [20] #0.0.nil <nil>
+  [21] #xxxx.1.1.num.bool <0 (0x0)>
+  [22] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [1] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [2] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [3] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [4] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [5] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [6] #xxxx.1.1.num.int <256 (0x100)>
+  [7] #xxxx.1.1.num.int <128 (0x80)>
+  [8] #xxxx.1.1.num.int <127 (0x7f)>
+  [9] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [10] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [11] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [12] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [13] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [14] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [15] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [16] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [17] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [18] #xxxx.1.1.num.int <4660 (0x1234)>
+  [19] #xxxx.1.1.num.int <18 (0x12)>
+  [20] #xxxx.1.1.num.int <0 (0x0)>
+  [21] #0.0.nil <nil>
+  [22] #xxxx.1.1.num.bool <0 (0x0)>
+  [23] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <0 (0x0)>
+  [1] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [2] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [3] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [4] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [5] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [6] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [7] #xxxx.1.1.num.int <256 (0x100)>
+  [8] #xxxx.1.1.num.int <128 (0x80)>
+  [9] #xxxx.1.1.num.int <127 (0x7f)>
+  [10] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [11] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [12] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [13] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [14] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [15] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [16] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [17] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [18] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [19] #xxxx.1.1.num.int <4660 (0x1234)>
+  [20] #xxxx.1.1.num.int <18 (0x12)>
+  [21] #xxxx.1.1.num.int <0 (0x0)>
+  [22] #0.0.nil <nil>
+  [23] #xxxx.1.1.num.bool <0 (0x0)>
+  [24] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <10 (0xa)>
+  [1] #xxxx.1.1.num.int <0 (0x0)>
+  [2] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [3] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [4] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [5] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [6] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [7] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [8] #xxxx.1.1.num.int <256 (0x100)>
+  [9] #xxxx.1.1.num.int <128 (0x80)>
+  [10] #xxxx.1.1.num.int <127 (0x7f)>
+  [11] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [12] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [13] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [14] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [15] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [16] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [17] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [18] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [19] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [20] #xxxx.1.1.num.int <4660 (0x1234)>
+  [21] #xxxx.1.1.num.int <18 (0x12)>
+  [22] #xxxx.1.1.num.int <0 (0x0)>
+  [23] #0.0.nil <nil>
+  [24] #xxxx.1.1.num.bool <0 (0x0)>
+  [25] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <9 (0x9)>
+  [1] #xxxx.1.1.num.int <10 (0xa)>
+  [2] #xxxx.1.1.num.int <0 (0x0)>
+  [3] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [4] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [5] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [6] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [7] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [8] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [9] #xxxx.1.1.num.int <256 (0x100)>
+  [10] #xxxx.1.1.num.int <128 (0x80)>
+  [11] #xxxx.1.1.num.int <127 (0x7f)>
+  [12] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [13] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [14] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [15] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [16] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [17] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [18] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [19] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [20] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [21] #xxxx.1.1.num.int <4660 (0x1234)>
+  [22] #xxxx.1.1.num.int <18 (0x12)>
+  [23] #xxxx.1.1.num.int <0 (0x0)>
+  [24] #0.0.nil <nil>
+  [25] #xxxx.1.1.num.bool <0 (0x0)>
+  [26] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <39 (0x27)>
+  [1] #xxxx.1.1.num.int <9 (0x9)>
+  [2] #xxxx.1.1.num.int <10 (0xa)>
+  [3] #xxxx.1.1.num.int <0 (0x0)>
+  [4] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [5] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [6] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [7] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [8] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [9] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [10] #xxxx.1.1.num.int <256 (0x100)>
+  [11] #xxxx.1.1.num.int <128 (0x80)>
+  [12] #xxxx.1.1.num.int <127 (0x7f)>
+  [13] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [14] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [15] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [16] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [17] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [18] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [19] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [20] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [21] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [22] #xxxx.1.1.num.int <4660 (0x1234)>
+  [23] #xxxx.1.1.num.int <18 (0x12)>
+  [24] #xxxx.1.1.num.int <0 (0x0)>
+  [25] #0.0.nil <nil>
+  [26] #xxxx.1.1.num.bool <0 (0x0)>
+  [27] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <92 (0x5c)>
+  [1] #xxxx.1.1.num.int <39 (0x27)>
+  [2] #xxxx.1.1.num.int <9 (0x9)>
+  [3] #xxxx.1.1.num.int <10 (0xa)>
+  [4] #xxxx.1.1.num.int <0 (0x0)>
+  [5] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [6] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [7] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [8] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [9] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [10] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [11] #xxxx.1.1.num.int <256 (0x100)>
+  [12] #xxxx.1.1.num.int <128 (0x80)>
+  [13] #xxxx.1.1.num.int <127 (0x7f)>
+  [14] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [15] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [16] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [17] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [18] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [19] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [20] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [21] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [22] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [23] #xxxx.1.1.num.int <4660 (0x1234)>
+  [24] #xxxx.1.1.num.int <18 (0x12)>
+  [25] #xxxx.1.1.num.int <0 (0x0)>
+  [26] #0.0.nil <nil>
+  [27] #xxxx.1.1.num.bool <0 (0x0)>
+  [28] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <97 (0x61)>
+  [1] #xxxx.1.1.num.int <92 (0x5c)>
+  [2] #xxxx.1.1.num.int <39 (0x27)>
+  [3] #xxxx.1.1.num.int <9 (0x9)>
+  [4] #xxxx.1.1.num.int <10 (0xa)>
+  [5] #xxxx.1.1.num.int <0 (0x0)>
+  [6] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [7] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [8] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [9] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [10] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [11] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [12] #xxxx.1.1.num.int <256 (0x100)>
+  [13] #xxxx.1.1.num.int <128 (0x80)>
+  [14] #xxxx.1.1.num.int <127 (0x7f)>
+  [15] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [16] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [17] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [18] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [19] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [20] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [21] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [22] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [23] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [24] #xxxx.1.1.num.int <4660 (0x1234)>
+  [25] #xxxx.1.1.num.int <18 (0x12)>
+  [26] #xxxx.1.1.num.int <0 (0x0)>
+  [27] #0.0.nil <nil>
+  [28] #xxxx.1.1.num.bool <0 (0x0)>
+  [29] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [1] #xxxx.1.1.num.int <97 (0x61)>
+  [2] #xxxx.1.1.num.int <92 (0x5c)>
+  [3] #xxxx.1.1.num.int <39 (0x27)>
+  [4] #xxxx.1.1.num.int <9 (0x9)>
+  [5] #xxxx.1.1.num.int <10 (0xa)>
+  [6] #xxxx.1.1.num.int <0 (0x0)>
+  [7] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [8] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [9] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [10] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [11] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [12] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [13] #xxxx.1.1.num.int <256 (0x100)>
+  [14] #xxxx.1.1.num.int <128 (0x80)>
+  [15] #xxxx.1.1.num.int <127 (0x7f)>
+  [16] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [17] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [18] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [19] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [20] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [21] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [22] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [23] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [24] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [25] #xxxx.1.1.num.int <4660 (0x1234)>
+  [26] #xxxx.1.1.num.int <18 (0x12)>
+  [27] #xxxx.1.1.num.int <0 (0x0)>
+  [28] #0.0.nil <nil>
+  [29] #xxxx.1.1.num.bool <0 (0x0)>
+  [30] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [1] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [2] #xxxx.1.1.num.int <97 (0x61)>
+  [3] #xxxx.1.1.num.int <92 (0x5c)>
+  [4] #xxxx.1.1.num.int <39 (0x27)>
+  [5] #xxxx.1.1.num.int <9 (0x9)>
+  [6] #xxxx.1.1.num.int <10 (0xa)>
+  [7] #xxxx.1.1.num.int <0 (0x0)>
+  [8] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [9] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [10] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [11] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [12] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [13] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [14] #xxxx.1.1.num.int <256 (0x100)>
+  [15] #xxxx.1.1.num.int <128 (0x80)>
+  [16] #xxxx.1.1.num.int <127 (0x7f)>
+  [17] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [18] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [19] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [20] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [21] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [22] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [23] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [24] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [25] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [26] #xxxx.1.1.num.int <4660 (0x1234)>
+  [27] #xxxx.1.1.num.int <18 (0x12)>
+  [28] #xxxx.1.1.num.int <0 (0x0)>
+  [29] #0.0.nil <nil>
+  [30] #xxxx.1.1.num.bool <0 (0x0)>
+  [31] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <78934 (0x13456)>
+  [1] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [2] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [3] #xxxx.1.1.num.int <97 (0x61)>
+  [4] #xxxx.1.1.num.int <92 (0x5c)>
+  [5] #xxxx.1.1.num.int <39 (0x27)>
+  [6] #xxxx.1.1.num.int <9 (0x9)>
+  [7] #xxxx.1.1.num.int <10 (0xa)>
+  [8] #xxxx.1.1.num.int <0 (0x0)>
+  [9] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [10] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [11] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [12] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [13] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [14] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [15] #xxxx.1.1.num.int <256 (0x100)>
+  [16] #xxxx.1.1.num.int <128 (0x80)>
+  [17] #xxxx.1.1.num.int <127 (0x7f)>
+  [18] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [19] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [20] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [21] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [22] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [23] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [24] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [25] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [26] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [27] #xxxx.1.1.num.int <4660 (0x1234)>
+  [28] #xxxx.1.1.num.int <18 (0x12)>
+  [29] #xxxx.1.1.num.int <0 (0x0)>
+  [30] #0.0.nil <nil>
+  [31] #xxxx.1.1.num.bool <0 (0x0)>
+  [32] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [1] #xxxx.1.1.num.int <78934 (0x13456)>
+  [2] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [3] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [4] #xxxx.1.1.num.int <97 (0x61)>
+  [5] #xxxx.1.1.num.int <92 (0x5c)>
+  [6] #xxxx.1.1.num.int <39 (0x27)>
+  [7] #xxxx.1.1.num.int <9 (0x9)>
+  [8] #xxxx.1.1.num.int <10 (0xa)>
+  [9] #xxxx.1.1.num.int <0 (0x0)>
+  [10] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [11] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [12] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [13] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [14] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [15] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [16] #xxxx.1.1.num.int <256 (0x100)>
+  [17] #xxxx.1.1.num.int <128 (0x80)>
+  [18] #xxxx.1.1.num.int <127 (0x7f)>
+  [19] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [20] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [21] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [22] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [23] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [24] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [25] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [26] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [27] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [28] #xxxx.1.1.num.int <4660 (0x1234)>
+  [29] #xxxx.1.1.num.int <18 (0x12)>
+  [30] #xxxx.1.1.num.int <0 (0x0)>
+  [31] #0.0.nil <nil>
+  [32] #xxxx.1.1.num.bool <0 (0x0)>
+  [33] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.1.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.2.mem.ro, "€">
+  [1] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [2] #xxxx.1.1.num.int <78934 (0x13456)>
+  [3] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [4] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [5] #xxxx.1.1.num.int <97 (0x61)>
+  [6] #xxxx.1.1.num.int <92 (0x5c)>
+  [7] #xxxx.1.1.num.int <39 (0x27)>
+  [8] #xxxx.1.1.num.int <9 (0x9)>
+  [9] #xxxx.1.1.num.int <10 (0xa)>
+  [10] #xxxx.1.1.num.int <0 (0x0)>
+  [11] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [12] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [13] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [14] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [15] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [16] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [17] #xxxx.1.1.num.int <256 (0x100)>
+  [18] #xxxx.1.1.num.int <128 (0x80)>
+  [19] #xxxx.1.1.num.int <127 (0x7f)>
+  [20] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [21] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [22] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [23] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [24] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [25] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [26] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [27] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [28] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [29] #xxxx.1.1.num.int <4660 (0x1234)>
+  [30] #xxxx.1.1.num.int <18 (0x12)>
+  [31] #xxxx.1.1.num.int <0 (0x0)>
+  [32] #0.0.nil <nil>
+  [33] #xxxx.1.1.num.bool <0 (0x0)>
+  [34] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.2.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.3.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.3.mem.ro, "€ XX X">
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.3.mem.ro, "€">
+  [2] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [3] #xxxx.1.1.num.int <78934 (0x13456)>
+  [4] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [5] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [6] #xxxx.1.1.num.int <97 (0x61)>
+  [7] #xxxx.1.1.num.int <92 (0x5c)>
+  [8] #xxxx.1.1.num.int <39 (0x27)>
+  [9] #xxxx.1.1.num.int <9 (0x9)>
+  [10] #xxxx.1.1.num.int <10 (0xa)>
+  [11] #xxxx.1.1.num.int <0 (0x0)>
+  [12] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [13] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [14] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [15] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [16] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [17] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [18] #xxxx.1.1.num.int <256 (0x100)>
+  [19] #xxxx.1.1.num.int <128 (0x80)>
+  [20] #xxxx.1.1.num.int <127 (0x7f)>
+  [21] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [22] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [23] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [24] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [25] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [26] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [27] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [28] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [29] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [30] #xxxx.1.1.num.int <4660 (0x1234)>
+  [31] #xxxx.1.1.num.int <18 (0x12)>
+  [32] #xxxx.1.1.num.int <0 (0x0)>
+  [33] #0.0.nil <nil>
+  [34] #xxxx.1.1.num.bool <0 (0x0)>
+  [35] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.3.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "€ XX X">
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.4.mem.ro, "€">
+  [3] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [4] #xxxx.1.1.num.int <78934 (0x13456)>
+  [5] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [6] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [7] #xxxx.1.1.num.int <97 (0x61)>
+  [8] #xxxx.1.1.num.int <92 (0x5c)>
+  [9] #xxxx.1.1.num.int <39 (0x27)>
+  [10] #xxxx.1.1.num.int <9 (0x9)>
+  [11] #xxxx.1.1.num.int <10 (0xa)>
+  [12] #xxxx.1.1.num.int <0 (0x0)>
+  [13] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [14] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [15] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [16] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [17] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [18] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [19] #xxxx.1.1.num.int <256 (0x100)>
+  [20] #xxxx.1.1.num.int <128 (0x80)>
+  [21] #xxxx.1.1.num.int <127 (0x7f)>
+  [22] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [23] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [24] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [25] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [26] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [27] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [28] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [29] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [30] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [31] #xxxx.1.1.num.int <4660 (0x1234)>
+  [32] #xxxx.1.1.num.int <18 (0x12)>
+  [33] #xxxx.1.1.num.int <0 (0x0)>
+  [34] #0.0.nil <nil>
+  [35] #xxxx.1.1.num.bool <0 (0x0)>
+  [36] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.4.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.5.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.5.mem.ro>
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.5.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.5.mem.ro, "€ XX X">
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.5.mem.ro, "€">
+  [4] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [5] #xxxx.1.1.num.int <78934 (0x13456)>
+  [6] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [7] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [8] #xxxx.1.1.num.int <97 (0x61)>
+  [9] #xxxx.1.1.num.int <92 (0x5c)>
+  [10] #xxxx.1.1.num.int <39 (0x27)>
+  [11] #xxxx.1.1.num.int <9 (0x9)>
+  [12] #xxxx.1.1.num.int <10 (0xa)>
+  [13] #xxxx.1.1.num.int <0 (0x0)>
+  [14] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [15] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [16] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [17] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [18] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [19] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [20] #xxxx.1.1.num.int <256 (0x100)>
+  [21] #xxxx.1.1.num.int <128 (0x80)>
+  [22] #xxxx.1.1.num.int <127 (0x7f)>
+  [23] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [24] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [25] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [26] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [27] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [28] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [29] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [30] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [31] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [32] #xxxx.1.1.num.int <4660 (0x1234)>
+  [33] #xxxx.1.1.num.int <18 (0x12)>
+  [34] #xxxx.1.1.num.int <0 (0x0)>
+  [35] #0.0.nil <nil>
+  [36] #xxxx.1.1.num.bool <0 (0x0)>
+  [37] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.5.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [1] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€ XX X">
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€">
+  [5] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [6] #xxxx.1.1.num.int <78934 (0x13456)>
+  [7] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [8] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [9] #xxxx.1.1.num.int <97 (0x61)>
+  [10] #xxxx.1.1.num.int <92 (0x5c)>
+  [11] #xxxx.1.1.num.int <39 (0x27)>
+  [12] #xxxx.1.1.num.int <9 (0x9)>
+  [13] #xxxx.1.1.num.int <10 (0xa)>
+  [14] #xxxx.1.1.num.int <0 (0x0)>
+  [15] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [16] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [17] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [18] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [19] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [20] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [21] #xxxx.1.1.num.int <256 (0x100)>
+  [22] #xxxx.1.1.num.int <128 (0x80)>
+  [23] #xxxx.1.1.num.int <127 (0x7f)>
+  [24] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [25] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [26] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [27] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [28] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [29] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [30] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [31] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [32] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [33] #xxxx.1.1.num.int <4660 (0x1234)>
+  [34] #xxxx.1.1.num.int <18 (0x12)>
+  [35] #xxxx.1.1.num.int <0 (0x0)>
+  [36] #0.0.nil <nil>
+  [37] #xxxx.1.1.num.bool <0 (0x0)>
+  [38] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.1.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.num.prim <2 (0x2)>
+  [1] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [2] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€ XX X">
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€">
+  [6] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [7] #xxxx.1.1.num.int <78934 (0x13456)>
+  [8] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [9] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [10] #xxxx.1.1.num.int <97 (0x61)>
+  [11] #xxxx.1.1.num.int <92 (0x5c)>
+  [12] #xxxx.1.1.num.int <39 (0x27)>
+  [13] #xxxx.1.1.num.int <9 (0x9)>
+  [14] #xxxx.1.1.num.int <10 (0xa)>
+  [15] #xxxx.1.1.num.int <0 (0x0)>
+  [16] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [17] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [18] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [19] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [20] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [21] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [22] #xxxx.1.1.num.int <256 (0x100)>
+  [23] #xxxx.1.1.num.int <128 (0x80)>
+  [24] #xxxx.1.1.num.int <127 (0x7f)>
+  [25] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [26] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [27] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [28] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [29] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [30] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [31] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [32] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [33] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [34] #xxxx.1.1.num.int <4660 (0x1234)>
+  [35] #xxxx.1.1.num.int <18 (0x12)>
+  [36] #xxxx.1.1.num.int <0 (0x0)>
+  [37] #0.0.nil <nil>
+  [38] #xxxx.1.1.num.bool <0 (0x0)>
+  [39] #xxxx.1.1.num.bool <1 (0x1)>
+GC: --#xxxx.1.2.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.array <size 0, max 16>
+  [1] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [2] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€ XX X">
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€">
+  [6] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [7] #xxxx.1.1.num.int <78934 (0x13456)>
+  [8] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [9] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [10] #xxxx.1.1.num.int <97 (0x61)>
+  [11] #xxxx.1.1.num.int <92 (0x5c)>
+  [12] #xxxx.1.1.num.int <39 (0x27)>
+  [13] #xxxx.1.1.num.int <9 (0x9)>
+  [14] #xxxx.1.1.num.int <10 (0xa)>
+  [15] #xxxx.1.1.num.int <0 (0x0)>
+  [16] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [17] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [18] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [19] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [20] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [21] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [22] #xxxx.1.1.num.int <256 (0x100)>
+  [23] #xxxx.1.1.num.int <128 (0x80)>
+  [24] #xxxx.1.1.num.int <127 (0x7f)>
+  [25] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [26] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [27] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [28] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [29] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [30] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [31] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [32] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [33] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [34] #xxxx.1.1.num.int <4660 (0x1234)>
+  [35] #xxxx.1.1.num.int <18 (0x12)>
+  [36] #xxxx.1.1.num.int <0 (0x0)>
+  [37] #0.0.nil <nil>
+  [38] #xxxx.1.1.num.bool <0 (0x0)>
+  [39] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.1.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.num.prim <2 (0x2)>
+  [1] #xxxx.1.1.array <size 0, max 16>
+  [2] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [3] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€ XX X">
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€">
+  [7] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [8] #xxxx.1.1.num.int <78934 (0x13456)>
+  [9] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [10] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [11] #xxxx.1.1.num.int <97 (0x61)>
+  [12] #xxxx.1.1.num.int <92 (0x5c)>
+  [13] #xxxx.1.1.num.int <39 (0x27)>
+  [14] #xxxx.1.1.num.int <9 (0x9)>
+  [15] #xxxx.1.1.num.int <10 (0xa)>
+  [16] #xxxx.1.1.num.int <0 (0x0)>
+  [17] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [18] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [19] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [20] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [21] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [22] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [23] #xxxx.1.1.num.int <256 (0x100)>
+  [24] #xxxx.1.1.num.int <128 (0x80)>
+  [25] #xxxx.1.1.num.int <127 (0x7f)>
+  [26] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [27] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [28] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [29] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [30] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [31] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [32] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [33] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [34] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [35] #xxxx.1.1.num.int <4660 (0x1234)>
+  [36] #xxxx.1.1.num.int <18 (0x12)>
+  [37] #xxxx.1.1.num.int <0 (0x0)>
+  [38] #0.0.nil <nil>
+  [39] #xxxx.1.1.num.bool <0 (0x0)>
+  [40] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <10 (0xa)>
+  [1] #xxxx.1.2.num.prim <2 (0x2)>
+  [2] #xxxx.1.1.array <size 0, max 16>
+  [3] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [4] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€ XX X">
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€">
+  [8] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [9] #xxxx.1.1.num.int <78934 (0x13456)>
+  [10] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [11] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [12] #xxxx.1.1.num.int <97 (0x61)>
+  [13] #xxxx.1.1.num.int <92 (0x5c)>
+  [14] #xxxx.1.1.num.int <39 (0x27)>
+  [15] #xxxx.1.1.num.int <9 (0x9)>
+  [16] #xxxx.1.1.num.int <10 (0xa)>
+  [17] #xxxx.1.1.num.int <0 (0x0)>
+  [18] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [19] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [20] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [21] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [22] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [23] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [24] #xxxx.1.1.num.int <256 (0x100)>
+  [25] #xxxx.1.1.num.int <128 (0x80)>
+  [26] #xxxx.1.1.num.int <127 (0x7f)>
+  [27] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [28] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [29] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [30] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [31] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [32] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [33] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [34] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [35] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [36] #xxxx.1.1.num.int <4660 (0x1234)>
+  [37] #xxxx.1.1.num.int <18 (0x12)>
+  [38] #xxxx.1.1.num.int <0 (0x0)>
+  [39] #0.0.nil <nil>
+  [40] #xxxx.1.1.num.bool <0 (0x0)>
+  [41] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <20 (0x14)>
+  [1] #xxxx.1.1.num.int <10 (0xa)>
+  [2] #xxxx.1.2.num.prim <2 (0x2)>
+  [3] #xxxx.1.1.array <size 0, max 16>
+  [4] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [5] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€ XX X">
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€">
+  [9] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [10] #xxxx.1.1.num.int <78934 (0x13456)>
+  [11] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [12] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [13] #xxxx.1.1.num.int <97 (0x61)>
+  [14] #xxxx.1.1.num.int <92 (0x5c)>
+  [15] #xxxx.1.1.num.int <39 (0x27)>
+  [16] #xxxx.1.1.num.int <9 (0x9)>
+  [17] #xxxx.1.1.num.int <10 (0xa)>
+  [18] #xxxx.1.1.num.int <0 (0x0)>
+  [19] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [20] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [21] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [22] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [23] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [24] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [25] #xxxx.1.1.num.int <256 (0x100)>
+  [26] #xxxx.1.1.num.int <128 (0x80)>
+  [27] #xxxx.1.1.num.int <127 (0x7f)>
+  [28] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [29] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [30] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [31] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [32] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [33] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [34] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [35] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [36] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [37] #xxxx.1.1.num.int <4660 (0x1234)>
+  [38] #xxxx.1.1.num.int <18 (0x12)>
+  [39] #xxxx.1.1.num.int <0 (0x0)>
+  [40] #0.0.nil <nil>
+  [41] #xxxx.1.1.num.bool <0 (0x0)>
+  [42] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <30 (0x1e)>
+  [1] #xxxx.1.1.num.int <20 (0x14)>
+  [2] #xxxx.1.1.num.int <10 (0xa)>
+  [3] #xxxx.1.2.num.prim <2 (0x2)>
+  [4] #xxxx.1.1.array <size 0, max 16>
+  [5] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [6] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€ XX X">
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€">
+  [10] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [11] #xxxx.1.1.num.int <78934 (0x13456)>
+  [12] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [13] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [14] #xxxx.1.1.num.int <97 (0x61)>
+  [15] #xxxx.1.1.num.int <92 (0x5c)>
+  [16] #xxxx.1.1.num.int <39 (0x27)>
+  [17] #xxxx.1.1.num.int <9 (0x9)>
+  [18] #xxxx.1.1.num.int <10 (0xa)>
+  [19] #xxxx.1.1.num.int <0 (0x0)>
+  [20] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [21] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [22] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [23] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [24] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [25] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [26] #xxxx.1.1.num.int <256 (0x100)>
+  [27] #xxxx.1.1.num.int <128 (0x80)>
+  [28] #xxxx.1.1.num.int <127 (0x7f)>
+  [29] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [30] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [31] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [32] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [33] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [34] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [35] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [36] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [37] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [38] #xxxx.1.1.num.int <4660 (0x1234)>
+  [39] #xxxx.1.1.num.int <18 (0x12)>
+  [40] #xxxx.1.1.num.int <0 (0x0)>
+  [41] #0.0.nil <nil>
+  [42] #xxxx.1.1.num.bool <0 (0x0)>
+  [43] #xxxx.1.1.num.bool <1 (0x1)>
+GC: --#xxxx.1.2.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.array <size 3, max 3>
+  [1] #xxxx.1.1.array <size 0, max 16>
+  [2] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [3] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€ XX X">
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€">
+  [7] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [8] #xxxx.1.1.num.int <78934 (0x13456)>
+  [9] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [10] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [11] #xxxx.1.1.num.int <97 (0x61)>
+  [12] #xxxx.1.1.num.int <92 (0x5c)>
+  [13] #xxxx.1.1.num.int <39 (0x27)>
+  [14] #xxxx.1.1.num.int <9 (0x9)>
+  [15] #xxxx.1.1.num.int <10 (0xa)>
+  [16] #xxxx.1.1.num.int <0 (0x0)>
+  [17] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [18] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [19] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [20] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [21] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [22] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [23] #xxxx.1.1.num.int <256 (0x100)>
+  [24] #xxxx.1.1.num.int <128 (0x80)>
+  [25] #xxxx.1.1.num.int <127 (0x7f)>
+  [26] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [27] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [28] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [29] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [30] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [31] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [32] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [33] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [34] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [35] #xxxx.1.1.num.int <4660 (0x1234)>
+  [36] #xxxx.1.1.num.int <18 (0x12)>
+  [37] #xxxx.1.1.num.int <0 (0x0)>
+  [38] #0.0.nil <nil>
+  [39] #xxxx.1.1.num.bool <0 (0x0)>
+  [40] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.1.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.num.prim <2 (0x2)>
+  [1] #xxxx.1.1.array <size 3, max 3>
+  [2] #xxxx.1.1.array <size 0, max 16>
+  [3] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [4] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€ XX X">
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€">
+  [8] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [9] #xxxx.1.1.num.int <78934 (0x13456)>
+  [10] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [11] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [12] #xxxx.1.1.num.int <97 (0x61)>
+  [13] #xxxx.1.1.num.int <92 (0x5c)>
+  [14] #xxxx.1.1.num.int <39 (0x27)>
+  [15] #xxxx.1.1.num.int <9 (0x9)>
+  [16] #xxxx.1.1.num.int <10 (0xa)>
+  [17] #xxxx.1.1.num.int <0 (0x0)>
+  [18] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [19] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [20] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [21] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [22] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [23] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [24] #xxxx.1.1.num.int <256 (0x100)>
+  [25] #xxxx.1.1.num.int <128 (0x80)>
+  [26] #xxxx.1.1.num.int <127 (0x7f)>
+  [27] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [28] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [29] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [30] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [31] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [32] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [33] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [34] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [35] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [36] #xxxx.1.1.num.int <4660 (0x1234)>
+  [37] #xxxx.1.1.num.int <18 (0x12)>
+  [38] #xxxx.1.1.num.int <0 (0x0)>
+  [39] #0.0.nil <nil>
+  [40] #xxxx.1.1.num.bool <0 (0x0)>
+  [41] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <1 (0x1)>
+  [1] #xxxx.1.2.num.prim <2 (0x2)>
+  [2] #xxxx.1.1.array <size 3, max 3>
+  [3] #xxxx.1.1.array <size 0, max 16>
+  [4] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [5] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€ XX X">
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€">
+  [9] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [10] #xxxx.1.1.num.int <78934 (0x13456)>
+  [11] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [12] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [13] #xxxx.1.1.num.int <97 (0x61)>
+  [14] #xxxx.1.1.num.int <92 (0x5c)>
+  [15] #xxxx.1.1.num.int <39 (0x27)>
+  [16] #xxxx.1.1.num.int <9 (0x9)>
+  [17] #xxxx.1.1.num.int <10 (0xa)>
+  [18] #xxxx.1.1.num.int <0 (0x0)>
+  [19] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [20] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [21] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [22] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [23] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [24] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [25] #xxxx.1.1.num.int <256 (0x100)>
+  [26] #xxxx.1.1.num.int <128 (0x80)>
+  [27] #xxxx.1.1.num.int <127 (0x7f)>
+  [28] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [29] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [30] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [31] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [32] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [33] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [34] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [35] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [36] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [37] #xxxx.1.1.num.int <4660 (0x1234)>
+  [38] #xxxx.1.1.num.int <18 (0x12)>
+  [39] #xxxx.1.1.num.int <0 (0x0)>
+  [40] #0.0.nil <nil>
+  [41] #xxxx.1.1.num.bool <0 (0x0)>
+  [42] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <2 (0x2)>
+  [1] #xxxx.1.1.num.int <1 (0x1)>
+  [2] #xxxx.1.2.num.prim <2 (0x2)>
+  [3] #xxxx.1.1.array <size 3, max 3>
+  [4] #xxxx.1.1.array <size 0, max 16>
+  [5] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [6] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€ XX X">
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€">
+  [10] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [11] #xxxx.1.1.num.int <78934 (0x13456)>
+  [12] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [13] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [14] #xxxx.1.1.num.int <97 (0x61)>
+  [15] #xxxx.1.1.num.int <92 (0x5c)>
+  [16] #xxxx.1.1.num.int <39 (0x27)>
+  [17] #xxxx.1.1.num.int <9 (0x9)>
+  [18] #xxxx.1.1.num.int <10 (0xa)>
+  [19] #xxxx.1.1.num.int <0 (0x0)>
+  [20] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [21] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [22] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [23] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [24] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [25] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [26] #xxxx.1.1.num.int <256 (0x100)>
+  [27] #xxxx.1.1.num.int <128 (0x80)>
+  [28] #xxxx.1.1.num.int <127 (0x7f)>
+  [29] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [30] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [31] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [32] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [33] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [34] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [35] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [36] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [37] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [38] #xxxx.1.1.num.int <4660 (0x1234)>
+  [39] #xxxx.1.1.num.int <18 (0x12)>
+  [40] #xxxx.1.1.num.int <0 (0x0)>
+  [41] #0.0.nil <nil>
+  [42] #xxxx.1.1.num.bool <0 (0x0)>
+  [43] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.2.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.3.num.prim <2 (0x2)>
+  [1] #xxxx.1.1.num.int <2 (0x2)>
+  [2] #xxxx.1.1.num.int <1 (0x1)>
+  [3] #xxxx.1.3.num.prim <2 (0x2)>
+  [4] #xxxx.1.1.array <size 3, max 3>
+  [5] #xxxx.1.1.array <size 0, max 16>
+  [6] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [7] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€ XX X">
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€">
+  [11] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [12] #xxxx.1.1.num.int <78934 (0x13456)>
+  [13] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [14] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [15] #xxxx.1.1.num.int <97 (0x61)>
+  [16] #xxxx.1.1.num.int <92 (0x5c)>
+  [17] #xxxx.1.1.num.int <39 (0x27)>
+  [18] #xxxx.1.1.num.int <9 (0x9)>
+  [19] #xxxx.1.1.num.int <10 (0xa)>
+  [20] #xxxx.1.1.num.int <0 (0x0)>
+  [21] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [22] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [23] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [24] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [25] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [26] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [27] #xxxx.1.1.num.int <256 (0x100)>
+  [28] #xxxx.1.1.num.int <128 (0x80)>
+  [29] #xxxx.1.1.num.int <127 (0x7f)>
+  [30] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [31] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [32] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [33] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [34] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [35] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [36] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [37] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [38] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [39] #xxxx.1.1.num.int <4660 (0x1234)>
+  [40] #xxxx.1.1.num.int <18 (0x12)>
+  [41] #xxxx.1.1.num.int <0 (0x0)>
+  [42] #0.0.nil <nil>
+  [43] #xxxx.1.1.num.bool <0 (0x0)>
+  [44] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <3 (0x3)>
+  [1] #xxxx.1.3.num.prim <2 (0x2)>
+  [2] #xxxx.1.1.num.int <2 (0x2)>
+  [3] #xxxx.1.1.num.int <1 (0x1)>
+  [4] #xxxx.1.3.num.prim <2 (0x2)>
+  [5] #xxxx.1.1.array <size 3, max 3>
+  [6] #xxxx.1.1.array <size 0, max 16>
+  [7] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [8] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€ XX X">
+  [11] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€">
+  [12] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [13] #xxxx.1.1.num.int <78934 (0x13456)>
+  [14] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [15] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [16] #xxxx.1.1.num.int <97 (0x61)>
+  [17] #xxxx.1.1.num.int <92 (0x5c)>
+  [18] #xxxx.1.1.num.int <39 (0x27)>
+  [19] #xxxx.1.1.num.int <9 (0x9)>
+  [20] #xxxx.1.1.num.int <10 (0xa)>
+  [21] #xxxx.1.1.num.int <0 (0x0)>
+  [22] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [23] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [24] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [25] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [26] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [27] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [28] #xxxx.1.1.num.int <256 (0x100)>
+  [29] #xxxx.1.1.num.int <128 (0x80)>
+  [30] #xxxx.1.1.num.int <127 (0x7f)>
+  [31] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [32] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [33] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [34] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [35] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [36] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [37] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [38] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [39] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [40] #xxxx.1.1.num.int <4660 (0x1234)>
+  [41] #xxxx.1.1.num.int <18 (0x12)>
+  [42] #xxxx.1.1.num.int <0 (0x0)>
+  [43] #0.0.nil <nil>
+  [44] #xxxx.1.1.num.bool <0 (0x0)>
+  [45] #xxxx.1.1.num.bool <1 (0x1)>
+GC: --#xxxx.1.3.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.array <size 1, max 1>
+  [1] #xxxx.1.1.num.int <2 (0x2)>
+  [2] #xxxx.1.1.num.int <1 (0x1)>
+  [3] #xxxx.1.2.num.prim <2 (0x2)>
+  [4] #xxxx.1.1.array <size 3, max 3>
+  [5] #xxxx.1.1.array <size 0, max 16>
+  [6] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [7] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€ XX X">
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€">
+  [11] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [12] #xxxx.1.1.num.int <78934 (0x13456)>
+  [13] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [14] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [15] #xxxx.1.1.num.int <97 (0x61)>
+  [16] #xxxx.1.1.num.int <92 (0x5c)>
+  [17] #xxxx.1.1.num.int <39 (0x27)>
+  [18] #xxxx.1.1.num.int <9 (0x9)>
+  [19] #xxxx.1.1.num.int <10 (0xa)>
+  [20] #xxxx.1.1.num.int <0 (0x0)>
+  [21] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [22] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [23] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [24] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [25] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [26] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [27] #xxxx.1.1.num.int <256 (0x100)>
+  [28] #xxxx.1.1.num.int <128 (0x80)>
+  [29] #xxxx.1.1.num.int <127 (0x7f)>
+  [30] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [31] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [32] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [33] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [34] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [35] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [36] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [37] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [38] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [39] #xxxx.1.1.num.int <4660 (0x1234)>
+  [40] #xxxx.1.1.num.int <18 (0x12)>
+  [41] #xxxx.1.1.num.int <0 (0x0)>
+  [42] #0.0.nil <nil>
+  [43] #xxxx.1.1.num.bool <0 (0x0)>
+  [44] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <4 (0x4)>
+  [1] #xxxx.1.1.array <size 1, max 1>
+  [2] #xxxx.1.1.num.int <2 (0x2)>
+  [3] #xxxx.1.1.num.int <1 (0x1)>
+  [4] #xxxx.1.2.num.prim <2 (0x2)>
+  [5] #xxxx.1.1.array <size 3, max 3>
+  [6] #xxxx.1.1.array <size 0, max 16>
+  [7] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [8] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€ XX X">
+  [11] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€">
+  [12] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [13] #xxxx.1.1.num.int <78934 (0x13456)>
+  [14] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [15] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [16] #xxxx.1.1.num.int <97 (0x61)>
+  [17] #xxxx.1.1.num.int <92 (0x5c)>
+  [18] #xxxx.1.1.num.int <39 (0x27)>
+  [19] #xxxx.1.1.num.int <9 (0x9)>
+  [20] #xxxx.1.1.num.int <10 (0xa)>
+  [21] #xxxx.1.1.num.int <0 (0x0)>
+  [22] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [23] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [24] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [25] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [26] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [27] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [28] #xxxx.1.1.num.int <256 (0x100)>
+  [29] #xxxx.1.1.num.int <128 (0x80)>
+  [30] #xxxx.1.1.num.int <127 (0x7f)>
+  [31] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [32] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [33] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [34] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [35] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [36] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [37] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [38] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [39] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [40] #xxxx.1.1.num.int <4660 (0x1234)>
+  [41] #xxxx.1.1.num.int <18 (0x12)>
+  [42] #xxxx.1.1.num.int <0 (0x0)>
+  [43] #0.0.nil <nil>
+  [44] #xxxx.1.1.num.bool <0 (0x0)>
+  [45] #xxxx.1.1.num.bool <1 (0x1)>
+GC: --#xxxx.1.2.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.array <size 4, max 4>
+  [1] #xxxx.1.1.array <size 3, max 3>
+  [2] #xxxx.1.1.array <size 0, max 16>
+  [3] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [4] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€ XX X">
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€">
+  [8] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [9] #xxxx.1.1.num.int <78934 (0x13456)>
+  [10] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [11] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [12] #xxxx.1.1.num.int <97 (0x61)>
+  [13] #xxxx.1.1.num.int <92 (0x5c)>
+  [14] #xxxx.1.1.num.int <39 (0x27)>
+  [15] #xxxx.1.1.num.int <9 (0x9)>
+  [16] #xxxx.1.1.num.int <10 (0xa)>
+  [17] #xxxx.1.1.num.int <0 (0x0)>
+  [18] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [19] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [20] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [21] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [22] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [23] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [24] #xxxx.1.1.num.int <256 (0x100)>
+  [25] #xxxx.1.1.num.int <128 (0x80)>
+  [26] #xxxx.1.1.num.int <127 (0x7f)>
+  [27] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [28] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [29] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [30] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [31] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [32] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [33] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [34] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [35] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [36] #xxxx.1.1.num.int <4660 (0x1234)>
+  [37] #xxxx.1.1.num.int <18 (0x12)>
+  [38] #xxxx.1.1.num.int <0 (0x0)>
+  [39] #0.0.nil <nil>
+  [40] #xxxx.1.1.num.bool <0 (0x0)>
+  [41] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.1.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.num.prim <4 (0x4)>
+  [1] #xxxx.1.1.array <size 4, max 4>
+  [2] #xxxx.1.1.array <size 3, max 3>
+  [3] #xxxx.1.1.array <size 0, max 16>
+  [4] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [5] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€ XX X">
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€">
+  [9] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [10] #xxxx.1.1.num.int <78934 (0x13456)>
+  [11] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [12] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [13] #xxxx.1.1.num.int <97 (0x61)>
+  [14] #xxxx.1.1.num.int <92 (0x5c)>
+  [15] #xxxx.1.1.num.int <39 (0x27)>
+  [16] #xxxx.1.1.num.int <9 (0x9)>
+  [17] #xxxx.1.1.num.int <10 (0xa)>
+  [18] #xxxx.1.1.num.int <0 (0x0)>
+  [19] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [20] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [21] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [22] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [23] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [24] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [25] #xxxx.1.1.num.int <256 (0x100)>
+  [26] #xxxx.1.1.num.int <128 (0x80)>
+  [27] #xxxx.1.1.num.int <127 (0x7f)>
+  [28] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [29] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [30] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [31] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [32] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [33] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [34] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [35] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [36] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [37] #xxxx.1.1.num.int <4660 (0x1234)>
+  [38] #xxxx.1.1.num.int <18 (0x12)>
+  [39] #xxxx.1.1.num.int <0 (0x0)>
+  [40] #0.0.nil <nil>
+  [41] #xxxx.1.1.num.bool <0 (0x0)>
+  [42] #xxxx.1.1.num.bool <1 (0x1)>
+GC: --#xxxx.1.2.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.hash <size 0, max 16>
+  [1] #xxxx.1.1.array <size 4, max 4>
+  [2] #xxxx.1.1.array <size 3, max 3>
+  [3] #xxxx.1.1.array <size 0, max 16>
+  [4] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [5] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€ XX X">
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€">
+  [9] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [10] #xxxx.1.1.num.int <78934 (0x13456)>
+  [11] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [12] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [13] #xxxx.1.1.num.int <97 (0x61)>
+  [14] #xxxx.1.1.num.int <92 (0x5c)>
+  [15] #xxxx.1.1.num.int <39 (0x27)>
+  [16] #xxxx.1.1.num.int <9 (0x9)>
+  [17] #xxxx.1.1.num.int <10 (0xa)>
+  [18] #xxxx.1.1.num.int <0 (0x0)>
+  [19] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [20] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [21] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [22] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [23] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [24] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [25] #xxxx.1.1.num.int <256 (0x100)>
+  [26] #xxxx.1.1.num.int <128 (0x80)>
+  [27] #xxxx.1.1.num.int <127 (0x7f)>
+  [28] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [29] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [30] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [31] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [32] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [33] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [34] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [35] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [36] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [37] #xxxx.1.1.num.int <4660 (0x1234)>
+  [38] #xxxx.1.1.num.int <18 (0x12)>
+  [39] #xxxx.1.1.num.int <0 (0x0)>
+  [40] #0.0.nil <nil>
+  [41] #xxxx.1.1.num.bool <0 (0x0)>
+  [42] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.1.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.num.prim <4 (0x4)>
+  [1] #xxxx.1.1.hash <size 0, max 16>
+  [2] #xxxx.1.1.array <size 4, max 4>
+  [3] #xxxx.1.1.array <size 3, max 3>
+  [4] #xxxx.1.1.array <size 0, max 16>
+  [5] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [6] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€ XX X">
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.6.mem.ro, "€">
+  [10] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [11] #xxxx.1.1.num.int <78934 (0x13456)>
+  [12] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [13] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [14] #xxxx.1.1.num.int <97 (0x61)>
+  [15] #xxxx.1.1.num.int <92 (0x5c)>
+  [16] #xxxx.1.1.num.int <39 (0x27)>
+  [17] #xxxx.1.1.num.int <9 (0x9)>
+  [18] #xxxx.1.1.num.int <10 (0xa)>
+  [19] #xxxx.1.1.num.int <0 (0x0)>
+  [20] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [21] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [22] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [23] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [24] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [25] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [26] #xxxx.1.1.num.int <256 (0x100)>
+  [27] #xxxx.1.1.num.int <128 (0x80)>
+  [28] #xxxx.1.1.num.int <127 (0x7f)>
+  [29] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [30] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [31] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [32] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [33] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [34] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [35] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [36] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [37] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [38] #xxxx.1.1.num.int <4660 (0x1234)>
+  [39] #xxxx.1.1.num.int <18 (0x12)>
+  [40] #xxxx.1.1.num.int <0 (0x0)>
+  [41] #0.0.nil <nil>
+  [42] #xxxx.1.1.num.bool <0 (0x0)>
+  [43] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.6.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.7.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.7.mem.ro, "a10">
+  [1] #xxxx.1.2.num.prim <4 (0x4)>
+  [2] #xxxx.1.1.hash <size 0, max 16>
+  [3] #xxxx.1.1.array <size 4, max 4>
+  [4] #xxxx.1.1.array <size 3, max 3>
+  [5] #xxxx.1.1.array <size 0, max 16>
+  [6] #xxxx.1.1.mem.code.ro <#xxxx.1.7.mem.ro>
+  [7] #xxxx.1.1.mem.code.ro <#xxxx.1.7.mem.ro>
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.7.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.7.mem.ro, "€ XX X">
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.7.mem.ro, "€">
+  [11] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [12] #xxxx.1.1.num.int <78934 (0x13456)>
+  [13] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [14] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [15] #xxxx.1.1.num.int <97 (0x61)>
+  [16] #xxxx.1.1.num.int <92 (0x5c)>
+  [17] #xxxx.1.1.num.int <39 (0x27)>
+  [18] #xxxx.1.1.num.int <9 (0x9)>
+  [19] #xxxx.1.1.num.int <10 (0xa)>
+  [20] #xxxx.1.1.num.int <0 (0x0)>
+  [21] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [22] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [23] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [24] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [25] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [26] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [27] #xxxx.1.1.num.int <256 (0x100)>
+  [28] #xxxx.1.1.num.int <128 (0x80)>
+  [29] #xxxx.1.1.num.int <127 (0x7f)>
+  [30] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [31] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [32] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [33] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [34] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [35] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [36] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [37] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [38] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [39] #xxxx.1.1.num.int <4660 (0x1234)>
+  [40] #xxxx.1.1.num.int <18 (0x12)>
+  [41] #xxxx.1.1.num.int <0 (0x0)>
+  [42] #0.0.nil <nil>
+  [43] #xxxx.1.1.num.bool <0 (0x0)>
+  [44] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.7.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <100 (0x64)>
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.7.mem.ro, "a10">
+  [2] #xxxx.1.2.num.prim <4 (0x4)>
+  [3] #xxxx.1.1.hash <size 0, max 16>
+  [4] #xxxx.1.1.array <size 4, max 4>
+  [5] #xxxx.1.1.array <size 3, max 3>
+  [6] #xxxx.1.1.array <size 0, max 16>
+  [7] #xxxx.1.1.mem.code.ro <#xxxx.1.7.mem.ro>
+  [8] #xxxx.1.1.mem.code.ro <#xxxx.1.7.mem.ro>
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.7.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.7.mem.ro, "€ XX X">
+  [11] #xxxx.1.1.mem.str.ro <#xxxx.1.7.mem.ro, "€">
+  [12] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [13] #xxxx.1.1.num.int <78934 (0x13456)>
+  [14] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [15] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [16] #xxxx.1.1.num.int <97 (0x61)>
+  [17] #xxxx.1.1.num.int <92 (0x5c)>
+  [18] #xxxx.1.1.num.int <39 (0x27)>
+  [19] #xxxx.1.1.num.int <9 (0x9)>
+  [20] #xxxx.1.1.num.int <10 (0xa)>
+  [21] #xxxx.1.1.num.int <0 (0x0)>
+  [22] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [23] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [24] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [25] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [26] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [27] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [28] #xxxx.1.1.num.int <256 (0x100)>
+  [29] #xxxx.1.1.num.int <128 (0x80)>
+  [30] #xxxx.1.1.num.int <127 (0x7f)>
+  [31] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [32] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [33] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [34] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [35] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [36] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [37] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [38] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [39] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [40] #xxxx.1.1.num.int <4660 (0x1234)>
+  [41] #xxxx.1.1.num.int <18 (0x12)>
+  [42] #xxxx.1.1.num.int <0 (0x0)>
+  [43] #0.0.nil <nil>
+  [44] #xxxx.1.1.num.bool <0 (0x0)>
+  [45] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.7.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "a20">
+  [1] #xxxx.1.1.num.int <100 (0x64)>
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "a10">
+  [3] #xxxx.1.2.num.prim <4 (0x4)>
+  [4] #xxxx.1.1.hash <size 0, max 16>
+  [5] #xxxx.1.1.array <size 4, max 4>
+  [6] #xxxx.1.1.array <size 3, max 3>
+  [7] #xxxx.1.1.array <size 0, max 16>
+  [8] #xxxx.1.1.mem.code.ro <#xxxx.1.8.mem.ro>
+  [9] #xxxx.1.1.mem.code.ro <#xxxx.1.8.mem.ro>
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [11] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "€ XX X">
+  [12] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "€">
+  [13] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [14] #xxxx.1.1.num.int <78934 (0x13456)>
+  [15] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [16] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [17] #xxxx.1.1.num.int <97 (0x61)>
+  [18] #xxxx.1.1.num.int <92 (0x5c)>
+  [19] #xxxx.1.1.num.int <39 (0x27)>
+  [20] #xxxx.1.1.num.int <9 (0x9)>
+  [21] #xxxx.1.1.num.int <10 (0xa)>
+  [22] #xxxx.1.1.num.int <0 (0x0)>
+  [23] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [24] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [25] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [26] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [27] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [28] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [29] #xxxx.1.1.num.int <256 (0x100)>
+  [30] #xxxx.1.1.num.int <128 (0x80)>
+  [31] #xxxx.1.1.num.int <127 (0x7f)>
+  [32] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [33] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [34] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [35] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [36] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [37] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [38] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [39] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [40] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [41] #xxxx.1.1.num.int <4660 (0x1234)>
+  [42] #xxxx.1.1.num.int <18 (0x12)>
+  [43] #xxxx.1.1.num.int <0 (0x0)>
+  [44] #0.0.nil <nil>
+  [45] #xxxx.1.1.num.bool <0 (0x0)>
+  [46] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <200 (0xc8)>
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "a20">
+  [2] #xxxx.1.1.num.int <100 (0x64)>
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "a10">
+  [4] #xxxx.1.2.num.prim <4 (0x4)>
+  [5] #xxxx.1.1.hash <size 0, max 16>
+  [6] #xxxx.1.1.array <size 4, max 4>
+  [7] #xxxx.1.1.array <size 3, max 3>
+  [8] #xxxx.1.1.array <size 0, max 16>
+  [9] #xxxx.1.1.mem.code.ro <#xxxx.1.8.mem.ro>
+  [10] #xxxx.1.1.mem.code.ro <#xxxx.1.8.mem.ro>
+  [11] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [12] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "€ XX X">
+  [13] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "€">
+  [14] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [15] #xxxx.1.1.num.int <78934 (0x13456)>
+  [16] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [17] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [18] #xxxx.1.1.num.int <97 (0x61)>
+  [19] #xxxx.1.1.num.int <92 (0x5c)>
+  [20] #xxxx.1.1.num.int <39 (0x27)>
+  [21] #xxxx.1.1.num.int <9 (0x9)>
+  [22] #xxxx.1.1.num.int <10 (0xa)>
+  [23] #xxxx.1.1.num.int <0 (0x0)>
+  [24] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [25] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [26] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [27] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [28] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [29] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [30] #xxxx.1.1.num.int <256 (0x100)>
+  [31] #xxxx.1.1.num.int <128 (0x80)>
+  [32] #xxxx.1.1.num.int <127 (0x7f)>
+  [33] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [34] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [35] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [36] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [37] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [38] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [39] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [40] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [41] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [42] #xxxx.1.1.num.int <4660 (0x1234)>
+  [43] #xxxx.1.1.num.int <18 (0x12)>
+  [44] #xxxx.1.1.num.int <0 (0x0)>
+  [45] #0.0.nil <nil>
+  [46] #xxxx.1.1.num.bool <0 (0x0)>
+  [47] #xxxx.1.1.num.bool <1 (0x1)>
+GC: --#xxxx.1.2.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.hash <size 2, max 2>
+  [1] #xxxx.1.1.hash <size 0, max 16>
+  [2] #xxxx.1.1.array <size 4, max 4>
+  [3] #xxxx.1.1.array <size 3, max 3>
+  [4] #xxxx.1.1.array <size 0, max 16>
+  [5] #xxxx.1.1.mem.code.ro <#xxxx.1.8.mem.ro>
+  [6] #xxxx.1.1.mem.code.ro <#xxxx.1.8.mem.ro>
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "€ XX X">
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "€">
+  [10] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [11] #xxxx.1.1.num.int <78934 (0x13456)>
+  [12] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [13] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [14] #xxxx.1.1.num.int <97 (0x61)>
+  [15] #xxxx.1.1.num.int <92 (0x5c)>
+  [16] #xxxx.1.1.num.int <39 (0x27)>
+  [17] #xxxx.1.1.num.int <9 (0x9)>
+  [18] #xxxx.1.1.num.int <10 (0xa)>
+  [19] #xxxx.1.1.num.int <0 (0x0)>
+  [20] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [21] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [22] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [23] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [24] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [25] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [26] #xxxx.1.1.num.int <256 (0x100)>
+  [27] #xxxx.1.1.num.int <128 (0x80)>
+  [28] #xxxx.1.1.num.int <127 (0x7f)>
+  [29] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [30] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [31] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [32] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [33] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [34] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [35] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [36] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [37] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [38] #xxxx.1.1.num.int <4660 (0x1234)>
+  [39] #xxxx.1.1.num.int <18 (0x12)>
+  [40] #xxxx.1.1.num.int <0 (0x0)>
+  [41] #0.0.nil <nil>
+  [42] #xxxx.1.1.num.bool <0 (0x0)>
+  [43] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.1.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.num.prim <4 (0x4)>
+  [1] #xxxx.1.1.hash <size 2, max 2>
+  [2] #xxxx.1.1.hash <size 0, max 16>
+  [3] #xxxx.1.1.array <size 4, max 4>
+  [4] #xxxx.1.1.array <size 3, max 3>
+  [5] #xxxx.1.1.array <size 0, max 16>
+  [6] #xxxx.1.1.mem.code.ro <#xxxx.1.8.mem.ro>
+  [7] #xxxx.1.1.mem.code.ro <#xxxx.1.8.mem.ro>
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "€ XX X">
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "€">
+  [11] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [12] #xxxx.1.1.num.int <78934 (0x13456)>
+  [13] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [14] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [15] #xxxx.1.1.num.int <97 (0x61)>
+  [16] #xxxx.1.1.num.int <92 (0x5c)>
+  [17] #xxxx.1.1.num.int <39 (0x27)>
+  [18] #xxxx.1.1.num.int <9 (0x9)>
+  [19] #xxxx.1.1.num.int <10 (0xa)>
+  [20] #xxxx.1.1.num.int <0 (0x0)>
+  [21] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [22] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [23] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [24] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [25] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [26] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [27] #xxxx.1.1.num.int <256 (0x100)>
+  [28] #xxxx.1.1.num.int <128 (0x80)>
+  [29] #xxxx.1.1.num.int <127 (0x7f)>
+  [30] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [31] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [32] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [33] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [34] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [35] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [36] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [37] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [38] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [39] #xxxx.1.1.num.int <4660 (0x1234)>
+  [40] #xxxx.1.1.num.int <18 (0x12)>
+  [41] #xxxx.1.1.num.int <0 (0x0)>
+  [42] #0.0.nil <nil>
+  [43] #xxxx.1.1.num.bool <0 (0x0)>
+  [44] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.8.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.9.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.9.mem.ro, "c10">
+  [1] #xxxx.1.2.num.prim <4 (0x4)>
+  [2] #xxxx.1.1.hash <size 2, max 2>
+  [3] #xxxx.1.1.hash <size 0, max 16>
+  [4] #xxxx.1.1.array <size 4, max 4>
+  [5] #xxxx.1.1.array <size 3, max 3>
+  [6] #xxxx.1.1.array <size 0, max 16>
+  [7] #xxxx.1.1.mem.code.ro <#xxxx.1.9.mem.ro>
+  [8] #xxxx.1.1.mem.code.ro <#xxxx.1.9.mem.ro>
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.9.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.9.mem.ro, "€ XX X">
+  [11] #xxxx.1.1.mem.str.ro <#xxxx.1.9.mem.ro, "€">
+  [12] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [13] #xxxx.1.1.num.int <78934 (0x13456)>
+  [14] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [15] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [16] #xxxx.1.1.num.int <97 (0x61)>
+  [17] #xxxx.1.1.num.int <92 (0x5c)>
+  [18] #xxxx.1.1.num.int <39 (0x27)>
+  [19] #xxxx.1.1.num.int <9 (0x9)>
+  [20] #xxxx.1.1.num.int <10 (0xa)>
+  [21] #xxxx.1.1.num.int <0 (0x0)>
+  [22] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [23] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [24] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [25] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [26] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [27] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [28] #xxxx.1.1.num.int <256 (0x100)>
+  [29] #xxxx.1.1.num.int <128 (0x80)>
+  [30] #xxxx.1.1.num.int <127 (0x7f)>
+  [31] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [32] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [33] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [34] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [35] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [36] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [37] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [38] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [39] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [40] #xxxx.1.1.num.int <4660 (0x1234)>
+  [41] #xxxx.1.1.num.int <18 (0x12)>
+  [42] #xxxx.1.1.num.int <0 (0x0)>
+  [43] #0.0.nil <nil>
+  [44] #xxxx.1.1.num.bool <0 (0x0)>
+  [45] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.9.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <10 (0xa)>
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.9.mem.ro, "c10">
+  [2] #xxxx.1.2.num.prim <4 (0x4)>
+  [3] #xxxx.1.1.hash <size 2, max 2>
+  [4] #xxxx.1.1.hash <size 0, max 16>
+  [5] #xxxx.1.1.array <size 4, max 4>
+  [6] #xxxx.1.1.array <size 3, max 3>
+  [7] #xxxx.1.1.array <size 0, max 16>
+  [8] #xxxx.1.1.mem.code.ro <#xxxx.1.9.mem.ro>
+  [9] #xxxx.1.1.mem.code.ro <#xxxx.1.9.mem.ro>
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.9.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [11] #xxxx.1.1.mem.str.ro <#xxxx.1.9.mem.ro, "€ XX X">
+  [12] #xxxx.1.1.mem.str.ro <#xxxx.1.9.mem.ro, "€">
+  [13] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [14] #xxxx.1.1.num.int <78934 (0x13456)>
+  [15] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [16] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [17] #xxxx.1.1.num.int <97 (0x61)>
+  [18] #xxxx.1.1.num.int <92 (0x5c)>
+  [19] #xxxx.1.1.num.int <39 (0x27)>
+  [20] #xxxx.1.1.num.int <9 (0x9)>
+  [21] #xxxx.1.1.num.int <10 (0xa)>
+  [22] #xxxx.1.1.num.int <0 (0x0)>
+  [23] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [24] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [25] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [26] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [27] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [28] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [29] #xxxx.1.1.num.int <256 (0x100)>
+  [30] #xxxx.1.1.num.int <128 (0x80)>
+  [31] #xxxx.1.1.num.int <127 (0x7f)>
+  [32] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [33] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [34] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [35] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [36] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [37] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [38] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [39] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [40] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [41] #xxxx.1.1.num.int <4660 (0x1234)>
+  [42] #xxxx.1.1.num.int <18 (0x12)>
+  [43] #xxxx.1.1.num.int <0 (0x0)>
+  [44] #0.0.nil <nil>
+  [45] #xxxx.1.1.num.bool <0 (0x0)>
+  [46] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.9.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.10.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "c20">
+  [1] #xxxx.1.1.num.int <10 (0xa)>
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "c10">
+  [3] #xxxx.1.2.num.prim <4 (0x4)>
+  [4] #xxxx.1.1.hash <size 2, max 2>
+  [5] #xxxx.1.1.hash <size 0, max 16>
+  [6] #xxxx.1.1.array <size 4, max 4>
+  [7] #xxxx.1.1.array <size 3, max 3>
+  [8] #xxxx.1.1.array <size 0, max 16>
+  [9] #xxxx.1.1.mem.code.ro <#xxxx.1.10.mem.ro>
+  [10] #xxxx.1.1.mem.code.ro <#xxxx.1.10.mem.ro>
+  [11] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [12] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "€ XX X">
+  [13] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "€">
+  [14] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [15] #xxxx.1.1.num.int <78934 (0x13456)>
+  [16] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [17] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [18] #xxxx.1.1.num.int <97 (0x61)>
+  [19] #xxxx.1.1.num.int <92 (0x5c)>
+  [20] #xxxx.1.1.num.int <39 (0x27)>
+  [21] #xxxx.1.1.num.int <9 (0x9)>
+  [22] #xxxx.1.1.num.int <10 (0xa)>
+  [23] #xxxx.1.1.num.int <0 (0x0)>
+  [24] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [25] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [26] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [27] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [28] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [29] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [30] #xxxx.1.1.num.int <256 (0x100)>
+  [31] #xxxx.1.1.num.int <128 (0x80)>
+  [32] #xxxx.1.1.num.int <127 (0x7f)>
+  [33] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [34] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [35] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [36] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [37] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [38] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [39] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [40] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [41] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [42] #xxxx.1.1.num.int <4660 (0x1234)>
+  [43] #xxxx.1.1.num.int <18 (0x12)>
+  [44] #xxxx.1.1.num.int <0 (0x0)>
+  [45] #0.0.nil <nil>
+  [46] #xxxx.1.1.num.bool <0 (0x0)>
+  [47] #xxxx.1.1.num.bool <1 (0x1)>
+GC: --#xxxx.1.2.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.10.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.hash <size 2, max 2>
+  [1] #xxxx.1.1.hash <size 2, max 2>
+  [2] #xxxx.1.1.hash <size 0, max 16>
+  [3] #xxxx.1.1.array <size 4, max 4>
+  [4] #xxxx.1.1.array <size 3, max 3>
+  [5] #xxxx.1.1.array <size 0, max 16>
+  [6] #xxxx.1.1.mem.code.ro <#xxxx.1.10.mem.ro>
+  [7] #xxxx.1.1.mem.code.ro <#xxxx.1.10.mem.ro>
+  [8] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "€ XX X">
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "€">
+  [11] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [12] #xxxx.1.1.num.int <78934 (0x13456)>
+  [13] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [14] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [15] #xxxx.1.1.num.int <97 (0x61)>
+  [16] #xxxx.1.1.num.int <92 (0x5c)>
+  [17] #xxxx.1.1.num.int <39 (0x27)>
+  [18] #xxxx.1.1.num.int <9 (0x9)>
+  [19] #xxxx.1.1.num.int <10 (0xa)>
+  [20] #xxxx.1.1.num.int <0 (0x0)>
+  [21] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [22] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [23] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [24] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [25] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [26] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [27] #xxxx.1.1.num.int <256 (0x100)>
+  [28] #xxxx.1.1.num.int <128 (0x80)>
+  [29] #xxxx.1.1.num.int <127 (0x7f)>
+  [30] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [31] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [32] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [33] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [34] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [35] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [36] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [37] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [38] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [39] #xxxx.1.1.num.int <4660 (0x1234)>
+  [40] #xxxx.1.1.num.int <18 (0x12)>
+  [41] #xxxx.1.1.num.int <0 (0x0)>
+  [42] #0.0.nil <nil>
+  [43] #xxxx.1.1.num.bool <0 (0x0)>
+  [44] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.1.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.10.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.num.prim <4 (0x4)>
+  [1] #xxxx.1.1.hash <size 2, max 2>
+  [2] #xxxx.1.1.hash <size 2, max 2>
+  [3] #xxxx.1.1.hash <size 0, max 16>
+  [4] #xxxx.1.1.array <size 4, max 4>
+  [5] #xxxx.1.1.array <size 3, max 3>
+  [6] #xxxx.1.1.array <size 0, max 16>
+  [7] #xxxx.1.1.mem.code.ro <#xxxx.1.10.mem.ro>
+  [8] #xxxx.1.1.mem.code.ro <#xxxx.1.10.mem.ro>
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "€ XX X">
+  [11] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "€">
+  [12] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [13] #xxxx.1.1.num.int <78934 (0x13456)>
+  [14] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [15] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [16] #xxxx.1.1.num.int <97 (0x61)>
+  [17] #xxxx.1.1.num.int <92 (0x5c)>
+  [18] #xxxx.1.1.num.int <39 (0x27)>
+  [19] #xxxx.1.1.num.int <9 (0x9)>
+  [20] #xxxx.1.1.num.int <10 (0xa)>
+  [21] #xxxx.1.1.num.int <0 (0x0)>
+  [22] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [23] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [24] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [25] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [26] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [27] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [28] #xxxx.1.1.num.int <256 (0x100)>
+  [29] #xxxx.1.1.num.int <128 (0x80)>
+  [30] #xxxx.1.1.num.int <127 (0x7f)>
+  [31] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [32] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [33] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [34] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [35] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [36] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [37] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [38] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [39] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [40] #xxxx.1.1.num.int <4660 (0x1234)>
+  [41] #xxxx.1.1.num.int <18 (0x12)>
+  [42] #xxxx.1.1.num.int <0 (0x0)>
+  [43] #0.0.nil <nil>
+  [44] #xxxx.1.1.num.bool <0 (0x0)>
+  [45] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.10.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "a">
+  [1] #xxxx.1.2.num.prim <4 (0x4)>
+  [2] #xxxx.1.1.hash <size 2, max 2>
+  [3] #xxxx.1.1.hash <size 2, max 2>
+  [4] #xxxx.1.1.hash <size 0, max 16>
+  [5] #xxxx.1.1.array <size 4, max 4>
+  [6] #xxxx.1.1.array <size 3, max 3>
+  [7] #xxxx.1.1.array <size 0, max 16>
+  [8] #xxxx.1.1.mem.code.ro <#xxxx.1.11.mem.ro>
+  [9] #xxxx.1.1.mem.code.ro <#xxxx.1.11.mem.ro>
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [11] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "€ XX X">
+  [12] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "€">
+  [13] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [14] #xxxx.1.1.num.int <78934 (0x13456)>
+  [15] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [16] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [17] #xxxx.1.1.num.int <97 (0x61)>
+  [18] #xxxx.1.1.num.int <92 (0x5c)>
+  [19] #xxxx.1.1.num.int <39 (0x27)>
+  [20] #xxxx.1.1.num.int <9 (0x9)>
+  [21] #xxxx.1.1.num.int <10 (0xa)>
+  [22] #xxxx.1.1.num.int <0 (0x0)>
+  [23] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [24] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [25] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [26] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [27] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [28] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [29] #xxxx.1.1.num.int <256 (0x100)>
+  [30] #xxxx.1.1.num.int <128 (0x80)>
+  [31] #xxxx.1.1.num.int <127 (0x7f)>
+  [32] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [33] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [34] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [35] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [36] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [37] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [38] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [39] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [40] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [41] #xxxx.1.1.num.int <4660 (0x1234)>
+  [42] #xxxx.1.1.num.int <18 (0x12)>
+  [43] #xxxx.1.1.num.int <0 (0x0)>
+  [44] #0.0.nil <nil>
+  [45] #xxxx.1.1.num.bool <0 (0x0)>
+  [46] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <1 (0x1)>
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "a">
+  [2] #xxxx.1.2.num.prim <4 (0x4)>
+  [3] #xxxx.1.1.hash <size 2, max 2>
+  [4] #xxxx.1.1.hash <size 2, max 2>
+  [5] #xxxx.1.1.hash <size 0, max 16>
+  [6] #xxxx.1.1.array <size 4, max 4>
+  [7] #xxxx.1.1.array <size 3, max 3>
+  [8] #xxxx.1.1.array <size 0, max 16>
+  [9] #xxxx.1.1.mem.code.ro <#xxxx.1.11.mem.ro>
+  [10] #xxxx.1.1.mem.code.ro <#xxxx.1.11.mem.ro>
+  [11] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [12] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "€ XX X">
+  [13] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "€">
+  [14] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [15] #xxxx.1.1.num.int <78934 (0x13456)>
+  [16] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [17] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [18] #xxxx.1.1.num.int <97 (0x61)>
+  [19] #xxxx.1.1.num.int <92 (0x5c)>
+  [20] #xxxx.1.1.num.int <39 (0x27)>
+  [21] #xxxx.1.1.num.int <9 (0x9)>
+  [22] #xxxx.1.1.num.int <10 (0xa)>
+  [23] #xxxx.1.1.num.int <0 (0x0)>
+  [24] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [25] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [26] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [27] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [28] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [29] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [30] #xxxx.1.1.num.int <256 (0x100)>
+  [31] #xxxx.1.1.num.int <128 (0x80)>
+  [32] #xxxx.1.1.num.int <127 (0x7f)>
+  [33] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [34] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [35] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [36] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [37] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [38] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [39] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [40] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [41] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [42] #xxxx.1.1.num.int <4660 (0x1234)>
+  [43] #xxxx.1.1.num.int <18 (0x12)>
+  [44] #xxxx.1.1.num.int <0 (0x0)>
+  [45] #0.0.nil <nil>
+  [46] #xxxx.1.1.num.bool <0 (0x0)>
+  [47] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.11.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "b">
+  [1] #xxxx.1.1.num.int <1 (0x1)>
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "a">
+  [3] #xxxx.1.2.num.prim <4 (0x4)>
+  [4] #xxxx.1.1.hash <size 2, max 2>
+  [5] #xxxx.1.1.hash <size 2, max 2>
+  [6] #xxxx.1.1.hash <size 0, max 16>
+  [7] #xxxx.1.1.array <size 4, max 4>
+  [8] #xxxx.1.1.array <size 3, max 3>
+  [9] #xxxx.1.1.array <size 0, max 16>
+  [10] #xxxx.1.1.mem.code.ro <#xxxx.1.12.mem.ro>
+  [11] #xxxx.1.1.mem.code.ro <#xxxx.1.12.mem.ro>
+  [12] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [13] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "€ XX X">
+  [14] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "€">
+  [15] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [16] #xxxx.1.1.num.int <78934 (0x13456)>
+  [17] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [18] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [19] #xxxx.1.1.num.int <97 (0x61)>
+  [20] #xxxx.1.1.num.int <92 (0x5c)>
+  [21] #xxxx.1.1.num.int <39 (0x27)>
+  [22] #xxxx.1.1.num.int <9 (0x9)>
+  [23] #xxxx.1.1.num.int <10 (0xa)>
+  [24] #xxxx.1.1.num.int <0 (0x0)>
+  [25] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [26] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [27] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [28] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [29] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [30] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [31] #xxxx.1.1.num.int <256 (0x100)>
+  [32] #xxxx.1.1.num.int <128 (0x80)>
+  [33] #xxxx.1.1.num.int <127 (0x7f)>
+  [34] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [35] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [36] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [37] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [38] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [39] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [40] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [41] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [42] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [43] #xxxx.1.1.num.int <4660 (0x1234)>
+  [44] #xxxx.1.1.num.int <18 (0x12)>
+  [45] #xxxx.1.1.num.int <0 (0x0)>
+  [46] #0.0.nil <nil>
+  [47] #xxxx.1.1.num.bool <0 (0x0)>
+  [48] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <2 (0x2)>
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "b">
+  [2] #xxxx.1.1.num.int <1 (0x1)>
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "a">
+  [4] #xxxx.1.2.num.prim <4 (0x4)>
+  [5] #xxxx.1.1.hash <size 2, max 2>
+  [6] #xxxx.1.1.hash <size 2, max 2>
+  [7] #xxxx.1.1.hash <size 0, max 16>
+  [8] #xxxx.1.1.array <size 4, max 4>
+  [9] #xxxx.1.1.array <size 3, max 3>
+  [10] #xxxx.1.1.array <size 0, max 16>
+  [11] #xxxx.1.1.mem.code.ro <#xxxx.1.12.mem.ro>
+  [12] #xxxx.1.1.mem.code.ro <#xxxx.1.12.mem.ro>
+  [13] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [14] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "€ XX X">
+  [15] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "€">
+  [16] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [17] #xxxx.1.1.num.int <78934 (0x13456)>
+  [18] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [19] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [20] #xxxx.1.1.num.int <97 (0x61)>
+  [21] #xxxx.1.1.num.int <92 (0x5c)>
+  [22] #xxxx.1.1.num.int <39 (0x27)>
+  [23] #xxxx.1.1.num.int <9 (0x9)>
+  [24] #xxxx.1.1.num.int <10 (0xa)>
+  [25] #xxxx.1.1.num.int <0 (0x0)>
+  [26] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [27] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [28] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [29] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [30] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [31] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [32] #xxxx.1.1.num.int <256 (0x100)>
+  [33] #xxxx.1.1.num.int <128 (0x80)>
+  [34] #xxxx.1.1.num.int <127 (0x7f)>
+  [35] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [36] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [37] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [38] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [39] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [40] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [41] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [42] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [43] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [44] #xxxx.1.1.num.int <4660 (0x1234)>
+  [45] #xxxx.1.1.num.int <18 (0x12)>
+  [46] #xxxx.1.1.num.int <0 (0x0)>
+  [47] #0.0.nil <nil>
+  [48] #xxxx.1.1.num.bool <0 (0x0)>
+  [49] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.12.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "c">
+  [1] #xxxx.1.1.num.int <2 (0x2)>
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "b">
+  [3] #xxxx.1.1.num.int <1 (0x1)>
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "a">
+  [5] #xxxx.1.2.num.prim <4 (0x4)>
+  [6] #xxxx.1.1.hash <size 2, max 2>
+  [7] #xxxx.1.1.hash <size 2, max 2>
+  [8] #xxxx.1.1.hash <size 0, max 16>
+  [9] #xxxx.1.1.array <size 4, max 4>
+  [10] #xxxx.1.1.array <size 3, max 3>
+  [11] #xxxx.1.1.array <size 0, max 16>
+  [12] #xxxx.1.1.mem.code.ro <#xxxx.1.13.mem.ro>
+  [13] #xxxx.1.1.mem.code.ro <#xxxx.1.13.mem.ro>
+  [14] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [15] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "€ XX X">
+  [16] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "€">
+  [17] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [18] #xxxx.1.1.num.int <78934 (0x13456)>
+  [19] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [20] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [21] #xxxx.1.1.num.int <97 (0x61)>
+  [22] #xxxx.1.1.num.int <92 (0x5c)>
+  [23] #xxxx.1.1.num.int <39 (0x27)>
+  [24] #xxxx.1.1.num.int <9 (0x9)>
+  [25] #xxxx.1.1.num.int <10 (0xa)>
+  [26] #xxxx.1.1.num.int <0 (0x0)>
+  [27] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [28] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [29] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [30] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [31] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [32] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [33] #xxxx.1.1.num.int <256 (0x100)>
+  [34] #xxxx.1.1.num.int <128 (0x80)>
+  [35] #xxxx.1.1.num.int <127 (0x7f)>
+  [36] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [37] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [38] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [39] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [40] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [41] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [42] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [43] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [44] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [45] #xxxx.1.1.num.int <4660 (0x1234)>
+  [46] #xxxx.1.1.num.int <18 (0x12)>
+  [47] #xxxx.1.1.num.int <0 (0x0)>
+  [48] #0.0.nil <nil>
+  [49] #xxxx.1.1.num.bool <0 (0x0)>
+  [50] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.2.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.3.num.prim <4 (0x4)>
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "c">
+  [2] #xxxx.1.1.num.int <2 (0x2)>
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "b">
+  [4] #xxxx.1.1.num.int <1 (0x1)>
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "a">
+  [6] #xxxx.1.3.num.prim <4 (0x4)>
+  [7] #xxxx.1.1.hash <size 2, max 2>
+  [8] #xxxx.1.1.hash <size 2, max 2>
+  [9] #xxxx.1.1.hash <size 0, max 16>
+  [10] #xxxx.1.1.array <size 4, max 4>
+  [11] #xxxx.1.1.array <size 3, max 3>
+  [12] #xxxx.1.1.array <size 0, max 16>
+  [13] #xxxx.1.1.mem.code.ro <#xxxx.1.13.mem.ro>
+  [14] #xxxx.1.1.mem.code.ro <#xxxx.1.13.mem.ro>
+  [15] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [16] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "€ XX X">
+  [17] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "€">
+  [18] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [19] #xxxx.1.1.num.int <78934 (0x13456)>
+  [20] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [21] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [22] #xxxx.1.1.num.int <97 (0x61)>
+  [23] #xxxx.1.1.num.int <92 (0x5c)>
+  [24] #xxxx.1.1.num.int <39 (0x27)>
+  [25] #xxxx.1.1.num.int <9 (0x9)>
+  [26] #xxxx.1.1.num.int <10 (0xa)>
+  [27] #xxxx.1.1.num.int <0 (0x0)>
+  [28] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [29] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [30] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [31] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [32] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [33] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [34] #xxxx.1.1.num.int <256 (0x100)>
+  [35] #xxxx.1.1.num.int <128 (0x80)>
+  [36] #xxxx.1.1.num.int <127 (0x7f)>
+  [37] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [38] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [39] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [40] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [41] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [42] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [43] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [44] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [45] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [46] #xxxx.1.1.num.int <4660 (0x1234)>
+  [47] #xxxx.1.1.num.int <18 (0x12)>
+  [48] #xxxx.1.1.num.int <0 (0x0)>
+  [49] #0.0.nil <nil>
+  [50] #xxxx.1.1.num.bool <0 (0x0)>
+  [51] #xxxx.1.1.num.bool <1 (0x1)>
+GC: ++#xxxx.1.13.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.14.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "d">
+  [1] #xxxx.1.3.num.prim <4 (0x4)>
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "c">
+  [3] #xxxx.1.1.num.int <2 (0x2)>
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "b">
+  [5] #xxxx.1.1.num.int <1 (0x1)>
+  [6] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "a">
+  [7] #xxxx.1.3.num.prim <4 (0x4)>
+  [8] #xxxx.1.1.hash <size 2, max 2>
+  [9] #xxxx.1.1.hash <size 2, max 2>
+  [10] #xxxx.1.1.hash <size 0, max 16>
+  [11] #xxxx.1.1.array <size 4, max 4>
+  [12] #xxxx.1.1.array <size 3, max 3>
+  [13] #xxxx.1.1.array <size 0, max 16>
+  [14] #xxxx.1.1.mem.code.ro <#xxxx.1.14.mem.ro>
+  [15] #xxxx.1.1.mem.code.ro <#xxxx.1.14.mem.ro>
+  [16] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [17] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "€ XX X">
+  [18] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "€">
+  [19] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [20] #xxxx.1.1.num.int <78934 (0x13456)>
+  [21] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [22] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [23] #xxxx.1.1.num.int <97 (0x61)>
+  [24] #xxxx.1.1.num.int <92 (0x5c)>
+  [25] #xxxx.1.1.num.int <39 (0x27)>
+  [26] #xxxx.1.1.num.int <9 (0x9)>
+  [27] #xxxx.1.1.num.int <10 (0xa)>
+  [28] #xxxx.1.1.num.int <0 (0x0)>
+  [29] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [30] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [31] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [32] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [33] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [34] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [35] #xxxx.1.1.num.int <256 (0x100)>
+  [36] #xxxx.1.1.num.int <128 (0x80)>
+  [37] #xxxx.1.1.num.int <127 (0x7f)>
+  [38] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [39] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [40] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [41] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [42] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [43] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [44] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [45] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [46] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [47] #xxxx.1.1.num.int <4660 (0x1234)>
+  [48] #xxxx.1.1.num.int <18 (0x12)>
+  [49] #xxxx.1.1.num.int <0 (0x0)>
+  [50] #0.0.nil <nil>
+  [51] #xxxx.1.1.num.bool <0 (0x0)>
+  [52] #xxxx.1.1.num.bool <1 (0x1)>
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.14.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <4 (0x4)>
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "d">
+  [2] #xxxx.1.3.num.prim <4 (0x4)>
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "c">
+  [4] #xxxx.1.1.num.int <2 (0x2)>
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "b">
+  [6] #xxxx.1.1.num.int <1 (0x1)>
+  [7] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "a">
+  [8] #xxxx.1.3.num.prim <4 (0x4)>
+  [9] #xxxx.1.1.hash <size 2, max 2>
+  [10] #xxxx.1.1.hash <size 2, max 2>
+  [11] #xxxx.1.1.hash <size 0, max 16>
+  [12] #xxxx.1.1.array <size 4, max 4>
+  [13] #xxxx.1.1.array <size 3, max 3>
+  [14] #xxxx.1.1.array <size 0, max 16>
+  [15] #xxxx.1.1.mem.code.ro <#xxxx.1.14.mem.ro>
+  [16] #xxxx.1.1.mem.code.ro <#xxxx.1.14.mem.ro>
+  [17] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [18] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "€ XX X">
+  [19] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "€">
+  [20] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [21] #xxxx.1.1.num.int <78934 (0x13456)>
+  [22] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [23] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [24] #xxxx.1.1.num.int <97 (0x61)>
+  [25] #xxxx.1.1.num.int <92 (0x5c)>
+  [26] #xxxx.1.1.num.int <39 (0x27)>
+  [27] #xxxx.1.1.num.int <9 (0x9)>
+  [28] #xxxx.1.1.num.int <10 (0xa)>
+  [29] #xxxx.1.1.num.int <0 (0x0)>
+  [30] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [31] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [32] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [33] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [34] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [35] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [36] #xxxx.1.1.num.int <256 (0x100)>
+  [37] #xxxx.1.1.num.int <128 (0x80)>
+  [38] #xxxx.1.1.num.int <127 (0x7f)>
+  [39] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [40] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [41] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [42] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [43] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [44] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [45] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [46] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [47] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [48] #xxxx.1.1.num.int <4660 (0x1234)>
+  [49] #xxxx.1.1.num.int <18 (0x12)>
+  [50] #xxxx.1.1.num.int <0 (0x0)>
+  [51] #0.0.nil <nil>
+  [52] #xxxx.1.1.num.bool <0 (0x0)>
+  [53] #xxxx.1.1.num.bool <1 (0x1)>
+GC: --#xxxx.1.3.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.14.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.hash <size 1, max 1>
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "c">
+  [2] #xxxx.1.1.num.int <2 (0x2)>
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "b">
+  [4] #xxxx.1.1.num.int <1 (0x1)>
+  [5] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "a">
+  [6] #xxxx.1.2.num.prim <4 (0x4)>
+  [7] #xxxx.1.1.hash <size 2, max 2>
+  [8] #xxxx.1.1.hash <size 2, max 2>
+  [9] #xxxx.1.1.hash <size 0, max 16>
+  [10] #xxxx.1.1.array <size 4, max 4>
+  [11] #xxxx.1.1.array <size 3, max 3>
+  [12] #xxxx.1.1.array <size 0, max 16>
+  [13] #xxxx.1.1.mem.code.ro <#xxxx.1.14.mem.ro>
+  [14] #xxxx.1.1.mem.code.ro <#xxxx.1.14.mem.ro>
+  [15] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [16] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "€ XX X">
+  [17] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "€">
+  [18] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [19] #xxxx.1.1.num.int <78934 (0x13456)>
+  [20] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [21] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [22] #xxxx.1.1.num.int <97 (0x61)>
+  [23] #xxxx.1.1.num.int <92 (0x5c)>
+  [24] #xxxx.1.1.num.int <39 (0x27)>
+  [25] #xxxx.1.1.num.int <9 (0x9)>
+  [26] #xxxx.1.1.num.int <10 (0xa)>
+  [27] #xxxx.1.1.num.int <0 (0x0)>
+  [28] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [29] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [30] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [31] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [32] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [33] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [34] #xxxx.1.1.num.int <256 (0x100)>
+  [35] #xxxx.1.1.num.int <128 (0x80)>
+  [36] #xxxx.1.1.num.int <127 (0x7f)>
+  [37] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [38] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [39] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [40] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [41] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [42] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [43] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [44] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [45] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [46] #xxxx.1.1.num.int <4660 (0x1234)>
+  [47] #xxxx.1.1.num.int <18 (0x12)>
+  [48] #xxxx.1.1.num.int <0 (0x0)>
+  [49] #0.0.nil <nil>
+  [50] #xxxx.1.1.num.bool <0 (0x0)>
+  [51] #xxxx.1.1.num.bool <1 (0x1)>
+GC: --#xxxx.1.2.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.14.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.hash <size 3, max 3>
+  [1] #xxxx.1.1.hash <size 2, max 2>
+  [2] #xxxx.1.1.hash <size 2, max 2>
+  [3] #xxxx.1.1.hash <size 0, max 16>
+  [4] #xxxx.1.1.array <size 4, max 4>
+  [5] #xxxx.1.1.array <size 3, max 3>
+  [6] #xxxx.1.1.array <size 0, max 16>
+  [7] #xxxx.1.1.mem.code.ro <#xxxx.1.14.mem.ro>
+  [8] #xxxx.1.1.mem.code.ro <#xxxx.1.14.mem.ro>
+  [9] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567834 56781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678345678123456781 2345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678">
+  [10] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "€ XX X">
+  [11] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, "€">
+  [12] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [13] #xxxx.1.1.num.int <78934 (0x13456)>
+  [14] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [15] #xxxx.1.1.num.int <8364 (0x20ac)>
+  [16] #xxxx.1.1.num.int <97 (0x61)>
+  [17] #xxxx.1.1.num.int <92 (0x5c)>
+  [18] #xxxx.1.1.num.int <39 (0x27)>
+  [19] #xxxx.1.1.num.int <9 (0x9)>
+  [20] #xxxx.1.1.num.int <10 (0xa)>
+  [21] #xxxx.1.1.num.int <0 (0x0)>
+  [22] #xxxx.1.1.num.int <-254 (0xffffffffffffff02)>
+  [23] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [24] #xxxx.1.1.num.int <-129 (0xffffffffffffff7f)>
+  [25] #xxxx.1.1.num.int <-128 (0xffffffffffffff80)>
+  [26] #xxxx.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [27] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [28] #xxxx.1.1.num.int <256 (0x100)>
+  [29] #xxxx.1.1.num.int <128 (0x80)>
+  [30] #xxxx.1.1.num.int <127 (0x7f)>
+  [31] #xxxx.1.1.num.int <-4294967294 (0xffffffff00000002)>
+  [32] #xxxx.1.1.num.int <4294967294 (0xfffffffe)>
+  [33] #xxxx.1.1.num.int <7911603569390985488 (0x6dcba98765432110)>
+  [34] #xxxx.1.1.num.int <-7911603569390985488 (0x923456789abcdef0)>
+  [35] #xxxx.1.1.num.int <-1311768467463790320 (0xedcba98765432110)>
+  [36] #xxxx.1.1.num.int <1311768467463790320 (0x123456789abcdef0)>
+  [37] #xxxx.1.1.num.int <78187493530 (0x123456789a)>
+  [38] #xxxx.1.1.num.int <305419896 (0x12345678)>
+  [39] #xxxx.1.1.num.int <1193046 (0x123456)>
+  [40] #xxxx.1.1.num.int <4660 (0x1234)>
+  [41] #xxxx.1.1.num.int <18 (0x12)>
+  [42] #xxxx.1.1.num.int <0 (0x0)>
+  [43] #0.0.nil <nil>
+  [44] #xxxx.1.1.num.bool <0 (0x0)>
+  [45] #xxxx.1.1.num.bool <1 (0x1)>

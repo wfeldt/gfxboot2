@@ -1,0 +1,127 @@
+#! /usr/bin/perl
+
+use strict;
+
+use Data::Dumper;
+$Data::Dumper::Sortkeys = 1;
+$Data::Dumper::Terse = 1;
+$Data::Dumper::Indent = 1;
+
+sub print_list;
+
+# vocabulary definitions
+my $prim = $ARGV[0];
+# type definitions
+my $type = $ARGV[1];
+# generated C header file
+my $dst = $ARGV[2];
+
+my $vocab;
+my $types;
+
+open my $f, $prim or die "$prim: $!\n";
+
+while(<$f>) {
+  next if /^\s*(#|$)/;
+  my @i = split /\s+/;
+  push @$vocab, { str => $i[0], name => $i[1] ? $i[1] : $i[0] };
+}
+
+close $f;
+
+open my $f, $type or die "$type: $!\n";
+
+while(<$f>) {
+  next if /^\s*(#|$)/;
+  my @i = split /\s+/;
+  push @$types, { str => $i[0], name => $i[1] ? $i[1] : $i[0] };
+}
+
+close $f;
+
+open my $f, ">", $dst or die "$dst: $!\n";
+
+print $f <<"----"
+#define GFXBOOT_MAGIC 0x60ad7a42a91251L
+
+#ifdef WITH_PRIM_NAMES
+const char *prim_names[] = {
+----
+;
+
+my $list;
+push @$list, "\"$_->{str}\"" for @$vocab;
+print_list $f, $list, 8;
+
+print $f "\n};\n#endif\n\n";
+
+
+print $f "enum {\n";
+
+my $list;
+push @$list, "prim_idx_$_->{name}" for @$vocab;
+print_list $f, $list, 4;
+
+print $f "\n};\n\n";
+
+
+print $f "#ifdef WITH_PRIM_HEADERS\n";
+
+my $list;
+push @$list, "gfx_prim_$_->{name}" for @$vocab;
+print $f "static void $_(void);\n" for @$list;
+
+
+print $f "\nstatic void (*gfx_prim_list[])(void) = {\n";
+
+print_list $f, $list, 4;
+
+print $f "\n};\n#endif\n\n";
+
+
+print $f "#ifdef WITH_TYPE_NAMES\nconst char *type_name[] = {\n";
+
+my $list;
+push @$list, "\"$_->{str}\"" for @$types;
+print_list $f, $list, 8;
+
+print $f "\n};\n#endif\n\n";
+
+
+print $f <<"----"
+#define TYPE_EXPECTS_DATA(a) ((a) >= t_comment)
+
+typedef enum {
+----
+;
+
+my $list;
+push @$list, "t_$_->{name}" for @$types;
+print_list $f, $list, 4;
+
+print $f "\n} type_t;\n";
+
+close $f;
+
+
+sub print_list
+{
+  my $f = $_[0];
+  my $list = $_[1];
+  my $cols = $_[2];
+
+  my $cnt = 0;
+  for (@$list) {
+    print $f "," if $cnt;
+    if($cnt % $cols) {
+      print $f " ";
+    }
+    else {
+      print $f "\n" if $cnt;
+      print $f "  ";
+    }
+    print $f "$_";
+    $cnt++;
+  }
+}
+

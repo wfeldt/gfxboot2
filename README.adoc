@@ -82,10 +82,10 @@ The prompt in the lower part of the screen is the debug console.
 
 === Some documentation
 
-For details check out the link:doc/reference.adoc#add[language reference].
+For details check out the link:doc/reference.adoc[language reference].
 
-To get started, read the link:doc/building.adoc#add[build instructions].
+To get started, read the link:doc/building.adoc[build instructions].
 
-The code is covered by a link:doc/testing.adoc#add[test suite].
+The code is covered by a link:doc/testing.adoc[test suite].
 
-The link:doc/internals.adoc#add[binary format] is also documented.
+The link:doc/internals.adoc[binary format] is also documented.

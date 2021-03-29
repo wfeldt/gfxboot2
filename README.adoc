@@ -70,6 +70,97 @@ getgstate foo setfont
 ----
 ====
 
+.The compiled source code
+[%collapsible]
+====
+[source]
+----
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  ref    59 63 66 6f 6e 74        /cfont
+             2  0x0000e  prim   83 4a                    getconsolegstate
+             3  0x00010  prim   83 3f                    getfont
+             4  0x00012  prim   63                       def
+     2       5  0x00013  ref    39 66 6f 6f              /foo
+             6  0x00017  str    77 66 6f 6f 2e 66 6e 74  "foo.fnt"
+             7  0x0001f  prim   83 4f                    readfile
+             8  0x00021  prim   83 41                    newfont
+             9  0x00023  prim   63                       def
+     3      10  0x00024  ref    39 62 61 72              /bar
+            11  0x00028  str    77 62 61 72 2e 66 6e 74  "bar.fnt"
+            12  0x00030  prim   83 4f                    readfile
+            13  0x00032  prim   83 41                    newfont
+            14  0x00034  prim   63                       def
+     5      15  0x00035  ref    49 74 65 78 74           /text
+            16  0x0003a  str    c7 25 41 42 43 20 31 32  "ABC 12345 xyz # * % & § öäüß €"
+                                33 34 35 20 78 79 7a 20
+                                23 20 2a 20 25 20 26 20
+                                c2 a7 20 c3 b6 c3 a4 c3
+                                bc c3 9f 20 e2 82 ac
+            17  0x00061  prim   63                       def
+     7      18  0x00062  ref    59 69 6d 61 67 65        /image
+            19  0x00068  prim   83 49                    gstate
+            20  0x0006a  prim   63                       def
+     8      21  0x0006b  word   58 69 6d 61 67 65        image
+            22  0x00071  str    c7 0d 6b 61 74 7a 65 5f  "katze_800.jpg"
+                                38 30 30 2e 6a 70 67
+            23  0x00080  prim   83 4f                    readfile
+            24  0x00082  prim   83 50                    unpackimage
+            25  0x00084  prim   83 46                    setcanvas
+    10      26  0x00086  int    01                       0
+            27  0x00087  int    01                       0
+            28  0x00088  prim   83 3e                    setpos
+    11      29  0x0008a  xref   84 1f                    image
+            30  0x0008c  prim   83 47                    getgstate
+            31  0x0008e  prim   83 18                    exch
+            32  0x00090  prim   83 51                    blt
+    12      33  0x00092  int    c1 00 00 00 90 00        0x90000000
+            34  0x00098  prim   83 3a                    setcolor
+    13      35  0x0009a  xref   84 2f                    image
+            36  0x0009c  prim   83 4d                    dim
+            37  0x0009e  prim   83 56                    fillrect
+    15      38  0x000a0  int    b1 00 ff ff 00           0xffff00
+            39  0x000a5  prim   83 3a                    setcolor
+    17      40  0x000a7  prim   83 47                    getgstate
+            41  0x000a9  word   58 63 66 6f 6e 74        cfont
+            42  0x000af  prim   83 40                    setfont
+    18      43  0x000b1  int    81 32                    50
+            44  0x000b3  int    81 32                    50
+            45  0x000b5  prim   83 3e                    setpos
+            46  0x000b7  str    c7 11 53 6f 6d 65 20 66  "Some font samples"
+                                6f 6e 74 20 73 61 6d 70
+                                6c 65 73
+            47  0x000ca  prim   83 4c                    show
+    20      48  0x000cc  int    b1 ff ff ff 00           0x00ffffff
+            49  0x000d1  prim   83 3a                    setcolor
+    22      50  0x000d3  prim   83 47                    getgstate
+            51  0x000d5  xref   84 2c                    cfont
+            52  0x000d7  prim   83 40                    setfont
+    23      53  0x000d9  int    81 32                    50
+            54  0x000db  int    81 64                    100
+            55  0x000dd  prim   83 3e                    setpos
+            56  0x000df  word   48 74 65 78 74           text
+            57  0x000e4  prim   83 4c                    show
+    25      58  0x000e6  prim   83 47                    getgstate
+            59  0x000e8  word   38 62 61 72              bar
+            60  0x000ec  prim   83 40                    setfont
+    26      61  0x000ee  int    81 32                    50
+            62  0x000f0  int    91 82 00                 130
+            63  0x000f3  prim   83 3e                    setpos
+            64  0x000f5  xref   84 16                    text
+            65  0x000f7  prim   83 4c                    show
+    28      66  0x000f9  prim   83 47                    getgstate
+            67  0x000fb  word   38 66 6f 6f              foo
+            68  0x000ff  prim   83 40                    setfont
+    29      69  0x00101  int    81 32                    50
+            70  0x00103  int    91 b4 00                 180
+            71  0x00106  prim   83 3e                    setpos
+            72  0x00108  xref   84 29                    text
+            73  0x0010a  prim   83 4c                    show
+----
+====
+
 The prompt in the lower part of the screen is the debug console.
 
 === Next steps
@@ -78,6 +169,7 @@ The prompt in the lower part of the screen is the debug console.
 - fine-tune language definition
 - more systematic debug console
 - add de-fragmentation to memory management
+- check out syslinux integration
 - work on documentation
 
 === Some documentation

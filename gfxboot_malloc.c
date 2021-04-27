@@ -24,7 +24,7 @@ void gfx_malloc_dump(dump_style_t style)
 {
   uint8_t *p, *p_start, *p_end;
   malloc_header_t *m;
-  unsigned idx, x, g;
+  unsigned idx;
 
   p_start = gfxboot_data->vm.mem.ptr;
   p_end = p_start + gfxboot_data->vm.mem.size;
@@ -40,16 +40,19 @@ void gfx_malloc_dump(dump_style_t style)
   for(idx = 0, p = p_start; p >= p_start && p < p_end; p += m->next, idx++) {
     if(style.max && idx >= style.max) break;
     m = (malloc_header_t *) p;
-    x = OBJ_ID2IDX(m->id);
-    g = OBJ_ID2GEN(m->id);
-    gfxboot_log("%4u: %4u.%02x, ", idx, x, g);
+    gfxboot_log("%4u: ", idx);
     if(gfxboot_data->vm.debug.show_pointer) {
       gfxboot_log("%p", m + 1);
     }
     else {
       gfxboot_log("0x%08x", (int) (p - p_start) + (int) sizeof (malloc_header_t));
     }
-    gfxboot_log("[%8d]\n", (int) (m->next - sizeof (malloc_header_t)));
+    gfxboot_log("[%8d]", (int) (m->next - sizeof (malloc_header_t)));
+    if(m->id) {
+      gfxboot_log("  ");
+      gfx_obj_dump(m->id, (dump_style_t) { .inspect = 1, .no_nl = 1 });
+    }
+    gfxboot_log("\n");
     if(m->next <= sizeof (malloc_header_t)) break;
   }
 
@@ -60,7 +63,7 @@ void gfx_malloc_dump(dump_style_t style)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void *gfx_malloc(uint32_t size, uint32_t id)
+void *gfx_malloc(uint32_t size, obj_id_t id)
 {
   uint8_t *p, *p_start, *p_end;
   malloc_header_t *m;

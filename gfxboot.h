@@ -149,7 +149,7 @@ typedef struct {
 
 typedef struct {
   uint32_t next;	// offset to next header
-  uint32_t id;		// 0 = free, otherwise used
+  obj_id_t id;		// 0 = free, otherwise used
 } malloc_header_t;
 
 typedef struct {
@@ -202,8 +202,7 @@ typedef struct {
   struct {
     uint8_t data_is_ptr:1;	// type of data element
     uint8_t ro:1;		// object is read-only
-    uint8_t nofree:1;		// data.ptr is unmanaged and must not be freed
-    uint8_t fixed:1;		// do not relocate
+    uint8_t nofree:1;		// data.ptr is unmanaged and must not be freed; if data.ref_id is set, object is relative to data.ref_id
     uint8_t utf8:1;		// data is utf8 encoded
   } flags;
 } obj_t;
@@ -405,7 +404,7 @@ void gfx_rect(gstate_t *gstate, int x, int y, int width, int height, color_t c);
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 int gfx_malloc_init(void);
 void gfx_malloc_dump(dump_style_t style);
-void *gfx_malloc(uint32_t size, uint32_t id);
+void *gfx_malloc(uint32_t size, obj_id_t id);
 void gfx_free(void *ptr);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

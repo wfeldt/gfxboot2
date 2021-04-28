@@ -8,12 +8,13 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 int gfx_malloc_init()
 {
-  malloc_header_t *m = gfxboot_data->vm.mem.ptr;
+  malloc_head_t *head = &gfxboot_data->vm.mem;
 
-  if(!m || gfxboot_data->vm.mem.size < 0x1000) return 1;
+  if(!head->ptr || head->size < 0x1000) return 1;
 
-  m->next = gfxboot_data->vm.mem.size;
-  m->id = 0;
+  head->first_chunk = head->ptr;
+
+  *(malloc_chunk_t *) head->first_chunk = (malloc_chunk_t) { .next = head->size, .prev = 0, .id = 0 };
 
   return 0;
 }
@@ -22,12 +23,14 @@ int gfx_malloc_init()
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 void gfx_malloc_dump(dump_style_t style)
 {
-  uint8_t *p, *p_start, *p_end;
-  malloc_header_t *m;
+  malloc_head_t *head = &gfxboot_data->vm.mem;
+
+  void *p, *p_start, *p_end;
+  malloc_chunk_t *chunk;
   unsigned idx;
 
-  p_start = gfxboot_data->vm.mem.ptr;
-  p_end = p_start + gfxboot_data->vm.mem.size;
+  p_start = head->first_chunk;
+  p_end = p_start + head->size;
 
   gfxboot_log("===  memory dump  ===\n");
 
@@ -37,23 +40,29 @@ void gfx_malloc_dump(dump_style_t style)
     return;
   }
 
-  for(idx = 0, p = p_start; p >= p_start && p < p_end; p += m->next, idx++) {
+  if(!style.no_check) {
+    gfx_malloc_check();
+    gfx_malloc_check_reverse();
+  }
+
+  for(idx = 0, p = p_start; p >= p_start && p < p_end; p += chunk->next, idx++) {
     if(style.max && idx >= style.max) break;
-    m = (malloc_header_t *) p;
+    chunk = (malloc_chunk_t *) p;
     gfxboot_log("%4u: ", idx);
     if(gfxboot_data->vm.debug.show_pointer) {
-      gfxboot_log("%p", m + 1);
+      gfxboot_log("%p", chunk->data);
     }
     else {
-      gfxboot_log("0x%08x", (int) (p - p_start) + (int) sizeof (malloc_header_t));
+      gfxboot_log("0x%08x", (int) ((void *) (chunk->data) - p_start));
     }
-    gfxboot_log("[%8d]", (int) (m->next - sizeof (malloc_header_t)));
-    if(m->id) {
+    gfxboot_log("[%8d]", (int) (chunk->next - sizeof (malloc_chunk_t)));
+    if(style.dump) gfxboot_log(" [%8d/%8d]", chunk->prev, chunk->next);
+    if(chunk->id && (style.inspect || style.dump)) {
       gfxboot_log("  ");
-      gfx_obj_dump(m->id, (dump_style_t) { .inspect = 1, .no_nl = 1 });
+      gfx_obj_dump(chunk->id, (dump_style_t) { .inspect = 1, .no_nl = 1 });
     }
     gfxboot_log("\n");
-    if(m->next <= sizeof (malloc_header_t)) break;
+    if(chunk->next <= sizeof (malloc_chunk_t)) break;
   }
 
   if(!style.max && p != p_end) {
@@ -66,7 +75,7 @@ void gfx_malloc_dump(dump_style_t style)
 void *gfx_malloc(uint32_t size, obj_id_t id)
 {
   uint8_t *p, *p_start, *p_end;
-  malloc_header_t *m;
+  malloc_chunk_t *m, *m_next;
   void *mem = 0;
 
   if(id == 0) id = 1;	// ensure it's not 0
@@ -79,21 +88,24 @@ void *gfx_malloc(uint32_t size, obj_id_t id)
   // size 0: return a valid pointer that we won't try to free
   if(size == 0) return p_end;
 
-  size += sizeof (malloc_header_t);	// include header size
+  size += sizeof (malloc_chunk_t);	// include header size
   size = (size + 3) & ~3U;		// align a bit
 
   for(p = p_start; p >= p_start && p < p_end; p += m->next) {
-    m = (malloc_header_t *) p;
+    m = (malloc_chunk_t *) p;
     if(m->id == 0 && m->next >= size) {
       m->id = id;
-      mem = p + sizeof (malloc_header_t);
-      gfx_memset(mem, 0, size - sizeof (malloc_header_t));
-      if(m->next > size + sizeof (malloc_header_t)) {
+      mem = p + sizeof (malloc_chunk_t);
+      gfx_memset(mem, 0, size - sizeof (malloc_chunk_t));
+      if(m->next > size + sizeof (malloc_chunk_t)) {
+        m_next = (malloc_chunk_t *) (p + m->next);
         uint32_t n = m->next - size;
         m->next = size;
-        m = (malloc_header_t *) (p + size);
+        m = (malloc_chunk_t *) (p + size);
         m->id = 0;
         m->next = n;
+        m->prev = size;
+        m_next->prev = n;
       }
       break;
     }
@@ -106,38 +118,196 @@ void *gfx_malloc(uint32_t size, obj_id_t id)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 void gfx_free(void *ptr)
 {
-  uint8_t *p, *p_start, *p_end, *p_last, *mem = ptr;
-  malloc_header_t *m, *m_last, *m_next;
+  malloc_head_t *head = &gfxboot_data->vm.mem;
 
-  p_start = gfxboot_data->vm.mem.ptr;
-  p_end = p_start + gfxboot_data->vm.mem.size;
+  void *p, *p_start, *p_end, *p_prev, *mem = ptr;
+  malloc_chunk_t *m, *m_prev, *m_next;
+
+  p_start = head->first_chunk;
+  p_end = p_start + head->size;
 
   if(!mem || mem < p_start || mem >= p_end) return;
 
   // p < mem instead of 'p < p_end' for an early exit
-  for(p = p_last = p_start; p >= p_start && p < mem; p_last = p, p += m->next) {
-    m = (malloc_header_t *) p;
+  for(p = p_prev = p_start; p >= p_start && p < mem; p_prev = p, p += m->next) {
+    m = (malloc_chunk_t *) p;
 
-    if(mem == p + sizeof (malloc_header_t)) {
+    if(mem == p + sizeof (malloc_chunk_t)) {
       if(m->id == 0) return;		// already free
 
       m->id = 0;			// mark as free
 
       if(p + m->next < p_end) {		// not last block
-        m_next = (malloc_header_t *) (p + m->next);
+        m_next = (malloc_chunk_t *) (p + m->next);
         if(m_next->id == 0) {		// join next + current block
           m->next += m_next->next;
-        }
+          m_next = (malloc_chunk_t *) (p + m->next);
+          if((void *) m_next < p_end) {
+            m_next->prev = m->next;
+          }
+         }
       }
 
-      if(p_last != p) {			// not first block
-        m_last = (malloc_header_t *) p_last;
-        if(m_last->id == 0) {		// join last + current block
-          m_last->next += m->next;
+      if(p_prev != p) {			// not first block
+        m_prev = (malloc_chunk_t *) p_prev;
+        if(m_prev->id == 0) {		// join previous + current block
+          m_prev->next += m->next;
+          m_next = (malloc_chunk_t *) (p_prev + m_prev->next);
+          if((void *) m_next < p_end) {
+            m_next->prev = m_prev->next;
+          }
         }
       }
     }
   }
+
+  if(gfxboot_data->vm.debug.trace.memcheck && gfx_malloc_check()) {
+    gfxboot_log("-- error in gfx_free\n");
+    gfx_malloc_dump((dump_style_t) { .dump = 1, .no_check = 1 });
+  }
 }
 
 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+int gfx_malloc_check()
+{
+  malloc_head_t *head = &gfxboot_data->vm.mem;
+
+  void *p, *p_start, *p_prev, *p_next, *p_end;
+  malloc_chunk_t *chunk, *chunk_prev, *chunk_next;
+  unsigned idx;
+
+  p_start = head->first_chunk;
+  p_end = p_start + head->size;
+
+  if(!p_start) return 0;
+
+  for(idx = 0, p = p_prev = p_start; p >= p_start && p < p_end; p_prev = p, p = p_next, idx++) {
+    chunk = (malloc_chunk_t *) p;
+    chunk_prev = (malloc_chunk_t *) p_prev;
+
+    p_next = p + chunk->next;
+    if(chunk->next < sizeof (malloc_chunk_t) || p_next > p_end || p_next <= p) break;
+
+    chunk_next = (malloc_chunk_t *) p_next;
+
+    if(chunk != chunk_prev && chunk->prev != chunk_prev->next) break;
+
+    if(p_next != p_end && chunk->next != chunk_next->prev) break;
+
+    if(chunk->id && gfxboot_data->vm.olist.ptr) {
+      obj_t *obj_ptr = gfx_obj_ptr(chunk->id);
+      if(!obj_ptr) goto error;
+      if(!obj_ptr->flags.data_is_ptr) goto error;
+      if(obj_ptr->flags.nofree) continue;
+      void *d_start = obj_ptr->data.ptr;
+      void *d_end = d_start + obj_ptr->data.size;
+      if(
+        d_start < p + sizeof (malloc_chunk_t) ||
+        d_start > p_next ||
+        d_end < p + sizeof (malloc_chunk_t) ||
+        d_end > p_next
+      ) {
+        gfxboot_log("-- referenced object #%u not inside malloc chunk\n", OBJ_ID2IDX(chunk->id));
+        goto error;
+      }
+    }
+  }
+
+  if(p != p_end) goto error;
+
+  return 0;
+
+error:
+  gfxboot_log("-- malloc chain corrupt (entry %d)\n", idx);
+
+  GFX_ERROR(err_memory_corruption);
+
+  return 1;
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+int gfx_malloc_check_reverse()
+{
+  malloc_head_t *head = &gfxboot_data->vm.mem;
+  olist_t *obj_list = gfxboot_data->vm.olist.ptr;
+  unsigned obj_idx;
+
+  if(!obj_list) return 0;
+
+  void *p_start = head->first_chunk;
+  void *p_end = p_start + head->size;
+
+  for(obj_idx = 0; obj_idx < obj_list->max; obj_idx++) {
+    obj_t *obj_ptr = obj_list->ptr + obj_idx;
+    if(obj_ptr->base_type == OTYPE_NONE) continue;
+    if(!obj_ptr->flags.data_is_ptr || obj_ptr->flags.nofree) continue;
+    // special case: size 0 objects point to end of malloc area
+    if(obj_ptr->data.size == 0 && obj_ptr->data.ptr == p_end) continue;
+    malloc_chunk_t *chunk = gfx_malloc_find_chunk(obj_ptr->data.ptr);
+    if(!chunk) goto error;
+    void *chunk_ptr = chunk;
+    void *d_end = obj_ptr->data.ptr + obj_ptr->data.size;
+    if(
+      !chunk->id ||
+      d_end < chunk_ptr + sizeof (malloc_chunk_t) ||
+      d_end > chunk_ptr + chunk->next
+    ) {
+      gfxboot_log("-- referenced object #%u not inside its malloc chunk\n", obj_idx);
+      goto error;
+    }
+
+    obj_id_t id = obj_ptr->data.ref_id;
+    if(!id) id = OBJ_ID(obj_idx, obj_ptr->gen);
+
+    if(chunk->id != id) {
+      gfxboot_log(
+        "-- malloc chunk id mismatch (malloc id #%u, obj id #%u)\n",
+        OBJ_ID2IDX(chunk->id), OBJ_ID2IDX(id)
+      );
+    }
+  }
+
+  return 0;
+
+error:
+  gfxboot_log("-- object store corrupt (id #%u)\n", obj_idx);
+
+  GFX_ERROR(err_memory_corruption);
+
+  return 1;
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+malloc_chunk_t *gfx_malloc_find_chunk(void *addr)
+{
+  malloc_head_t *head = &gfxboot_data->vm.mem;
+
+  void *p, *p_start, *p_next, *p_end;
+  malloc_chunk_t *chunk;
+
+  p_start = head->first_chunk;
+  p_end = p_start + head->size;
+
+  if(addr < p_start || addr >= p_end) return 0;
+
+  for(p = p_start; p < p_end; p = p_next) {
+    chunk = (malloc_chunk_t *) p;
+    p_next = p + chunk->next;
+    if(addr >= p && addr < p_next) {
+      return (unsigned) (addr - p) < sizeof (malloc_chunk_t) ? 0 : p;
+    }
+  }
+
+  return 0;
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+void gfx_defrag(unsigned max)
+{
+
+
+}

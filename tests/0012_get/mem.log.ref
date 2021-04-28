@@ -1,19 +1,19 @@
 # ---  mem  ---
 ===  memory dump  ===
-   0: 0x00000008[      56]  #2.1.1.gstate <region 0x0_800x600>
-   1: 0x00000048[ 1920016]  #1.1.3.canv <size 800x600, max 800x600, unit 10x30, chk 0x5ae3d880>
-   2: 0x001d4c60[    6200]  #0.1.*.olist <size 210, next 224, max 258>
-   3: 0x001d64a0[      48]  #3.1.1.gstate <region 80x100_640x400>
-   4: 0x001d64d8[     820]  #4.1.2.hash <size 92, max 101>
-   5: 0x001d6814[      56]  #184.1.1.font <glyphs 256, size 8x16, line height 16>
-   6: 0x001d6854[     528]  #185.1.1.canv <size 8x16, max 8x16, unit 1x1, chk 0x4e8c3ac0>
-   7: 0x001d6a6c[     248]  #186.1.8.mem.ro <size 246>
-   8: 0x001d6b6c[      72]  #187.1.1.array <size 14, max 16>
-   9: 0x001d6bbc[      56]  #188.1.1.ctx.func <code #186.1.8.mem.ro, ip 0xf6 (0xf6), dict #4.1.2.hash>
-  10: 0x001d6bfc[      24]  #194.1.1.array <size 4, max 4>
-  11: 0x001d6c1c[      72]  #196.1.1.array <size 0, max 16>
-  12: 0x001d6c6c[      36]  #209.1.1.hash <size 3, max 3>
-  13: 0x001d6c98[14848872]
+   0: 0x0000000c[      56] [       0/      68]  #2.1.1.gstate <region 0x0_800x600>
+   1: 0x00000050[ 1920016] [      68/ 1920028]  #1.1.3.canv <size 800x600, max 800x600, unit 10x30, chk 0x5ae3d880>
+   2: 0x001d4c6c[    6200] [ 1920028/    6212]  #0.1.*.olist <size 210, next 224, max 258>
+   3: 0x001d64b0[      48] [    6212/      60]  #3.1.1.gstate <region 80x100_640x400>
+   4: 0x001d64ec[     820] [      60/     832]  #4.1.2.hash <size 92, max 101>
+   5: 0x001d682c[      56] [     832/      68]  #184.1.1.font <glyphs 256, size 8x16, line height 16>
+   6: 0x001d6870[     528] [      68/     540]  #185.1.1.canv <size 8x16, max 8x16, unit 1x1, chk 0x4e8c3ac0>
+   7: 0x001d6a8c[     248] [     540/     260]  #186.1.8.mem.ro <size 246>
+   8: 0x001d6b90[      72] [     260/      84]  #187.1.1.array <size 14, max 16>
+   9: 0x001d6be4[      56] [      84/      68]  #188.1.1.ctx.func <code #186.1.8.mem.ro, ip 0xf6 (0xf6), dict #4.1.2.hash>
+  10: 0x001d6c28[      24] [      68/      36]  #194.1.1.array <size 4, max 4>
+  11: 0x001d6c4c[      72] [      36/      84]  #196.1.1.array <size 0, max 16>
+  12: 0x001d6ca0[      36] [      84/      48]  #209.1.1.hash <size 3, max 3>
+  13: 0x001d6cd0[14848816] [      48/14848828]
 == object dump (id #0.1.*.olist) ==
   #0.1.*.olist <size 210, next 224, max 258>
   #0.1.*.olist <size 210, next 224, max 258>

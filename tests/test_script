@@ -1,4 +1,4 @@
-log prompt 0 gc stack context ip
+log prompt 0 gc stack context ip memcheck
 # ---  trace  ---
 run
 # ---  trace_end  ---

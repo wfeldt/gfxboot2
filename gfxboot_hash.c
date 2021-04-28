@@ -67,7 +67,12 @@ int gfx_obj_hash_dump(obj_t *ptr, dump_style_t style)
   obj_id_t key, value;
 
   if(ptr->data.size != OBJ_HASH_SIZE(h->max)) {
-    gfxboot_log("      <invalid data>\n");
+    if(style.ref) {
+      gfxboot_log("      <invalid data>\n");
+    }
+    else {
+      gfxboot_log("<invalid data>");
+    }
 
     return 1;
   }

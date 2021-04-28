@@ -127,7 +127,8 @@ typedef enum {
   err_no_array_start, err_no_hash_start, err_no_memory,
   err_invalid_hash_key, err_stack_underflow, err_internal,
   err_no_loop_context, err_invalid_range, err_invalid_data,
-  err_readonly, err_invalid_arguments, err_div_by_zero
+  err_readonly, err_invalid_arguments, err_div_by_zero,
+  err_memory_corruption
 } error_id_t;
 
 typedef struct {
@@ -144,13 +145,23 @@ typedef struct {
   unsigned ref:1;
   unsigned no_nl:1;
   unsigned no_head:1;
+  unsigned no_check:1;
   unsigned max;
 } dump_style_t;
 
 typedef struct {
-  uint32_t next;	// offset to next header
-  obj_id_t id;		// 0 = free, otherwise used
-} malloc_header_t;
+  uint32_t prev;	// offset to prev chunk (= raw size of previous chunk, first = 0)
+  uint32_t next;	// offset to next chunk (= raw size of current chunk)
+  obj_id_t id;		// 0 = free, otherwise obj_id using this chunk
+  uint8_t data[];
+} __attribute__ ((packed)) malloc_chunk_t;
+
+typedef struct {
+  void *ptr;
+  uint32_t size;
+  void *first_chunk;
+  void *first_free;
+} malloc_head_t;
 
 typedef struct {
   const char *title;
@@ -304,7 +315,7 @@ typedef struct {
   } menu;
 
   struct {
-    data_t mem;			// memory pool
+    malloc_head_t mem;		// memory pool
     struct {
       olist_t *ptr;		// ptr to object list
       obj_id_t id;		// id of object list
@@ -336,6 +347,7 @@ typedef struct {
         unsigned context:1;
         unsigned gc:1;
         unsigned time:1;
+        unsigned memcheck:1;
       } trace;
     } debug;
   } vm;
@@ -406,6 +418,10 @@ int gfx_malloc_init(void);
 void gfx_malloc_dump(dump_style_t style);
 void *gfx_malloc(uint32_t size, obj_id_t id);
 void gfx_free(void *ptr);
+int gfx_malloc_check(void);
+int gfx_malloc_check_reverse(void);
+malloc_chunk_t *gfx_malloc_find_chunk(void *addr);
+void gfx_defrag(unsigned max);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 obj_id_t gfx_read_file(char *name);

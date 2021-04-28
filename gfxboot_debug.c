@@ -363,7 +363,7 @@ void gfx_vm_status_dump()
   );
 
   gfxboot_log(
-    "debug\n  log console = %d, log serial = %d, pointer = %s, prompt = %s\n  trace =%s%s%s%s%s\n",
+    "debug\n  log console = %d, log serial = %d, pointer = %s, prompt = %s\n  trace =%s%s%s%s%s%s\n",
     gfxboot_data->vm.debug.log_level_console,
     gfxboot_data->vm.debug.log_level_serial,
     gfxboot_data->vm.debug.show_pointer ? "on" : "off",
@@ -372,7 +372,8 @@ void gfx_vm_status_dump()
     gfxboot_data->vm.debug.trace.pstack ? " stack" : "",
     gfxboot_data->vm.debug.trace.context ? " context" : "",
     gfxboot_data->vm.debug.trace.gc ? " gc" : "",
-    gfxboot_data->vm.debug.trace.time ? " time" : ""
+    gfxboot_data->vm.debug.trace.time ? " time" : "",
+    gfxboot_data->vm.debug.trace.memcheck ? " memcheck" : ""
   );
 }
 
@@ -578,6 +579,7 @@ void debug_cmd_hex(int argc, char **argv)
   dump_style_t style = { .dump = 1 };
   int x = 0;
   unsigned len = 0;
+  int ofs = 0;
   obj_t tmp = { };
 
   if(!argv[1]) return;
@@ -591,6 +593,10 @@ void debug_cmd_hex(int argc, char **argv)
 
   if(argv[2]) {
     len = (unsigned) gfx_strtol(argv[2], 0, 0);
+  }
+
+  if(argv[3]) {
+    ofs = gfx_strtol(argv[3], 0, 0);
   }
 
   char *s = 0;
@@ -614,6 +620,7 @@ void debug_cmd_hex(int argc, char **argv)
         }
       }
       if(len) tmp.data.size = len;
+      if(ofs) tmp.data.ptr += ofs;
       gfx_obj_mem_dump(&tmp, style);
     }
   }
@@ -661,12 +668,16 @@ void debug_cmd_log(int argc, char **argv)
     else if(!gfx_strcmp(*argv, "time")) {
       gfxboot_data->vm.debug.trace.time = is_num(argv[1]) ? gfx_strtol(*++argv, 0, 0) : 1;
     }
+    else if(!gfx_strcmp(*argv, "memcheck")) {
+      gfxboot_data->vm.debug.trace.memcheck = is_num(argv[1]) ? gfx_strtol(*++argv, 0, 0) : 1;
+    }
     else if(!gfx_strcmp(*argv, "all")) {
       gfxboot_data->vm.debug.trace.pstack =
       gfxboot_data->vm.debug.trace.context =
       gfxboot_data->vm.debug.trace.ip =
       gfxboot_data->vm.debug.trace.gc =
       gfxboot_data->vm.debug.trace.time =
+      gfxboot_data->vm.debug.trace.memcheck =
       gfxboot_data->vm.debug.log_prompt =
         is_num(argv[1]) ? gfx_strtol(*++argv, 0, 0) : 1;
     }

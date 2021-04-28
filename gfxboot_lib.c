@@ -51,6 +51,7 @@ const char *gfx_error_msg(error_id_t id)
     [err_readonly] = "readonly",
     [err_invalid_arguments] = "invalid arguments",
     [err_div_by_zero] = "div by zero",
+    [err_memory_corruption] = "memory corruption",
   };
 
   if(id < sizeof error_names/sizeof *error_names) {

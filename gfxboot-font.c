@@ -1459,7 +1459,7 @@ int show_font(char *name)
     }
 
     if(ofs2 < ofs || ofs2 > font_file->size) {
-      fprintf(stderr, "%s: invalid data for chhar 0x%04x\n", name, cd->c);
+      fprintf(stderr, "%s: invalid data for char 0x%04x\n", name, cd->c);
       return 3;
     }
 

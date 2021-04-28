@@ -64,7 +64,8 @@ int gfx_obj_array_dump(obj_t *ptr, dump_style_t style)
   obj_id_t id;
 
   if(ptr->data.size != OBJ_ARRAY_SIZE(a->max)) {
-    gfxboot_log("<invalid array>\n");
+    gfxboot_log("<invalid array>");
+    if(style.ref) gfxboot_log("\n");
 
     return 1;
   }

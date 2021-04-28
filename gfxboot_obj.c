@@ -312,6 +312,11 @@ obj_id_t gfx_obj_alloc(unsigned type, uint32_t size)
     }
   }
 
+  if(gfxboot_data->vm.debug.trace.memcheck && gfx_malloc_check()) {
+    gfxboot_log("-- error in gfx_obj_alloc\n");
+    gfx_malloc_dump((dump_style_t) { .dump = 1, .no_check = 1 });
+  }
+
   return id;
 }
 
@@ -348,6 +353,11 @@ obj_id_t gfx_obj_realloc(obj_id_t id, uint32_t size)
     else {
       id = 0;
     }
+  }
+
+  if(gfxboot_data->vm.debug.trace.memcheck && gfx_malloc_check()) {
+    gfxboot_log("-- error in gfx_obj_realloc\n");
+    gfx_malloc_dump((dump_style_t) { .dump = 1, .no_check = 1 });
   }
 
   return id;

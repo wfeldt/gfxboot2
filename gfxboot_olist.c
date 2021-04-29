@@ -41,7 +41,12 @@ int gfx_obj_olist_dump(obj_t *ptr, dump_style_t style)
   olist_t *ol = ptr->data.ptr;
 
   if(ptr->data.size != OBJ_OLIST_SIZE(ol->max)) {
-    gfxboot_log("      <invalid data>\n");
+    if(style.ref) {
+      gfxboot_log("      <invalid data>\n");
+    }
+    else {
+      gfxboot_log("<invalid data>");
+    }
 
     return 1;
   }

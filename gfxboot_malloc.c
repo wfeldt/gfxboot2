@@ -120,46 +120,63 @@ void gfx_free(void *ptr)
 {
   malloc_head_t *head = &gfxboot_data->vm.mem;
 
-  void *p, *p_start, *p_end, *p_prev, *mem = ptr;
-  malloc_chunk_t *m, *m_prev, *m_next;
+  void *p_start = head->first_chunk;
+  void *p_end = p_start + head->size;
 
-  p_start = head->first_chunk;
-  p_end = p_start + head->size;
+  // point to chunk header
+  void *mem = ptr - sizeof (malloc_chunk_t);
 
   if(!mem || mem < p_start || mem >= p_end) return;
 
-  // p < mem instead of 'p < p_end' for an early exit
-  for(p = p_prev = p_start; p >= p_start && p < mem; p_prev = p, p += m->next) {
-    m = (malloc_chunk_t *) p;
+  malloc_chunk_t *chunk = mem;
 
-    if(mem == p + sizeof (malloc_chunk_t)) {
-      if(m->id == 0) return;		// already free
+  uint32_t prev = chunk->prev;
+  uint32_t next = chunk->next;
 
-      m->id = 0;			// mark as free
+  void *mem_prev = mem - prev;
+  void *mem_next = mem + next;
 
-      if(p + m->next < p_end) {		// not last block
-        m_next = (malloc_chunk_t *) (p + m->next);
-        if(m_next->id == 0) {		// join next + current block
-          m->next += m_next->next;
-          m_next = (malloc_chunk_t *) (p + m->next);
-          if((void *) m_next < p_end) {
-            m_next->prev = m->next;
-          }
-         }
-      }
+  malloc_chunk_t *chunk_prev = mem_prev;
+  malloc_chunk_t *chunk_next = mem_next;
 
-      if(p_prev != p) {			// not first block
-        m_prev = (malloc_chunk_t *) p_prev;
-        if(m_prev->id == 0) {		// join previous + current block
-          m_prev->next += m->next;
-          m_next = (malloc_chunk_t *) (p_prev + m_prev->next);
-          if((void *) m_next < p_end) {
-            m_next->prev = m_prev->next;
-          }
-        }
+  if(prev) {
+    if(mem_prev < p_start || mem_prev >= mem || chunk_prev->next != prev) goto error;
+
+    // join with preceeding free chunk
+    if(chunk_prev->id == 0) {
+      chunk_prev->next += next;
+      mem = mem_prev;
+      chunk = mem;
+      next = chunk->next;
+      if(mem_next != p_end) {
+        chunk_next->prev = next;
       }
     }
   }
+
+  if(mem_next <= mem || mem_next > p_end || chunk_next->prev != next) goto error;
+
+  if(mem_next != p_end) {
+    // join with following free chunk
+    if(chunk_next->id == 0) {
+      chunk->next += chunk_next->next;
+      mem_next = mem + chunk->next;
+      chunk_next = mem_next;
+      if(mem_next != p_end) {
+        chunk_next->prev = chunk->next;
+      }
+    }
+  }
+
+  chunk->id = 0;
+
+  goto end;
+
+error:
+
+  GFX_ERROR(err_memory_corruption);
+
+end:
 
   if(gfxboot_data->vm.debug.trace.memcheck && gfx_malloc_check()) {
     gfxboot_log("-- error in gfx_free\n");

@@ -32,7 +32,12 @@ int gfx_obj_font_dump(obj_t *ptr, dump_style_t style)
   font_t *f = ptr->data.ptr;
   unsigned len = ptr->data.size;
   if(len != OBJ_FONT_SIZE()) {
-    gfxboot_log("      <invalid data>\n");
+    if(style.ref) {
+      gfxboot_log("      <invalid data>\n");
+    }
+    else {
+      gfxboot_log("<invalid data>");
+    }
 
     return 1;
   }

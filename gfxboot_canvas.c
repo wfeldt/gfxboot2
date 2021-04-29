@@ -45,7 +45,12 @@ int gfx_obj_canvas_dump(obj_t *ptr, dump_style_t style)
   int w, w_max, h, h_max, x_blk, y_blk;
 
   if(len < OBJ_CANVAS_SIZE(c->width, c->height)) {
-    gfxboot_log("      <invalid data>\n");
+    if(style.ref) {
+      gfxboot_log("      <invalid data>\n");
+    }
+    else {
+      gfxboot_log("<invalid data>");
+    }
 
     return 1;
   }

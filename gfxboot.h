@@ -158,9 +158,9 @@ typedef struct {
 
 typedef struct {
   void *ptr;
-  uint32_t size;
   void *first_chunk;
   void *first_free;
+  uint32_t size;
 } malloc_head_t;
 
 typedef struct {
@@ -420,7 +420,7 @@ void *gfx_malloc(uint32_t size, obj_id_t id);
 void gfx_free(void *ptr);
 int gfx_malloc_check(void);
 int gfx_malloc_check_reverse(void);
-malloc_chunk_t *gfx_malloc_find_chunk(void *addr);
+malloc_chunk_t *gfx_malloc_find_chunk(void *ptr);
 void gfx_defrag(unsigned max);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

@@ -357,9 +357,10 @@ void gfx_vm_status_dump()
   }
 
   gfxboot_log(
-    "vm\n  size = %d, ptr = %p\n",
+    "vm\n  size = %d, start = 0x%lx, first free = 0x%lx\n",
     gfxboot_data->vm.mem.size,
-    gfxboot_data->vm.mem.ptr
+    (unsigned long) gfxboot_data->vm.mem.first_chunk,
+    (unsigned long) gfxboot_data->vm.mem.first_free
   );
 
   gfxboot_log(

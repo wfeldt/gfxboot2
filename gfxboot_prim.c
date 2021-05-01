@@ -4386,7 +4386,7 @@ void gfx_prim_utf8encode()
       *data++ = -*val;
     }
     else {
-      uint8_t *str = gfx_utf8_enc(*val);
+      uint8_t *str = (uint8_t *) gfx_utf8_enc(*val);
       while(*str) *data++ = *str++;
     }
   }

@@ -1,6 +1,9 @@
 #include <gfxboot/gfxboot.h>
 
 
+static int gfx_malloc_check_basic(void);
+static int gfx_malloc_check_xref(void);
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 //
 // malloc functions
@@ -13,6 +16,7 @@ int gfx_malloc_init()
   if(!head->ptr || head->size < 0x1000) return 1;
 
   head->first_chunk = head->ptr;
+  head->first_free = head->ptr;
 
   *(malloc_chunk_t *) head->first_chunk = (malloc_chunk_t) { .next = head->size, .prev = 0, .id = 0 };
 
@@ -40,15 +44,12 @@ void gfx_malloc_dump(dump_style_t style)
     return;
   }
 
-  if(!style.no_check) {
-    gfx_malloc_check();
-    gfx_malloc_check_reverse();
-  }
+  if(!style.no_check) gfx_malloc_check(mc_basic + mc_xref);
 
   for(idx = 0, mem = mem_start; mem >= mem_start && mem < mem_end; mem += chunk->next, idx++) {
     if(style.max && idx >= style.max) break;
     chunk = (malloc_chunk_t *) mem;
-    gfxboot_log("%4u: ", idx);
+    gfxboot_log("%4u%c ", idx, mem == head->first_free ? '*' : ':');
     if(gfxboot_data->vm.debug.show_pointer) {
       gfxboot_log("%p", chunk->data);
     }
@@ -67,7 +68,7 @@ void gfx_malloc_dump(dump_style_t style)
 
   if(!style.max && mem != mem_end) {
     gfxboot_log("  -- malloc chain corrupt --\n");
-  }
+ }
 }
 
 
@@ -93,23 +94,31 @@ void *gfx_malloc(uint32_t size, obj_id_t id)
   size += sizeof (malloc_chunk_t);	// include header size
   size = (size + 3) & ~3U;		// align to 4 byte
 
+  unsigned first_free_seen = 0;
+
   for(void *mem = mem_start; mem >= mem_start && mem < mem_end; mem += chunk->next) {
     chunk = (malloc_chunk_t *) mem;
-    if(chunk->id == 0 && chunk->next >= size) {
-      chunk->id = id;
-      gfx_memset(mem + sizeof (malloc_chunk_t), 0, size - sizeof (malloc_chunk_t));
-      if(chunk->next > size + sizeof (malloc_chunk_t)) {
-        chunk_next = (malloc_chunk_t *) (mem + chunk->next);
-        uint32_t n = chunk->next - size;
-        chunk->next = size;
-        chunk = (malloc_chunk_t *) (mem + size);
-        chunk->id = 0;
-        chunk->next = n;
-        chunk->prev = size;
-        chunk_next->prev = n;
-      }
+    if(chunk->id == 0) {
+      if(!first_free_seen) head->first_free = mem;
+      first_free_seen++;
 
-      return mem + sizeof (malloc_chunk_t);
+      if(chunk->next >= size) {
+        chunk->id = id;
+        gfx_memset(mem + sizeof (malloc_chunk_t), 0, size - sizeof (malloc_chunk_t));
+        if(chunk->next > size + sizeof (malloc_chunk_t)) {
+          chunk_next = (malloc_chunk_t *) (mem + chunk->next);
+          uint32_t n = chunk->next - size;
+          chunk->next = size;
+          chunk = (malloc_chunk_t *) (mem + size);
+          if(first_free_seen == 1) head->first_free = mem + size;
+          chunk->id = 0;
+          chunk->next = n;
+          chunk->prev = size;
+          chunk_next->prev = n;
+        }
+
+        return mem + sizeof (malloc_chunk_t);
+      }
     }
   }
 
@@ -173,6 +182,8 @@ void gfx_free(void *ptr)
 
   chunk->id = 0;
 
+  if(mem < head->first_free) head->first_free = mem;
+
   goto end;
 
 error:
@@ -181,7 +192,7 @@ error:
 
 end:
 
-  if(gfxboot_data->vm.debug.trace.memcheck && gfx_malloc_check()) {
+  if(gfxboot_data->vm.debug.trace.memcheck && gfx_malloc_check(mc_basic)) {
     gfxboot_log("-- error in gfx_free\n");
     gfx_malloc_dump((dump_style_t) { .dump = 1, .no_check = 1 });
   }
@@ -189,7 +200,7 @@ end:
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-int gfx_malloc_check()
+int gfx_malloc_check_basic()
 {
   malloc_head_t *head = &gfxboot_data->vm.mem;
 
@@ -202,10 +213,15 @@ int gfx_malloc_check()
 
   if(!mem_start) return 0;
 
+  unsigned free_chunk = 0, first_free_ok = 0;
 
   for(idx = 0, mem = mem_prev = mem_start; mem >= mem_start && mem < mem_end; mem_prev = mem, mem = mem_next, idx++) {
     chunk = (malloc_chunk_t *) mem;
     chunk_prev = (malloc_chunk_t *) mem_prev;
+
+    if(mem == head->first_free && !free_chunk) first_free_ok = 1;
+
+    if(chunk->id == 0) free_chunk = 1;
 
     mem_next = mem + chunk->next;
     if(chunk->next < sizeof (malloc_chunk_t) || mem_next > mem_end || mem_next <= mem) break;
@@ -235,6 +251,11 @@ int gfx_malloc_check()
     }
   }
 
+  if(!first_free_ok) {
+    gfxboot_log("-- first free ptr wrong\n");
+    goto error;
+  }
+
   if(mem != mem_end) goto error;
 
   return 0;
@@ -249,7 +270,7 @@ error:
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-int gfx_malloc_check_reverse()
+int gfx_malloc_check_xref()
 {
   malloc_head_t *head = &gfxboot_data->vm.mem;
   olist_t *obj_list = gfxboot_data->vm.olist.ptr;
@@ -298,6 +319,18 @@ error:
   GFX_ERROR(err_memory_corruption);
 
   return 1;
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+int gfx_malloc_check(malloc_check_t what)
+{
+  int result = 0;
+
+  if((what & mc_basic)) result |= gfx_malloc_check_basic();
+  if((what & mc_xref)) result |= gfx_malloc_check_xref();
+
+  return result;
 }
 
 

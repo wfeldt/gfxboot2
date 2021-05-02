@@ -139,6 +139,11 @@ typedef struct {
 #endif
 } error_t;
 
+typedef enum {
+  mc_basic = (1 << 0),
+  mc_xref = (1 << 1)
+} malloc_check_t;
+
 typedef struct {
   unsigned inspect:1;
   unsigned dump:1;
@@ -418,8 +423,7 @@ int gfx_malloc_init(void);
 void gfx_malloc_dump(dump_style_t style);
 void *gfx_malloc(uint32_t size, obj_id_t id);
 void gfx_free(void *ptr);
-int gfx_malloc_check(void);
-int gfx_malloc_check_reverse(void);
+int gfx_malloc_check(malloc_check_t what);
 malloc_chunk_t *gfx_malloc_find_chunk(void *ptr);
 void gfx_defrag(unsigned max);
 

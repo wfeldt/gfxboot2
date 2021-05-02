@@ -8,7 +8,7 @@
    5: 0x001d682c[      56] [     832/      68]  #184.1.1.font <glyphs 256, size 8x16, line height 16>
    6: 0x001d6870[     528] [      68/     540]  #185.1.1.canv <size 8x16, max 8x16, unit 1x1, chk 0x4e8c3ac0>
    7: 0x001d6a8c[     252] [     540/     264]  #186.1.8.mem.ro <size 251>
-   8: 0x001d6b94[      72] [     264/      84]
+   8* 0x001d6b94[      72] [     264/      84]
    9: 0x001d6be8[      56] [      84/      68]  #188.1.1.ctx.func <code #186.1.8.mem.ro, ip 0xfb (0xfb), dict #4.1.2.hash>
   10: 0x001d6c2c[       8] [      68/      20]  #218.1.1.mem <size 5>
   11: 0x001d6c40[       4] [      20/      16]

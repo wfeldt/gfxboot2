@@ -11,7 +11,7 @@
    8: 0x001d6ae4[      72] [      88/      84]  #187.1.1.array <size 12, max 16>
    9: 0x001d6b38[      56] [      84/      68]  #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x4a (0x4a), dict #4.1.2.hash>
   10: 0x001d6b7c[      72] [      68/      84]  #192.1.1.array <size 0, max 16>
-  11: 0x001d6bd0[14849072] [      84/14849084]
+  11* 0x001d6bd0[14849072] [      84/14849084]
 == object dump (id #0.1.*.olist) ==
   #0.1.*.olist <size 202, next 218, max 258>
   #0.1.*.olist <size 202, next 218, max 258>

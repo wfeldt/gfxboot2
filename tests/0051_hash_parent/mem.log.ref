@@ -13,7 +13,7 @@
   10: 0x001d6be4[      36] [      68/      48]  #196.1.2.hash <size 3, max 3, parent #202.1.2.hash>
   11: 0x001d6c14[      28] [      48/      40]  #202.1.2.hash <size 2, max 2>
   12: 0x001d6c3c[      72] [      40/      84]  #204.1.1.array <size 0, max 16>
-  13: 0x001d6c90[14848880] [      84/14848892]
+  13* 0x001d6c90[14848880] [      84/14848892]
 == object dump (id #0.1.*.olist) ==
   #0.1.*.olist <size 204, next 210, max 258>
   #0.1.*.olist <size 204, next 210, max 258>

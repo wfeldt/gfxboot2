@@ -14,7 +14,7 @@
   11: 0x001d6bbc[      72] [      20/      84]  #192.1.1.array <size 0, max 16>
   12: 0x001d6c10[      28] [      84/      40]  #198.1.2.hash.ro <size 2, max 2>
   13: 0x001d6c38[      20] [      40/      32]  #203.1.2.array.ro <size 3, max 3>
-  14: 0x001d6c58[14848936] [      32/14848948]
+  14* 0x001d6c58[14848936] [      32/14848948]
 == object dump (id #0.1.*.olist) ==
   #0.1.*.olist <size 204, next 205, max 258>
   #0.1.*.olist <size 204, next 205, max 258>

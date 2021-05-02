@@ -77,8 +77,8 @@ void *gfx_malloc(uint32_t size, obj_id_t id)
 {
   malloc_head_t *head = &gfxboot_data->vm.mem;
 
-  void *mem_start = head->first_chunk;
-  void *mem_end = mem_start + head->size;
+  void *mem_start = head->first_free;
+  void *mem_end = head->first_chunk + head->size;
 
   malloc_chunk_t *chunk, *chunk_next;
 

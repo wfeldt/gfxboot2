@@ -1,0 +1,45 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 37 entries (37 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  ref    99 72 61 6e 64 5f 73 65  /rand_seed
+                                65 64
+             2  0x00012  int    01                       0
+             3  0x00013  prim   63                       def
+     5       4  0x00014  ref    49 72 61 6e 64           /rand
+             5  0x00019  code   c6 2c                    {
+     6       6  0x0001b  xref   84 13                      /rand_seed
+             7  0x0001d  word   98 72 61 6e 64 5f 73 65    rand_seed
+                                65 64
+             8  0x00027  int    d1 ff ff ff ff ff 00       0xffffffffff
+             9  0x0002e  prim   83 27                      and
+            10  0x00030  int    a1 19 99 01                104729
+            11  0x00034  prim   83 1e                      add
+            12  0x00036  int    a1 fd d4 13                1299709
+            13  0x0003a  prim   83 20                      mul
+            14  0x0003c  int    31                         3
+            15  0x0003d  prim   83 2c                      shr
+            16  0x0003f  prim   63                         def
+     7      17  0x00040  xref   84 23                      rand_seed
+            18  0x00042  prim   83 18                      exch
+            19  0x00044  prim   83 22                      mod
+     8      20  0x00046  prim   13                       }
+            21  0x00047  prim   63                       def
+    10      22  0x00048  ref    19 61                    /a
+            23  0x0004a  prim   23                       [
+            24  0x0004b  prim   33                       ]
+            25  0x0004c  prim   63                       def
+    12      26  0x0004d  int    91 2c 01                 300
+            27  0x00050  code   c6 11                    {
+    13      28  0x00052  word   18 61                      a
+            29  0x00054  int    81 1e                      30
+            30  0x00056  word   48 72 61 6e 64             rand
+            31  0x0005b  int    81 28                      40
+            32  0x0005d  xref   74                         rand
+            33  0x0005e  prim   83 11                      string
+            34  0x00060  prim   83 13                      put
+    14      35  0x00062  prim   13                       }
+            36  0x00063  prim   83 0c                    repeat

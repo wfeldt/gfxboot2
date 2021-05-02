@@ -135,10 +135,10 @@ void gfx_free(void *ptr)
   void *mem_start = head->first_chunk;
   void *mem_end = mem_start + head->size;
 
+  if(!ptr || ptr < mem_start + sizeof (malloc_chunk_t) || ptr >= mem_end) return;
+
   // point to chunk header
   void *mem = ptr - sizeof (malloc_chunk_t);
-
-  if(!mem || mem < mem_start || mem >= mem_end) return;
 
   malloc_chunk_t *chunk = mem;
 
@@ -184,16 +184,18 @@ void gfx_free(void *ptr)
 
   if(mem < head->first_free) head->first_free = mem;
 
-  goto end;
-
-error:
-
-  GFX_ERROR(err_memory_corruption);
-
-end:
-
   if(gfxboot_data->vm.debug.trace.memcheck && gfx_malloc_check(mc_basic)) {
     gfxboot_log("-- error in gfx_free\n");
+    gfx_malloc_dump((dump_style_t) { .dump = 1, .no_check = 1 });
+  }
+
+  return;
+
+error:
+  gfxboot_log("-- free(0x%x) failed\n", (int) (ptr - mem_start));
+  GFX_ERROR(err_memory_corruption);
+
+  if(gfxboot_data->vm.debug.trace.memcheck) {
     gfx_malloc_dump((dump_style_t) { .dump = 1, .no_check = 1 });
   }
 }

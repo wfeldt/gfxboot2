@@ -277,6 +277,8 @@ int gfx_malloc_check_xref()
   malloc_head_t *head = &gfxboot_data->vm.mem;
   olist_t *obj_list = gfxboot_data->vm.olist.ptr;
 
+  int err = 0;
+
   unsigned obj_idx;
 
   if(!obj_list) return 0;
@@ -286,11 +288,26 @@ int gfx_malloc_check_xref()
   for(obj_idx = 0; obj_idx < obj_list->max; obj_idx++) {
     obj_t *obj_ptr = obj_list->ptr + obj_idx;
     if(obj_ptr->base_type == OTYPE_NONE) continue;
-    if(!obj_ptr->flags.data_is_ptr || obj_ptr->flags.nofree) continue;
+    if(!obj_ptr->flags.data_is_ptr) continue;
+    if(obj_ptr->flags.nofree) {
+      obj_id_t ref_id = obj_ptr->data.ref_id;
+      if(ref_id) {
+        obj_t *ptr = gfx_obj_ptr(ref_id);
+        if(!ptr || !ptr->flags.has_ref) {
+          gfxboot_log("-- object #%u does not know it is referenced by #%u\n", OBJ_ID2IDX(ref_id), obj_idx);
+          err = 1;
+        }
+      }
+      continue;
+    }
     // special case: size 0 objects point to end of malloc area
     if(obj_ptr->data.size == 0 && obj_ptr->data.ptr == mem_end) continue;
     malloc_chunk_t *chunk = gfx_malloc_find_chunk(obj_ptr->data.ptr);
-    if(!chunk) goto error;
+    if(!chunk) {
+      gfxboot_log("-- object #%u is missing its malloc chunk\n", obj_idx);
+      err = 1;
+      continue;
+    }
     void *chunk_ptr = chunk;
     void *d_end = obj_ptr->data.ptr + obj_ptr->data.size;
     if(
@@ -298,8 +315,9 @@ int gfx_malloc_check_xref()
       d_end < chunk_ptr + sizeof (malloc_chunk_t) ||
       d_end > chunk_ptr + chunk->next
     ) {
-      gfxboot_log("-- referenced object #%u not inside its malloc chunk\n", obj_idx);
-      goto error;
+      gfxboot_log("-- object #%u not inside its malloc chunk\n", obj_idx);
+      err = 1;
+      continue;
     }
 
     obj_id_t id = obj_ptr->data.ref_id;
@@ -310,17 +328,16 @@ int gfx_malloc_check_xref()
         "-- malloc chunk id mismatch (malloc id #%u, obj id #%u)\n",
         OBJ_ID2IDX(chunk->id), OBJ_ID2IDX(id)
       );
+      err = 1;
     }
   }
 
-  return 0;
+  if(err) {
+    gfxboot_log("-- object store corrupt\n");
+    GFX_ERROR(err_memory_corruption);
+  }
 
-error:
-  gfxboot_log("-- object store corrupt (id #%u)\n", obj_idx);
-
-  GFX_ERROR(err_memory_corruption);
-
-  return 1;
+  return err;
 }
 
 

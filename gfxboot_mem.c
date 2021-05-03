@@ -47,6 +47,8 @@ obj_id_t gfx_obj_const_mem_nofree_new(const uint8_t *str, unsigned len, uint8_t 
         if(ptr->base_type != OTYPE_MEM || !ptr->data.ref_id) break;
         ref_id = ptr->data.ref_id;
       }
+
+      if(ptr && ptr->base_type == OTYPE_MEM) ptr->flags.has_ref = 1;
     }
 
     id = gfx_obj_new(OTYPE_MEM);

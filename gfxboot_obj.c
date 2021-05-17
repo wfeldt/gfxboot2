@@ -476,7 +476,7 @@ obj_t *gfx_obj_ptr_nocheck(obj_id_t id)
 
   ol = gfxboot_data->vm.olist.ptr;
 
-  if(idx >= ol->max) return 0;
+  if(!ol || idx >= ol->max) return 0;
 
   return ol->ptr + idx;
 }

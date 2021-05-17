@@ -9,6 +9,7 @@ static void gfx_bt_dump(dump_style_t style);
 
 static int is_num(char *str);
 
+static void debug_cmd_defrag(int argc, char **argv);
 static void debug_cmd_dump(int argc, char **argv);
 static void debug_cmd_log(int argc, char **argv);
 static void debug_cmd_hex(int argc, char **argv);
@@ -24,6 +25,7 @@ static struct {
   void (* function)(int argc, char **argv);
 } debug_cmds[] = {
   { "d", debug_cmd_dump },
+  { "defrag", debug_cmd_defrag },
   { "dump", debug_cmd_dump },
   { "find", debug_cmd_find },
   { "hex", debug_cmd_hex },
@@ -734,6 +736,19 @@ void debug_cmd_find(int argc, char **argv)
       gfxboot_log("%s\n", gfx_obj_id2str(OBJ_ID(u, ptr->gen)));
     }
   }
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+void debug_cmd_defrag(int argc, char **argv)
+{
+  if(argc < 1) return;
+
+  uint32_t max = 0;
+
+  if(argc == 2) max = (uint32_t) gfx_strtol(argv[1], 0, 0);
+
+  gfx_defrag(max ?: -1u);
 }
 
 

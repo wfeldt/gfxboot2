@@ -18,7 +18,7 @@ int gfx_malloc_init()
   head->first_chunk = head->ptr;
   head->first_free = head->ptr;
 
-  *(malloc_chunk_t *) head->first_chunk = (malloc_chunk_t) { .next = head->size, .prev = 0, .id = 0 };
+  *(malloc_chunk_t *) head->first_chunk = (malloc_chunk_t) { .prev = head->size, .next = head->size, .id = 0 };
 
   return 0;
 }
@@ -77,10 +77,10 @@ void *gfx_malloc(uint32_t size, obj_id_t id)
 {
   malloc_head_t *head = &gfxboot_data->vm.mem;
 
-  void *mem_start = head->first_free;
-  void *mem_end = head->first_chunk + head->size;
+  void *mem_start = head->first_chunk;
+  void *mem_end = mem_start + head->size;
 
-  malloc_chunk_t *chunk, *chunk_next;
+  malloc_chunk_t *chunk;
 
   // can never be 0
   if(id == 0) return 0;
@@ -96,7 +96,7 @@ void *gfx_malloc(uint32_t size, obj_id_t id)
 
   unsigned first_free_seen = 0;
 
-  for(void *mem = mem_start; mem >= mem_start && mem < mem_end; mem += chunk->next) {
+  for(void *mem = head->first_free; mem >= mem_start && mem < mem_end; mem += chunk->next) {
     chunk = (malloc_chunk_t *) mem;
     if(chunk->id == 0) {
       if(!first_free_seen) head->first_free = mem;
@@ -105,8 +105,10 @@ void *gfx_malloc(uint32_t size, obj_id_t id)
       if(chunk->next >= size) {
         chunk->id = id;
         gfx_memset(mem + sizeof (malloc_chunk_t), 0, size - sizeof (malloc_chunk_t));
+        // big enough to split off an empty chunk
         if(chunk->next > size + sizeof (malloc_chunk_t)) {
-          chunk_next = (malloc_chunk_t *) (mem + chunk->next);
+          void *mem_next = mem + chunk->next;
+          malloc_chunk_t *chunk_next = mem_next == mem_end ? mem_start : mem_next;
           uint32_t n = chunk->next - size;
           chunk->next = size;
           chunk = (malloc_chunk_t *) (mem + size);
@@ -142,16 +144,15 @@ void gfx_free(void *ptr)
 
   malloc_chunk_t *chunk = mem;
 
-  uint32_t prev = chunk->prev;
   uint32_t next = chunk->next;
-
-  void *mem_prev = mem - prev;
-  void *mem_next = mem + next;
-
-  malloc_chunk_t *chunk_prev = mem_prev;
+  void *mem_next = mem != mem_end ? mem + next : mem_start;
   malloc_chunk_t *chunk_next = mem_next;
 
-  if(prev) {
+  if(mem != mem_start) {
+    uint32_t prev = chunk->prev;
+    void *mem_prev = mem - prev;
+    malloc_chunk_t *chunk_prev = mem_prev;
+
     if(mem_prev < mem_start || mem_prev >= mem || chunk_prev->next != prev) goto error;
 
     // join with preceeding free chunk
@@ -160,9 +161,7 @@ void gfx_free(void *ptr)
       mem = mem_prev;
       chunk = mem;
       next = chunk->next;
-      if(mem_next != mem_end) {
-        chunk_next->prev = next;
-      }
+      chunk_next->prev = next;
     }
   }
 
@@ -172,11 +171,9 @@ void gfx_free(void *ptr)
     // join with following free chunk
     if(chunk_next->id == 0) {
       chunk->next += chunk_next->next;
-      mem_next = mem + chunk->next;
+      mem_next = mem + chunk->next != mem_end ? mem + chunk->next : mem_start;
       chunk_next = mem_next;
-      if(mem_next != mem_end) {
-        chunk_next->prev = chunk->next;
-      }
+      chunk_next->prev = chunk->next;
     }
   }
 
@@ -207,15 +204,17 @@ int gfx_malloc_check_basic()
   malloc_head_t *head = &gfxboot_data->vm.mem;
 
   void *mem, *mem_start, *mem_prev, *mem_next, *mem_end;
-  malloc_chunk_t *chunk, *chunk_prev, *chunk_next;
+  malloc_chunk_t *chunk, *chunk_start, *chunk_prev, *chunk_next;
   unsigned idx;
 
   mem_start = head->first_chunk;
   mem_end = mem_start + head->size;
+  chunk_start = mem_start;
 
   if(!mem_start) return 0;
 
   unsigned free_chunk = 0, first_free_ok = 0;
+
 
   for(idx = 0, mem = mem_prev = mem_start; mem >= mem_start && mem < mem_end; mem_prev = mem, mem = mem_next, idx++) {
     chunk = (malloc_chunk_t *) mem;
@@ -247,7 +246,7 @@ int gfx_malloc_check_basic()
         data_end < mem + sizeof (malloc_chunk_t) ||
         data_end > mem_next
       ) {
-        gfxboot_log("-- referenced object #%u not inside malloc chunk\n", OBJ_ID2IDX(chunk->id));
+        gfxboot_log("-- object #%u not inside malloc chunk\n", OBJ_ID2IDX(chunk->id));
         goto error;
       }
     }
@@ -259,6 +258,8 @@ int gfx_malloc_check_basic()
   }
 
   if(mem != mem_end) goto error;
+
+  if(chunk->next != chunk_start->prev) goto error;
 
   return 0;
 
@@ -381,6 +382,142 @@ malloc_chunk_t *gfx_malloc_find_chunk(void *ptr)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 void gfx_defrag(unsigned max)
 {
+  malloc_head_t *head = &gfxboot_data->vm.mem;
 
+  void *mem_start = head->first_chunk;
+  void *mem_end = head->first_chunk + head->size;
 
+  void *mem_defrag_start = 0;
+  void *mem_defrag_end = 0;
+
+  malloc_chunk_t *chunk, *chunk_prev, *chunk_next;
+
+  obj_id_t ref_id = 0;
+  int err = 0;
+  unsigned cnt = 0;
+  uint32_t diff = 0;
+  int olist_adjusted = 0;
+
+  for(void *mem = head->first_free; mem >= mem_start && mem < mem_end; mem += chunk->next) {
+    chunk = (malloc_chunk_t *) mem;
+
+    if(mem_defrag_start) cnt++;
+
+    if(chunk->id == 0) {
+      if(mem_defrag_start) {
+        mem_defrag_end = mem;
+        break;
+      }
+      else {
+        mem_defrag_start = mem;
+        diff = chunk->next;
+      }
+      continue;
+    }
+
+    if(!mem_defrag_start) continue;
+
+    obj_t *ptr = gfx_obj_ptr(chunk->id);
+    if(!ptr) {
+      err = 1;
+      break;
+    }
+
+    // is olist?
+    if(chunk->id == OBJ_ID(0, 1)) olist_adjusted = 1;
+
+    if(ptr->flags.data_is_ptr && !ptr->flags.nofree) {
+      ptr->data.ptr -= diff;
+    }
+
+    if(ptr->flags.has_ref) {
+      if(ref_id) {
+        mem_defrag_end = mem;
+        break;
+      }
+      ref_id = chunk->id;
+    }
+
+    if(cnt >= max) {
+      mem_defrag_end = mem;
+      break;
+    }
+  }
+
+  // if olist was adjusted, adjust also global pointer
+  if(olist_adjusted) {
+    gfxboot_data->vm.olist.ptr -= diff;
+  }
+
+  if(!err && cnt && mem_defrag_start) {
+    if(!mem_defrag_end) mem_defrag_end = mem_end;
+    gfxboot_log(
+      "-- defrag: %u chunks, diff %u, 0x%x - 0x%x, ref_id #%u\n",
+      cnt,
+      diff,
+      (unsigned) (mem_defrag_start - mem_start),
+      (unsigned) (mem_defrag_end - mem_start),
+      OBJ_ID2IDX(ref_id)
+    );
+
+    chunk = mem_defrag_start;
+    chunk_next = mem_defrag_start + diff;
+
+    // adjust chunks at beginning
+    chunk_prev = (mem_defrag_start != mem_start ? mem_defrag_start : mem_end) - chunk->prev;
+    chunk_next->prev = chunk_prev->next;
+
+    // remember last chunk size
+    malloc_chunk_t *chunk_end = mem_defrag_end != mem_end ? mem_defrag_end : mem_start;
+    uint32_t prev = chunk_end->prev;
+
+    mem_defrag_end -= diff;
+
+    // adjust pointer to first free block
+    head->first_free = mem_defrag_end;
+
+    // copy
+    gfx_memcpy(mem_defrag_start, mem_defrag_start + diff, (unsigned) (mem_defrag_end - mem_defrag_start));
+
+    // adjust chunks at end
+    chunk = mem_defrag_end;
+    chunk->id = 0;
+    chunk->next = diff;
+    chunk->prev = prev;
+    chunk_end->prev = diff;
+
+    void *mem_next = mem_defrag_end + diff;
+    chunk_next = mem_next;
+
+    // join free end blocks
+    if(mem_next != mem_end && chunk_next->id == 0) {
+      chunk->next += chunk_next->next;
+      mem_next += chunk_next->next;
+      if(mem_next == mem_end) mem_next = mem_start;
+      chunk_next = mem_next;
+      chunk_next->prev = chunk->next;
+    }
+  }
+
+  // adjust everything pointing to ref_id
+  if(ref_id) {
+    olist_t *ol = gfxboot_data->vm.olist.ptr;
+
+    for(unsigned u = 0; u < ol->max; u++) {
+      obj_t *ptr = ol->ptr + u;
+      if(
+        ptr->base_type != OTYPE_NONE &&
+        ptr->flags.data_is_ptr &&
+        ptr->data.ref_id == ref_id
+      ) {
+        ptr->data.ptr -= diff;
+      }
+    }
+  }
+
+  if(gfxboot_data->vm.debug.trace.memcheck && gfx_malloc_check(mc_basic + mc_xref)) {
+    GFX_ERROR(err_memory_corruption);
+    gfxboot_log("-- error in gfx_defrag\n");
+    gfx_malloc_dump((dump_style_t) { .dump = 1, .no_check = 1 });
+  }
 }

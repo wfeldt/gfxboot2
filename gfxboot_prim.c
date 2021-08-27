@@ -1100,8 +1100,8 @@ void gfx_prim_return()
 // "abc" string                # creates a copy of "abc"
 //
 // # even this works:
-// /abc mem                    # a copy of /abc
-// { 10 20 } mem               # a copy of the code block { 10 20 }
+// /abc string                 # a copy of /abc
+// { 10 20 } string            # a copy of the code block { 10 20 }
 //
 void gfx_prim_string()
 {
@@ -1132,7 +1132,7 @@ void gfx_prim_string()
           return;
         }
 
-        val_id = gfx_obj_mem_new(value);
+        val_id = gfx_obj_mem_new(value, 0);
 
         if(!val_id) {
           GFX_ERROR(err_no_memory);
@@ -1963,7 +1963,7 @@ void gfx_prim_add()
 
     case OTYPE_MEM:
       {
-        result_id = gfx_obj_mem_new(ptr1->data.size + ptr2->data.size);
+        result_id = gfx_obj_mem_new(ptr1->data.size + ptr2->data.size, 0);
         obj_t *result_ptr = gfx_obj_ptr(result_id);
         if(!result_ptr) {
           GFX_ERROR(err_no_memory);
@@ -4282,7 +4282,7 @@ void gfx_prim_fillrect()
 //
 // group: mem
 //
-// (string_1 -- array_1 )
+// ( string_1 -- array_1 )
 // string_1: UTF8-encoded string
 // array_1: array with decoded chars
 //
@@ -4338,7 +4338,7 @@ void gfx_prim_utf8decode()
 //
 // group: mem
 //
-// (array_1 -- string_1 )
+// ( array_1 -- string_1 )
 // array_1: array with decoded chars
 // string_1: UTF8-encoded string
 //
@@ -4361,14 +4361,13 @@ void gfx_prim_utf8encode()
   obj_id_t array_id = argv[0].id;
   unsigned array_size = OBJ_ARRAY_FROM_PTR(argv[0].ptr)->size;
 
-  obj_id_t mem_id = gfx_obj_mem_new(array_size*6);
+  obj_id_t mem_id = gfx_obj_mem_new(array_size * 6, t_string);
   if(!mem_id) {
     GFX_ERROR(err_no_memory);
     return;
   }
 
   obj_t *ptr = gfx_obj_ptr(mem_id);
-  ptr->sub_type = t_string;
   data_t *mem = OBJ_DATA_FROM_PTR(ptr);
 
   uint8_t *data = (uint8_t *) mem->ptr;
@@ -4396,4 +4395,159 @@ void gfx_prim_utf8encode()
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 
   gfx_obj_array_push(gfxboot_data->vm.program.pstack, mem_id, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// format string
+//
+// group: mem
+//
+// ( string_1 array_1 -- string_2 )
+// string_1: printf-style format string
+// array_1: array with to-be-formatted arguments
+// string_2: formatted string
+//
+// example:
+//
+// "int = %d" [ 200 ] format            # "int = 200"
+// "string = %s" [ "foo" ] format       # "string = foo"
+// "%s: %d" [ "bar" 33 ] format         # "bar: 33"
+//
+void gfx_prim_format()
+{
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_MEM, OTYPE_ARRAY });
+
+  if(!argv) return;
+
+  data_t *format_data = gfx_obj_mem_ptr(argv[0].id);
+  uint8_t *format_str = format_data->ptr;
+  unsigned format_size = format_data->size;
+
+  obj_id_t result_id = gfx_obj_mem_new(0, t_string);
+
+  int arg_pos = 0;
+
+  struct format_spec_s {
+    unsigned active:1;
+    unsigned zero:1;
+    unsigned with_precision:1;
+    unsigned left:1;
+    int width;
+    int precision;
+    uint8_t type;
+    uint8_t sign;
+  } format_spec = { };
+
+  int out_pos = 0;
+
+  for(unsigned f_pos = 0; f_pos < format_size; f_pos++) {
+    uint8_t f_val = format_str[f_pos];
+    if(format_spec.active) {
+      if(f_val == '%') {
+        format_spec.active = 0;
+        gfx_obj_mem_set(result_id, f_val, out_pos++);
+      }
+      else if(f_val == ' ') {
+        format_spec.sign = ' ';
+        continue;
+      }
+      else if(f_val == '-') {
+        format_spec.left = 1;
+        continue;
+      }
+      else if(f_val == '+') {
+        format_spec.sign = '+';
+        continue;
+      }
+      else if(f_val == '.') {
+        format_spec.with_precision = 1;
+        continue;
+      }
+      else if(f_val >= '0' && f_val <= '9') {
+        if(format_spec.with_precision) {
+          format_spec.precision = format_spec.precision * 10 + f_val - '0';
+        }
+        else {
+          if(f_val == '0' && !format_spec.width) {
+            format_spec.zero = 1;
+          }
+          else {
+            format_spec.width = format_spec.width * 10 + f_val - '0';
+          }
+        }
+        continue;
+      }
+      else if(f_val == 'd' || f_val == 'u' || f_val == 'x' || f_val == 's') {
+        uint8_t *data_ptr;
+        int len;
+        if(f_val == 's') {
+          data_t *str = gfx_obj_mem_ptr(gfx_obj_array_get(argv[1].id, arg_pos));
+          if(str) {
+            data_ptr = str->ptr;
+            len = (int) str->size;
+          }
+          else {
+            data_ptr = "nil";
+            len = gfx_strlen(data_ptr);
+          }
+          if(format_spec.precision && format_spec.precision < len) len = format_spec.precision;
+        }
+        else {
+          uint8_t buf[32];	// large enough for 64 bit numbers
+          uint64_t *num = gfx_obj_num_ptr(gfx_obj_array_get(argv[1].id, arg_pos));
+
+          if(num) {
+            char f[8] = { '%' };
+            char *fp = f + 1;
+            if(format_spec.sign) *fp++ = (char) format_spec.sign;
+            *fp++ = 'l';
+            *fp++ = 'l';
+            *fp++ = (char) f_val;
+            gfxboot_snprintf(buf, sizeof buf, f, (long long) *num);
+            data_ptr = buf;
+          }
+          else {
+            data_ptr = "nil";
+          }
+          len = gfx_strlen(data_ptr);
+        }
+
+        int full_len = format_spec.width > len ? format_spec.width : len;
+        int len_diff = full_len - len;
+        if(!format_spec.left) {
+          while(len_diff) {
+            gfx_obj_mem_set(result_id, ' ', out_pos++);
+            len_diff--;
+          }
+        }
+        for(int i = 0; i < len; i++) {
+          gfx_obj_mem_set(result_id, data_ptr[i], out_pos++);
+        }
+        if(format_spec.left) {
+          while(len_diff) {
+            gfx_obj_mem_set(result_id, ' ', out_pos++);
+            len_diff--;
+          }
+        }
+      }
+      else {
+        // unhandled format
+      }
+      format_spec.active = 0;
+      arg_pos++;
+    }
+    else {
+      if(f_val == '%') {
+        format_spec = (struct format_spec_s) { active: 1 };
+      }
+      else {
+        gfx_obj_mem_set(result_id, f_val, out_pos++);
+      }
+    }
+  }
+
+  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, result_id, 0);
 }

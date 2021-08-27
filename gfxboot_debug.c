@@ -139,10 +139,9 @@ void gfx_debug_cmd(char *str)
       if(arg_len >= 2 && arg[arg_len - 1] == '"') arg[--arg_len] = 0;
       arg++;
       arg_len--;
-      obj_id_t id = gfx_obj_mem_new(arg_len);
+      obj_id_t id = gfx_obj_mem_new(arg_len, t_string);
       obj_t *ptr = gfx_obj_ptr(id);
       if(ptr) {
-        ptr->sub_type = t_string;
         gfx_memcpy(OBJ_MEM_FROM_PTR(ptr), arg, arg_len);
         gfx_obj_array_push(gfxboot_data->vm.program.pstack, id, 0);
       }
@@ -150,10 +149,9 @@ void gfx_debug_cmd(char *str)
     else if(*argv[i] == '/') {
       arg++;
       arg_len--;
-      obj_id_t id = gfx_obj_mem_new(arg_len);
+      obj_id_t id = gfx_obj_mem_new(arg_len, t_ref);
       obj_t *ptr = gfx_obj_ptr(id);
       if(ptr) {
-        ptr->sub_type = t_ref;
         gfx_memcpy(OBJ_MEM_FROM_PTR(ptr), arg, arg_len);
         gfx_obj_array_push(gfxboot_data->vm.program.pstack, id, 0);
       }

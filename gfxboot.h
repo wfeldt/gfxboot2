@@ -451,7 +451,7 @@ obj_t *gfx_obj_ptr_nocheck(obj_id_t id);
 obj_t *gfx_obj_ptr(obj_id_t id);
 contains_function_t gfx_obj_contains_function(unsigned type);
 
-obj_id_t gfx_obj_mem_new(uint32_t size);
+obj_id_t gfx_obj_mem_new(uint32_t size, uint8_t subtype);
 data_t *gfx_obj_mem_ptr(obj_id_t id);
 data_t *gfx_obj_mem_subtype_ptr(obj_id_t id, uint8_t subtype);
 int gfx_obj_mem_get(obj_id_t mem_id, int pos);

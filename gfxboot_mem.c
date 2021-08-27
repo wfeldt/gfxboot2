@@ -6,9 +6,16 @@
 // mem
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-obj_id_t gfx_obj_mem_new(uint32_t size)
+obj_id_t gfx_obj_mem_new(uint32_t size, uint8_t sub_type)
 {
-  return gfx_obj_alloc(OTYPE_MEM, size);
+  obj_id_t id = gfx_obj_alloc(OTYPE_MEM, size);
+
+  if(sub_type) {
+    obj_t *ptr = gfx_obj_ptr(id);
+    if(ptr) ptr->sub_type = sub_type;
+  }
+
+  return id;
 }
 
 

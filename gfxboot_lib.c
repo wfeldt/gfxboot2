@@ -210,7 +210,7 @@ obj_id_t gfx_read_file(char *name)
   int size = gfxboot_sys_read_file(name, &buf);
 
   if(size >= 0 && buf) {
-    id = gfx_obj_mem_new((unsigned) size);
+    id = gfx_obj_mem_new((unsigned) size, 0);
 
     if(size) {
       data_t *mem = gfx_obj_mem_ptr(id);

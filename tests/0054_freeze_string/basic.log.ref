@@ -62,4 +62,4 @@ GC: ++#xxxx.1.2.mem.str.ro
   [1] #xxxx.1.1.num.int <4 (0x4)>
   [2] #xxxx.1.3.mem.str.ro <size 6, "abc123">
   [3] #xxxx.1.3.mem.str.ro <size 6, "abc123">
-error 12 (readonly), ip = #186
+error 12 (readonly), ip = #188

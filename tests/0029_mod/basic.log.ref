@@ -1028,7 +1028,7 @@ GC: --#xxxx.1.1.num.bool
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.bool <0 (0x0)>
+  [0] #xxxx.2.1.num.bool <0 (0x0)>
   [1] #xxxx.1.1.num.bool <1 (0x1)>
   [2] #xxxx.1.1.num.int <-203647 (0xfffffffffffce481)>
   [3] #xxxx.1.1.num.int <203647 (0x31b7f)>
@@ -1054,8 +1054,8 @@ GC: --#xxxx.1.1.num.bool
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.bool <1 (0x1)>
-  [1] #xxxx.1.1.num.bool <0 (0x0)>
+  [0] #xxxx.2.1.num.bool <1 (0x1)>
+  [1] #xxxx.2.1.num.bool <0 (0x0)>
   [2] #xxxx.1.1.num.bool <1 (0x1)>
   [3] #xxxx.1.1.num.int <-203647 (0xfffffffffffce481)>
   [4] #xxxx.1.1.num.int <203647 (0x31b7f)>
@@ -1078,8 +1078,8 @@ GC: --#xxxx.1.1.num.bool
   [21] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
   [22] #xxxx.1.1.num.int <1 (0x1)>
   [23] #xxxx.1.1.num.int <0 (0x0)>
-GC: --#xxxx.1.1.num.bool
-GC: --#xxxx.1.1.num.bool
+GC: --#xxxx.2.1.num.bool
+GC: --#xxxx.2.1.num.bool
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
@@ -1366,4 +1366,4 @@ GC: --#xxxx.2.1.num.int
   [24] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
   [25] #xxxx.1.1.num.int <1 (0x1)>
   [26] #xxxx.1.1.num.int <0 (0x0)>
-error 14 (div by zero), ip = #186
+error 14 (div by zero), ip = #188

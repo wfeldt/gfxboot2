@@ -1,31 +1,31 @@
 # ---  trace  ---
-IP: #186:0x0, type 5, 1[7]
+IP: #188:0x0, type 5, 1[7]
 == backtrace ==
-  [0] #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x8 (0x0), dict #4.1.2.hash>
-== stack (#187.1.1.array) ==
-IP: #186:0x8, type 9, 9[3]
-GC: ++#186.1.1.mem.ro
+  [0] #190.1.1.ctx.func <code #188.1.1.mem.ro, ip 0x8 (0x0), dict #4.1.2.hash>
+== stack (#189.1.1.array) ==
+IP: #188:0x8, type 9, 9[3]
+GC: ++#188.1.1.mem.ro
 == backtrace ==
-  [0] #188.1.1.ctx.func <code #186.1.2.mem.ro, ip 0xc (0x8), dict #4.1.2.hash>
-== stack (#187.1.1.array) ==
-  [0] #189.1.1.mem.ref.ro <#186.1.2.mem.ro, ofs 0x9, size 3, "foo">
-IP: #186:0xc, type 1, 100 (0x64)
+  [0] #190.1.1.ctx.func <code #188.1.2.mem.ro, ip 0xc (0x8), dict #4.1.2.hash>
+== stack (#189.1.1.array) ==
+  [0] #191.1.1.mem.ref.ro <#188.1.2.mem.ro, ofs 0x9, size 3, "foo">
+IP: #188:0xc, type 1, 100 (0x64)
 == backtrace ==
-  [0] #188.1.1.ctx.func <code #186.1.2.mem.ro, ip 0xe (0xc), dict #4.1.2.hash>
-== stack (#187.1.1.array) ==
-  [0] #190.1.1.num.int <100 (0x64)>
-  [1] #189.1.1.mem.ref.ro <#186.1.2.mem.ro, ofs 0x9, size 3, "foo">
-IP: #186:0xe, type 8, 15[3]
-GC: ++#189.1.1.mem.ref.ro
-GC: ++#190.1.1.num.int
-GC: --#190.1.2.num.int
-GC: --#189.1.2.mem.ref.ro
+  [0] #190.1.1.ctx.func <code #188.1.2.mem.ro, ip 0xe (0xc), dict #4.1.2.hash>
+== stack (#189.1.1.array) ==
+  [0] #192.1.1.num.int <100 (0x64)>
+  [1] #191.1.1.mem.ref.ro <#188.1.2.mem.ro, ofs 0x9, size 3, "foo">
+IP: #188:0xe, type 8, 15[3]
+GC: ++#191.1.1.mem.ref.ro
+GC: ++#192.1.1.num.int
+GC: --#192.1.2.num.int
+GC: --#191.1.2.mem.ref.ro
 == backtrace ==
-  [0] #188.1.1.ctx.func <code #186.1.2.mem.ro, ip 0x12 (0xe), dict #4.1.2.hash>
-== stack (#187.1.1.array) ==
-IP: #186:0x12, type 8, 19[3]
-GC: ++#190.1.1.num.int
+  [0] #190.1.1.ctx.func <code #188.1.2.mem.ro, ip 0x12 (0xe), dict #4.1.2.hash>
+== stack (#189.1.1.array) ==
+IP: #188:0x12, type 8, 19[3]
+GC: ++#192.1.1.num.int
 == backtrace ==
-  [0] #188.1.1.ctx.func <code #186.1.2.mem.ro, ip 0x16 (0x12), dict #4.1.2.hash>
-== stack (#187.1.1.array) ==
-  [0] #190.1.2.num.int <100 (0x64)>
+  [0] #190.1.1.ctx.func <code #188.1.2.mem.ro, ip 0x16 (0x12), dict #4.1.2.hash>
+== stack (#189.1.1.array) ==
+  [0] #192.1.2.num.int <100 (0x64)>

@@ -2,19 +2,19 @@
 ===  memory dump  ===
    0: 0x0000000c[      56] [14849128/      68]  #2.1.1.gstate <region 0x0_800x600>
    1: 0x00000050[ 1920016] [      68/ 1920028]  #1.1.3.canv <size 800x600, max 800x600, unit 10x30, chk 0x5ae3d880>
-   2: 0x001d4c6c[    6200] [ 1920028/    6212]  #0.1.*.olist <size 194, next 198, max 258>
+   2: 0x001d4c6c[    6200] [ 1920028/    6212]  #0.1.*.olist <size 196, next 200, max 258>
    3: 0x001d64b0[      48] [    6212/      60]  #3.1.1.gstate <region 80x100_640x400>
-   4: 0x001d64ec[     820] [      60/     832]  #4.1.2.hash <size 89, max 101>
-   5: 0x001d682c[      56] [     832/      68]  #184.1.1.font <glyphs 256, size 8x16, line height 16>
-   6: 0x001d6870[     528] [      68/     540]  #185.1.1.canv <size 8x16, max 8x16, unit 1x1, chk 0x4e8c3ac0>
-   7: 0x001d6a8c[      32] [     540/      44]  #186.1.1.mem.ro <size 32>
-   8: 0x001d6ab8[      72] [      44/      84]  #187.1.1.array <size 4, max 16>
-   9: 0x001d6b0c[      56] [      84/      68]  #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x20 (0x20), dict #4.1.2.hash>
-  10: 0x001d6b50[      72] [      68/      84]  #191.1.1.array <size 0, max 16>
+   4: 0x001d64ec[     820] [      60/     832]  #4.1.2.hash <size 90, max 101>
+   5: 0x001d682c[      56] [     832/      68]  #186.1.1.font <glyphs 256, size 8x16, line height 16>
+   6: 0x001d6870[     528] [      68/     540]  #187.1.1.canv <size 8x16, max 8x16, unit 1x1, chk 0x4e8c3ac0>
+   7: 0x001d6a8c[      32] [     540/      44]  #188.1.1.mem.ro <size 32>
+   8: 0x001d6ab8[      72] [      44/      84]  #189.1.1.array <size 4, max 16>
+   9: 0x001d6b0c[      56] [      84/      68]  #190.1.1.ctx.func <code #188.1.1.mem.ro, ip 0x20 (0x20), dict #4.1.2.hash>
+  10: 0x001d6b50[      72] [      68/      84]  #193.1.1.array <size 0, max 16>
   11* 0x001d6ba4[14849116] [      84/14849128]
 == object dump (id #0.1.*.olist) ==
-  #0.1.*.olist <size 194, next 198, max 258>
-  #0.1.*.olist <size 194, next 198, max 258>
+  #0.1.*.olist <size 196, next 200, max 258>
+  #0.1.*.olist <size 196, next 200, max 258>
   #1.1.3.canv <size 800x600, max 800x600, unit 10x30, chk 0x5ae3d880>
     |                                                                                |
     |                                                                                |
@@ -45,8 +45,8 @@
     pos 0x384, char size 8x16
     color #00ffffff, bg_color #00241632
     canvas #1.1.3.canv (800x600)
-    font #184.1.1.font
-  #4.1.2.hash <size 89, max 101>
+    font #186.1.1.font
+  #4.1.2.hash <size 90, max 101>
     #14.1.1.mem.ref.ro <size 1, "("> => #13.1.1.num.prim <4 (0x4)>
     #16.1.1.mem.ref.ro <size 1, ")"> => #15.1.1.num.prim <5 (0x5)>
     #10.1.1.mem.ref.ro <size 1, "["> => #9.1.1.num.prim <2 (0x2)>
@@ -70,6 +70,7 @@
     #178.1.1.mem.ref.ro <size 8, "fillrect"> => #177.1.1.num.prim <86 (0x56)>
     #32.1.1.mem.ref.ro <size 3, "for"> => #31.1.1.num.prim <13 (0xd)>
     #34.1.1.mem.ref.ro <size 6, "forall"> => #33.1.1.num.prim <14 (0xe)>
+    #184.1.1.mem.ref.ro <size 6, "format"> => #183.1.1.num.prim <89 (0x59)>
     #118.1.1.mem.ref.ro <size 6, "freeze"> => #117.1.1.num.prim <56 (0x38)>
     #22.1.1.mem.ref.ro <size 4, "gdef"> => #21.1.1.num.prim <8 (0x8)>
     #102.1.1.mem.ref.ro <size 2, "ge"> => #101.1.1.num.prim <48 (0x30)>
@@ -403,7 +404,10 @@
   #181.1.1.num.prim <88 (0x58)>
   #182.1.1.mem.ref.ro <size 10, "utf8encode">
     75 74 66 38 65 6e 63 6f 64 65                    utf8encode
-  #183.1.1.mem.ro <size 4947>
+  #183.1.1.num.prim <89 (0x59)>
+  #184.1.1.mem.ref.ro <size 6, "format">
+    66 6f 72 6d 61 74                                format
+  #185.1.1.mem.ro <size 4947>
     72 b5 4a 86 00 00 00 00 20 00 00 00 01 00 00 00  r.J..... .......
     00 01 00 00 10 00 00 00 10 00 00 00 08 00 00 00  ................
     00 00 7e c3 99 99 f3 e7 e7 ff e7 e7 7e 00 00 00  ..~.........~...
@@ -714,15 +718,15 @@
     b4 ff c3 b5 ff c3 b6 ff c3 b7 ff c3 b8 ff c3 b9  ................
     ff c3 ba ff c3 bb ff c3 bc ff c3 bd ff c3 be ff  ................
     c3 bf ff                                         ...
-  #184.1.1.font <glyphs 256, size 8x16, line height 16>
+  #186.1.1.font <glyphs 256, size 8x16, line height 16>
     type 1, glyphs 256
     font size 8x16, line height 16, baseline 0
     bitmap size 8x16
     bitmap table: offset 32, size 4096
     char index: offset 4128, size 819
-    data_id #183.1.1.mem.ro
-    glyph_id #185.1.1.canv
-  #185.1.1.canv <size 8x16, max 8x16, unit 1x1, chk 0x4e8c3ac0>
+    data_id #185.1.1.mem.ro
+    glyph_id #187.1.1.canv
+  #187.1.1.canv <size 8x16, max 8x16, unit 1x1, chk 0x4e8c3ac0>
     |        |
     |        |
     |        |
@@ -739,22 +743,22 @@
     |        |
     |        |
     |        |
-  #186.1.1.mem.ro <size 32>
+  #188.1.1.mem.ro <size 32>
     75 51 12 a9 42 7a ad 60 91 00 fe 38 6e 6f 74 91  uQ..Bz.`...8not.
     ff 00 38 6e 6f 74 02 38 6e 6f 74 12 38 6e 6f 74  ..8not.8not.8not
-  #187.1.1.array <size 4, max 16>
-    [ 0] #190.1.1.num.int <511 (0x1ff)>
-    [ 1] #193.1.1.num.int <-256 (0xffffffffffffff00)>
-    [ 2] #195.1.1.num.bool <1 (0x1)>
-    [ 3] #197.1.1.num.bool <0 (0x0)>
-  #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x20 (0x20), dict #4.1.2.hash>
+  #189.1.1.array <size 4, max 16>
+    [ 0] #192.1.1.num.int <511 (0x1ff)>
+    [ 1] #195.1.1.num.int <-256 (0xffffffffffffff00)>
+    [ 2] #197.1.1.num.bool <1 (0x1)>
+    [ 3] #199.1.1.num.bool <0 (0x0)>
+  #190.1.1.ctx.func <code #188.1.1.mem.ro, ip 0x20 (0x20), dict #4.1.2.hash>
     type 17, ip 0x20 (0x20)
-    code #186.1.1.mem.ro
+    code #188.1.1.mem.ro
     parent #0.0.nil
     dict #4.1.2.hash
     iterate #0.0.nil
-  #190.1.1.num.int <511 (0x1ff)>
-  #191.1.1.array <size 0, max 16>
-  #193.1.1.num.int <-256 (0xffffffffffffff00)>
-  #195.1.1.num.bool <1 (0x1)>
-  #197.1.1.num.bool <0 (0x0)>
+  #192.1.1.num.int <511 (0x1ff)>
+  #193.1.1.array <size 0, max 16>
+  #195.1.1.num.int <-256 (0xffffffffffffff00)>
+  #197.1.1.num.bool <1 (0x1)>
+  #199.1.1.num.bool <0 (0x0)>

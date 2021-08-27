@@ -82,4 +82,4 @@ GC: ++#xxxx.1.2.array.ro
   [1] #xxxx.1.1.num.int <1 (0x1)>
   [2] #xxxx.1.3.array.ro <size 3, max 3>
   [3] #xxxx.1.3.array.ro <size 3, max 3>
-error 12 (readonly), ip = #186
+error 12 (readonly), ip = #188

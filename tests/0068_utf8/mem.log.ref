@@ -2,21 +2,21 @@
 ===  memory dump  ===
    0: 0x0000000c[      56] [14848948/      68]  #2.1.1.gstate <region 0x0_800x600>
    1: 0x00000050[ 1920016] [      68/ 1920028]  #1.1.3.canv <size 800x600, max 800x600, unit 10x30, chk 0x5ae3d880>
-   2: 0x001d4c6c[    6200] [ 1920028/    6212]  #0.1.*.olist <size 211, next 211, max 258>
+   2: 0x001d4c6c[    6200] [ 1920028/    6212]  #0.1.*.olist <size 213, next 213, max 258>
    3: 0x001d64b0[      48] [    6212/      60]  #3.1.1.gstate <region 80x100_640x400>
-   4: 0x001d64ec[     820] [      60/     832]  #4.1.2.hash <size 92, max 101>
-   5: 0x001d682c[      56] [     832/      68]  #184.1.1.font <glyphs 256, size 8x16, line height 16>
-   6: 0x001d6870[     528] [      68/     540]  #185.1.1.canv <size 8x16, max 8x16, unit 1x1, chk 0x4e8c3ac0>
-   7: 0x001d6a8c[      80] [     540/      92]  #186.1.5.mem.ro <size 80>
-   8: 0x001d6ae8[      72] [      92/      84]  #187.1.1.array <size 1, max 16>
-   9: 0x001d6b3c[      56] [      84/      68]  #188.1.1.ctx.func <code #186.1.5.mem.ro, ip 0x50 (0x50), dict #4.1.2.hash>
-  10: 0x001d6b80[      68] [      68/      80]  #192.1.1.array <size 15, max 15>
+   4: 0x001d64ec[     820] [      60/     832]  #4.1.2.hash <size 93, max 101>
+   5: 0x001d682c[      56] [     832/      68]  #186.1.1.font <glyphs 256, size 8x16, line height 16>
+   6: 0x001d6870[     528] [      68/     540]  #187.1.1.canv <size 8x16, max 8x16, unit 1x1, chk 0x4e8c3ac0>
+   7: 0x001d6a8c[      80] [     540/      92]  #188.1.5.mem.ro <size 80>
+   8: 0x001d6ae8[      72] [      92/      84]  #189.1.1.array <size 1, max 16>
+   9: 0x001d6b3c[      56] [      84/      68]  #190.1.1.ctx.func <code #188.1.5.mem.ro, ip 0x50 (0x50), dict #4.1.2.hash>
+  10: 0x001d6b80[      68] [      68/      80]  #194.1.1.array <size 15, max 15>
   11* 0x001d6bd0[      92] [      80/     104]
-  12: 0x001d6c38[      20] [     104/      32]  #209.1.1.mem.str <size 19, "ab � cd   öä € ">
+  12: 0x001d6c38[      20] [     104/      32]  #211.1.1.mem.str <size 19, "ab � cd   öä € ">
   13: 0x001d6c58[14848936] [      32/14848948]
 == object dump (id #0.1.*.olist) ==
-  #0.1.*.olist <size 211, next 211, max 258>
-  #0.1.*.olist <size 211, next 211, max 258>
+  #0.1.*.olist <size 213, next 213, max 258>
+  #0.1.*.olist <size 213, next 213, max 258>
   #1.1.3.canv <size 800x600, max 800x600, unit 10x30, chk 0x5ae3d880>
     |                                                                                |
     |                                                                                |
@@ -47,13 +47,13 @@
     pos 0x384, char size 8x16
     color #00ffffff, bg_color #00241632
     canvas #1.1.3.canv (800x600)
-    font #184.1.1.font
-  #4.1.2.hash <size 92, max 101>
+    font #186.1.1.font
+  #4.1.2.hash <size 93, max 101>
     #14.1.1.mem.ref.ro <size 1, "("> => #13.1.1.num.prim <4 (0x4)>
     #16.1.1.mem.ref.ro <size 1, ")"> => #15.1.1.num.prim <5 (0x5)>
     #10.1.1.mem.ref.ro <size 1, "["> => #9.1.1.num.prim <2 (0x2)>
     #12.1.1.mem.ref.ro <size 1, "]"> => #11.1.1.num.prim <3 (0x3)>
-    #191.1.1.mem.ref.ro <#186.1.5.mem.ro, ofs 0x24, size 1, "a"> => #192.1.1.array <size 15, max 15>
+    #193.1.1.mem.ref.ro <#188.1.5.mem.ro, ofs 0x24, size 1, "a"> => #194.1.1.array <size 15, max 15>
     #78.1.1.mem.ref.ro <size 3, "abs"> => #77.1.1.num.prim <36 (0x24)>
     #66.1.1.mem.ref.ro <size 3, "add"> => #65.1.1.num.prim <30 (0x1e)>
     #84.1.1.mem.ref.ro <size 3, "and"> => #83.1.1.num.prim <39 (0x27)>
@@ -66,7 +66,7 @@
     #160.1.1.mem.ref.ro <size 3, "dim"> => #159.1.1.num.prim <77 (0x4d)>
     #72.1.1.mem.ref.ro <size 3, "div"> => #71.1.1.num.prim <33 (0x21)>
     #50.1.1.mem.ref.ro <size 3, "dup"> => #49.1.1.num.prim <22 (0x16)>
-    #208.1.1.mem.ref.ro <#186.1.5.mem.ro, ofs 0x37, size 1, "e"> => #209.1.1.mem.str <size 19, "ab � cd   öä € ">
+    #210.1.1.mem.ref.ro <#188.1.5.mem.ro, ofs 0x37, size 1, "e"> => #211.1.1.mem.str <size 19, "ab � cd   öä € ">
     #96.1.1.mem.ref.ro <size 2, "eq"> => #95.1.1.num.prim <45 (0x2d)>
     #54.1.1.mem.ref.ro <size 4, "exch"> => #53.1.1.num.prim <24 (0x18)>
     #64.1.1.mem.ref.ro <size 4, "exec"> => #63.1.1.num.prim <29 (0x1d)>
@@ -74,6 +74,7 @@
     #178.1.1.mem.ref.ro <size 8, "fillrect"> => #177.1.1.num.prim <86 (0x56)>
     #32.1.1.mem.ref.ro <size 3, "for"> => #31.1.1.num.prim <13 (0xd)>
     #34.1.1.mem.ref.ro <size 6, "forall"> => #33.1.1.num.prim <14 (0xe)>
+    #184.1.1.mem.ref.ro <size 6, "format"> => #183.1.1.num.prim <89 (0x59)>
     #118.1.1.mem.ref.ro <size 6, "freeze"> => #117.1.1.num.prim <56 (0x38)>
     #22.1.1.mem.ref.ro <size 4, "gdef"> => #21.1.1.num.prim <8 (0x8)>
     #102.1.1.mem.ref.ro <size 2, "ge"> => #101.1.1.num.prim <48 (0x30)>
@@ -119,7 +120,7 @@
     #58.1.1.mem.ref.ro <size 4, "roll"> => #57.1.1.num.prim <26 (0x1a)>
     #56.1.1.mem.ref.ro <size 3, "rot"> => #55.1.1.num.prim <25 (0x19)>
     #162.1.1.mem.ref.ro <size 3, "run"> => #161.1.1.num.prim <78 (0x4e)>
-    #189.1.1.mem.ref.ro <#186.1.5.mem.ro, ofs 0x9, size 1, "s"> => #190.1.1.mem.str.ro <#186.1.5.mem.ro, ofs 0xc, size 19, "ab � cd   öä € ">
+    #191.1.1.mem.ref.ro <#188.1.5.mem.ro, ofs 0x9, size 1, "s"> => #192.1.1.mem.str.ro <#188.1.5.mem.ro, ofs 0xc, size 19, "ab � cd   öä € ">
     #126.1.1.mem.ref.ro <size 10, "setbgcolor"> => #125.1.1.num.prim <60 (0x3c)>
     #146.1.1.mem.ref.ro <size 9, "setcanvas"> => #145.1.1.num.prim <70 (0x46)>
     #122.1.1.mem.ref.ro <size 8, "setcolor"> => #121.1.1.num.prim <58 (0x3a)>
@@ -408,7 +409,10 @@
   #181.1.1.num.prim <88 (0x58)>
   #182.1.1.mem.ref.ro <size 10, "utf8encode">
     75 74 66 38 65 6e 63 6f 64 65                    utf8encode
-  #183.1.1.mem.ro <size 4947>
+  #183.1.1.num.prim <89 (0x59)>
+  #184.1.1.mem.ref.ro <size 6, "format">
+    66 6f 72 6d 61 74                                format
+  #185.1.1.mem.ro <size 4947>
     72 b5 4a 86 00 00 00 00 20 00 00 00 01 00 00 00  r.J..... .......
     00 01 00 00 10 00 00 00 10 00 00 00 08 00 00 00  ................
     00 00 7e c3 99 99 f3 e7 e7 ff e7 e7 7e 00 00 00  ..~.........~...
@@ -719,15 +723,15 @@
     b4 ff c3 b5 ff c3 b6 ff c3 b7 ff c3 b8 ff c3 b9  ................
     ff c3 ba ff c3 bb ff c3 bc ff c3 bd ff c3 be ff  ................
     c3 bf ff                                         ...
-  #184.1.1.font <glyphs 256, size 8x16, line height 16>
+  #186.1.1.font <glyphs 256, size 8x16, line height 16>
     type 1, glyphs 256
     font size 8x16, line height 16, baseline 0
     bitmap size 8x16
     bitmap table: offset 32, size 4096
     char index: offset 4128, size 819
-    data_id #183.1.1.mem.ro
-    glyph_id #185.1.1.canv
-  #185.1.1.canv <size 8x16, max 8x16, unit 1x1, chk 0x4e8c3ac0>
+    data_id #185.1.1.mem.ro
+    glyph_id #187.1.1.canv
+  #187.1.1.canv <size 8x16, max 8x16, unit 1x1, chk 0x4e8c3ac0>
     |        |
     |        |
     |        |
@@ -744,61 +748,61 @@
     |        |
     |        |
     |        |
-  #186.1.5.mem.ro <size 80>
+  #188.1.5.mem.ro <size 80>
     75 51 12 a9 42 7a ad 60 19 73 c7 13 61 62 20 a0  uQ..Bz.`.s..ab .
     20 63 64 20 00 20 c3 b6 c3 a4 20 e2 82 ac 20 38   cd . .... ... 8
     64 65 66 19 61 18 73 a8 75 74 66 38 64 65 63 6f  def.a.s.utf8deco
     64 65 38 64 65 66 19 65 18 61 a8 75 74 66 38 65  de8def.e.a.utf8e
     6e 63 6f 64 65 38 64 65 66 18 65 18 73 28 65 71  ncode8def.e.s(eq
-  #187.1.1.array <size 1, max 16>
-    [ 0] #210.1.1.num.bool <1 (0x1)>
-  #188.1.1.ctx.func <code #186.1.5.mem.ro, ip 0x50 (0x50), dict #4.1.2.hash>
+  #189.1.1.array <size 1, max 16>
+    [ 0] #212.1.1.num.bool <1 (0x1)>
+  #190.1.1.ctx.func <code #188.1.5.mem.ro, ip 0x50 (0x50), dict #4.1.2.hash>
     type 17, ip 0x50 (0x50)
-    code #186.1.5.mem.ro
+    code #188.1.5.mem.ro
     parent #0.0.nil
     dict #4.1.2.hash
     iterate #0.0.nil
-  #189.1.1.mem.ref.ro <#186.1.5.mem.ro, ofs 0x9, size 1, "s">
+  #191.1.1.mem.ref.ro <#188.1.5.mem.ro, ofs 0x9, size 1, "s">
     73                                               s
-  #190.1.1.mem.str.ro <#186.1.5.mem.ro, ofs 0xc, size 19, "ab � cd   öä € ">
+  #192.1.1.mem.str.ro <#188.1.5.mem.ro, ofs 0xc, size 19, "ab � cd   öä € ">
     61 62 20 a0 20 63 64 20 00 20 c3 b6 c3 a4 20 e2  ab . cd . .... .
     82 ac 20                                         .. 
-  #191.1.1.mem.ref.ro <#186.1.5.mem.ro, ofs 0x24, size 1, "a">
+  #193.1.1.mem.ref.ro <#188.1.5.mem.ro, ofs 0x24, size 1, "a">
     61                                               a
-  #192.1.1.array <size 15, max 15>
-    [ 0] #193.1.1.num.int <97 (0x61)>
-    [ 1] #194.1.1.num.int <98 (0x62)>
-    [ 2] #195.1.1.num.int <32 (0x20)>
-    [ 3] #196.1.1.num.int <-160 (0xffffffffffffff60)>
-    [ 4] #197.1.1.num.int <32 (0x20)>
-    [ 5] #198.1.1.num.int <99 (0x63)>
-    [ 6] #199.1.1.num.int <100 (0x64)>
-    [ 7] #200.1.1.num.int <32 (0x20)>
-    [ 8] #201.1.1.num.int <0 (0x0)>
-    [ 9] #202.1.1.num.int <32 (0x20)>
-    [10] #203.1.1.num.int <246 (0xf6)>
-    [11] #204.1.1.num.int <228 (0xe4)>
-    [12] #205.1.1.num.int <32 (0x20)>
-    [13] #206.1.1.num.int <8364 (0x20ac)>
-    [14] #207.1.1.num.int <32 (0x20)>
-  #193.1.1.num.int <97 (0x61)>
-  #194.1.1.num.int <98 (0x62)>
-  #195.1.1.num.int <32 (0x20)>
-  #196.1.1.num.int <-160 (0xffffffffffffff60)>
+  #194.1.1.array <size 15, max 15>
+    [ 0] #195.1.1.num.int <97 (0x61)>
+    [ 1] #196.1.1.num.int <98 (0x62)>
+    [ 2] #197.1.1.num.int <32 (0x20)>
+    [ 3] #198.1.1.num.int <-160 (0xffffffffffffff60)>
+    [ 4] #199.1.1.num.int <32 (0x20)>
+    [ 5] #200.1.1.num.int <99 (0x63)>
+    [ 6] #201.1.1.num.int <100 (0x64)>
+    [ 7] #202.1.1.num.int <32 (0x20)>
+    [ 8] #203.1.1.num.int <0 (0x0)>
+    [ 9] #204.1.1.num.int <32 (0x20)>
+    [10] #205.1.1.num.int <246 (0xf6)>
+    [11] #206.1.1.num.int <228 (0xe4)>
+    [12] #207.1.1.num.int <32 (0x20)>
+    [13] #208.1.1.num.int <8364 (0x20ac)>
+    [14] #209.1.1.num.int <32 (0x20)>
+  #195.1.1.num.int <97 (0x61)>
+  #196.1.1.num.int <98 (0x62)>
   #197.1.1.num.int <32 (0x20)>
-  #198.1.1.num.int <99 (0x63)>
-  #199.1.1.num.int <100 (0x64)>
-  #200.1.1.num.int <32 (0x20)>
-  #201.1.1.num.int <0 (0x0)>
+  #198.1.1.num.int <-160 (0xffffffffffffff60)>
+  #199.1.1.num.int <32 (0x20)>
+  #200.1.1.num.int <99 (0x63)>
+  #201.1.1.num.int <100 (0x64)>
   #202.1.1.num.int <32 (0x20)>
-  #203.1.1.num.int <246 (0xf6)>
-  #204.1.1.num.int <228 (0xe4)>
-  #205.1.1.num.int <32 (0x20)>
-  #206.1.1.num.int <8364 (0x20ac)>
+  #203.1.1.num.int <0 (0x0)>
+  #204.1.1.num.int <32 (0x20)>
+  #205.1.1.num.int <246 (0xf6)>
+  #206.1.1.num.int <228 (0xe4)>
   #207.1.1.num.int <32 (0x20)>
-  #208.1.1.mem.ref.ro <#186.1.5.mem.ro, ofs 0x37, size 1, "e">
+  #208.1.1.num.int <8364 (0x20ac)>
+  #209.1.1.num.int <32 (0x20)>
+  #210.1.1.mem.ref.ro <#188.1.5.mem.ro, ofs 0x37, size 1, "e">
     65                                               e
-  #209.1.1.mem.str <size 19, "ab � cd   öä € ">
+  #211.1.1.mem.str <size 19, "ab � cd   öä € ">
     61 62 20 a0 20 63 64 20 00 20 c3 b6 c3 a4 20 e2  ab . cd . .... .
     82 ac 20                                         .. 
-  #210.1.1.num.bool <1 (0x1)>
+  #212.1.1.num.bool <1 (0x1)>

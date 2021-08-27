@@ -1046,4 +1046,4 @@ GC: ++#xxxx.1.16.mem.ro
   [38] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "123">
   [39] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "123">
   [40] #xxxx.1.1.mem.str.ro <#xxxx.1.17.mem.ro, "123">
-error 2 (invalid instruction), ip = #186
+error 2 (invalid instruction), ip = #188

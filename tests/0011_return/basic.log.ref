@@ -1168,7 +1168,7 @@ GC: --#xxxx.1.2.mem.code.ro
   [5] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
   [6] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [0] #xxxx.2.1.num.int <2000 (0x7d0)>
   [1] #xxxx.1.1.num.int <5 (0x5)>
   [2] #xxxx.1.1.num.int <4 (0x4)>
   [3] #xxxx.1.1.num.int <1000 (0x3e8)>
@@ -1204,7 +1204,7 @@ GC: --#xxxx.1.14.mem.ro
   [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
   [3] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [0] #xxxx.2.1.num.int <2000 (0x7d0)>
   [1] #xxxx.1.1.num.int <5 (0x5)>
   [2] #xxxx.1.1.num.int <4 (0x4)>
   [3] #xxxx.1.1.num.int <1000 (0x3e8)>
@@ -1230,8 +1230,8 @@ GC: --#xxxx.1.14.mem.ro
   [2] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
   [3] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <40000 (0x9c40)>
-  [1] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [0] #xxxx.2.1.num.int <40000 (0x9c40)>
+  [1] #xxxx.2.1.num.int <2000 (0x7d0)>
   [2] #xxxx.1.1.num.int <5 (0x5)>
   [3] #xxxx.1.1.num.int <4 (0x4)>
   [4] #xxxx.1.1.num.int <1000 (0x3e8)>
@@ -1268,8 +1268,8 @@ GC: --#xxxx.1.1.num.int
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <40000 (0x9c40)>
-  [1] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [0] #xxxx.2.1.num.int <40000 (0x9c40)>
+  [1] #xxxx.2.1.num.int <2000 (0x7d0)>
   [2] #xxxx.1.1.num.int <5 (0x5)>
   [3] #xxxx.1.1.num.int <4 (0x4)>
   [4] #xxxx.1.1.num.int <1000 (0x3e8)>
@@ -1293,8 +1293,8 @@ GC: --#xxxx.1.1.num.int
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.2.1.num.int <7 (0x7)>
-  [1] #xxxx.1.1.num.int <40000 (0x9c40)>
-  [2] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [1] #xxxx.2.1.num.int <40000 (0x9c40)>
+  [2] #xxxx.2.1.num.int <2000 (0x7d0)>
   [3] #xxxx.1.1.num.int <5 (0x5)>
   [4] #xxxx.1.1.num.int <4 (0x4)>
   [5] #xxxx.1.1.num.int <1000 (0x3e8)>
@@ -1319,8 +1319,8 @@ GC: --#xxxx.1.1.num.int
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.2.1.num.int <8 (0x8)>
   [1] #xxxx.2.1.num.int <7 (0x7)>
-  [2] #xxxx.1.1.num.int <40000 (0x9c40)>
-  [3] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [2] #xxxx.2.1.num.int <40000 (0x9c40)>
+  [3] #xxxx.2.1.num.int <2000 (0x7d0)>
   [4] #xxxx.1.1.num.int <5 (0x5)>
   [5] #xxxx.1.1.num.int <4 (0x4)>
   [6] #xxxx.1.1.num.int <1000 (0x3e8)>
@@ -1347,8 +1347,8 @@ GC: --#xxxx.1.2.hash
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.2.1.num.int <8 (0x8)>
   [1] #xxxx.2.1.num.int <7 (0x7)>
-  [2] #xxxx.1.1.num.int <40000 (0x9c40)>
-  [3] #xxxx.1.1.num.int <2000 (0x7d0)>
+  [2] #xxxx.2.1.num.int <40000 (0x9c40)>
+  [3] #xxxx.2.1.num.int <2000 (0x7d0)>
   [4] #xxxx.1.1.num.int <5 (0x5)>
   [5] #xxxx.1.1.num.int <4 (0x4)>
   [6] #xxxx.1.1.num.int <1000 (0x3e8)>

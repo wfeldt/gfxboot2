@@ -2,21 +2,21 @@
 ===  memory dump  ===
    0: 0x0000000c[      56] [14848840/      68]  #2.1.1.gstate <region 0x0_800x600>
    1: 0x00000050[ 1920016] [      68/ 1920028]  #1.1.3.canv <size 800x600, max 800x600, unit 10x30, chk 0x5ae3d880>
-   2: 0x001d4c6c[    6200] [ 1920028/    6212]  #0.1.*.olist <size 210, next 238, max 258>
+   2: 0x001d4c6c[    6200] [ 1920028/    6212]  #0.1.*.olist <size 212, next 240, max 258>
    3: 0x001d64b0[      48] [    6212/      60]  #3.1.1.gstate <region 80x100_640x400>
-   4: 0x001d64ec[     820] [      60/     832]  #4.1.2.hash <size 89, max 101>
-   5: 0x001d682c[      56] [     832/      68]  #184.1.1.font <glyphs 256, size 8x16, line height 16>
-   6: 0x001d6870[     528] [      68/     540]  #185.1.1.canv <size 8x16, max 8x16, unit 1x1, chk 0x4e8c3ac0>
-   7: 0x001d6a8c[      96] [     540/     108]  #186.1.1.mem.ro <size 95>
+   4: 0x001d64ec[     820] [      60/     832]  #4.1.2.hash <size 90, max 101>
+   5: 0x001d682c[      56] [     832/      68]  #186.1.1.font <glyphs 256, size 8x16, line height 16>
+   6: 0x001d6870[     528] [      68/     540]  #187.1.1.canv <size 8x16, max 8x16, unit 1x1, chk 0x4e8c3ac0>
+   7: 0x001d6a8c[      96] [     540/     108]  #188.1.1.mem.ro <size 95>
    8* 0x001d6af8[      72] [     108/      84]
-   9: 0x001d6b4c[      56] [      84/      68]  #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x5f (0x5f), dict #4.1.2.hash>
+   9: 0x001d6b4c[      56] [      84/      68]  #190.1.1.ctx.func <code #188.1.1.mem.ro, ip 0x5f (0x5f), dict #4.1.2.hash>
   10: 0x001d6b90[      56] [      68/      68]
-  11: 0x001d6bd4[      72] [      68/      84]  #194.1.1.array <size 0, max 16>
-  12: 0x001d6c28[     144] [      84/     156]  #187.1.1.array <size 20, max 34>
+  11: 0x001d6bd4[      72] [      68/      84]  #196.1.1.array <size 0, max 16>
+  12: 0x001d6c28[     144] [      84/     156]  #189.1.1.array <size 20, max 34>
   13: 0x001d6cc4[14848828] [     156/14848840]
 == object dump (id #0.1.*.olist) ==
-  #0.1.*.olist <size 210, next 238, max 258>
-  #0.1.*.olist <size 210, next 238, max 258>
+  #0.1.*.olist <size 212, next 240, max 258>
+  #0.1.*.olist <size 212, next 240, max 258>
   #1.1.3.canv <size 800x600, max 800x600, unit 10x30, chk 0x5ae3d880>
     |                                                                                |
     |                                                                                |
@@ -47,8 +47,8 @@
     pos 0x384, char size 8x16
     color #00ffffff, bg_color #00241632
     canvas #1.1.3.canv (800x600)
-    font #184.1.1.font
-  #4.1.2.hash <size 89, max 101>
+    font #186.1.1.font
+  #4.1.2.hash <size 90, max 101>
     #14.1.1.mem.ref.ro <size 1, "("> => #13.1.1.num.prim <4 (0x4)>
     #16.1.1.mem.ref.ro <size 1, ")"> => #15.1.1.num.prim <5 (0x5)>
     #10.1.1.mem.ref.ro <size 1, "["> => #9.1.1.num.prim <2 (0x2)>
@@ -72,6 +72,7 @@
     #178.1.1.mem.ref.ro <size 8, "fillrect"> => #177.1.1.num.prim <86 (0x56)>
     #32.1.1.mem.ref.ro <size 3, "for"> => #31.1.1.num.prim <13 (0xd)>
     #34.1.1.mem.ref.ro <size 6, "forall"> => #33.1.1.num.prim <14 (0xe)>
+    #184.1.1.mem.ref.ro <size 6, "format"> => #183.1.1.num.prim <89 (0x59)>
     #118.1.1.mem.ref.ro <size 6, "freeze"> => #117.1.1.num.prim <56 (0x38)>
     #22.1.1.mem.ref.ro <size 4, "gdef"> => #21.1.1.num.prim <8 (0x8)>
     #102.1.1.mem.ref.ro <size 2, "ge"> => #101.1.1.num.prim <48 (0x30)>
@@ -405,7 +406,10 @@
   #181.1.1.num.prim <88 (0x58)>
   #182.1.1.mem.ref.ro <size 10, "utf8encode">
     75 74 66 38 65 6e 63 6f 64 65                    utf8encode
-  #183.1.1.mem.ro <size 4947>
+  #183.1.1.num.prim <89 (0x59)>
+  #184.1.1.mem.ref.ro <size 6, "format">
+    66 6f 72 6d 61 74                                format
+  #185.1.1.mem.ro <size 4947>
     72 b5 4a 86 00 00 00 00 20 00 00 00 01 00 00 00  r.J..... .......
     00 01 00 00 10 00 00 00 10 00 00 00 08 00 00 00  ................
     00 00 7e c3 99 99 f3 e7 e7 ff e7 e7 7e 00 00 00  ..~.........~...
@@ -716,15 +720,15 @@
     b4 ff c3 b5 ff c3 b6 ff c3 b7 ff c3 b8 ff c3 b9  ................
     ff c3 ba ff c3 bb ff c3 bc ff c3 bd ff c3 be ff  ................
     c3 bf ff                                         ...
-  #184.1.1.font <glyphs 256, size 8x16, line height 16>
+  #186.1.1.font <glyphs 256, size 8x16, line height 16>
     type 1, glyphs 256
     font size 8x16, line height 16, baseline 0
     bitmap size 8x16
     bitmap table: offset 32, size 4096
     char index: offset 4128, size 819
-    data_id #183.1.1.mem.ro
-    glyph_id #185.1.1.canv
-  #185.1.1.canv <size 8x16, max 8x16, unit 1x1, chk 0x4e8c3ac0>
+    data_id #185.1.1.mem.ro
+    glyph_id #187.1.1.canv
+  #187.1.1.canv <size 8x16, max 8x16, unit 1x1, chk 0x4e8c3ac0>
     |        |
     |        |
     |        |
@@ -741,58 +745,58 @@
     |        |
     |        |
     |        |
-  #186.1.1.mem.ro <size 95>
+  #188.1.1.mem.ro <size 95>
     75 51 12 a9 42 7a ad 60 81 0a 21 81 14 16 13 38  uQ..Bz.`..!....8
     66 6f 72 81 64 21 81 6b 16 13 38 66 6f 72 91 4c  for.d!.k..8for.L
     04 81 fe 91 42 04 16 13 38 66 6f 72 91 f8 2a 81  ....B...8for..*.
     fe 91 f1 2a 16 13 38 66 6f 72 91 c8 00 11 91 be  ...*..8for......
     00 16 13 38 66 6f 72 91 c8 00 81 ff 91 d2 00 16  ...8for.........
     13 38 66 6f 72 01 01 81 64 16 13 38 66 6f 72     .8for...d..8for
-  #187.1.1.array <size 20, max 34>
-    [ 0] #189.1.1.num.int <10 (0xa)>
-    [ 1] #195.1.1.num.int <12 (0xc)>
-    [ 2] #196.1.1.num.int <14 (0xe)>
-    [ 3] #197.1.1.num.int <16 (0x10)>
-    [ 4] #198.1.1.num.int <18 (0x12)>
-    [ 5] #199.1.1.num.int <20 (0x14)>
-    [ 6] #200.1.1.num.int <100 (0x64)>
-    [ 7] #205.1.1.num.int <102 (0x66)>
-    [ 8] #206.1.1.num.int <104 (0x68)>
-    [ 9] #207.1.1.num.int <106 (0x6a)>
-    [10] #208.1.1.num.int <1100 (0x44c)>
-    [11] #213.1.1.num.int <1098 (0x44a)>
-    [12] #214.1.1.num.int <1096 (0x448)>
-    [13] #215.1.1.num.int <1094 (0x446)>
-    [14] #216.1.1.num.int <1092 (0x444)>
-    [15] #217.1.1.num.int <1090 (0x442)>
-    [16] #218.1.1.num.int <11000 (0x2af8)>
-    [17] #223.1.1.num.int <10998 (0x2af6)>
-    [18] #224.1.1.num.int <10996 (0x2af4)>
-    [19] #225.1.1.num.int <10994 (0x2af2)>
-  #188.1.1.ctx.func <code #186.1.1.mem.ro, ip 0x5f (0x5f), dict #4.1.2.hash>
+  #189.1.1.array <size 20, max 34>
+    [ 0] #191.1.1.num.int <10 (0xa)>
+    [ 1] #197.1.1.num.int <12 (0xc)>
+    [ 2] #198.1.1.num.int <14 (0xe)>
+    [ 3] #199.1.1.num.int <16 (0x10)>
+    [ 4] #200.1.1.num.int <18 (0x12)>
+    [ 5] #201.1.1.num.int <20 (0x14)>
+    [ 6] #202.1.1.num.int <100 (0x64)>
+    [ 7] #207.1.1.num.int <102 (0x66)>
+    [ 8] #208.1.1.num.int <104 (0x68)>
+    [ 9] #209.1.1.num.int <106 (0x6a)>
+    [10] #210.1.1.num.int <1100 (0x44c)>
+    [11] #215.1.1.num.int <1098 (0x44a)>
+    [12] #216.1.1.num.int <1096 (0x448)>
+    [13] #217.1.1.num.int <1094 (0x446)>
+    [14] #218.1.1.num.int <1092 (0x444)>
+    [15] #219.1.1.num.int <1090 (0x442)>
+    [16] #220.1.1.num.int <11000 (0x2af8)>
+    [17] #225.1.1.num.int <10998 (0x2af6)>
+    [18] #226.1.1.num.int <10996 (0x2af4)>
+    [19] #227.1.1.num.int <10994 (0x2af2)>
+  #190.1.1.ctx.func <code #188.1.1.mem.ro, ip 0x5f (0x5f), dict #4.1.2.hash>
     type 17, ip 0x5f (0x5f)
-    code #186.1.1.mem.ro
+    code #188.1.1.mem.ro
     parent #0.0.nil
     dict #4.1.2.hash
     iterate #0.0.nil
-  #189.1.1.num.int <10 (0xa)>
-  #194.1.1.array <size 0, max 16>
-  #195.1.1.num.int <12 (0xc)>
-  #196.1.1.num.int <14 (0xe)>
-  #197.1.1.num.int <16 (0x10)>
-  #198.1.1.num.int <18 (0x12)>
-  #199.1.1.num.int <20 (0x14)>
-  #200.1.1.num.int <100 (0x64)>
-  #205.1.1.num.int <102 (0x66)>
-  #206.1.1.num.int <104 (0x68)>
-  #207.1.1.num.int <106 (0x6a)>
-  #208.1.1.num.int <1100 (0x44c)>
-  #213.1.1.num.int <1098 (0x44a)>
-  #214.1.1.num.int <1096 (0x448)>
-  #215.1.1.num.int <1094 (0x446)>
-  #216.1.1.num.int <1092 (0x444)>
-  #217.1.1.num.int <1090 (0x442)>
-  #218.1.1.num.int <11000 (0x2af8)>
-  #223.1.1.num.int <10998 (0x2af6)>
-  #224.1.1.num.int <10996 (0x2af4)>
-  #225.1.1.num.int <10994 (0x2af2)>
+  #191.1.1.num.int <10 (0xa)>
+  #196.1.1.array <size 0, max 16>
+  #197.1.1.num.int <12 (0xc)>
+  #198.1.1.num.int <14 (0xe)>
+  #199.1.1.num.int <16 (0x10)>
+  #200.1.1.num.int <18 (0x12)>
+  #201.1.1.num.int <20 (0x14)>
+  #202.1.1.num.int <100 (0x64)>
+  #207.1.1.num.int <102 (0x66)>
+  #208.1.1.num.int <104 (0x68)>
+  #209.1.1.num.int <106 (0x6a)>
+  #210.1.1.num.int <1100 (0x44c)>
+  #215.1.1.num.int <1098 (0x44a)>
+  #216.1.1.num.int <1096 (0x448)>
+  #217.1.1.num.int <1094 (0x446)>
+  #218.1.1.num.int <1092 (0x444)>
+  #219.1.1.num.int <1090 (0x442)>
+  #220.1.1.num.int <11000 (0x2af8)>
+  #225.1.1.num.int <10998 (0x2af6)>
+  #226.1.1.num.int <10996 (0x2af4)>
+  #227.1.1.num.int <10994 (0x2af2)>

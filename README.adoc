@@ -1,4 +1,7 @@
 = gfxboot2
+// :toc: left
+:toc: preamble
+:toclevels: 2
 
 A graphical interface to bootloaders.
 
@@ -173,6 +176,8 @@ The prompt in the lower part of the screen is the debug console.
 - work on documentation
 
 === Some documentation
+
+// include::doc/reference.adoc[]
 
 For details check out the link:doc/reference.adoc[language reference].
 

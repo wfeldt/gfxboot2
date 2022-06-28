@@ -69,20 +69,31 @@ int gfx_obj_canvas_dump(obj_t *ptr, dump_style_t style)
     if(!style.inspect) return 0;
 
     gfxboot_log(
-      "size %dx%d, max %dx%d, unit %dx%d, chk 0x%08x",
-      c->width, c->height, c->max_width, c->max_height, x_blk, y_blk, gfx_canvas_chksum(c)
+      "size %dx%d, max %dx%d, region %dx%d_%dx%d, unit %dx%d, chk 0x%08x",
+      c->width, c->height, c->max_width, c->max_height,
+      c->region.x, c->region.y, c->region.width, c->region.height,
+      x_blk, y_blk, gfx_canvas_chksum(c)
     );
 
     return 1;
   }
 
-  if(style.dump && len) {
-    for(h = 0; h < h_max; h++) {
-      gfxboot_log("    |");
-      for(w = 0; w < w_max; w++) {
-        gfxboot_log("%c", gfx_canvas_pixel2char(c, x_blk, y_blk, w, h));
+  if(style.dump) {
+    gfxboot_log("    pos %dx%d", c->pos.x, c->pos.y);
+    if(c->pos.width || c->pos.height) {
+      gfxboot_log(", char size %dx%d", c->pos.width, c->pos.height);
+    }
+    gfxboot_log(", font %s\n", gfx_obj_id2str(c->font_id));
+    gfxboot_log("    color #%08x, bg_color #%08x\n", c->color, c->bg_color);
+
+    if(len) {
+      for(h = 0; h < h_max; h++) {
+        gfxboot_log("    |");
+        for(w = 0; w < w_max; w++) {
+          gfxboot_log("%c", gfx_canvas_pixel2char(c, x_blk, y_blk, w, h));
+        }
+        gfxboot_log("|\n");
       }
-      gfxboot_log("|\n");
     }
   }
 
@@ -106,11 +117,12 @@ char gfx_canvas_pixel2char(canvas_t *c, int x_blk, int y_blk, int x, int y)
   for(j = 0; j < y_blk; j++, cp += c->width) {
     for(i = 0; i < x_blk; i++) {
       col = cp[i];
-      val += (col & 0xff) + ((col >> 8) & 0xff) + ((col >> 16) & 0xff);
+      unsigned alpha = 0xff - ((col >> 24) & 0xff);
+      val += ((col & 0xff) + ((col >> 8) & 0xff) + ((col >> 16) & 0xff)) * alpha;
     }
   }
 
-  val /= (unsigned) (x_blk * y_blk * 3 * 255) / (sizeof syms);	// yes, size + 1 !!!
+  val /= (unsigned) (x_blk * y_blk * 3 * 255 * 255) / (sizeof syms);	// yes, size + 1 !!!
   if(val > sizeof syms - 2) val = sizeof syms - 2;
 
   return syms[val];

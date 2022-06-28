@@ -1,24 +1,26 @@
 # ---  mem  ---
 ===  memory dump  ===
-   0: 0x0000000c[      56] [14848948/      68]  #2.1.1.gstate <region 0x0_800x600>
-   1: 0x00000050[ 1920016] [      68/ 1920028]  #1.1.3.canv <size 800x600, max 800x600, unit 10x30, chk 0x5ae3d880>
-   2: 0x001d4c6c[    6200] [ 1920028/    6212]  #0.1.*.olist <size 206, next 207, max 258>
-   3: 0x001d64b0[      48] [    6212/      60]  #3.1.1.gstate <region 80x100_640x400>
-   4: 0x001d64ec[     820] [      60/     832]  #4.1.2.hash <size 93, max 101>
-   5: 0x001d682c[      56] [     832/      68]  #186.1.1.font <glyphs 256, size 8x16, line height 16>
-   6: 0x001d6870[     528] [      68/     540]  #187.1.1.canv <size 8x16, max 8x16, unit 1x1, chk 0x4e8c3ac0>
-   7: 0x001d6a8c[     120] [     540/     132]  #188.1.6.mem.ro <size 119>
-   8: 0x001d6b10[      72] [     132/      84]  #189.1.1.array <size 5, max 16>
-   9: 0x001d6b64[      56] [      84/      68]  #190.1.1.ctx.func <code #188.1.6.mem.ro, ip 0x77 (0x77), dict #4.1.2.hash>
-  10: 0x001d6ba8[       8] [      68/      20]  #193.1.2.mem.str.ro <size 6, "abc123">
-  11: 0x001d6bbc[      72] [      20/      84]  #194.1.1.array <size 0, max 16>
-  12: 0x001d6c10[      28] [      84/      40]  #200.1.2.hash.ro <size 2, max 2>
-  13: 0x001d6c38[      20] [      40/      32]  #205.1.2.array.ro <size 3, max 3>
-  14* 0x001d6c58[14848936] [      32/14848948]
+   0: 0x0000000c[      56] [14848860/      68]  #2.1.1.gstate <region 0x0_800x600>
+   1: 0x00000050[ 1920060] [      68/ 1920072]  #1.1.3.canv <size 800x600, max 800x600, region 0x0_0x0, unit 10x30, chk 0x5ae3d880>
+   2: 0x001d4c98[    6200] [ 1920072/    6212]  #0.1.*.olist <size 206, next 207, max 258>
+   3: 0x001d64dc[      48] [    6212/      60]  #3.1.1.gstate <region 80x100_640x400>
+   4: 0x001d6518[     820] [      60/     832]  #4.1.2.hash <size 93, max 101>
+   5: 0x001d6858[      56] [     832/      68]  #186.1.1.font <glyphs 256, size 8x16, line height 16>
+   6: 0x001d689c[     572] [      68/     584]  #187.1.1.canv <size 8x16, max 8x16, region 0x0_0x0, unit 1x1, chk 0x4e8c3ac0>
+   7: 0x001d6ae4[     120] [     584/     132]  #188.1.6.mem.ro <size 119>
+   8: 0x001d6b68[      72] [     132/      84]  #189.1.1.array <size 5, max 16>
+   9: 0x001d6bbc[      56] [      84/      68]  #190.1.1.ctx.func <code #188.1.6.mem.ro, ip 0x77 (0x77), dict #4.1.2.hash>
+  10: 0x001d6c00[       8] [      68/      20]  #193.1.2.mem.str.ro <size 6, "abc123">
+  11: 0x001d6c14[      72] [      20/      84]  #194.1.1.array <size 0, max 16>
+  12: 0x001d6c68[      28] [      84/      40]  #200.1.2.hash.ro <size 2, max 2>
+  13: 0x001d6c90[      20] [      40/      32]  #205.1.2.array.ro <size 3, max 3>
+  14* 0x001d6cb0[14848848] [      32/14848860]
 == object dump (id #0.1.*.olist) ==
   #0.1.*.olist <size 206, next 207, max 258>
   #0.1.*.olist <size 206, next 207, max 258>
-  #1.1.3.canv <size 800x600, max 800x600, unit 10x30, chk 0x5ae3d880>
+  #1.1.3.canv <size 800x600, max 800x600, region 0x0_0x0, unit 10x30, chk 0x5ae3d880>
+    pos 0x0, font #0.0.nil
+    color #00000000, bg_color #00000000
     |                                                                                |
     |                                                                                |
     |                                                                                |
@@ -732,7 +734,9 @@
     char index: offset 4128, size 819
     data_id #185.1.1.mem.ro
     glyph_id #187.1.1.canv
-  #187.1.1.canv <size 8x16, max 8x16, unit 1x1, chk 0x4e8c3ac0>
+  #187.1.1.canv <size 8x16, max 8x16, region 0x0_0x0, unit 1x1, chk 0x4e8c3ac0>
+    pos 0x0, font #0.0.nil
+    color #00000000, bg_color #00000000
     |        |
     |        |
     |        |

@@ -4156,13 +4156,9 @@ void gfx_prim_getpixel()
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
   if(gstate) {
-    canvas_t *canvas = gfx_obj_canvas_ptr(gstate ? gstate->canvas_id : 0);
-
-    if(canvas) {
-      color_t color;
-      if(gfx_getpixel(gstate, canvas, gstate->pos.x, gstate->pos.y, &color)) {
-        val = gfx_obj_num_new(color, t_int);
-      }
+    color_t color;
+    if(gfx_getpixel(gstate, gstate->pos.x, gstate->pos.y, &color)) {
+      val = gfx_obj_num_new(color, t_int);
     }
   }
 
@@ -4190,11 +4186,7 @@ void gfx_prim_putpixel()
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
   if(gstate) {
-    canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
-
-    if(canvas) {
-      gfx_putpixel(gstate, canvas, gstate->pos.x, gstate->pos.y, gstate->color);
-    }
+    gfx_putpixel(gstate, gstate->pos.x, gstate->pos.y, gstate->color);
   }
 }
 
@@ -4228,11 +4220,7 @@ void gfx_prim_lineto()
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
   if(gstate) {
-    canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
-
-    if(canvas) {
-      gfx_line(gstate, canvas, gstate->pos.x, gstate->pos.y, val1, val2, gstate->color);
-    }
+    gfx_line(gstate, gstate->pos.x, gstate->pos.y, val1, val2, gstate->color);
 
     gstate->pos.x = val1;
     gstate->pos.y = val2;

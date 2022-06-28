@@ -569,9 +569,13 @@ color_t gfx_color_merge(color_t dst, color_t src)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-int gfx_getpixel(gstate_t *gstate, canvas_t *canvas, int x, int y, color_t *color)
+int gfx_getpixel(gstate_t *gstate, int x, int y, color_t *color)
 {
   int ok = 0;
+
+  canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
+
+  if(!canvas) return 0;
 
   if(x >= 0 && y >= 0 && x < gstate->region.width && y < gstate->region.height) {
     x += gstate->region.x;
@@ -587,9 +591,13 @@ int gfx_getpixel(gstate_t *gstate, canvas_t *canvas, int x, int y, color_t *colo
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_putpixel(gstate_t *gstate, canvas_t *canvas, int x, int y, color_t color)
+void gfx_putpixel(gstate_t *gstate, int x, int y, color_t color)
 {
   // gfxboot_serial(0, "X putpixel %dx%d\n", x, y);
+
+  canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
+
+  if(!canvas) return;
 
   if(x >= 0 && y >= 0 && x < gstate->region.width && y < gstate->region.height) {
     x += gstate->region.x;
@@ -606,7 +614,7 @@ void gfx_putpixel(gstate_t *gstate, canvas_t *canvas, int x, int y, color_t colo
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_line(gstate_t *gstate, canvas_t *canvas, int x0, int y0, int x1, int y1, color_t color)
+void gfx_line(gstate_t *gstate, int x0, int y0, int x1, int y1, color_t color)
 {
   if(x1 < x0) {
     int tmp;
@@ -637,7 +645,7 @@ void gfx_line(gstate_t *gstate, canvas_t *canvas, int x0, int y0, int x1, int y1
   if(dy >= 0) {
     if(dy <= dx) {
       for(acc = -(dx / 2); x0 <= x1; x0++) {
-        gfx_putpixel(gstate, canvas, x0, y0, color);
+        gfx_putpixel(gstate, x0, y0, color);
         acc += dy;
         if(acc >= 0) {
           acc -= dx;
@@ -647,7 +655,7 @@ void gfx_line(gstate_t *gstate, canvas_t *canvas, int x0, int y0, int x1, int y1
     }
     else {
       for(acc = -(dy / 2); y0 <= y1; y0++) {
-        gfx_putpixel(gstate, canvas, x0, y0, color);
+        gfx_putpixel(gstate, x0, y0, color);
         acc += dx;
         if(acc >= 0) {
           acc -= dy;
@@ -660,7 +668,7 @@ void gfx_line(gstate_t *gstate, canvas_t *canvas, int x0, int y0, int x1, int y1
     dy = -dy;
     if(dy <= dx) {
       for(acc = -(dx / 2); x0 <= x1; x0++) {
-        gfx_putpixel(gstate, canvas, x0, y0, color);
+        gfx_putpixel(gstate, x0, y0, color);
         acc += dy;
         if(acc >= 0) {
           acc -= dx;
@@ -670,7 +678,7 @@ void gfx_line(gstate_t *gstate, canvas_t *canvas, int x0, int y0, int x1, int y1
     }
     else {
       for(acc = -(dy / 2); y0 >= y1; y0--) {
-        gfx_putpixel(gstate, canvas, x0, y0, color);
+        gfx_putpixel(gstate, x0, y0, color);
         acc += dx;
         if(acc >= 0) {
           acc -= dy;

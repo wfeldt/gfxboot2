@@ -45,7 +45,10 @@ int gfx_obj_gstate_dump(obj_t *ptr, dump_style_t style)
   if(!style.ref) {
     if(!style.inspect) return 0;
 
-    gfxboot_log("region %dx%d_%dx%d", gstate->region.x, gstate->region.y, gstate->region.width, gstate->region.height);
+    gfxboot_log("geo %dx%d_%dx%d, clip %dx%d_%dx%d",
+      gstate->geo.x, gstate->geo.y, gstate->geo.width, gstate->geo.height,
+      gstate->region.x, gstate->region.y, gstate->region.width, gstate->region.height
+    );
 
     return 1;
   }
@@ -56,15 +59,12 @@ int gfx_obj_gstate_dump(obj_t *ptr, dump_style_t style)
     canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
 
     if(canvas) {
-      width = canvas->width;
-      height = canvas->height;
+      width = canvas->size.width;
+      height = canvas->size.height;
     }
 
-    gfxboot_log("    pos %dx%d", gstate->pos.x, gstate->pos.y);
-    if(gstate->pos.width || gstate->pos.height) {
-      gfxboot_log(", char size %dx%d", gstate->pos.width, gstate->pos.height);
-    }
-    gfxboot_log("\n    color #%08x, bg_color #%08x\n", gstate->color, gstate->bg_color);
+    gfxboot_log("    cursor %dx%d_%dx%d\n", gstate->cursor.x, gstate->cursor.y, gstate->cursor.width, gstate->cursor.height);
+    gfxboot_log("    color #%08x, bg_color #%08x\n", gstate->color, gstate->bg_color);
     gfxboot_log("    canvas %s (%dx%d)\n", gfx_obj_id2str(gstate->canvas_id), width, height);
     gfxboot_log("    font %s\n", gfx_obj_id2str(gstate->font_id));
   }

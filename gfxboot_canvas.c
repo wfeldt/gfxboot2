@@ -16,8 +16,8 @@ obj_id_t gfx_obj_canvas_new(int width, int height)
   canvas_t *c = gfx_obj_canvas_ptr(id);
 
   if(c) {
-    c->max_width = c->width = width;
-    c->max_height = c->height = height;
+    c->max_width = c->size.width = width;
+    c->max_height = c->size.height = height;
   }
 
   return id;
@@ -44,7 +44,13 @@ int gfx_obj_canvas_dump(obj_t *ptr, dump_style_t style)
   unsigned len = ptr->data.size;
   int w, w_max, h, h_max, x_blk, y_blk;
 
-  if(len != OBJ_CANVAS_SIZE(c->max_width, c->max_height) || c->width * c->height > c->max_width * c->max_height) {
+  if(
+    len != OBJ_CANVAS_SIZE(c->max_width, c->max_height) ||
+    c->size.width < 0 ||
+    c->size.height < 0 ||
+    c->size.width > c->max_width ||
+    c->size.height > c->max_height
+  ) {
     if(style.ref) {
       gfxboot_log("      <invalid data>\n");
     }
@@ -57,34 +63,28 @@ int gfx_obj_canvas_dump(obj_t *ptr, dump_style_t style)
 
   len -= sizeof (canvas_t);
 
-  x_blk = (c->width + 79) / 80;
+  x_blk = (c->size.width + 79) / 80;
   if(!x_blk) x_blk = 1;
-  w_max = c->width / x_blk;
+  w_max = c->size.width / x_blk;
 
-  y_blk = (c->height + 19) / 20;
+  y_blk = (c->size.height + 19) / 20;
   if(!y_blk) y_blk = 1;
-  h_max = c->height / y_blk;
+  h_max = c->size.height / y_blk;
 
   if(!style.ref) {
     if(!style.inspect) return 0;
 
     gfxboot_log(
-      "size %dx%d, max %dx%d, region %dx%d_%dx%d, unit %dx%d, chk 0x%08x",
-      c->width, c->height, c->max_width, c->max_height,
-      c->region.x, c->region.y, c->region.width, c->region.height,
-      x_blk, y_blk, gfx_canvas_chksum(c)
+      "max %dx%d, loc %dx%d_%dx%d, chk 0x%08x",
+      c->max_width, c->max_height, c->size.x, c->size.y, c->size.width, c->size.height,
+      gfx_canvas_chksum(c)
     );
 
     return 1;
   }
 
   if(style.dump) {
-    gfxboot_log("    pos %dx%d", c->pos.x, c->pos.y);
-    if(c->pos.width || c->pos.height) {
-      gfxboot_log(", char size %dx%d", c->pos.width, c->pos.height);
-    }
-    gfxboot_log(", font %s\n", gfx_obj_id2str(c->font_id));
-    gfxboot_log("    color #%08x, bg_color #%08x\n", c->color, c->bg_color);
+    gfxboot_log("    unit %dx%d\n", x_blk, y_blk);
 
     if(len) {
       for(h = 0; h < h_max; h++) {
@@ -112,9 +112,9 @@ char gfx_canvas_pixel2char(canvas_t *c, int x_blk, int y_blk, int x, int y)
   x *= x_blk;
   y *= y_blk;
 
-  cp += x + y * c->width;
+  cp += x + y * c->size.width;
 
-  for(j = 0; j < y_blk; j++, cp += c->width) {
+  for(j = 0; j < y_blk; j++, cp += c->size.width) {
     for(i = 0; i < x_blk; i++) {
       col = cp[i];
       unsigned alpha = 0xff - ((col >> 24) & 0xff);
@@ -132,10 +132,10 @@ char gfx_canvas_pixel2char(canvas_t *c, int x_blk, int y_blk, int x, int y)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 int gfx_canvas_adjust_size(canvas_t *c, int width, int height)
 {
-  if(c->max_width * c->max_height < width * height) return 0;
+  if(width < 0 || height < 0 || width > c->max_width || height > c->max_height) return 0;
 
-  c->width = width;
-  c->height = height;
+  c->size.width = width;
+  c->size.height = height;
 
   return 1;
 }
@@ -148,7 +148,7 @@ int gfx_canvas_resize(obj_id_t canvas_id, int width, int height)
 
   if(!c) return 0;
 
-  if(c->width == width  && c->height == height) return 1;
+  if(c->size.width == width  && c->size.height == height) return 1;
 
   return gfx_obj_realloc(canvas_id, OBJ_CANVAS_SIZE(width, height)) ? 1 : 0;
 }
@@ -157,7 +157,7 @@ int gfx_canvas_resize(obj_id_t canvas_id, int width, int height)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 uint32_t gfx_canvas_chksum(canvas_t *c)
 {
-  unsigned u, len = (unsigned) c->width * (unsigned) c->height;
+  unsigned u, len = (unsigned) c->size.width * (unsigned) c->size.height;
   uint32_t sum = 0, a = 0;
 
   for(u = 0; u < len; u++) {

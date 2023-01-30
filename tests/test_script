@@ -16,6 +16,7 @@ set stack 0
 set context 0
 set gstate 0
 set consolegstate 0
+set compose 0
 set screen 0
 set dict 0
 d mem

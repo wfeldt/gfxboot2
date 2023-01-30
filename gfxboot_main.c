@@ -27,10 +27,14 @@ int gfxboot_init()
 
   if(gstate) {
     gstate->canvas_id = gfx_obj_ref_inc(gfxboot_data->screen.virt_id);
-    gstate->region = (area_t) { .width = canvas->width, .height = canvas->height };
-    gstate->pos = (area_t) {0, 0, 0, 0};
+    gstate->geo = (area_t) { .width = canvas->size.width, .height = canvas->size.height };
+    gstate->region = (area_t) { .width = canvas->size.width, .height = canvas->size.height };
+    gstate->cursor = (area_t) {0, 0, 0, 0};
     gstate->color = COLOR(0x00, 0xff, 0xff, 0xff);
     gstate->bg_color = COLOR(0xff, 0x00, 0x00, 0x00);
+
+    gfxboot_data->compose.list_id = gfx_obj_array_new(0);
+    gfx_obj_array_push(gfxboot_data->compose.list_id, gfxboot_data->gstate_id, 1);
   }
 
   gfxboot_data->console.gstate_id = gfx_obj_gstate_new();
@@ -38,8 +42,9 @@ int gfxboot_init()
 
   if(console_gstate) {
     console_gstate->canvas_id = gfx_obj_ref_inc(gfxboot_data->screen.virt_id);
-    console_gstate->region = (area_t) { .width = canvas->width, .height = canvas->height };
-    console_gstate->pos = (area_t) {0, 0, 0, 0};
+    console_gstate->geo = (area_t) { .width = canvas->size.width, .height = canvas->size.height };
+    console_gstate->region = (area_t) { .width = canvas->size.width, .height = canvas->size.height };
+    console_gstate->cursor = (area_t) {0, 0, 0, 0};
     console_gstate->color = COLOR(0x00, 0xff, 0xff, 0xff);
     console_gstate->bg_color = COLOR(0x00, 0x24, 0x16, 0x32);
   }
@@ -54,11 +59,11 @@ int gfxboot_init()
   gfx_obj_ref_dec(console_font_data_id);
 
   area_t area = gfx_font_dim(console_gstate->font_id);
-  console_gstate->pos.width = area.width;
-  console_gstate->pos.height = area.height;
+  console_gstate->cursor.width = area.width;
+  console_gstate->cursor.height = area.height;
 
-  int t_width = console_gstate->pos.width * 80;
-  int t_height = console_gstate->pos.height * 25;
+  int t_width = console_gstate->cursor.width * 80;
+  int t_height = console_gstate->cursor.height * 25;
   if(
     console_gstate->region.width >= t_width &&
     console_gstate->region.height >= t_height
@@ -67,7 +72,7 @@ int gfxboot_init()
     console_gstate->region.y = (console_gstate->region.height - t_height) / 2;
     console_gstate->region.width = t_width;
     console_gstate->region.height = t_height;
-    console_gstate->pos.y = t_height - console_gstate->pos.height;
+    console_gstate->cursor.y = t_height - console_gstate->cursor.height;
   }
 
   // load main program

@@ -141,4 +141,4 @@ GC: ++#xxxx.1.2.num.int
   [1] #xxxx.1.1.num.int <22 (0x16)>
   [2] #xxxx.1.3.num.int <11 (0xb)>
   [3] #xxxx.1.1.num.int <99 (0x63)>
-error 1 (invalid code), ip = #188
+error 1 (invalid code), ip = #197

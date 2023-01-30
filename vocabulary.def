@@ -78,6 +78,7 @@ setcanvas
 getgstate
 setgstate
 gstate
+gstate2
 getconsolegstate
 setconsolegstate
 show
@@ -85,6 +86,7 @@ dim
 run
 readfile
 unpackimage
+unpackimage2
 blt
 debug
 getpixel
@@ -94,3 +96,5 @@ fillrect
 utf8decode
 utf8encode
 format
+getcompose
+setcompose

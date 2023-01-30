@@ -1,8 +1,7 @@
 # ---  screen  ---
 == object dump (id #1.1.3.canv) ==
-  #1.1.3.canv <size 800x600, max 800x600, region 0x0_0x0, unit 10x30, chk 0x5dfcba60>
-    pos 0x0, font #0.0.nil
-    color #00000000, bg_color #00000000
+  #1.1.3.canv <max 800x600, loc 0x0_800x600, chk 0x5dfcba60>
+    unit 10x30
     | ..                                                                             |
     | ,...                                                                           |
     | :,,: :...                                                                      |

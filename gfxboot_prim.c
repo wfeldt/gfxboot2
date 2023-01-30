@@ -3391,8 +3391,8 @@ void gfx_prim_getpos()
 {
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->pos.x : 0, t_int), 0);
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->pos.y : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->cursor.x : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->cursor.y : 0, t_int), 0);
 }
 
 
@@ -3423,8 +3423,8 @@ void gfx_prim_setpos()
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
   if(gstate) {
-    gstate->pos.x = val1;
-    gstate->pos.y = val2;
+    gstate->cursor.x = val1;
+    gstate->cursor.y = val2;
   }
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
@@ -3490,8 +3490,8 @@ void gfx_prim_setfont()
 
   area_t area = gfx_font_dim(gstate->font_id);
 
-  gstate->pos.width = area.width;
-  gstate->pos.height = area.height;
+  gstate->cursor.width = area.width;
+  gstate->cursor.height = area.height;
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
 }
@@ -3601,7 +3601,7 @@ void gfx_prim_setregion()
   area_t area = { .x = val1, .y = val2, .width = val3, .height = val4 };
   canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
   if(canvas) {
-    area_t clip = { .width = canvas->width, .height = canvas->height };
+    area_t clip = { .width = canvas->size.width, .height = canvas->size.height };
     gfx_clip(&area, &clip);
   }
   gstate->region = area;
@@ -3705,8 +3705,8 @@ void gfx_prim_setcanvas()
   if(argv[1].id) {
     canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[1].ptr);
 
-    gstate->region = (area_t) {0, 0, canvas->width, canvas->height};
-    gstate->pos.x = gstate->pos.y = 0;
+    gstate->region = (area_t) {0, 0, canvas->size.width, canvas->size.height};
+    gstate->cursor.x = gstate->cursor.y = 0;
   }
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
@@ -3778,7 +3778,7 @@ void gfx_prim_setgstate()
 //
 // ( -- gstate_1 )
 //
-// Create a new empty graphics state gate_1.
+// Create a new empty graphics state gstate_1.
 //
 // example:
 //
@@ -3788,6 +3788,54 @@ void gfx_prim_gstate()
 {
   obj_id_t gstate_id = gfx_obj_gstate_new();
 
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gstate_id, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// create graphics state
+//
+// group: gfx
+//
+// ( int_1 int_2 -- gstate_1 )
+// int_1: width
+// int_2: height
+//
+// Create a new empty graphics state with canvas of the specified size.
+//
+// example:
+//
+// 800 600 gstate2
+//
+void gfx_prim_gstate2()
+{
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_NUM, OTYPE_NUM });
+
+  if(!argv) return;
+
+  int64_t val1 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+  int64_t val2 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
+
+  obj_id_t gstate_id = gfx_obj_gstate_new();
+  gstate_t *gstate = gfx_obj_gstate_ptr(gstate_id);
+
+  if(gstate) {
+    obj_id_t canvas_id = gfx_obj_canvas_new(val1, val2);
+    canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+
+    if(canvas) {
+      gstate->canvas_id = canvas_id;
+      gstate->geo.width = gstate->region.width = canvas->max_width;
+      gstate->geo.height = gstate->region.height = canvas->max_height;
+    }
+    else {
+      gfx_obj_ref_dec(canvas_id);
+      gfx_obj_ref_dec(gstate_id);
+      gstate_id = 0;
+    }
+  }
+
+  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
   gfx_obj_array_push(gfxboot_data->vm.program.pstack, gstate_id, 0);
 }
 
@@ -3914,8 +3962,8 @@ void gfx_prim_dim()
     case OTYPE_CANVAS:
       ;
       canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[0].ptr);
-      area.width = canvas->width;
-      area.height = canvas->height;
+      area.width = canvas->size.width;
+      area.height = canvas->size.height;
       break;
 
     case OTYPE_GSTATE:
@@ -4034,7 +4082,7 @@ void gfx_prim_readfile()
 // string_1: image file data
 //
 // Unpacks image and returns a canvas object with the image or nil if the
-// data dos not contain image data.
+// data does not contain image data.
 //
 // example:
 //
@@ -4051,6 +4099,53 @@ void gfx_prim_unpackimage()
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 
   gfx_obj_array_push(gfxboot_data->vm.program.pstack, image_id, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// unpack image
+//
+// group: gfx
+//
+// ( string_1 -- gstate_1 )
+// ( string_1 -- nil )
+// string_1: image file data
+//
+// Unpacks image and returns a gstate object with the image or nil if the
+// data does not contain image data.
+//
+// example:
+//
+// "foo.jpg" readfile unpackimage2
+//
+void gfx_prim_unpackimage2()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_MEM);
+
+  if(!argv) return;
+
+  obj_id_t gstate_id = 0;
+
+  obj_id_t canvas_id = gfx_image_open(argv[0].id);
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+
+  if(canvas) {
+    gstate_id = gfx_obj_gstate_new();
+    gstate_t *gstate = gfx_obj_gstate_ptr(gstate_id);
+
+    if(gstate) {
+      gstate->canvas_id = canvas_id;
+      gstate->geo.width = gstate->region.width = canvas->max_width;
+      gstate->geo.height = gstate->region.height = canvas->max_height;
+    }
+  }
+  else {
+    gfx_obj_ref_dec(canvas_id);
+  }
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gstate_id, 0);
 }
 
 
@@ -4080,8 +4175,8 @@ void gfx_prim_blt()
 
   area_t area2 = gstate2->region;
   area_t area1 = {
-    .x = gstate1->region.x + gstate1->pos.x,
-    .y = gstate1->region.y + gstate1->pos.y,
+    .x = gstate1->region.x + gstate1->cursor.x,
+    .y = gstate1->region.y + gstate1->cursor.y,
     .width = area2.width,
     .height = area2.height
   };
@@ -4157,7 +4252,7 @@ void gfx_prim_getpixel()
 
   if(gstate) {
     color_t color;
-    if(gfx_getpixel(gstate, gstate->pos.x, gstate->pos.y, &color)) {
+    if(gfx_getpixel(gstate, gstate->cursor.x, gstate->cursor.y, &color)) {
       val = gfx_obj_num_new(color, t_int);
     }
   }
@@ -4186,7 +4281,7 @@ void gfx_prim_putpixel()
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
   if(gstate) {
-    gfx_putpixel(gstate, gstate->pos.x, gstate->pos.y, gstate->color);
+    gfx_putpixel(gstate, gstate->cursor.x, gstate->cursor.y, gstate->color);
   }
 }
 
@@ -4220,10 +4315,10 @@ void gfx_prim_lineto()
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
   if(gstate) {
-    gfx_line(gstate, gstate->pos.x, gstate->pos.y, val1, val2, gstate->color);
+    gfx_line(gstate, gstate->cursor.x, gstate->cursor.y, val1, val2, gstate->color);
 
-    gstate->pos.x = val1;
-    gstate->pos.y = val2;
+    gstate->cursor.x = val1;
+    gstate->cursor.y = val2;
   }
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
@@ -4258,7 +4353,7 @@ void gfx_prim_fillrect()
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
   if(gstate) {
-    gfx_rect(gstate, gstate->pos.x, gstate->pos.y, val1, val2, gstate->color);
+    gfx_rect(gstate, gstate->cursor.x, gstate->cursor.y, val1, val2, gstate->color);
   }
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
@@ -4538,4 +4633,56 @@ void gfx_prim_format()
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
 
   gfx_obj_array_push(gfxboot_data->vm.program.pstack, result_id, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// get compose list
+//
+// group: gfx
+//
+// ( -- array_1 )
+// ( -- nil )
+//
+// Get current compose list. If none has been set, return nil.
+//
+// The compose list is an array of graphics states.
+//
+// example:
+//
+// /current_list getcompose def                   # get current list of visible graphics states
+//
+void gfx_prim_getcompose()
+{
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfxboot_data->compose.list_id, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// set compose list
+//
+// group: gfx
+//
+// ( array_1 -- )
+// ( nil -- )
+//
+// Set current comnpose list. If nil is passed, the current list is removed.
+//
+// The compose list is an array of graphics states.
+//
+// example:
+//
+// /saved_list getcompose def                   # save current öist
+// ...
+// saved_list setcompose                        # restore list
+//
+void gfx_prim_setcompose()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_ARRAY | IS_NIL);
+
+  if(!argv) return;
+
+  OBJ_ID_ASSIGN(gfxboot_data->compose.list_id, argv[0].id);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 }

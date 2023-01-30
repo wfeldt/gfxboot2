@@ -12,11 +12,11 @@
              3  0x0001f  prim   63                       def
      3       4  0x00020  ref    19 61                    /a
              5  0x00022  word   18 73                    s
-             6  0x00024  prim   83 57                    utf8decode
+             6  0x00024  prim   83 59                    utf8decode
              7  0x00026  prim   63                       def
      5       8  0x00027  ref    19 65                    /e
              9  0x00029  word   18 61                    a
-            10  0x0002b  prim   83 58                    utf8encode
+            10  0x0002b  prim   83 5a                    utf8encode
             11  0x0002d  prim   63                       def
      7      12  0x0002e  word   18 65                    e
             13  0x00030  word   18 73                    s

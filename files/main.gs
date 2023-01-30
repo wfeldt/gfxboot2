@@ -4,8 +4,7 @@
 
 /text "ABC 12345 xyz # * % & § öäüß €" def
 
-/image gstate def
-image "katze_800.jpg" readfile unpackimage setcanvas
+/image "katze_800.jpg" readfile unpackimage2 def
 
 0 0 setpos
 image getgstate exch blt

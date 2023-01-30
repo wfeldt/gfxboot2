@@ -58,9 +58,9 @@ void gfx_screen_update(area_t area)
     area.y * gfxboot_data->screen.real.bytes_per_line +
     area.x * gfxboot_data->screen.real.bytes_per_pixel;
 
-  pixel += area.y * virt_fb->width + area.x;
+  pixel += area.y * virt_fb->size.width + area.x;
 
-  for(j = 0; j < area.height; j++, r8 += gfxboot_data->screen.real.bytes_per_line, pixel += virt_fb->width) {
+  for(j = 0; j < area.height; j++, r8 += gfxboot_data->screen.real.bytes_per_line, pixel += virt_fb->size.width) {
     for(rc8 = r8, i = 0; i < area.width; i++) {
       c = pixel[i];
       rc = (((c >> rs) & rm) << rp) + (((c >> gs) & gm) << gp) + (((c >> bs) & bm) << bp);
@@ -296,29 +296,29 @@ void gfx_console_putc(unsigned c, int update_pos)
     case 0x08:
       if(update_pos) {
         gfx_putc(gstate, ' ', 0);
-        if(gstate->pos.x >= gstate->pos.width) {
-          gstate->pos.x -= gstate->pos.width;
+        if(gstate->cursor.x >= gstate->cursor.width) {
+          gstate->cursor.x -= gstate->cursor.width;
         }
         else {
-          gstate->pos.x = 0;
+          gstate->cursor.x = 0;
         }
       }
       break;
 
     case 0x0a:
       if(update_pos) {
-        gstate->pos.x = 0;
-        gstate->pos.y += gstate->pos.height;
+        gstate->cursor.x = 0;
+        gstate->cursor.y += gstate->cursor.height;
       }
 
       area_t src_area = gstate->region;
       area_t dst_area = gstate->region;
 
-      dst_area.height = src_area.height -= gstate->pos.height;
-      src_area.y += gstate->pos.height;
+      dst_area.height = src_area.height -= gstate->cursor.height;
+      src_area.y += gstate->cursor.height;
 
-      if(gstate->pos.y + gstate->pos.height > gstate->region.height) {
-        gstate->pos.y -= gstate->pos.height;
+      if(gstate->cursor.y + gstate->cursor.height > gstate->region.height) {
+        gstate->cursor.y -= gstate->cursor.height;
 
         // scroll up
         gfx_blt(0, gstate->canvas_id, dst_area, gstate->canvas_id, src_area);
@@ -326,9 +326,9 @@ void gfx_console_putc(unsigned c, int update_pos)
         gfx_rect(
           gstate,
           0,
-          gstate->region.height - gstate->pos.height,
+          gstate->region.height - gstate->cursor.height,
           gstate->region.width,
-          gstate->pos.height,
+          gstate->cursor.height,
           gstate->bg_color
         );
       }
@@ -336,7 +336,7 @@ void gfx_console_putc(unsigned c, int update_pos)
 
     case 0x0d:
       if(update_pos) {
-        gstate->pos.x = 0;
+        gstate->cursor.x = 0;
       }
       break;
 
@@ -368,17 +368,17 @@ void gfx_putc(gstate_t *gstate, unsigned c, int update_pos)
     if(!glyph) return;
 
     area_t area = {
-      .x = gstate->region.x + gstate->pos.x + geo.x,
-      .y = gstate->region.y + gstate->pos.y + geo.y,
-      .width = glyph->width,
-      .height = glyph->height
+      .x = gstate->region.x + gstate->cursor.x + geo.x,
+      .y = gstate->region.y + gstate->cursor.y + geo.y,
+      .width = glyph->size.width,
+      .height = glyph->size.height
     };
 
     area_t glyph_area = {
       .x = 0,
       .y = 0,
-      .width = glyph->width,
-      .height = glyph->height
+      .width = glyph->size.width,
+      .height = glyph->size.height
     };
 
     area_t diff = gfx_clip(&area, &gstate->region);
@@ -387,7 +387,7 @@ void gfx_putc(gstate_t *gstate, unsigned c, int update_pos)
 
     gfx_blt(1, gstate->canvas_id, area, glyph_id, glyph_area);
 
-    if(update_pos) gstate->pos.x += geo.width;
+    if(update_pos) gstate->cursor.x += geo.width;
   }
 }
 
@@ -396,7 +396,7 @@ void gfx_putc(gstate_t *gstate, unsigned c, int update_pos)
 void gfx_puts(gstate_t *gstate, char *s, unsigned len)
 {
   int c;
-  int start = gstate->pos.x;
+  int start = gstate->cursor.x;
 
   while(len) {
     c = gfx_utf8_dec(&s, &len);
@@ -404,10 +404,10 @@ void gfx_puts(gstate_t *gstate, char *s, unsigned len)
 
     switch(c) {
       case 0x0a:
-        gstate->pos.y += gstate->pos.height;
+        gstate->cursor.y += gstate->cursor.height;
 
       case 0x0d:
-        gstate->pos.x = start;
+        gstate->cursor.x = start;
         break;
 
       default:
@@ -508,18 +508,18 @@ void gfx_blt(int mode, obj_id_t dst_id, area_t dst_area, obj_id_t src_id, area_t
   color_t *dst_pixel = dst_c->ptr;
   color_t *src_pixel = src_c->ptr;
 
-  dst_pixel += dst_area.y * dst_c->width + dst_area.x;
-  src_pixel += src_area.y * src_c->width + src_area.x;
+  dst_pixel += dst_area.y * dst_c->size.width + dst_area.x;
+  src_pixel += src_area.y * src_c->size.width + src_area.x;
 
   if(mode == 0) {
     int i;
-    for(i = 0; i < dst_area.height; i++, dst_pixel += dst_c->width, src_pixel += src_c->width) {
+    for(i = 0; i < dst_area.height; i++, dst_pixel += dst_c->size.width, src_pixel += src_c->size.width) {
       gfx_memcpy(dst_pixel, src_pixel, (unsigned) dst_area.width * COLOR_BYTES);
     }
   }
   else if(mode == 1) {
     int i, j;
-    for(j = 0; j < dst_area.height; j++, dst_pixel += dst_c->width, src_pixel += src_c->width) {
+    for(j = 0; j < dst_area.height; j++, dst_pixel += dst_c->size.width, src_pixel += src_c->size.width) {
       for(i = 0; i < dst_area.width; i++) {
         dst_pixel[i] = gfx_color_merge(dst_pixel[i], src_pixel[i]);
       }
@@ -580,8 +580,8 @@ int gfx_getpixel(gstate_t *gstate, int x, int y, color_t *color)
   if(x >= 0 && y >= 0 && x < gstate->region.width && y < gstate->region.height) {
     x += gstate->region.x;
     y += gstate->region.y;
-    if(x >= 0 && y >= 0 && x < canvas->width && y < canvas->height) {
-      *color = canvas->ptr[x + y * canvas->width];
+    if(x >= 0 && y >= 0 && x < canvas->size.width && y < canvas->size.height) {
+      *color = canvas->ptr[x + y * canvas->size.width];
       ok = 1;
     }
   }
@@ -602,8 +602,8 @@ void gfx_putpixel(gstate_t *gstate, int x, int y, color_t color)
   if(x >= 0 && y >= 0 && x < gstate->region.width && y < gstate->region.height) {
     x += gstate->region.x;
     y += gstate->region.y;
-    if(x >= 0 && y >= 0 && x < canvas->width && y < canvas->height) {
-      int ofs = x + y * canvas->width;
+    if(x >= 0 && y >= 0 && x < canvas->size.width && y < canvas->size.height) {
+      int ofs = x + y * canvas->size.width;
       canvas->ptr[ofs] = gfx_color_merge(canvas->ptr[ofs], color);
       if(gstate->canvas_id == gfxboot_data->screen.virt_id) {
         gfx_screen_update((area_t) { .x = x, .y = y, .width = 1, .height = 1 });
@@ -721,11 +721,11 @@ void gfx_rect(gstate_t *gstate, int x, int y, int width, int height, color_t c)
 
   color_t *pixel = canvas->ptr;
 
-  pixel += area.y * canvas->width + area.x;
+  pixel += area.y * canvas->size.width + area.x;
 
   int i, j;
 
-  for(j = 0; j < area.height; j++, pixel += canvas->width) {
+  for(j = 0; j < area.height; j++, pixel += canvas->size.width) {
     for(i = 0; i < area.width; i++) {
       pixel[i] = gfx_color_merge(pixel[i], c);
     }

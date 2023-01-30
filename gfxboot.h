@@ -198,12 +198,7 @@ typedef struct {
 
 typedef struct {
   int max_width, max_height;	// maximum canvas size; ptr[] array holds max_width * max_height pixels
-  int width, height;		// current size; width * height <= max_width * max_height; cf. gfx_canvas_adjust_size()
-  area_t region;		// drawing (clipping) area
-  area_t pos;			// x,y: drawing position; width, height: font char size
-  color_t color;		// drawing color
-  color_t bg_color;		// background color
-  obj_id_t font_id;		// font
+  area_t size;			// current canvas location & size; width * height <= max_width * max_height; cf. gfx_canvas_adjust_size()
   color_t ptr[];
 } __attribute__ ((packed)) canvas_t;
 
@@ -284,8 +279,9 @@ typedef struct {
 } context_t;
 
 typedef struct {
-  area_t region;	// drawing area, relative to screen (in pixel)
-  area_t pos;		// drawing position (in x, y) and font char size (in width, height)
+  area_t geo;		// current canvas location & size; width, height <= canvas.max_width, canvas.max_height
+  area_t region;	// FIXME: [NOT screen relative] drawing (clipping) area, relative to screen (in pixel)
+  area_t cursor;	// drawing position (in x, y) and font char size (in width, height)
   color_t color;	// drawing color
   color_t bg_color;	// background color
   obj_id_t canvas_id;
@@ -312,11 +308,13 @@ typedef struct {
 
   struct {
     obj_id_t gstate_id;		// debug console gstate
-    obj_id_t canvas_id;		// debug console canvas
   } console;
 
   obj_id_t gstate_id;		// normal gstate
-  obj_id_t canvas_id;		// default canvas
+
+  struct {
+    obj_id_t list_id;		// array of gstate ids
+  } compose;
 
   struct {
     int nested;

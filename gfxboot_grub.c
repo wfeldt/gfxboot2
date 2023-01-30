@@ -445,7 +445,7 @@ int gfxboot_sys_strcmp(const char *s1, const char *s2)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 long int gfxboot_sys_strtol(const char *nptr, char **endptr, int base)
 {
-  return grub_strtol(nptr, endptr, base);
+  return grub_strtol(nptr, (const char ** const restrict) endptr, base);
 }
 
 

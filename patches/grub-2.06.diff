@@ -1,0 +1,259 @@
+diff -r -u grub-2.06.orig/grub-core/Makefile.core.def grub-2.06/grub-core/Makefile.core.def
+--- grub-2.06.orig/grub-core/Makefile.core.def	2023-01-30 14:19:42.437138023 +0100
++++ grub-2.06/grub-core/Makefile.core.def	2023-01-30 14:24:21.848790570 +0100
+@@ -1630,6 +1630,29 @@
+ };
+ 
+ module = {
++  name = gfxboot;
++  common = gfxboot/gfxboot.c;
++  common = gfxboot/gfxboot_array.c;
++  common = gfxboot/gfxboot_canvas.c;
++  common = gfxboot/gfxboot_context.c;
++  common = gfxboot/gfxboot_debug.c;
++  common = gfxboot/gfxboot_draw.c;
++  common = gfxboot/gfxboot_font.c;
++  common = gfxboot/gfxboot_grub.c;
++  common = gfxboot/gfxboot_gstate.c;
++  common = gfxboot/gfxboot_hash.c;
++  common = gfxboot/gfxboot_jpeg.c;
++  common = gfxboot/gfxboot_lib.c;
++  common = gfxboot/gfxboot_main.c;
++  common = gfxboot/gfxboot_malloc.c;
++  common = gfxboot/gfxboot_mem.c;
++  common = gfxboot/gfxboot_num.c;
++  common = gfxboot/gfxboot_obj.c;
++  common = gfxboot/gfxboot_olist.c;
++  common = gfxboot/gfxboot_prim.c;
++};
++
++module = {
+   name = hello;
+   common = hello/hello.c;
+ };
+Only in grub-2.06/grub-core: Makefile.core.def.orig
+diff -r -u grub-2.06.orig/grub-core/normal/menu.c grub-2.06/grub-core/normal/menu.c
+--- grub-2.06.orig/grub-core/normal/menu.c	2023-01-30 14:19:42.325136598 +0100
++++ grub-2.06/grub-core/normal/menu.c	2023-01-30 14:27:00.495163630 +0100
+@@ -391,6 +391,19 @@
+ 
+ static struct grub_menu_viewer *viewers;
+ 
++static int
++menu_process_key (int *key)
++{
++  struct grub_menu_viewer *cur;
++  int action = 0;
++
++  for(cur = viewers; cur && key && *key; cur = cur->next) {
++    if(cur->process_key) action = cur->process_key(key);
++  }
++
++  return action;
++}
++
+ static void
+ menu_set_chosen_entry (int entry)
+ {
+@@ -657,10 +670,12 @@
+   int default_entry, current_entry;
+   int timeout;
+   enum timeout_style timeout_style;
++  int action;
+ 
+   *notify_boot = 1;
++  *auto_boot = 0;
+ 
+-  default_entry = get_entry_number (menu, "default");
++  default_entry = current_entry = get_entry_number (menu, "default");
+ 
+   workaround_snapshot_menu_default_entry (menu, "default", &default_entry);
+ 
+@@ -780,6 +795,18 @@
+ 
+       c = grub_getkey_noblock ();
+ 
++      action = menu_process_key (&c);
++
++      if ((action & 0xff))
++        {
++          *auto_boot = 0;
++          if ((action & 0x01)) menu_fini ();
++          if ((action & 0x02)) *auto_boot = 1;
++          if ((action & 0x04)) grub_cmdline_run (1, 0);
++          if ((action & 0x08)) goto refresh;
++          if ((action & 0x10)) return action >> 8;
++        }
++
+       /* Negative values are returned on error. */
+       if ((c != GRUB_TERM_NO_KEY) && (c > 0))
+ 	{
+Only in grub-2.06/grub-core/normal: menu.c.orig
+Only in grub-2.06/grub-core/normal: menu.c.rej
+Only in grub-2.06/grub-core/normal: menu.c~
+diff -r -u grub-2.06.orig/grub-core/video/efi_gop.c grub-2.06/grub-core/video/efi_gop.c
+--- grub-2.06.orig/grub-core/video/efi_gop.c	2023-01-30 14:19:42.133134156 +0100
++++ grub-2.06/grub-core/video/efi_gop.c	2023-01-30 14:24:21.848790570 +0100
+@@ -581,6 +581,24 @@
+   return GRUB_ERR_NONE;
+ }
+ 
++static grub_err_t
++grub_video_gop_get_raw_info (struct grub_video_mode_info *mode_info, void **framebuf)
++{
++  grub_err_t err = GRUB_ERR_NONE;
++
++  if (mode_info)
++    {
++      err = grub_video_gop_fill_real_mode_info (gop->mode->mode, gop->mode->info, mode_info);
++      if (err)
++        grub_dprintf ("video", "GOP: couldn't fill mode info\n");
++    }
++
++  if (framebuf)
++    *framebuf = (char *) framebuffer.ptr;
++
++  return err;
++}
++
+ static struct grub_video_adapter grub_video_gop_adapter =
+   {
+     .name = "EFI GOP driver",
+@@ -592,6 +610,7 @@
+     .fini = grub_video_gop_fini,
+     .setup = grub_video_gop_setup,
+     .get_info = grub_video_fb_get_info,
++    .get_raw_info = grub_video_gop_get_raw_info,
+     .get_info_and_fini = grub_video_gop_get_info_and_fini,
+     .get_edid = grub_video_gop_get_edid,
+     .set_palette = grub_video_fb_set_palette,
+Only in grub-2.06/grub-core/video: efi_gop.c.orig
+diff -r -u grub-2.06.orig/grub-core/video/fb/video_fb.c grub-2.06/grub-core/video/fb/video_fb.c
+--- grub-2.06.orig/grub-core/video/fb/video_fb.c	2023-01-30 14:19:42.133134156 +0100
++++ grub-2.06/grub-core/video/fb/video_fb.c	2023-01-30 14:27:46.583853058 +0100
+@@ -26,6 +26,7 @@
+ #include <grub/bitmap.h>
+ #include <grub/dl.h>
+ #include <grub/safemath.h>
++#include <grub/term.h>
+ 
+ GRUB_MOD_LICENSE ("GPLv3+");
+ 
+@@ -356,11 +357,22 @@
+ }
+ 
+ grub_err_t
+-grub_video_fb_get_info (struct grub_video_mode_info *mode_info)
++grub_video_fb_get_info (struct grub_video_mode_info *mode_info, void **framebuf)
+ {
+-  /* Copy mode info from active render target.  */
+-  grub_memcpy (mode_info, &framebuffer.render_target->mode_info,
+-               sizeof (struct grub_video_mode_info));
++  if (mode_info)
++    {
++      /* Copy mode info from active render target.  */
++      grub_memcpy (mode_info, &framebuffer.render_target->mode_info,
++                   sizeof (struct grub_video_mode_info));
++    }
++
++  if (framebuf)
++    {
++      *framebuf = (void *) framebuffer.pages[framebuffer.displayed_page];
++      if(!*framebuf && framebuffer.render_target) {
++        *framebuf = (void *) framebuffer.render_target->data;
++      }
++    }
+ 
+   return GRUB_ERR_NONE;
+ }
+Only in grub-2.06/grub-core/video/fb: video_fb.c.orig
+Only in grub-2.06/grub-core/video/fb: video_fb.c.rej
+Only in grub-2.06/grub-core/video/fb: video_fb.c~
+diff -r -u grub-2.06.orig/grub-core/video/video.c grub-2.06/grub-core/video/video.c
+--- grub-2.06.orig/grub-core/video/video.c	2023-01-30 14:19:42.133134156 +0100
++++ grub-2.06/grub-core/video/video.c	2023-01-30 14:24:21.848790570 +0100
+@@ -60,7 +60,28 @@
+       return grub_errno;
+     }
+ 
+-  return grub_video_adapter_active->get_info (mode_info);
++  return grub_video_adapter_active->get_info (mode_info, NULL);
++}
++
++/* Get (real) information about active video mode and framebuffer pointer.  */
++grub_err_t
++grub_video_get_raw_info (struct grub_video_mode_info *mode_info, void **framebuffer)
++{
++  grub_err_t err = GRUB_ERR_NONE;
++
++  if (! grub_video_adapter_active)
++    return grub_error (GRUB_ERR_BAD_DEVICE, "no video mode activated");
++
++  if (grub_video_adapter_active->get_raw_info)
++    {
++      err = grub_video_adapter_active->get_raw_info (mode_info, framebuffer);
++    }
++  else
++    {
++      err = grub_video_adapter_active->get_info (mode_info, framebuffer);
++    }
++
++  return err;
+ }
+ 
+ grub_video_driver_id_t
+@@ -720,7 +741,7 @@
+ 	      continue;
+ 	    }
+ 
+-	  err = p->get_info (&mode_info);
++	  err = p->get_info (&mode_info, NULL);
+ 	  if (err != GRUB_ERR_NONE)
+ 	    {
+ 	      p->fini ();
+diff -r -u grub-2.06.orig/include/grub/menu_viewer.h grub-2.06/include/grub/menu_viewer.h
+--- grub-2.06.orig/include/grub/menu_viewer.h	2023-01-30 14:19:41.829130288 +0100
++++ grub-2.06/include/grub/menu_viewer.h	2023-01-30 14:24:21.848790570 +0100
+@@ -35,6 +35,7 @@
+   void (*clear_timeout) (void *data);
+   void (*scroll_chosen_entry) (void *data, int diren);
+   void (*fini) (void *fini);
++  int (*process_key) (int *key);
+ };
+ 
+ void grub_menu_register_viewer (struct grub_menu_viewer *viewer);
+diff -r -u grub-2.06.orig/include/grub/video.h grub-2.06/include/grub/video.h
+--- grub-2.06.orig/include/grub/video.h	2018-11-24 18:13:02.000000000 +0100
++++ grub-2.06/include/grub/video.h	2023-01-30 14:24:21.848790570 +0100
+@@ -331,7 +331,9 @@
+                        grub_video_mode_type_t mode_type,
+ 		       grub_video_mode_type_t mode_mask);
+ 
+-  grub_err_t (*get_info) (struct grub_video_mode_info *mode_info);
++  grub_err_t (*get_info) (struct grub_video_mode_info *mode_info, void **framebuffer);
++
++  grub_err_t (*get_raw_info) (struct grub_video_mode_info *mode_info, void **framebuffer);
+ 
+   grub_err_t (*get_info_and_fini) (struct grub_video_mode_info *mode_info,
+ 				   void **framebuffer);
+@@ -437,6 +439,8 @@
+ 
+ grub_err_t EXPORT_FUNC (grub_video_get_info) (struct grub_video_mode_info *mode_info);
+ 
++grub_err_t EXPORT_FUNC (grub_video_get_raw_info) (struct grub_video_mode_info *mode_info, void **framebuffer);
++
+ /* Framebuffer address may change as a part of normal operation
+    (e.g. double buffering). That's why you need to stop video subsystem to be
+    sure that framebuffer address doesn't change. To ensure this abstraction
+diff -r -u grub-2.06.orig/include/grub/video_fb.h grub-2.06/include/grub/video_fb.h
+--- grub-2.06.orig/include/grub/video_fb.h	2018-11-24 18:13:02.000000000 +0100
++++ grub-2.06/include/grub/video_fb.h	2023-01-30 14:24:21.848790570 +0100
+@@ -42,7 +42,7 @@
+ EXPORT_FUNC(grub_video_fb_fini) (void);
+ 
+ grub_err_t
+-EXPORT_FUNC(grub_video_fb_get_info) (struct grub_video_mode_info *mode_info);
++EXPORT_FUNC(grub_video_fb_get_info) (struct grub_video_mode_info *mode_info, void **framebuf);
+ 
+ grub_err_t
+ EXPORT_FUNC(grub_video_fb_get_palette) (unsigned int start, unsigned int count,

@@ -208,6 +208,8 @@ void gfx_program_debug_on_off(unsigned state)
 
   if(!gstate) return;
 
+  gfx_screen_compose(gstate->geo);
+
   gfx_rect(
     gstate,
     0,

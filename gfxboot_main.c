@@ -53,15 +53,6 @@ int gfxboot_init()
   gfxboot_data->console.gstate_id = gfx_obj_gstate_new();
   gstate_t *console_gstate = gfx_obj_gstate_ptr(gfxboot_data->console.gstate_id);
 
-  if(console_gstate) {
-    console_gstate->canvas_id = gfx_obj_ref_inc(gfxboot_data->screen.virt_id);
-    console_gstate->geo = (area_t) { .width = canvas->size.width, .height = canvas->size.height };
-    console_gstate->region = (area_t) { .width = canvas->size.width, .height = canvas->size.height };
-    console_gstate->cursor = (area_t) {0, 0, 0, 0};
-    console_gstate->color = COLOR(0x00, 0xff, 0xff, 0xff);
-    console_gstate->bg_color = COLOR(0x00, 0x24, 0x16, 0x32);
-  }
-
   if(!gfx_setup_dict()) return 1;
 
   // setup compiled-in console font
@@ -72,21 +63,18 @@ int gfxboot_init()
   gfx_obj_ref_dec(console_font_data_id);
 
   area_t area = gfx_font_dim(console_gstate->font_id);
-  console_gstate->cursor.width = area.width;
-  console_gstate->cursor.height = area.height;
+  int t_width = area.width * 80;
+  int t_height = area.height * 25;
+  int t_x = (gfxboot_data->screen.real.width - t_width) / 2;
+  int t_y = (gfxboot_data->screen.real.height - t_height) / 2;
 
-  int t_width = console_gstate->cursor.width * 80;
-  int t_height = console_gstate->cursor.height * 25;
-  if(
-    console_gstate->region.width >= t_width &&
-    console_gstate->region.height >= t_height
-  ) {
-    console_gstate->region.x = (console_gstate->region.width - t_width) / 2;
-    console_gstate->region.y = (console_gstate->region.height - t_height) / 2;
-    console_gstate->region.width = t_width;
-    console_gstate->region.height = t_height;
-    console_gstate->cursor.y = t_height - console_gstate->cursor.height;
-  }
+  console_gstate->canvas_id = gfx_obj_canvas_new(t_width, t_height);
+  console_gstate->geo = (area_t) { .x = t_x, .y = t_y, .width = t_width, .height = t_height };
+  console_gstate->region = (area_t) { .width = t_width, .height = t_height };
+  console_gstate->cursor.y = t_height - console_gstate->cursor.height;
+  console_gstate->cursor = (area_t) { .y = t_height - console_gstate->cursor.height, .width = area.width, .height = area.height };
+  console_gstate->color = COLOR(0x00, 0xff, 0xff, 0xff);
+  console_gstate->bg_color = COLOR(0x80, 0x24, 0x16, 0x32);
 
   // load main program
   obj_id_t pfile_id = gfx_read_file("main.gc");

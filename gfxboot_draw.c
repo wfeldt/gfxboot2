@@ -98,8 +98,14 @@ void gfx_canvas_update(obj_id_t canvas_id, area_t area)
 
   int list_size = (int) list->size;
 
-  for(int i = 0; i < list_size; i++) {
-    gstate_t *gstate = gfx_obj_gstate_ptr(gfx_obj_array_get(list_id, i));
+  for(int i = 0; i <= list_size; i++) {
+    gstate_t *gstate = 0;
+    if(i == list_size) {
+      if(gfxboot_data->vm.debug.console.show) gstate = gfx_obj_gstate_ptr(gfxboot_data->console.gstate_id);
+    }
+    else {
+      gstate = gfx_obj_gstate_ptr(gfx_obj_array_get(list_id, i));
+    }
     if(!gstate) continue;
     if(gstate->canvas_id == canvas_id) {
       area.x += gstate->geo.x;
@@ -129,8 +135,14 @@ void gfx_screen_compose(area_t area)
 
   int blt_mode = 2;
 
-  for(int i = 0; i < list_size; i++) {
-    gstate_t *gstate = gfx_obj_gstate_ptr(gfx_obj_array_get(list_id, i));
+  for(int i = 0; i <= list_size; i++) {
+    gstate_t *gstate = 0;
+    if(i == list_size) {
+      if(gfxboot_data->vm.debug.console.show) gstate = gfx_obj_gstate_ptr(gfxboot_data->console.gstate_id);
+    }
+    else {
+      gstate = gfx_obj_gstate_ptr(gfx_obj_array_get(list_id, i));
+    }
     if(!gstate) continue;
     area_t dst_area = gstate->geo;
     area_t src_area = area;
@@ -141,7 +153,7 @@ void gfx_screen_compose(area_t area)
       src_area.y = diff.y;
       src_area.width = dst_area.width;
       src_area.height = dst_area.height;
-      gfxboot_serial(0, "compose %d: src = %dx%d_%dx%d, dst = %dx%d_%dx%d\n", i, src_area.x, src_area.y, src_area.width, src_area.height, dst_area.x, dst_area.y, dst_area.width, dst_area.height);
+      // gfxboot_serial(0, "compose %d: src = %dx%d_%dx%d, dst = %dx%d_%dx%d\n", i, src_area.x, src_area.y, src_area.width, src_area.height, dst_area.x, dst_area.y, dst_area.width, dst_area.height);
       gfx_blt(blt_mode, target_gstate->canvas_id, dst_area, gstate->canvas_id, src_area);
       blt_mode = 3;
     }
@@ -389,13 +401,15 @@ void gfx_console_putc(unsigned c, int update_pos)
         // scroll up
         gfx_blt(0, gstate->canvas_id, dst_area, gstate->canvas_id, src_area);
 
+        color_t x = gstate->bg_color;
+
         gfx_rect(
           gstate,
           0,
           gstate->region.height - gstate->cursor.height,
           gstate->region.width,
           gstate->cursor.height,
-          gstate->bg_color
+          x
         );
       }
       break;

@@ -414,7 +414,6 @@ char *gfx_utf8_enc(unsigned uc);
 int gfx_utf8_dec(char **s, unsigned *len);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_screen_update(obj_id_t canvas_id, area_t area);
 void gfx_screen_compose(area_t area);
 void gfx_console_putc(unsigned c, int update_pos);
 void gfx_console_puts(char *s);

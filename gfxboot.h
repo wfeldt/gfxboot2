@@ -303,7 +303,8 @@ typedef struct {
 typedef struct {
   struct {
     fb_t real;
-    obj_id_t virt_id;
+    obj_id_t virt_id;		// canvas_t
+    obj_id_t gstate_id;		// gstate_t, using canvas virt_id
   } screen;
 
   struct {
@@ -413,7 +414,8 @@ char *gfx_utf8_enc(unsigned uc);
 int gfx_utf8_dec(char **s, unsigned *len);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_screen_update(area_t area);
+void gfx_screen_update(obj_id_t canvas_id, area_t area);
+void gfx_screen_compose(area_t area);
 void gfx_console_putc(unsigned c, int update_pos);
 void gfx_console_puts(char *s);
 void gfx_putc(gstate_t *gstate, unsigned c, int update_pos);

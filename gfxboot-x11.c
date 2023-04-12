@@ -381,6 +381,7 @@ int x11_event_loop()
 
         case Expose:
           // gfxboot_log("XEvent.type == Expose(%d, %d, %d, %d)\n", xev.xexpose.x, xev.xexpose.y, xev.xexpose.width, xev.xexpose.height);
+          gfxboot_screen_update((area_t) { xev.xexpose.x, xev.xexpose.y, xev.xexpose.width, xev.xexpose.height });
           break;
 
         case ConfigureNotify:

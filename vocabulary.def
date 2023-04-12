@@ -72,6 +72,8 @@ setfont
 newfont
 getregion
 setregion
+getlocation
+setlocation
 canvas
 getcanvas
 setcanvas
@@ -98,3 +100,4 @@ utf8encode
 format
 getcompose
 setcompose
+update

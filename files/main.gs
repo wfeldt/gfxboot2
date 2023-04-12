@@ -5,6 +5,13 @@
 /text "ABC 12345 xyz # * % & § öäüß €" def
 
 /image "katze_800.jpg" readfile unpackimage2 def
+/x1 "x1.jpg" readfile unpackimage2 def
+x1 400 50 setlocation
+
+/x2 "x2.jpg" readfile unpackimage2 def
+x2 -80 -80 setlocation
+
+[ getgstate x1 x2 ] setcompose
 
 0 0 setpos
 image getgstate exch blt

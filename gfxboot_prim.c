@@ -3611,6 +3611,74 @@ void gfx_prim_setregion()
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// get location
+//
+// group: gfx
+//
+// ( gstate_1 -- int_1 int_2 )
+// gstate_1: graphics state
+// int_1: x
+// int_2: y
+//
+// Get location associated with graphics state.
+//
+// example:
+//
+// getgstate getlocation                  # 0 0
+//
+void gfx_prim_getlocation()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_GSTATE);
+
+  if(!argv) return;
+
+  gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->geo.x : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->geo.y : 0, t_int), 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// set location
+//
+// group: gfx
+//
+// ( gstate_1 int_1 int_2 -- )
+// gstate_1: graphics state
+// int_1: x
+// int_2: y
+//
+// Set location associated with graphics state.
+//
+// example:
+//
+// getgstate 10 10 setlocation
+//
+void gfx_prim_setlocation()
+{
+  arg_t *argv = gfx_arg_n(3, (uint8_t [3]) { OTYPE_GSTATE, OTYPE_NUM, OTYPE_NUM });
+
+  if(!argv) return;
+
+  gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
+
+  int64_t val1 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
+  int64_t val2 = OBJ_VALUE_FROM_PTR(argv[2].ptr);
+
+  canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
+  if(canvas) {
+    canvas->size.x = gstate->geo.x = val1;
+    canvas->size.y = gstate->geo.y = val2;
+  }
+
+  gfx_obj_array_pop_n(3, gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // create canvas
 //
 // group: gfx
@@ -4685,4 +4753,40 @@ void gfx_prim_setcompose()
   OBJ_ID_ASSIGN(gfxboot_data->compose.list_id, argv[0].id);
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// update screen region
+//
+// group: gfx
+//
+// ( int_1 int_2 int_3 int_4 -- )
+// int_1: x
+// int_2: y
+// int_3: width
+// int_4: height
+//
+// Update (redraw) screen region.
+//
+// example:
+//
+// 10 10 200 100 update
+//
+void gfx_prim_update()
+{
+  arg_t *argv = gfx_arg_n(4, (uint8_t [4]) { OTYPE_NUM, OTYPE_NUM, OTYPE_NUM, OTYPE_NUM });
+
+  if(!argv) return;
+
+  int64_t val1 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+  int64_t val2 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
+  int64_t val3 = OBJ_VALUE_FROM_PTR(argv[2].ptr);
+  int64_t val4 = OBJ_VALUE_FROM_PTR(argv[3].ptr);
+
+  area_t area = { .x = val1, .y = val2, .width = val3, .height = val4 };
+
+  gfx_screen_compose(area);
+
+  gfx_obj_array_pop_n(4, gfxboot_data->vm.program.pstack, 1);
 }

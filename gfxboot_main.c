@@ -22,8 +22,21 @@ int gfxboot_init()
 
   canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->screen.virt_id);
 
+  gfxboot_data->screen.gstate_id = gfx_obj_gstate_new();
+  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->screen.gstate_id);
+
+  if(gstate) {
+    gstate->canvas_id = gfx_obj_canvas_new(gfxboot_data->screen.real.width, gfxboot_data->screen.real.height);
+    if(!gstate->canvas_id) return 1;
+    gstate->geo = (area_t) { .width = gfxboot_data->screen.real.width, .height = gfxboot_data->screen.real.height };
+    gstate->region = (area_t) { .width = gfxboot_data->screen.real.width, .height = gfxboot_data->screen.real.height };
+    gstate->cursor = (area_t) {0, 0, 0, 0};
+    gstate->color = COLOR(0x00, 0xff, 0xff, 0xff);
+    gstate->bg_color = COLOR(0xff, 0x00, 0x00, 0x00);
+  }
+
   gfxboot_data->gstate_id = gfx_obj_gstate_new();
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+  gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
   if(gstate) {
     gstate->canvas_id = gfx_obj_ref_inc(gfxboot_data->screen.virt_id);

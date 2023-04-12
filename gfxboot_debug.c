@@ -330,6 +330,7 @@ void gfx_vm_status_dump()
   );
 
   gfxboot_log("virtual screen:\n  id = %s\n", gfx_obj_id2str(gfxboot_data->screen.virt_id));
+  gfxboot_log("  gstate = %s\n", gfx_obj_id2str(gfxboot_data->screen.gstate_id));
 
   canvas_t *c = gfx_obj_canvas_ptr(gfxboot_data->screen.virt_id);
 
@@ -546,6 +547,9 @@ void debug_cmd_dump(int argc, char **argv)
     }
     else if(!gfx_strcmp(argv[1], "screen")) {
       id = gfxboot_data->screen.virt_id;
+    }
+    else if(!gfx_strcmp(argv[1], "screen_gstate")) {
+      id = gfxboot_data->screen.gstate_id;
     }
     else if(!gfx_strcmp(argv[1], "gstate")) {
       id = gfxboot_data->gstate_id;
@@ -802,6 +806,11 @@ void debug_cmd_set(int argc, char **argv)
   else if(!gfx_strcmp(argv[0], "screen")) {
     obj_id_t old = gfxboot_data->screen.virt_id;
     gfxboot_data->screen.virt_id = gfx_obj_ref_inc(id);
+    gfx_obj_ref_dec(old);
+  }
+  else if(!gfx_strcmp(argv[0], "screen_gstate")) {
+    obj_id_t old = gfxboot_data->screen.gstate_id;
+    gfxboot_data->screen.gstate_id = gfx_obj_ref_inc(id);
     gfx_obj_ref_dec(old);
   }
   else if(!gfx_strcmp(argv[0], "gstate")) {

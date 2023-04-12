@@ -17,7 +17,7 @@ static color_t gfx_color_merge(color_t dst, color_t src);
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_screen_update(area_t area)
+void gfx_screen_update(obj_id_t canvas_id, area_t area)
 {
   int i, j;
   uint8_t *r8, *rc8;
@@ -28,7 +28,7 @@ void gfx_screen_update(area_t area)
   int rp, gp, bp;
   int rsize;
 
-  canvas_t *virt_fb = gfx_obj_canvas_ptr(gfxboot_data->screen.virt_id);
+  canvas_t *virt_fb = gfx_obj_canvas_ptr(canvas_id);
   if(!virt_fb) return;
 
   color_t *pixel = virt_fb->ptr;
@@ -82,6 +82,46 @@ void gfx_screen_update(area_t area)
   }
 
   gfxboot_screen_update(area);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+void gfx_screen_compose(area_t area)
+{
+  obj_id_t list_id = gfxboot_data->compose.list_id;
+  array_t *list = gfx_obj_array_ptr(list_id);
+
+  if(!list) return;
+
+  gstate_t *target_gstate = gfx_obj_gstate_ptr(gfxboot_data->screen.gstate_id);
+
+  if(!target_gstate) return;
+
+  int list_size = (int) list->size;
+
+  gfx_clip(&area, &target_gstate->geo);
+
+  int blt_mode = 0;
+
+  for(int i = 0; i < list_size; i++) {
+    gstate_t *gstate = gfx_obj_gstate_ptr(gfx_obj_array_get(list_id, i));
+    if(!gstate) continue;
+    area_t dst_area = gstate->geo;
+    area_t src_area = area;
+    area_t diff = gfx_clip(&dst_area, &src_area);
+    if(dst_area.width) {
+      // gfxboot_serial(0, "XXX i = %d: +%dx%d_%dx%d %dx%d_%dx%d\n", i, diff.x, diff.y, diff.width, diff.height, dst_area.x, dst_area.y, dst_area.width, dst_area.height);
+      src_area.x = diff.x;
+      src_area.y = diff.y;
+      src_area.width = dst_area.width;
+      src_area.height = dst_area.height;
+      gfxboot_serial(0, "XXX %d: src = %dx%d_%dx%d, dst = %dx%d_%dx%d\n", i, src_area.x, src_area.y, src_area.width, src_area.height, dst_area.x, dst_area.y, dst_area.width, dst_area.height);
+      gfx_blt(blt_mode, target_gstate->canvas_id, dst_area, gstate->canvas_id, src_area);
+      blt_mode = 1;
+    }
+  }
+
+  gfx_screen_update(target_gstate->canvas_id, area);
 }
 
 
@@ -381,7 +421,22 @@ void gfx_putc(gstate_t *gstate, unsigned c, int update_pos)
       .height = glyph->size.height
     };
 
+#if 1
+    gfxboot_serial(1, "putc 0x%2x - area %dx%d_%dx%d",
+      c, area.x, area.y, area.width, area.height
+    );
+#endif
+
     area_t diff = gfx_clip(&area, &gstate->region);
+
+#if 1
+    gfxboot_serial(1, " - clipped area %dx%d_%dx%d",
+      area.x, area.y, area.width, area.height
+    );
+    gfxboot_serial(1, " - diff %dx%d_%dx%d\n",
+      diff.x, diff.y, diff.width, diff.height
+    );
+#endif
 
     ADD_AREA(glyph_area, diff);
 
@@ -422,6 +477,11 @@ void gfx_puts(gstate_t *gstate, char *s, unsigned len)
 //
 // return difference (diff = area1_clipped - area1_unclipped)
 //
+// Notes:
+//   - diff.x, diff.y >= 0
+//   - diff.width, diff.height <= 0
+//   - if the clipped area is 0, both width and height will be set to 0
+//
 area_t gfx_clip(area_t *area1, area_t *area2)
 {
   area_t diff = {};
@@ -454,13 +514,10 @@ area_t gfx_clip(area_t *area1, area_t *area2)
   area1->width += diff.width;
   area1->height += diff.height;
 
-  if(area1->width < 0) {
-    diff.width = -area1->width;
+  if(area1->width <= 0 || area1->height <= 0) {
+    diff.width -= area1->width;
     area1->width = 0;
-  }
-
-  if(area1->height < 0) {
-    diff.height = -area1->height;
+    diff.height -= area1->height;
     area1->height = 0;
   }
 
@@ -527,7 +584,7 @@ void gfx_blt(int mode, obj_id_t dst_id, area_t dst_area, obj_id_t src_id, area_t
   }
 
   if(dst_id == gfxboot_data->screen.virt_id) {
-    gfx_screen_update(dst_area);
+    gfx_screen_update(gfxboot_data->screen.virt_id, dst_area);
   }
 }
 
@@ -606,7 +663,7 @@ void gfx_putpixel(gstate_t *gstate, int x, int y, color_t color)
       int ofs = x + y * canvas->size.width;
       canvas->ptr[ofs] = gfx_color_merge(canvas->ptr[ofs], color);
       if(gstate->canvas_id == gfxboot_data->screen.virt_id) {
-        gfx_screen_update((area_t) { .x = x, .y = y, .width = 1, .height = 1 });
+        gfx_screen_update(gfxboot_data->screen.virt_id, (area_t) { .x = x, .y = y, .width = 1, .height = 1 });
       }
     }
   }
@@ -732,7 +789,7 @@ void gfx_rect(gstate_t *gstate, int x, int y, int width, int height, color_t c)
   }
 
   if(gstate->canvas_id == gfxboot_data->screen.virt_id) {
-    gfx_screen_update(area);
+    gfx_screen_update(gfxboot_data->screen.virt_id, area);
   }
 }
 

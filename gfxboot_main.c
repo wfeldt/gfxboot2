@@ -16,8 +16,14 @@ int gfxboot_init()
 
   gfx_vm_status_dump();
 
+  // gfxboot_data->vm.debug.show_pointer = 1;
+  // gfx_obj_dump(OBJ_ID(0, 1), (dump_style_t) { .dump = 1, .no_check = 1 });
+
   // setup compiled-in console font
   obj_id_t console_font_data_id = gfx_obj_const_mem_nofree_new(_console_font, sizeof _console_font, 0, 0);
+  obj_id_t font_id = gfx_obj_font_open(console_font_data_id);
+  // font structure itself holds ref to data
+  gfx_obj_ref_dec(console_font_data_id);
 
   // create virtual screen, used for drawing
   gfxboot_data->screen.canvas_id = gfx_obj_canvas_new(gfxboot_data->screen.real.width, gfxboot_data->screen.real.height);
@@ -34,11 +40,6 @@ int gfxboot_init()
   canvas->bg_color = COLOR(0xff, 0x00, 0x00, 0x00);
 
   // create canvas for debug console
-  obj_id_t font_id = gfx_obj_font_open(console_font_data_id);
-
-  // font structure itself holds ref to data
-  gfx_obj_ref_dec(console_font_data_id);
-
   area_t area = gfx_font_dim(font_id);
   int t_width = area.width * 80;
   int t_height = area.height * 25;

@@ -10,9 +10,9 @@
 static void gfx_screen_update(obj_id_t canvas_id, area_t area);
 static void gfx_canvas_update(obj_id_t canvas_id, area_t area);
 
-static obj_id_t gfx_font_render_glyph(gstate_t *gstate, area_t *geo, unsigned c);
-static obj_id_t gfx_font_render_font1_glyph(gstate_t *gstate, font_t *font, area_t *geo, unsigned c);
-static obj_id_t gfx_font_render_font2_glyph(gstate_t *gstate, font_t *font, area_t *geo, unsigned c);
+static obj_id_t gfx_font_render_glyph(obj_id_t canvas_id, area_t *geo, unsigned c);
+static obj_id_t gfx_font_render_font1_glyph(obj_id_t canvas_id, font_t *font, area_t *geo, unsigned c);
+static obj_id_t gfx_font_render_font2_glyph(obj_id_t canvas_id, font_t *font, area_t *geo, unsigned c);
 static unsigned read_unsigned_bits(uint8_t *buf, unsigned *bit_ofs, unsigned bits);
 static int read_signed_bits(uint8_t *buf, unsigned *bit_ofs, unsigned bits);
 
@@ -168,20 +168,22 @@ void gfx_screen_compose(area_t area)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-obj_id_t gfx_font_render_glyph(gstate_t *gstate, area_t *geo, unsigned c)
+obj_id_t gfx_font_render_glyph(obj_id_t canvas_id, area_t *geo, unsigned c)
 {
   font_t *font;
   obj_id_t font_id, glyph_id = 0;
 
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+
   while(1) {
-    for(font_id = GSTATE_TO_CANVAS(gstate)->font_id; (font = gfx_obj_font_ptr(font_id)); font_id = font->parent_id) {
+    for(font_id = canvas->font_id; (font = gfx_obj_font_ptr(font_id)); font_id = font->parent_id) {
       switch(font->type) {
         case 1:
-          glyph_id = gfx_font_render_font1_glyph(gstate, font, geo, c);
+          glyph_id = gfx_font_render_font1_glyph(canvas_id, font, geo, c);
           break;
 
         case 2:
-          glyph_id = gfx_font_render_font2_glyph(gstate, font, geo, c);
+          glyph_id = gfx_font_render_font2_glyph(canvas_id, font, geo, c);
           break;
       }
       if(glyph_id) return glyph_id;
@@ -197,8 +199,10 @@ obj_id_t gfx_font_render_glyph(gstate_t *gstate, area_t *geo, unsigned c)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-obj_id_t gfx_font_render_font1_glyph(gstate_t *gstate, font_t *font, area_t *geo, unsigned c)
+obj_id_t gfx_font_render_font1_glyph(obj_id_t canvas_id, font_t *font, area_t *geo, unsigned c)
 {
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+
   data_t *data = gfx_obj_mem_ptr(font->data_id);
   if(!data) return 0;
 
@@ -241,8 +245,8 @@ obj_id_t gfx_font_render_font1_glyph(gstate_t *gstate, font_t *font, area_t *geo
 
   // got bitmap, now go for it
 
-  color_t fg = GSTATE_TO_CANVAS(gstate)->color;
-  color_t bg = GSTATE_TO_CANVAS(gstate)->bg_color;
+  color_t fg = canvas->color;
+  color_t bg = canvas->bg_color;
 
   color_t *col = glyph->ptr;
   uint8_t cb;
@@ -263,8 +267,10 @@ obj_id_t gfx_font_render_font1_glyph(gstate_t *gstate, font_t *font, area_t *geo
 #define MAX_GRAY	((1 << GRAY_BITS) - 3)
 #define REP_BG		(MAX_GRAY + 1)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-obj_id_t gfx_font_render_font2_glyph(gstate_t *gstate, font_t *font, area_t *geo, unsigned c)
+obj_id_t gfx_font_render_font2_glyph(obj_id_t canvas_id, font_t *font, area_t *geo, unsigned c)
 {
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+
   data_t *data = gfx_obj_mem_ptr(font->data_id);
   if(!data) return 0;
 
@@ -336,7 +342,7 @@ obj_id_t gfx_font_render_font2_glyph(gstate_t *gstate, font_t *font, area_t *geo
     } __attribute__ ((packed));
   } __attribute__ ((packed)) fg, tmp;
 
-  fg.c = GSTATE_TO_CANVAS(gstate)->color;
+  fg.c = canvas->color;
 
   // if drawing color changed, recalculate color mapping table
   if(fg.c != last_fg || first_time_ever) {
@@ -381,7 +387,7 @@ void gfx_console_putc(unsigned c, int update_pos)
   switch(c) {
     case 0x08:
       if(update_pos) {
-        gfx_putc(gstate, ' ', 0);
+        gfx_putc(gstate->canvas_id, ' ', 0);
         if(canvas->cursor.x >= canvas->cursor.width) {
           canvas->cursor.x -= canvas->cursor.width;
         }
@@ -427,7 +433,7 @@ void gfx_console_putc(unsigned c, int update_pos)
       break;
 
     default:
-      gfx_putc(gstate, c, update_pos);
+      gfx_putc(gstate->canvas_id, c, update_pos);
   }
 }
 
@@ -444,14 +450,15 @@ void gfx_console_puts(char *s)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_putc(gstate_t *gstate, unsigned c, int update_pos)
+void gfx_putc(obj_id_t canvas_id, unsigned c, int update_pos)
 {
   obj_id_t glyph_id;
   area_t geo;
 
-  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+  if(!canvas) return;
 
-  if((glyph_id = gfx_font_render_glyph(gstate, &geo, c))) {
+  if((glyph_id = gfx_font_render_glyph(canvas_id, &geo, c))) {
     canvas_t *glyph = gfx_obj_canvas_ptr(glyph_id);
     if(!glyph) return;
 
@@ -488,7 +495,7 @@ void gfx_putc(gstate_t *gstate, unsigned c, int update_pos)
 
     ADD_AREA(glyph_area, diff);
 
-    gfx_blt(canvas->draw_mode, gstate->canvas_id, area, glyph_id, glyph_area);
+    gfx_blt(canvas->draw_mode, canvas_id, area, glyph_id, glyph_area);
 
     if(update_pos) canvas->cursor.x += geo.width;
   }
@@ -496,9 +503,10 @@ void gfx_putc(gstate_t *gstate, unsigned c, int update_pos)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_puts(gstate_t *gstate, char *s, unsigned len)
+void gfx_puts(obj_id_t canvas_id, char *s, unsigned len)
 {
-  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+  if(!canvas) return;
 
   int c;
   int start = canvas->cursor.x;
@@ -516,7 +524,7 @@ void gfx_puts(gstate_t *gstate, char *s, unsigned len)
         break;
 
       default:
-        gfx_putc(gstate, (unsigned) c, 1);
+        gfx_putc(canvas_id, (unsigned) c, 1);
     }
   }
 }

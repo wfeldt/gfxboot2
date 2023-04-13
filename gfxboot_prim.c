@@ -4048,7 +4048,7 @@ void gfx_prim_show()
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
   if(gstate) {
-    gfx_puts(gstate, data->ptr, data->size);
+    gfx_puts(gstate->canvas_id, data->ptr, data->size);
   }
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);

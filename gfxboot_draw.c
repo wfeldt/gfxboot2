@@ -410,7 +410,7 @@ void gfx_console_putc(unsigned c, int update_pos)
         gfx_blt(canvas->draw_mode, gstate->canvas_id, dst_area, gstate->canvas_id, src_area);
 
         gfx_rect(
-          gstate,
+          gstate->canvas_id,
           0,
           canvas->region.height - canvas->cursor.height,
           canvas->region.width,
@@ -677,11 +677,11 @@ color_t gfx_color_merge(color_t dst, color_t src)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-int gfx_getpixel(gstate_t *gstate, int x, int y, color_t *color)
+int gfx_getpixel(obj_id_t canvas_id, int x, int y, color_t *color)
 {
   int ok = 0;
 
-  canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
 
   if(!canvas) return 0;
 
@@ -699,14 +699,14 @@ int gfx_getpixel(gstate_t *gstate, int x, int y, color_t *color)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_putpixel(gstate_t *gstate, int x, int y, color_t color)
+void gfx_putpixel(obj_id_t canvas_id, int x, int y, color_t color)
 {
-  draw_mode_t mode_no_update = GSTATE_TO_CANVAS(gstate)->draw_mode & dm_no_update;
-  draw_mode_t mode = GSTATE_TO_CANVAS(gstate)->draw_mode & (dm_no_update - 1);
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+
+  draw_mode_t mode_no_update = canvas->draw_mode & dm_no_update;
+  draw_mode_t mode = canvas->draw_mode & (dm_no_update - 1);
 
   // gfxboot_serial(0, "X putpixel %dx%d\n", x, y);
-
-  canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
 
   if(!canvas) return;
 
@@ -722,14 +722,14 @@ void gfx_putpixel(gstate_t *gstate, int x, int y, color_t color)
         canvas->ptr[ofs] = gfx_color_merge(canvas->ptr[ofs], color);
       }
 
-      if(!mode_no_update) gfx_canvas_update(gstate->canvas_id, (area_t) { .x = x, .y = y, .width = 1, .height = 1 });
+      if(!mode_no_update) gfx_canvas_update(canvas_id, (area_t) { .x = x, .y = y, .width = 1, .height = 1 });
     }
   }
 }
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_line(gstate_t *gstate, int x0, int y0, int x1, int y1, color_t color)
+void gfx_line(obj_id_t canvas_id, int x0, int y0, int x1, int y1, color_t color)
 {
   if(x1 < x0) {
     int tmp;
@@ -748,10 +748,10 @@ void gfx_line(gstate_t *gstate, int x0, int y0, int x1, int y1, color_t color)
       dy = -dy;
     }
     if(dx) {
-      gfx_rect(gstate, x0, y0, dx + 1, 1, color);
+      gfx_rect(canvas_id, x0, y0, dx + 1, 1, color);
     }
     else if(dy) {
-      gfx_rect(gstate, x0, y0, 1, dy + 1, color);
+      gfx_rect(canvas_id, x0, y0, 1, dy + 1, color);
     }
 
     return;
@@ -760,7 +760,7 @@ void gfx_line(gstate_t *gstate, int x0, int y0, int x1, int y1, color_t color)
   if(dy >= 0) {
     if(dy <= dx) {
       for(acc = -(dx / 2); x0 <= x1; x0++) {
-        gfx_putpixel(gstate, x0, y0, color);
+        gfx_putpixel(canvas_id, x0, y0, color);
         acc += dy;
         if(acc >= 0) {
           acc -= dx;
@@ -770,7 +770,7 @@ void gfx_line(gstate_t *gstate, int x0, int y0, int x1, int y1, color_t color)
     }
     else {
       for(acc = -(dy / 2); y0 <= y1; y0++) {
-        gfx_putpixel(gstate, x0, y0, color);
+        gfx_putpixel(canvas_id, x0, y0, color);
         acc += dx;
         if(acc >= 0) {
           acc -= dy;
@@ -783,7 +783,7 @@ void gfx_line(gstate_t *gstate, int x0, int y0, int x1, int y1, color_t color)
     dy = -dy;
     if(dy <= dx) {
       for(acc = -(dx / 2); x0 <= x1; x0++) {
-        gfx_putpixel(gstate, x0, y0, color);
+        gfx_putpixel(canvas_id, x0, y0, color);
         acc += dy;
         if(acc >= 0) {
           acc -= dx;
@@ -793,7 +793,7 @@ void gfx_line(gstate_t *gstate, int x0, int y0, int x1, int y1, color_t color)
     }
     else {
       for(acc = -(dy / 2); y0 >= y1; y0--) {
-        gfx_putpixel(gstate, x0, y0, color);
+        gfx_putpixel(canvas_id, x0, y0, color);
         acc += dx;
         if(acc >= 0) {
           acc -= dy;
@@ -806,14 +806,13 @@ void gfx_line(gstate_t *gstate, int x0, int y0, int x1, int y1, color_t color)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_rect(gstate_t *gstate, int x, int y, int width, int height, color_t c)
+void gfx_rect(obj_id_t canvas_id, int x, int y, int width, int height, color_t c)
 {
-  draw_mode_t mode_no_update = GSTATE_TO_CANVAS(gstate)->draw_mode & dm_no_update;
-  draw_mode_t mode = GSTATE_TO_CANVAS(gstate)->draw_mode & (dm_no_update - 1);
-
-  canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
-
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
   if(!canvas) return;
+
+  draw_mode_t mode_no_update = canvas->draw_mode & dm_no_update;
+  draw_mode_t mode = canvas->draw_mode & (dm_no_update - 1);
 
   area_t area = {
     .x = canvas->region.x + x,
@@ -858,7 +857,7 @@ void gfx_rect(gstate_t *gstate, int x, int y, int width, int height, color_t c)
     }
   }
 
-  if(!mode_no_update) gfx_canvas_update(gstate->canvas_id, area);
+  if(!mode_no_update) gfx_canvas_update(canvas_id, area);
 }
 
 

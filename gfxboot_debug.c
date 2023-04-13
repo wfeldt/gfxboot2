@@ -215,7 +215,7 @@ void gfx_program_debug_on_off(unsigned state)
   gfx_screen_compose(canvas->geo);
 
   gfx_rect(
-    gstate,
+    gstate->canvas_id,
     0,
     canvas->region.height - canvas->cursor.height,
     canvas->region.width,

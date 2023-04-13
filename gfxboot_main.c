@@ -69,7 +69,7 @@ int gfxboot_init()
   canvas->cursor = (area_t) { .y = t_height - area.height, .width = area.width, .height = area.height };
   canvas->color = COLOR(0x00, 0xff, 0xff, 0xff);
   canvas->bg_color = COLOR(0x60, 0x32, 0x32, 0x32);
-  gfx_rect(gstate, 0, 0, t_width, t_height, canvas->bg_color);
+  gfx_rect(gstate->canvas_id, 0, 0, t_width, t_height, canvas->bg_color);
 
   // create default compose list and add default background canvas
   gfxboot_data->compose.list_id = gfx_obj_array_new(0);
@@ -151,7 +151,7 @@ int gfxboot_process_key(unsigned key)
 
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
-  if(gstate) gfx_rect(gstate, x, y, 100, 20, (40 + y) * 0x7834242296 * (x + 1));
+  if(gstate) gfx_rect(gstate->canvas_id, x, y, 100, 20, (40 + y) * 0x7834242296 * (x + 1));
 
   y += 20;
 

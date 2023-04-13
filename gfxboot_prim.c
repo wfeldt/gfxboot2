@@ -4389,7 +4389,7 @@ void gfx_prim_getpixel()
 
   if(canvas) {
     color_t color;
-    if(gfx_getpixel(gstate, canvas->cursor.x, canvas->cursor.y, &color)) {
+    if(gfx_getpixel(gstate->canvas_id, canvas->cursor.x, canvas->cursor.y, &color)) {
       val = gfx_obj_num_new(color, t_int);
     }
   }
@@ -4420,7 +4420,7 @@ void gfx_prim_putpixel()
   canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
 
   if(canvas) {
-    gfx_putpixel(gstate, canvas->cursor.x, canvas->cursor.y, canvas->color);
+    gfx_putpixel(gstate->canvas_id, canvas->cursor.x, canvas->cursor.y, canvas->color);
   }
 }
 
@@ -4456,7 +4456,7 @@ void gfx_prim_lineto()
   canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
 
   if(canvas) {
-    gfx_line(gstate, canvas->cursor.x, canvas->cursor.y, val1, val2, canvas->color);
+    gfx_line(gstate->canvas_id, canvas->cursor.x, canvas->cursor.y, val1, val2, canvas->color);
 
     canvas->cursor.x = val1;
     canvas->cursor.y = val2;
@@ -4496,7 +4496,7 @@ void gfx_prim_fillrect()
   canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
 
   if(canvas) {
-    gfx_rect(gstate, canvas->cursor.x, canvas->cursor.y, val1, val2, canvas->color);
+    gfx_rect(gstate->canvas_id, canvas->cursor.x, canvas->cursor.y, val1, val2, canvas->color);
   }
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);

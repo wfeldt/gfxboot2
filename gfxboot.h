@@ -430,10 +430,10 @@ void gfx_putc(gstate_t *gstate, unsigned c, int update_pos);
 void gfx_puts(gstate_t *gstate, char *s, unsigned len);
 area_t gfx_clip(area_t *area1, area_t *area2);
 void gfx_blt(draw_mode_t mode, obj_id_t dst_id, area_t dst_area, obj_id_t src_id, area_t src_area);
-int gfx_getpixel(gstate_t *gstate, int x, int y, color_t *color);
-void gfx_putpixel(gstate_t *gstate, int x, int y, color_t color);
-void gfx_line(gstate_t *gstate, int x0, int y0, int x1, int y1, color_t color);
-void gfx_rect(gstate_t *gstate, int x, int y, int width, int height, color_t c);
+int gfx_getpixel(obj_id_t canvas_id, int x, int y, color_t *color);
+void gfx_putpixel(obj_id_t canvas_id, int x, int y, color_t color);
+void gfx_line(obj_id_t canvas_id, int x0, int y0, int x1, int y1, color_t color);
+void gfx_rect(obj_id_t canvas_id, int x, int y, int width, int height, color_t c);
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

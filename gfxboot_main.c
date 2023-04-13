@@ -24,7 +24,7 @@ int gfxboot_init()
   if(!gstate->canvas_id) return 1;
   gstate->geo = (area_t) { .width = gfxboot_data->screen.real.width, .height = gfxboot_data->screen.real.height };
   gstate->region = (area_t) { .width = gfxboot_data->screen.real.width, .height = gfxboot_data->screen.real.height };
-  gstate->cursor = (area_t) {0, 0, 0, 0};
+  GSTATE_TO_CANVAS(gstate)->cursor = (area_t) {0, 0, 0, 0};
   GSTATE_TO_CANVAS(gstate)->color = COLOR(0x00, 0xff, 0xff, 0xff);
   GSTATE_TO_CANVAS(gstate)->bg_color = COLOR(0xff, 0x00, 0x00, 0x00);
 
@@ -36,7 +36,7 @@ int gfxboot_init()
   if(!gstate->canvas_id) return 1;
   gstate->geo = (area_t) { .width = gfxboot_data->screen.real.width, .height = gfxboot_data->screen.real.height };
   gstate->region = (area_t) { .width = gfxboot_data->screen.real.width, .height = gfxboot_data->screen.real.height };
-  gstate->cursor = (area_t) {0, 0, 0, 0};
+  GSTATE_TO_CANVAS(gstate)->cursor = (area_t) {0, 0, 0, 0};
   GSTATE_TO_CANVAS(gstate)->color = COLOR(0x00, 0xff, 0xff, 0xff);
   GSTATE_TO_CANVAS(gstate)->bg_color = COLOR(0xff, 0x00, 0x00, 0x00);
 
@@ -63,7 +63,7 @@ int gfxboot_init()
   GSTATE_TO_CANVAS(gstate)->font_id = font_id;
   gstate->geo = (area_t) { .x = t_x, .y = t_y, .width = t_width, .height = t_height };
   gstate->region = (area_t) { .width = t_width, .height = t_height };
-  gstate->cursor = (area_t) { .y = t_height - area.height, .width = area.width, .height = area.height };
+  GSTATE_TO_CANVAS(gstate)->cursor = (area_t) { .y = t_height - area.height, .width = area.width, .height = area.height };
   GSTATE_TO_CANVAS(gstate)->color = COLOR(0x00, 0xff, 0xff, 0xff);
   GSTATE_TO_CANVAS(gstate)->bg_color = COLOR(0x60, 0x32, 0x32, 0x32);
   gfx_rect(gstate, 0, 0, t_width, t_height, GSTATE_TO_CANVAS(gstate)->bg_color);

@@ -208,22 +208,26 @@ void gfx_program_debug_on_off(unsigned state)
 
   if(!gstate) return;
 
+  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+
+  if(!canvas) return;
+
   gfx_screen_compose(gstate->geo);
 
   gfx_rect(
     gstate,
     0,
-    gstate->region.height - gstate->cursor.height,
+    gstate->region.height - canvas->cursor.height,
     gstate->region.width,
-    gstate->cursor.height,
-    GSTATE_TO_CANVAS(gstate)->bg_color
+    canvas->cursor.height,
+    canvas->bg_color
   );
 
   gfxboot_data->vm.debug.console.buf_pos = 0;
   gfxboot_data->vm.debug.console.buf[0] = 0;
 
-  gstate->cursor.x = 0;
-  gstate->cursor.y = gstate->region.height - gstate->cursor.height;
+  canvas->cursor.x = 0;
+  canvas->cursor.y = gstate->region.height - canvas->cursor.height;
 
   if(gfxboot_data->vm.debug.console.show) {
     char buf[64];
@@ -255,6 +259,8 @@ void gfx_program_debug(unsigned key)
 {
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->console.gstate_id);
 
+  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+
   unsigned pos = gfxboot_data->vm.debug.console.buf_pos;
 
   if(key == 0x04) {	// ^D
@@ -283,7 +289,7 @@ void gfx_program_debug(unsigned key)
   if(
     !gstate ||
     pos >= sizeof gfxboot_data->vm.debug.console.buf - 1 ||
-    gstate->cursor.x >= gstate->region.width - gstate->cursor.width
+    canvas->cursor.x >= gstate->region.width - canvas->cursor.width
   ) {
     return;
   }
@@ -388,16 +394,19 @@ void gfx_status_dump()
   gstate_t *console_gstate = gfx_obj_gstate_ptr(gfxboot_data->console.gstate_id);
   gstate_t *gfx_gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
+  canvas_t *console_canvas = GSTATE_TO_CANVAS(console_gstate);
+  canvas_t *gfx_canvas = GSTATE_TO_CANVAS(gfx_gstate);
+
   gfxboot_log("graphics screen:\n");
   if(gfx_gstate) {
     gfxboot_log("  gstate = ");
     gfx_obj_dump(gfxboot_data->gstate_id, (dump_style_t) { .inspect = 1 });
     gfxboot_log("  cursor = %dx%d, color #%08x, bg_color #%08x\n",
-      gfx_gstate->cursor.x, gfx_gstate->cursor.y,
-      GSTATE_TO_CANVAS(gfx_gstate)->color, GSTATE_TO_CANVAS(gfx_gstate)->bg_color
+      gfx_canvas->cursor.x, gfx_canvas->cursor.y,
+      gfx_canvas->color, gfx_canvas->bg_color
     );
     gfxboot_log("  font = ");
-    gfx_obj_dump(GSTATE_TO_CANVAS(gfx_gstate)->font_id, (dump_style_t) { .inspect = 1 });
+    gfx_obj_dump(gfx_canvas->font_id, (dump_style_t) { .inspect = 1 });
   }
 
   gfxboot_log("text console:\n");
@@ -405,11 +414,11 @@ void gfx_status_dump()
     gfxboot_log("  gstate = ");
     gfx_obj_dump(gfxboot_data->console.gstate_id, (dump_style_t) { .inspect = 1 });
     gfxboot_log("  cursor = %dx%d, color #%08x, bg_color #%08x\n",
-      console_gstate->cursor.x, console_gstate->cursor.y,
-      GSTATE_TO_CANVAS(console_gstate)->color, GSTATE_TO_CANVAS(console_gstate)->bg_color
+      console_canvas->cursor.x, console_canvas->cursor.y,
+      console_canvas->color, console_canvas->bg_color
     );
     gfxboot_log("  font = ");
-    gfx_obj_dump(GSTATE_TO_CANVAS(console_gstate)->font_id, (dump_style_t) { .inspect = 1 });
+    gfx_obj_dump(console_canvas->font_id, (dump_style_t) { .inspect = 1 });
   }
 
   gfxboot_log("compose:\n");

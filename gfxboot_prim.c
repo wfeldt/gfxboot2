@@ -3391,8 +3391,8 @@ void gfx_prim_getpos()
 {
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->cursor.x : 0, t_int), 0);
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->cursor.y : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? GSTATE_TO_CANVAS(gstate)->cursor.x : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? GSTATE_TO_CANVAS(gstate)->cursor.y : 0, t_int), 0);
 }
 
 
@@ -3423,8 +3423,8 @@ void gfx_prim_setpos()
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
   if(gstate) {
-    gstate->cursor.x = val1;
-    gstate->cursor.y = val2;
+    GSTATE_TO_CANVAS(gstate)->cursor.x = val1;
+    GSTATE_TO_CANVAS(gstate)->cursor.y = val2;
   }
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
@@ -3486,12 +3486,14 @@ void gfx_prim_setfont()
 
   gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
 
-  OBJ_ID_ASSIGN(GSTATE_TO_CANVAS(gstate)->font_id, argv[1].id);
+  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
 
-  area_t area = gfx_font_dim(GSTATE_TO_CANVAS(gstate)->font_id);
+  OBJ_ID_ASSIGN(canvas->font_id, argv[1].id);
 
-  gstate->cursor.width = area.width;
-  gstate->cursor.height = area.height;
+  area_t area = gfx_font_dim(canvas->font_id);
+
+  canvas->cursor.width = area.width;
+  canvas->cursor.height = area.height;
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
 }
@@ -3828,7 +3830,7 @@ void gfx_prim_setcanvas()
     canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[1].ptr);
 
     gstate->region = (area_t) {0, 0, canvas->geo.width, canvas->geo.height};
-    gstate->cursor.x = gstate->cursor.y = 0;
+    canvas->cursor.x = canvas->cursor.y = 0;
   }
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
@@ -4295,10 +4297,13 @@ void gfx_prim_blt()
   gstate_t *gstate1 = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
   gstate_t *gstate2 = OBJ_GSTATE_FROM_PTR(argv[1].ptr);
 
+  canvas_t *canvas1 = GSTATE_TO_CANVAS(gstate1);
+  // canvas_t *canvas2 = GSTATE_TO_CANVAS(gstate2);
+
   area_t area2 = gstate2->region;
   area_t area1 = {
-    .x = gstate1->region.x + gstate1->cursor.x,
-    .y = gstate1->region.y + gstate1->cursor.y,
+    .x = gstate1->region.x + canvas1->cursor.x,
+    .y = gstate1->region.y + canvas1->cursor.y,
     .width = area2.width,
     .height = area2.height
   };
@@ -4320,7 +4325,7 @@ void gfx_prim_blt()
   );
 #endif
 
-  gfx_blt(GSTATE_TO_CANVAS(gstate1)->draw_mode, gstate1->canvas_id, area1, gstate2->canvas_id, area2);
+  gfx_blt(canvas1->draw_mode, gstate1->canvas_id, area1, gstate2->canvas_id, area2);
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
 }
@@ -4372,9 +4377,11 @@ void gfx_prim_getpixel()
 
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
-  if(gstate) {
+  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+
+  if(canvas) {
     color_t color;
-    if(gfx_getpixel(gstate, gstate->cursor.x, gstate->cursor.y, &color)) {
+    if(gfx_getpixel(gstate, canvas->cursor.x, canvas->cursor.y, &color)) {
       val = gfx_obj_num_new(color, t_int);
     }
   }
@@ -4402,8 +4409,10 @@ void gfx_prim_putpixel()
 {
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
-  if(gstate) {
-    gfx_putpixel(gstate, gstate->cursor.x, gstate->cursor.y, GSTATE_TO_CANVAS(gstate)->color);
+  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+
+  if(canvas) {
+    gfx_putpixel(gstate, canvas->cursor.x, canvas->cursor.y, canvas->color);
   }
 }
 
@@ -4436,11 +4445,13 @@ void gfx_prim_lineto()
 
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
-  if(gstate) {
-    gfx_line(gstate, gstate->cursor.x, gstate->cursor.y, val1, val2, GSTATE_TO_CANVAS(gstate)->color);
+  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
 
-    gstate->cursor.x = val1;
-    gstate->cursor.y = val2;
+  if(canvas) {
+    gfx_line(gstate, canvas->cursor.x, canvas->cursor.y, val1, val2, canvas->color);
+
+    canvas->cursor.x = val1;
+    canvas->cursor.y = val2;
   }
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
@@ -4474,8 +4485,10 @@ void gfx_prim_fillrect()
 
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
-  if(gstate) {
-    gfx_rect(gstate, gstate->cursor.x, gstate->cursor.y, val1, val2, GSTATE_TO_CANVAS(gstate)->color);
+  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+
+  if(canvas) {
+    gfx_rect(gstate, canvas->cursor.x, canvas->cursor.y, val1, val2, canvas->color);
   }
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);

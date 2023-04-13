@@ -63,9 +63,6 @@ int gfx_obj_gstate_dump(obj_t *ptr, dump_style_t style)
       height = canvas->geo.height;
     }
 
-    gfxboot_log("    cursor %dx%d_%dx%d\n",
-      gstate->cursor.x, gstate->cursor.y, gstate->cursor.width, gstate->cursor.height
-    );
     gfxboot_log("    canvas %s (%dx%d)\n", gfx_obj_id2str(gstate->canvas_id), width, height);
   }
 

@@ -370,51 +370,55 @@ void gfx_console_putc(unsigned c, int update_pos)
 
   if(!gstate) return;
 
+  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+
+  if(!canvas) return;
+
   switch(c) {
     case 0x08:
       if(update_pos) {
         gfx_putc(gstate, ' ', 0);
-        if(gstate->cursor.x >= gstate->cursor.width) {
-          gstate->cursor.x -= gstate->cursor.width;
+        if(canvas->cursor.x >= canvas->cursor.width) {
+          canvas->cursor.x -= canvas->cursor.width;
         }
         else {
-          gstate->cursor.x = 0;
+          canvas->cursor.x = 0;
         }
       }
       break;
 
     case 0x0a:
       if(update_pos) {
-        gstate->cursor.x = 0;
-        gstate->cursor.y += gstate->cursor.height;
+        canvas->cursor.x = 0;
+        canvas->cursor.y += canvas->cursor.height;
       }
 
       area_t src_area = gstate->region;
       area_t dst_area = gstate->region;
 
-      dst_area.height = src_area.height -= gstate->cursor.height;
-      src_area.y += gstate->cursor.height;
+      dst_area.height = src_area.height -= canvas->cursor.height;
+      src_area.y += canvas->cursor.height;
 
-      if(gstate->cursor.y + gstate->cursor.height > gstate->region.height) {
-        gstate->cursor.y -= gstate->cursor.height;
+      if(canvas->cursor.y + canvas->cursor.height > gstate->region.height) {
+        canvas->cursor.y -= canvas->cursor.height;
 
         // scroll up
-        gfx_blt(GSTATE_TO_CANVAS(gstate)->draw_mode, gstate->canvas_id, dst_area, gstate->canvas_id, src_area);
+        gfx_blt(canvas->draw_mode, gstate->canvas_id, dst_area, gstate->canvas_id, src_area);
 
         gfx_rect(
           gstate,
           0,
-          gstate->region.height - gstate->cursor.height,
+          gstate->region.height - canvas->cursor.height,
           gstate->region.width,
-          gstate->cursor.height,
-          GSTATE_TO_CANVAS(gstate)->bg_color
+          canvas->cursor.height,
+          canvas->bg_color
         );
       }
       break;
 
     case 0x0d:
       if(update_pos) {
-        gstate->cursor.x = 0;
+        canvas->cursor.x = 0;
       }
       break;
 
@@ -441,13 +445,15 @@ void gfx_putc(gstate_t *gstate, unsigned c, int update_pos)
   obj_id_t glyph_id;
   area_t geo;
 
+  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+
   if((glyph_id = gfx_font_render_glyph(gstate, &geo, c))) {
     canvas_t *glyph = gfx_obj_canvas_ptr(glyph_id);
     if(!glyph) return;
 
     area_t area = {
-      .x = gstate->region.x + gstate->cursor.x + geo.x,
-      .y = gstate->region.y + gstate->cursor.y + geo.y,
+      .x = gstate->region.x + canvas->cursor.x + geo.x,
+      .y = gstate->region.y + canvas->cursor.y + geo.y,
       .width = glyph->geo.width,
       .height = glyph->geo.height
     };
@@ -478,9 +484,9 @@ void gfx_putc(gstate_t *gstate, unsigned c, int update_pos)
 
     ADD_AREA(glyph_area, diff);
 
-    gfx_blt(GSTATE_TO_CANVAS(gstate)->draw_mode, gstate->canvas_id, area, glyph_id, glyph_area);
+    gfx_blt(canvas->draw_mode, gstate->canvas_id, area, glyph_id, glyph_area);
 
-    if(update_pos) gstate->cursor.x += geo.width;
+    if(update_pos) canvas->cursor.x += geo.width;
   }
 }
 
@@ -488,8 +494,10 @@ void gfx_putc(gstate_t *gstate, unsigned c, int update_pos)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 void gfx_puts(gstate_t *gstate, char *s, unsigned len)
 {
+  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+
   int c;
-  int start = gstate->cursor.x;
+  int start = canvas->cursor.x;
 
   while(len) {
     c = gfx_utf8_dec(&s, &len);
@@ -497,10 +505,10 @@ void gfx_puts(gstate_t *gstate, char *s, unsigned len)
 
     switch(c) {
       case 0x0a:
-        gstate->cursor.y += gstate->cursor.height;
+        canvas->cursor.y += canvas->cursor.height;
 
       case 0x0d:
-        gstate->cursor.x = start;
+        canvas->cursor.x = start;
         break;
 
       default:

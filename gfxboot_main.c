@@ -25,8 +25,8 @@ int gfxboot_init()
   gstate->geo = (area_t) { .width = gfxboot_data->screen.real.width, .height = gfxboot_data->screen.real.height };
   gstate->region = (area_t) { .width = gfxboot_data->screen.real.width, .height = gfxboot_data->screen.real.height };
   gstate->cursor = (area_t) {0, 0, 0, 0};
-  gstate->color = COLOR(0x00, 0xff, 0xff, 0xff);
-  gstate->bg_color = COLOR(0xff, 0x00, 0x00, 0x00);
+  GSTATE_TO_CANVAS(gstate)->color = COLOR(0x00, 0xff, 0xff, 0xff);
+  GSTATE_TO_CANVAS(gstate)->bg_color = COLOR(0xff, 0x00, 0x00, 0x00);
 
   // create default canvas ('background')
   gfxboot_data->gstate_id = gfx_obj_gstate_new();
@@ -37,8 +37,8 @@ int gfxboot_init()
   gstate->geo = (area_t) { .width = gfxboot_data->screen.real.width, .height = gfxboot_data->screen.real.height };
   gstate->region = (area_t) { .width = gfxboot_data->screen.real.width, .height = gfxboot_data->screen.real.height };
   gstate->cursor = (area_t) {0, 0, 0, 0};
-  gstate->color = COLOR(0x00, 0xff, 0xff, 0xff);
-  gstate->bg_color = COLOR(0xff, 0x00, 0x00, 0x00);
+  GSTATE_TO_CANVAS(gstate)->color = COLOR(0x00, 0xff, 0xff, 0xff);
+  GSTATE_TO_CANVAS(gstate)->bg_color = COLOR(0xff, 0x00, 0x00, 0x00);
 
   // create canvas for debug console
   gfxboot_data->console.gstate_id = gfx_obj_gstate_new();
@@ -46,26 +46,27 @@ int gfxboot_init()
 
   // setup compiled-in console font
   obj_id_t console_font_data_id = gfx_obj_const_mem_nofree_new(_console_font, sizeof _console_font, 0, 0);
-  gstate->font_id = gfx_obj_font_open(console_font_data_id);
+  obj_id_t font_id = gfx_obj_font_open(console_font_data_id);
 
   // font structure itself holds ref to data
   gfx_obj_ref_dec(console_font_data_id);
 
-  area_t area = gfx_font_dim(gstate->font_id);
+  area_t area = gfx_font_dim(font_id);
   int t_width = area.width * 80;
   int t_height = area.height * 25;
   int t_x = (gfxboot_data->screen.real.width - t_width) / 2;
   int t_y = (gfxboot_data->screen.real.height - t_height) / 2;
 
-  gstate->draw_mode = dm_direct;
   gstate->canvas_id = gfx_obj_canvas_new(t_width, t_height);
   if(!gstate->canvas_id) return 1;
+  GSTATE_TO_CANVAS(gstate)->draw_mode = dm_direct;
+  GSTATE_TO_CANVAS(gstate)->font_id = font_id;
   gstate->geo = (area_t) { .x = t_x, .y = t_y, .width = t_width, .height = t_height };
   gstate->region = (area_t) { .width = t_width, .height = t_height };
   gstate->cursor = (area_t) { .y = t_height - area.height, .width = area.width, .height = area.height };
-  gstate->color = COLOR(0x00, 0xff, 0xff, 0xff);
-  gstate->bg_color = COLOR(0x60, 0x32, 0x32, 0x32);
-  gfx_rect(gstate, 0, 0, t_width, t_height, gstate->bg_color);
+  GSTATE_TO_CANVAS(gstate)->color = COLOR(0x00, 0xff, 0xff, 0xff);
+  GSTATE_TO_CANVAS(gstate)->bg_color = COLOR(0x60, 0x32, 0x32, 0x32);
+  gfx_rect(gstate, 0, 0, t_width, t_height, GSTATE_TO_CANVAS(gstate)->bg_color);
 
   // create default compose list and add default background canvas
   gfxboot_data->compose.list_id = gfx_obj_array_new(0);

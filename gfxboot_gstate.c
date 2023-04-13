@@ -59,17 +59,14 @@ int gfx_obj_gstate_dump(obj_t *ptr, dump_style_t style)
     canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
 
     if(canvas) {
-      width = canvas->size.width;
-      height = canvas->size.height;
+      width = canvas->geo.width;
+      height = canvas->geo.height;
     }
 
-    gfxboot_log("    cursor %dx%d_%dx%d, draw_mode %d\n",
-      gstate->cursor.x, gstate->cursor.y, gstate->cursor.width, gstate->cursor.height,
-      gstate->draw_mode
+    gfxboot_log("    cursor %dx%d_%dx%d\n",
+      gstate->cursor.x, gstate->cursor.y, gstate->cursor.width, gstate->cursor.height
     );
-    gfxboot_log("    color #%08x, bg_color #%08x\n", gstate->color, gstate->bg_color);
     gfxboot_log("    canvas %s (%dx%d)\n", gfx_obj_id2str(gstate->canvas_id), width, height);
-    gfxboot_log("    font %s\n", gfx_obj_id2str(gstate->font_id));
   }
 
   return 1;
@@ -87,7 +84,6 @@ unsigned gfx_obj_gstate_gc(obj_t *ptr)
 
   if(gstate && data_size == OBJ_GSTATE_SIZE()) {
     more_gc += gfx_obj_ref_dec_delay_gc(gstate->canvas_id);
-    more_gc += gfx_obj_ref_dec_delay_gc(gstate->font_id);
   }
 
   return more_gc;
@@ -103,7 +99,7 @@ int gfx_obj_gstate_contains(obj_t *ptr, obj_id_t id)
   unsigned data_size = ptr->data.size;
 
   if(gstate && data_size == OBJ_GSTATE_SIZE()) {
-    if(id == gstate->canvas_id || id == gstate->font_id) return 1;
+    if(id == gstate->canvas_id) return 1;
   }
 
   return 0;

@@ -10,6 +10,8 @@
 #pragma GCC diagnostic ignored "-Wpointer-sign"
 #pragma GCC diagnostic ignored "-Wformat-nonliteral"
 
+#define GSTATE_TO_CANVAS(a) (gfx_obj_canvas_ptr((a)->canvas_id))
+
 // #define FULL_ERROR
 
 typedef __UINT8_TYPE__ uint8_t;
@@ -146,6 +148,13 @@ typedef enum {
   mc_xref = (1 << 1)
 } malloc_check_t;
 
+// dm_no_update is a bit mask
+typedef enum {
+  dm_merge = 0,
+  dm_direct = 1,
+  dm_no_update = 2
+} draw_mode_t;
+
 typedef struct {
   unsigned inspect:1;
   unsigned dump:1;
@@ -198,7 +207,14 @@ typedef struct {
 
 typedef struct {
   int max_width, max_height;	// maximum canvas size; ptr[] array holds max_width * max_height pixels
-  area_t size;			// current canvas location & size; width * height <= max_width * max_height; cf. gfx_canvas_adjust_size()
+  area_t geo;			// current canvas location & size; width, height <= canvas.max_width, canvas.max_height; cf. gfx_canvas_adjust_size()
+  area_t region;		// FIXME: [NOT screen relative] drawing (clipping) area, relative to screen (in pixel)
+  area_t cursor;		// drawing position (in x, y) and font char size (in width, height)
+  color_t color;		// drawing color
+  color_t bg_color;		// background color
+  obj_id_t font_id;		// font
+  draw_mode_t draw_mode;	// drawing mode
+
   color_t ptr[];
 } __attribute__ ((packed)) canvas_t;
 
@@ -278,18 +294,11 @@ typedef struct {
   int64_t inc;
 } context_t;
 
-// dm_no_update is a bit mask
-typedef enum { dm_merge = 0, dm_direct = 1, dm_no_update = 2 } draw_mode_t;
-
 typedef struct {
   area_t geo;		// current canvas location & size; width, height <= canvas.max_width, canvas.max_height
   area_t region;	// FIXME: [NOT screen relative] drawing (clipping) area, relative to screen (in pixel)
   area_t cursor;	// drawing position (in x, y) and font char size (in width, height)
-  color_t color;	// drawing color
-  color_t bg_color;	// background color
   obj_id_t canvas_id;
-  obj_id_t font_id;
-  draw_mode_t draw_mode;
 } gstate_t;
 
 typedef struct {
@@ -493,6 +502,8 @@ canvas_t *gfx_obj_canvas_ptr(obj_id_t id);
 int gfx_obj_canvas_dump(obj_t *ptr, dump_style_t style);
 int gfx_canvas_adjust_size(canvas_t *c, int width, int height);
 int gfx_canvas_resize(obj_id_t canvas_id, int width, int height);
+unsigned gfx_obj_canvas_gc(obj_t *ptr);
+int gfx_obj_canvas_contains(obj_t *ptr, obj_id_t id);
 
 obj_id_t gfx_obj_array_new(unsigned max);
 array_t *gfx_obj_array_ptr(obj_id_t id);

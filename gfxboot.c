@@ -395,7 +395,7 @@ obj_id_t gfx_image_open(obj_id_t image_file)
   obj_id_t image_id = gfx_obj_canvas_new(width, height);
   canvas_t *canvas = gfx_obj_canvas_ptr(image_id);
 
-  if(gfx_jpeg_decode(mem->ptr, (uint8_t *) &canvas->ptr, 0, canvas->size.width, 0, canvas->size.height, 32)) {
+  if(gfx_jpeg_decode(mem->ptr, (uint8_t *) &canvas->ptr, 0, canvas->geo.width, 0, canvas->geo.height, 32)) {
     gfx_obj_ref_dec(image_id);
     image_id = 0;
   } 

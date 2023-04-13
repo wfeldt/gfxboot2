@@ -52,8 +52,8 @@ obj_descr_t obj_descr[] = {
   [OTYPE_CANVAS] = {
     1,
     gfx_obj_canvas_dump,
-    0,
-    0,
+    gfx_obj_canvas_gc,
+    gfx_obj_canvas_contains,
     0
   },
   [OTYPE_ARRAY] = {

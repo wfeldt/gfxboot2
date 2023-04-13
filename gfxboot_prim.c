@@ -3281,7 +3281,7 @@ void gfx_prim_getcolor()
 {
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->color : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? GSTATE_TO_CANVAS(gstate)->color : 0, t_int), 0);
 }
 
 
@@ -3310,7 +3310,7 @@ void gfx_prim_setcolor()
 
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
-  if(gstate) gstate->color = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+  if(gstate) GSTATE_TO_CANVAS(gstate)->color = OBJ_VALUE_FROM_PTR(argv[0].ptr);
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 }
@@ -3337,7 +3337,7 @@ void gfx_prim_getbgcolor()
 {
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->bg_color : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? GSTATE_TO_CANVAS(gstate)->bg_color : 0, t_int), 0);
 }
 
 
@@ -3366,7 +3366,7 @@ void gfx_prim_setbgcolor()
 
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
-  if(gstate) gstate->bg_color = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+  if(gstate) GSTATE_TO_CANVAS(gstate)->bg_color = OBJ_VALUE_FROM_PTR(argv[0].ptr);
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 }
@@ -3457,7 +3457,7 @@ void gfx_prim_getfont()
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gstate->font_id, 1);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, GSTATE_TO_CANVAS(gstate)->font_id, 1);
 }
 
 
@@ -3486,9 +3486,9 @@ void gfx_prim_setfont()
 
   gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
 
-  OBJ_ID_ASSIGN(gstate->font_id, argv[1].id);
+  OBJ_ID_ASSIGN(GSTATE_TO_CANVAS(gstate)->font_id, argv[1].id);
 
-  area_t area = gfx_font_dim(gstate->font_id);
+  area_t area = gfx_font_dim(GSTATE_TO_CANVAS(gstate)->font_id);
 
   gstate->cursor.width = area.width;
   gstate->cursor.height = area.height;
@@ -3548,7 +3548,7 @@ void gfx_prim_getdrawmode()
 {
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->draw_mode : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? GSTATE_TO_CANVAS(gstate)->draw_mode : 0, t_int), 0);
 }
 
 
@@ -3576,7 +3576,7 @@ void gfx_prim_setdrawmode()
 
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
-  if(gstate) gstate->draw_mode = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+  if(gstate) GSTATE_TO_CANVAS(gstate)->draw_mode = OBJ_VALUE_FROM_PTR(argv[0].ptr);
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 }
@@ -3655,7 +3655,7 @@ void gfx_prim_setregion()
   area_t area = { .x = val1, .y = val2, .width = val3, .height = val4 };
   canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
   if(canvas) {
-    area_t clip = { .width = canvas->size.width, .height = canvas->size.height };
+    area_t clip = { .width = canvas->geo.width, .height = canvas->geo.height };
     gfx_clip(&area, &clip);
   }
   gstate->region = area;
@@ -3724,8 +3724,8 @@ void gfx_prim_setlocation()
 
   canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
   if(canvas) {
-    canvas->size.x = gstate->geo.x = val1;
-    canvas->size.y = gstate->geo.y = val2;
+    canvas->geo.x = gstate->geo.x = val1;
+    canvas->geo.y = gstate->geo.y = val2;
   }
 
   gfx_obj_array_pop_n(3, gfxboot_data->vm.program.pstack, 1);
@@ -3827,7 +3827,7 @@ void gfx_prim_setcanvas()
   if(argv[1].id) {
     canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[1].ptr);
 
-    gstate->region = (area_t) {0, 0, canvas->size.width, canvas->size.height};
+    gstate->region = (area_t) {0, 0, canvas->geo.width, canvas->geo.height};
     gstate->cursor.x = gstate->cursor.y = 0;
   }
 
@@ -4084,8 +4084,8 @@ void gfx_prim_dim()
     case OTYPE_CANVAS:
       ;
       canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[0].ptr);
-      area.width = canvas->size.width;
-      area.height = canvas->size.height;
+      area.width = canvas->geo.width;
+      area.height = canvas->geo.height;
       break;
 
     case OTYPE_GSTATE:
@@ -4320,7 +4320,7 @@ void gfx_prim_blt()
   );
 #endif
 
-  gfx_blt(gstate1->draw_mode, gstate1->canvas_id, area1, gstate2->canvas_id, area2);
+  gfx_blt(GSTATE_TO_CANVAS(gstate1)->draw_mode, gstate1->canvas_id, area1, gstate2->canvas_id, area2);
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
 }
@@ -4403,7 +4403,7 @@ void gfx_prim_putpixel()
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
   if(gstate) {
-    gfx_putpixel(gstate, gstate->cursor.x, gstate->cursor.y, gstate->color);
+    gfx_putpixel(gstate, gstate->cursor.x, gstate->cursor.y, GSTATE_TO_CANVAS(gstate)->color);
   }
 }
 
@@ -4437,7 +4437,7 @@ void gfx_prim_lineto()
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
   if(gstate) {
-    gfx_line(gstate, gstate->cursor.x, gstate->cursor.y, val1, val2, gstate->color);
+    gfx_line(gstate, gstate->cursor.x, gstate->cursor.y, val1, val2, GSTATE_TO_CANVAS(gstate)->color);
 
     gstate->cursor.x = val1;
     gstate->cursor.y = val2;
@@ -4475,7 +4475,7 @@ void gfx_prim_fillrect()
   gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
 
   if(gstate) {
-    gfx_rect(gstate, gstate->cursor.x, gstate->cursor.y, val1, val2, gstate->color);
+    gfx_rect(gstate, gstate->cursor.x, gstate->cursor.y, val1, val2, GSTATE_TO_CANVAS(gstate)->color);
   }
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);

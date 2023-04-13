@@ -216,7 +216,7 @@ void gfx_program_debug_on_off(unsigned state)
     gstate->region.height - gstate->cursor.height,
     gstate->region.width,
     gstate->cursor.height,
-    gstate->bg_color
+    GSTATE_TO_CANVAS(gstate)->bg_color
   );
 
   gfxboot_data->vm.debug.console.buf_pos = 0;
@@ -339,7 +339,7 @@ void gfx_vm_status_dump()
   if(c) {
     gfxboot_log(
       "  fb = %p, size = %d x %d (+%d)\n  pixel bytes = %d, bits = %d\n  red = %d +%d, green = %d +%d, blue = %d +%d, alpha = %d +%d\n",
-      c->ptr, c->size.width, c->size.height, c->size.width * COLOR_BYTES,
+      c->ptr, c->geo.width, c->geo.height, c->geo.width * COLOR_BYTES,
       COLOR_BYTES, COLOR_BYTES * 8,
       RED_BITS, RED_POS,
       GREEN_BITS, GREEN_POS,
@@ -394,10 +394,10 @@ void gfx_status_dump()
     gfx_obj_dump(gfxboot_data->gstate_id, (dump_style_t) { .inspect = 1 });
     gfxboot_log("  cursor = %dx%d, color #%08x, bg_color #%08x\n",
       gfx_gstate->cursor.x, gfx_gstate->cursor.y,
-      gfx_gstate->color, gfx_gstate->bg_color
+      GSTATE_TO_CANVAS(gfx_gstate)->color, GSTATE_TO_CANVAS(gfx_gstate)->bg_color
     );
     gfxboot_log("  font = ");
-    gfx_obj_dump(gfx_gstate->font_id, (dump_style_t) { .inspect = 1 });
+    gfx_obj_dump(GSTATE_TO_CANVAS(gfx_gstate)->font_id, (dump_style_t) { .inspect = 1 });
   }
 
   gfxboot_log("text console:\n");
@@ -406,10 +406,10 @@ void gfx_status_dump()
     gfx_obj_dump(gfxboot_data->console.gstate_id, (dump_style_t) { .inspect = 1 });
     gfxboot_log("  cursor = %dx%d, color #%08x, bg_color #%08x\n",
       console_gstate->cursor.x, console_gstate->cursor.y,
-      console_gstate->color, console_gstate->bg_color
+      GSTATE_TO_CANVAS(console_gstate)->color, GSTATE_TO_CANVAS(console_gstate)->bg_color
     );
     gfxboot_log("  font = ");
-    gfx_obj_dump(console_gstate->font_id, (dump_style_t) { .inspect = 1 });
+    gfx_obj_dump(GSTATE_TO_CANVAS(console_gstate)->font_id, (dump_style_t) { .inspect = 1 });
   }
 
   gfxboot_log("compose:\n");

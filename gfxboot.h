@@ -306,16 +306,15 @@ typedef struct {
 
 typedef struct {
   struct {
-    fb_t real;
-    obj_id_t virt_id;		// canvas_t
-    obj_id_t gstate_id;		// gstate_t, using canvas virt_id
+    fb_t real;			// real framebuffer
+    obj_id_t gstate_id;		// gstate_t for internal virtual screen
   } screen;
 
   struct {
     obj_id_t gstate_id;		// debug console gstate
   } console;
 
-  obj_id_t gstate_id;		// normal gstate
+  obj_id_t gstate_id;		// current default gstate
 
   struct {
     obj_id_t list_id;		// array of gstate ids

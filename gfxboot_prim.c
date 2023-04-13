@@ -3612,12 +3612,14 @@ void gfx_prim_getregion()
 
   gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
 
+  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->region.x : 0, t_int), 0);
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->region.y : 0, t_int), 0);
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->region.width : 0, t_int), 0);
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->region.height : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->region.x : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->region.y : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->region.width : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->region.height : 0, t_int), 0);
 }
 
 
@@ -3648,6 +3650,8 @@ void gfx_prim_setregion()
   if(!argv) return;
 
   gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
+  
+  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
 
   int64_t val1 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
   int64_t val2 = OBJ_VALUE_FROM_PTR(argv[2].ptr);
@@ -3655,12 +3659,12 @@ void gfx_prim_setregion()
   int64_t val4 = OBJ_VALUE_FROM_PTR(argv[4].ptr);
 
   area_t area = { .x = val1, .y = val2, .width = val3, .height = val4 };
-  canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
+
   if(canvas) {
     area_t clip = { .width = canvas->geo.width, .height = canvas->geo.height };
     gfx_clip(&area, &clip);
+    canvas->region = area;
   }
-  gstate->region = area;
 
   gfx_obj_array_pop_n(5, gfxboot_data->vm.program.pstack, 1);
 }
@@ -3690,10 +3694,12 @@ void gfx_prim_getlocation()
 
   gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
 
+  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->geo.x : 0, t_int), 0);
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->geo.y : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->geo.x : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->geo.y : 0, t_int), 0);
 }
 
 
@@ -3721,13 +3727,14 @@ void gfx_prim_setlocation()
 
   gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
 
+  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+
   int64_t val1 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
   int64_t val2 = OBJ_VALUE_FROM_PTR(argv[2].ptr);
 
-  canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
   if(canvas) {
-    canvas->geo.x = gstate->geo.x = val1;
-    canvas->geo.y = gstate->geo.y = val2;
+    canvas->geo.x = val1;
+    canvas->geo.y = val2;
   }
 
   gfx_obj_array_pop_n(3, gfxboot_data->vm.program.pstack, 1);
@@ -3829,7 +3836,7 @@ void gfx_prim_setcanvas()
   if(argv[1].id) {
     canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[1].ptr);
 
-    gstate->region = (area_t) {0, 0, canvas->geo.width, canvas->geo.height};
+    canvas->region = (area_t) {0, 0, canvas->geo.width, canvas->geo.height};
     canvas->cursor.x = canvas->cursor.y = 0;
   }
 
@@ -3949,8 +3956,8 @@ void gfx_prim_gstate2()
 
     if(canvas) {
       gstate->canvas_id = canvas_id;
-      gstate->geo.width = gstate->region.width = canvas->max_width;
-      gstate->geo.height = gstate->region.height = canvas->max_height;
+      canvas->geo.width = canvas->region.width = canvas->max_width;
+      canvas->geo.height = canvas->region.height = canvas->max_height;
     }
     else {
       gfx_obj_ref_dec(canvas_id);
@@ -4093,8 +4100,9 @@ void gfx_prim_dim()
     case OTYPE_GSTATE:
       ;
       gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
-      area.width = gstate->region.width;
-      area.height = gstate->region.height;
+      canvas = GSTATE_TO_CANVAS(gstate);
+      area.width = canvas->region.width;
+      area.height = canvas->region.height;
       break;
 
     default:
@@ -4259,8 +4267,8 @@ void gfx_prim_unpackimage2()
 
     if(gstate) {
       gstate->canvas_id = canvas_id;
-      gstate->geo.width = gstate->region.width = canvas->max_width;
-      gstate->geo.height = gstate->region.height = canvas->max_height;
+      canvas->geo.width = canvas->region.width = canvas->max_width;
+      canvas->geo.height = canvas->region.height = canvas->max_height;
     }
   }
   else {
@@ -4298,12 +4306,12 @@ void gfx_prim_blt()
   gstate_t *gstate2 = OBJ_GSTATE_FROM_PTR(argv[1].ptr);
 
   canvas_t *canvas1 = GSTATE_TO_CANVAS(gstate1);
-  // canvas_t *canvas2 = GSTATE_TO_CANVAS(gstate2);
+  canvas_t *canvas2 = GSTATE_TO_CANVAS(gstate2);
 
-  area_t area2 = gstate2->region;
+  area_t area2 = canvas2->region;
   area_t area1 = {
-    .x = gstate1->region.x + canvas1->cursor.x,
-    .y = gstate1->region.y + canvas1->cursor.y,
+    .x = canvas1->region.x + canvas1->cursor.x,
+    .y = canvas1->region.y + canvas1->cursor.y,
     .width = area2.width,
     .height = area2.height
   };
@@ -4315,7 +4323,7 @@ void gfx_prim_blt()
   );
 #endif
 
-  area_t diff = gfx_clip(&area1, &gstate1->region);
+  area_t diff = gfx_clip(&area1, &canvas1->region);
 
   ADD_AREA(area2, diff);
 

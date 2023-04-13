@@ -212,13 +212,13 @@ void gfx_program_debug_on_off(unsigned state)
 
   if(!canvas) return;
 
-  gfx_screen_compose(gstate->geo);
+  gfx_screen_compose(canvas->geo);
 
   gfx_rect(
     gstate,
     0,
-    gstate->region.height - canvas->cursor.height,
-    gstate->region.width,
+    canvas->region.height - canvas->cursor.height,
+    canvas->region.width,
     canvas->cursor.height,
     canvas->bg_color
   );
@@ -227,7 +227,7 @@ void gfx_program_debug_on_off(unsigned state)
   gfxboot_data->vm.debug.console.buf[0] = 0;
 
   canvas->cursor.x = 0;
-  canvas->cursor.y = gstate->region.height - canvas->cursor.height;
+  canvas->cursor.y = canvas->region.height - canvas->cursor.height;
 
   if(gfxboot_data->vm.debug.console.show) {
     char buf[64];
@@ -289,7 +289,7 @@ void gfx_program_debug(unsigned key)
   if(
     !gstate ||
     pos >= sizeof gfxboot_data->vm.debug.console.buf - 1 ||
-    canvas->cursor.x >= gstate->region.width - canvas->cursor.width
+    canvas->cursor.x >= canvas->region.width - canvas->cursor.width
   ) {
     return;
   }

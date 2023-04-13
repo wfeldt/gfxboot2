@@ -295,8 +295,6 @@ typedef struct {
 } context_t;
 
 typedef struct {
-  area_t geo;		// current canvas location & size; width, height <= canvas.max_width, canvas.max_height
-  area_t region;	// FIXME: [NOT screen relative] drawing (clipping) area, relative to screen (in pixel)
   obj_id_t canvas_id;
 } gstate_t;
 

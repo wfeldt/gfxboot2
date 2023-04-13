@@ -108,8 +108,9 @@ void gfx_canvas_update(obj_id_t canvas_id, area_t area)
     }
     if(!gstate) continue;
     if(gstate->canvas_id == canvas_id) {
-      area.x += gstate->geo.x;
-      area.y += gstate->geo.y;
+      canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+      area.x += canvas->geo.x;
+      area.y += canvas->geo.y;
       gfx_screen_compose(area);
       return;
     }
@@ -129,9 +130,11 @@ void gfx_screen_compose(area_t area)
 
   if(!target_gstate) return;
 
+  canvas_t *target_canvas = GSTATE_TO_CANVAS(target_gstate);
+
   int list_size = (int) list->size;
 
-  gfx_clip(&area, &target_gstate->geo);
+  gfx_clip(&area, &target_canvas->geo);
 
   draw_mode_t blt_mode = dm_direct + dm_no_update;
 
@@ -144,7 +147,8 @@ void gfx_screen_compose(area_t area)
       gstate = gfx_obj_gstate_ptr(gfx_obj_array_get(list_id, i));
     }
     if(!gstate) continue;
-    area_t dst_area = gstate->geo;
+    canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+    area_t dst_area = canvas->geo;
     area_t src_area = area;
     area_t diff = gfx_clip(&dst_area, &src_area);
     if(dst_area.width) {
@@ -393,13 +397,13 @@ void gfx_console_putc(unsigned c, int update_pos)
         canvas->cursor.y += canvas->cursor.height;
       }
 
-      area_t src_area = gstate->region;
-      area_t dst_area = gstate->region;
+      area_t src_area = canvas->region;
+      area_t dst_area = canvas->region;
 
       dst_area.height = src_area.height -= canvas->cursor.height;
       src_area.y += canvas->cursor.height;
 
-      if(canvas->cursor.y + canvas->cursor.height > gstate->region.height) {
+      if(canvas->cursor.y + canvas->cursor.height > canvas->region.height) {
         canvas->cursor.y -= canvas->cursor.height;
 
         // scroll up
@@ -408,8 +412,8 @@ void gfx_console_putc(unsigned c, int update_pos)
         gfx_rect(
           gstate,
           0,
-          gstate->region.height - canvas->cursor.height,
-          gstate->region.width,
+          canvas->region.height - canvas->cursor.height,
+          canvas->region.width,
           canvas->cursor.height,
           canvas->bg_color
         );
@@ -452,8 +456,8 @@ void gfx_putc(gstate_t *gstate, unsigned c, int update_pos)
     if(!glyph) return;
 
     area_t area = {
-      .x = gstate->region.x + canvas->cursor.x + geo.x,
-      .y = gstate->region.y + canvas->cursor.y + geo.y,
+      .x = canvas->region.x + canvas->cursor.x + geo.x,
+      .y = canvas->region.y + canvas->cursor.y + geo.y,
       .width = glyph->geo.width,
       .height = glyph->geo.height
     };
@@ -471,7 +475,7 @@ void gfx_putc(gstate_t *gstate, unsigned c, int update_pos)
     );
 #endif
 
-    area_t diff = gfx_clip(&area, &gstate->region);
+    area_t diff = gfx_clip(&area, &canvas->region);
 
 #if 1
     gfxboot_serial(1, " - clipped area %dx%d_%dx%d",
@@ -681,9 +685,9 @@ int gfx_getpixel(gstate_t *gstate, int x, int y, color_t *color)
 
   if(!canvas) return 0;
 
-  if(x >= 0 && y >= 0 && x < gstate->region.width && y < gstate->region.height) {
-    x += gstate->region.x;
-    y += gstate->region.y;
+  if(x >= 0 && y >= 0 && x < canvas->region.width && y < canvas->region.height) {
+    x += canvas->region.x;
+    y += canvas->region.y;
     if(x >= 0 && y >= 0 && x < canvas->geo.width && y < canvas->geo.height) {
       *color = canvas->ptr[x + y * canvas->geo.width];
       ok = 1;
@@ -706,9 +710,9 @@ void gfx_putpixel(gstate_t *gstate, int x, int y, color_t color)
 
   if(!canvas) return;
 
-  if(x >= 0 && y >= 0 && x < gstate->region.width && y < gstate->region.height) {
-    x += gstate->region.x;
-    y += gstate->region.y;
+  if(x >= 0 && y >= 0 && x < canvas->region.width && y < canvas->region.height) {
+    x += canvas->region.x;
+    y += canvas->region.y;
     if(x >= 0 && y >= 0 && x < canvas->geo.width && y < canvas->geo.height) {
       int ofs = x + y * canvas->geo.width;
       if(mode == dm_direct) {
@@ -812,8 +816,8 @@ void gfx_rect(gstate_t *gstate, int x, int y, int width, int height, color_t c)
   if(!canvas) return;
 
   area_t area = {
-    .x = gstate->region.x + x,
-    .y = gstate->region.y + y,
+    .x = canvas->region.x + x,
+    .y = canvas->region.y + y,
     .width = width,
     .height = height
   };
@@ -821,11 +825,11 @@ void gfx_rect(gstate_t *gstate, int x, int y, int width, int height, color_t c)
 #if 0
   gfxboot_serial(0, "rect before: %dx%d_%dx%d / %dx%d_%dx%d\n",
     area.x, area.y, area.width, area.height,
-    gstate->region.x, gstate->region.y, gstate->region.width, gstate->region.height
+    canvas->region.x, canvas->region.y, canvas->region.width, canvas->region.height
   );
 #endif
 
-  gfx_clip(&area, &gstate->region);
+  gfx_clip(&area, &canvas->region);
 
 #if 0
   gfxboot_serial(0, "rect after: %dx%d_%dx%d\n",

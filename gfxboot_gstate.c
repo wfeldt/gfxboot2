@@ -45,11 +45,6 @@ int gfx_obj_gstate_dump(obj_t *ptr, dump_style_t style)
   if(!style.ref) {
     if(!style.inspect) return 0;
 
-    gfxboot_log("geo %dx%d_%dx%d, clip %dx%d_%dx%d",
-      gstate->geo.x, gstate->geo.y, gstate->geo.width, gstate->geo.height,
-      gstate->region.x, gstate->region.y, gstate->region.width, gstate->region.height
-    );
-
     return 1;
   }
 

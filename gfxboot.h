@@ -10,8 +10,6 @@
 #pragma GCC diagnostic ignored "-Wpointer-sign"
 #pragma GCC diagnostic ignored "-Wformat-nonliteral"
 
-#define GSTATE_TO_CANVAS(a) (gfx_obj_canvas_ptr((a)->canvas_id))
-
 // #define FULL_ERROR
 
 typedef __UINT8_TYPE__ uint8_t;
@@ -73,7 +71,7 @@ typedef uint32_t obj_id_t;
 #define OTYPE_HASH		6
 #define OTYPE_CONTEXT		7
 #define OTYPE_NUM		8
-#define OTYPE_GSTATE		9
+// #define OTYPE_GSTATE		9
 #define OTYPE_INVALID		10
 #define OTYPE_ANY		11
 
@@ -84,7 +82,6 @@ typedef uint32_t obj_id_t;
 #define OBJ_ARRAY_SIZE(n)	(sizeof (array_t) + (n) * sizeof *((array_t) {0}).ptr)
 #define OBJ_HASH_SIZE(n)	(sizeof (hash_t) + (n) * sizeof *((hash_t) {0}).ptr)
 #define OBJ_CONTEXT_SIZE()	(sizeof (context_t))
-#define OBJ_GSTATE_SIZE()	(sizeof (gstate_t))
 
 #define OBJ_DATA_FROM_PTR(p)	(&(p)->data)
 #define OBJ_MEM_FROM_PTR(p)	((p)->data.ptr)
@@ -94,7 +91,6 @@ typedef uint32_t obj_id_t;
 #define OBJ_ARRAY_FROM_PTR(p)	((array_t *) (p)->data.ptr)
 #define OBJ_HASH_FROM_PTR(p)	((hash_t *) (p)->data.ptr)
 #define OBJ_CONTEXT_FROM_PTR(p)	((context_t *) (p)->data.ptr)
-#define OBJ_GSTATE_FROM_PTR(p)	((gstate_t *) (p)->data.ptr)
 #define OBJ_VALUE_FROM_PTR(p)	((p)->data.value)
 
 #define ADD_AREA(a, b) (a).x += (b).x, (a).y += (b).y, (a).width += (b).width, (a).height += (b).height
@@ -295,10 +291,6 @@ typedef struct {
 } context_t;
 
 typedef struct {
-  obj_id_t canvas_id;
-} gstate_t;
-
-typedef struct {
   context_t *ctx;
   int64_t arg1;
   uint8_t *arg2;
@@ -313,17 +305,17 @@ typedef struct {
 typedef struct {
   struct {
     fb_t real;			// real framebuffer
-    obj_id_t gstate_id;		// gstate_t for internal virtual screen
+    obj_id_t canvas_id;		// canvas for internal virtual screen
   } screen;
 
   struct {
-    obj_id_t gstate_id;		// debug console gstate
+    obj_id_t canvas_id;		// debug console
   } console;
 
-  obj_id_t gstate_id;		// current default gstate
+  obj_id_t canvas_id;		// default canvas
 
   struct {
-    obj_id_t list_id;		// array of gstate ids
+    obj_id_t list_id;		// array of canvas ids
   } compose;
 
   struct {
@@ -536,12 +528,6 @@ obj_id_t gfx_obj_num_new(int64_t num, uint8_t subtype);
 int64_t *gfx_obj_num_ptr(obj_id_t id);
 int64_t *gfx_obj_num_subtype_ptr(obj_id_t id, uint8_t subtype);
 int gfx_obj_num_dump(obj_t *ptr, dump_style_t style);
-
-obj_id_t gfx_obj_gstate_new(void);
-gstate_t *gfx_obj_gstate_ptr(obj_id_t id);
-int gfx_obj_gstate_dump(obj_t *ptr, dump_style_t style);
-unsigned gfx_obj_gstate_gc(obj_t *ptr);
-int gfx_obj_gstate_contains(obj_t *ptr, obj_id_t id);
 
 unsigned gfx_program_init(obj_id_t program);
 int gfx_decode_instr(decoded_instr_t *code);

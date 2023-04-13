@@ -3279,9 +3279,9 @@ void gfx_prim_freeze()
 //
 void gfx_prim_getcolor()
 {
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? GSTATE_TO_CANVAS(gstate)->color : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->color : 0, t_int), 0);
 }
 
 
@@ -3308,9 +3308,9 @@ void gfx_prim_setcolor()
 
   if(!argv) return;
 
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
-  if(gstate) GSTATE_TO_CANVAS(gstate)->color = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+  if(canvas) canvas->color = OBJ_VALUE_FROM_PTR(argv[0].ptr);
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 }
@@ -3335,9 +3335,9 @@ void gfx_prim_setcolor()
 //
 void gfx_prim_getbgcolor()
 {
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? GSTATE_TO_CANVAS(gstate)->bg_color : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->bg_color : 0, t_int), 0);
 }
 
 
@@ -3364,9 +3364,9 @@ void gfx_prim_setbgcolor()
 
   if(!argv) return;
 
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
-  if(gstate) GSTATE_TO_CANVAS(gstate)->bg_color = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+  if(canvas) canvas->bg_color = OBJ_VALUE_FROM_PTR(argv[0].ptr);
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 }
@@ -3389,10 +3389,10 @@ void gfx_prim_setbgcolor()
 //
 void gfx_prim_getpos()
 {
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? GSTATE_TO_CANVAS(gstate)->cursor.x : 0, t_int), 0);
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? GSTATE_TO_CANVAS(gstate)->cursor.y : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->cursor.x : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->cursor.y : 0, t_int), 0);
 }
 
 
@@ -3420,11 +3420,11 @@ void gfx_prim_setpos()
   int64_t val1 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
   int64_t val2 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
 
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
-  if(gstate) {
-    GSTATE_TO_CANVAS(gstate)->cursor.x = val1;
-    GSTATE_TO_CANVAS(gstate)->cursor.y = val2;
+  if(canvas) {
+    canvas->cursor.x = val1;
+    canvas->cursor.y = val2;
   }
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
@@ -3449,15 +3449,15 @@ void gfx_prim_setpos()
 //
 void gfx_prim_getfont()
 {
-  arg_t *argv = gfx_arg_1(OTYPE_GSTATE);
+  arg_t *argv = gfx_arg_1(OTYPE_CANVAS);
 
   if(!argv) return;
 
-  gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
+  canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[0].ptr);
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, GSTATE_TO_CANVAS(gstate)->font_id, 1);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, canvas->font_id, 1);
 }
 
 
@@ -3480,13 +3480,11 @@ void gfx_prim_getfont()
 //
 void gfx_prim_setfont()
 {
-  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_GSTATE, OTYPE_FONT | IS_NIL });
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_CANVAS, OTYPE_FONT | IS_NIL });
 
   if(!argv) return;
 
-  gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
-
-  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+  canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[0].ptr);
 
   OBJ_ID_ASSIGN(canvas->font_id, argv[1].id);
 
@@ -3548,9 +3546,9 @@ void gfx_prim_newfont()
 //
 void gfx_prim_getdrawmode()
 {
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? GSTATE_TO_CANVAS(gstate)->draw_mode : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->draw_mode : 0, t_int), 0);
 }
 
 
@@ -3576,9 +3574,9 @@ void gfx_prim_setdrawmode()
 
   if(!argv) return;
 
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
-  if(gstate) GSTATE_TO_CANVAS(gstate)->draw_mode = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+  if(canvas) canvas->draw_mode = OBJ_VALUE_FROM_PTR(argv[0].ptr);
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 }
@@ -3606,13 +3604,11 @@ void gfx_prim_setdrawmode()
 //
 void gfx_prim_getregion()
 {
-  arg_t *argv = gfx_arg_1(OTYPE_GSTATE);
+  arg_t *argv = gfx_arg_1(OTYPE_CANVAS);
 
   if(!argv) return;
 
-  gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
-
-  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+  canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[0].ptr);
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 
@@ -3645,13 +3641,11 @@ void gfx_prim_getregion()
 //
 void gfx_prim_setregion()
 {
-  arg_t *argv = gfx_arg_n(5, (uint8_t [5]) { OTYPE_GSTATE, OTYPE_NUM, OTYPE_NUM, OTYPE_NUM, OTYPE_NUM });
+  arg_t *argv = gfx_arg_n(5, (uint8_t [5]) { OTYPE_CANVAS, OTYPE_NUM, OTYPE_NUM, OTYPE_NUM, OTYPE_NUM });
 
   if(!argv) return;
 
-  gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
-  
-  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+  canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[0].ptr);
 
   int64_t val1 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
   int64_t val2 = OBJ_VALUE_FROM_PTR(argv[2].ptr);
@@ -3688,13 +3682,11 @@ void gfx_prim_setregion()
 //
 void gfx_prim_getlocation()
 {
-  arg_t *argv = gfx_arg_1(OTYPE_GSTATE);
+  arg_t *argv = gfx_arg_1(OTYPE_CANVAS);
 
   if(!argv) return;
 
-  gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
-
-  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+  canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[0].ptr);
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 
@@ -3721,13 +3713,11 @@ void gfx_prim_getlocation()
 //
 void gfx_prim_setlocation()
 {
-  arg_t *argv = gfx_arg_n(3, (uint8_t [3]) { OTYPE_GSTATE, OTYPE_NUM, OTYPE_NUM });
+  arg_t *argv = gfx_arg_n(3, (uint8_t [3]) { OTYPE_CANVAS, OTYPE_NUM, OTYPE_NUM });
 
   if(!argv) return;
 
-  gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
-
-  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+  canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[0].ptr);
 
   int64_t val1 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
   int64_t val2 = OBJ_VALUE_FROM_PTR(argv[2].ptr);
@@ -3758,89 +3748,7 @@ void gfx_prim_setlocation()
 //
 void gfx_prim_canvas()
 {
-  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_NUM, OTYPE_NUM });
-
-  if(!argv) return;
-
-  int64_t val1 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
-  int64_t val2 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
-
-  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_canvas_new(val1, val2), 0);
-}
-
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// get canvas
-//
-// group: gfx
-//
-// ( gstate_1 -- canvas_1 )
-// ( gstate_1 -- nil )
-// gstate_1: graphics state
-// canvas_1: canvas object
-//
-// Get canvas object from graphics state. A canvas is a memory area with
-// associated width and height. All drawing operations are done on canvas
-// objects. If no canvas is associated with the graphics state, return nil.
-//
-// example:
-//
-// getgstate getcanvas dim              # 800 600
-//
-void gfx_prim_getcanvas()
-{
-  arg_t *argv = gfx_arg_1(OTYPE_GSTATE);
-
-  if(!argv) return;
-
-  gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
-
-  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
-
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gstate->canvas_id, 1);
-}
-
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// set canvas
-//
-// group: gfx
-//
-// ( gstate_1 canvas_1 -- )
-// ( gstate_1 nil -- )
-// gstate_1: graphics state
-// canvas_1: canvas object
-//
-// Set canvas of graphics state. A canvas is a memory area with
-// associated width and height. All drawing operations are done on canvas
-// objects. If nil is passed, the canvas is removed from the graphics state.
-//
-// The drawing region of gstate_1 is adjusted to match the canvas size. The
-// drawing position is reset to x = 0, y = 0.
-//
-// example:
-//
-// getgstate 800 600 canvas setcanvas
-//
-void gfx_prim_setcanvas()
-{
-  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_GSTATE, OTYPE_CANVAS | IS_NIL });
-
-  if(!argv) return;
-
-  gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
-
-  OBJ_ID_ASSIGN(gstate->canvas_id, argv[1].id);
-
-  if(argv[1].id) {
-    canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[1].ptr);
-
-    canvas->region = (area_t) {0, 0, canvas->geo.width, canvas->geo.height};
-    canvas->cursor.x = canvas->cursor.y = 0;
-  }
-
-  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
+  gfx_prim_gstate2();
 }
 
 
@@ -3865,7 +3773,7 @@ void gfx_prim_setcanvas()
 //
 void gfx_prim_getgstate()
 {
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfxboot_data->gstate_id, 1);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfxboot_data->canvas_id, 1);
 }
 
 
@@ -3892,34 +3800,13 @@ void gfx_prim_getgstate()
 //
 void gfx_prim_setgstate()
 {
-  arg_t *argv = gfx_arg_1(OTYPE_GSTATE | IS_NIL);
+  arg_t *argv = gfx_arg_1(OTYPE_CANVAS | IS_NIL);
 
   if(!argv) return;
 
-  OBJ_ID_ASSIGN(gfxboot_data->gstate_id, argv[0].id);
+  OBJ_ID_ASSIGN(gfxboot_data->canvas_id, argv[0].id);
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
-}
-
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// create graphics state
-//
-// group: gfx
-//
-// ( -- gstate_1 )
-//
-// Create a new empty graphics state gstate_1.
-//
-// example:
-//
-// gstate
-//
-void gfx_prim_gstate()
-{
-  obj_id_t gstate_id = gfx_obj_gstate_new();
-
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gstate_id, 0);
 }
 
 
@@ -3947,27 +3834,19 @@ void gfx_prim_gstate2()
   int64_t val1 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
   int64_t val2 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
 
-  obj_id_t gstate_id = gfx_obj_gstate_new();
-  gstate_t *gstate = gfx_obj_gstate_ptr(gstate_id);
+  obj_id_t canvas_id = gfx_obj_canvas_new(val1, val2);
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
 
-  if(gstate) {
-    obj_id_t canvas_id = gfx_obj_canvas_new(val1, val2);
-    canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
-
-    if(canvas) {
-      gstate->canvas_id = canvas_id;
-      canvas->geo.width = canvas->region.width = canvas->max_width;
-      canvas->geo.height = canvas->region.height = canvas->max_height;
-    }
-    else {
-      gfx_obj_ref_dec(canvas_id);
-      gfx_obj_ref_dec(gstate_id);
-      gstate_id = 0;
-    }
+  if(canvas) {
+    canvas->geo.width = canvas->region.width = canvas->max_width;
+    canvas->geo.height = canvas->region.height = canvas->max_height;
+  }
+  else {
+    gfx_obj_ref_dec(canvas_id);
   }
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gstate_id, 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, canvas_id, 0);
 }
 
 
@@ -3987,7 +3866,7 @@ void gfx_prim_gstate2()
 //
 void gfx_prim_getconsolegstate()
 {
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfxboot_data->console.gstate_id, 1);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfxboot_data->console.canvas_id, 1);
 }
 
 
@@ -4009,11 +3888,11 @@ void gfx_prim_getconsolegstate()
 //
 void gfx_prim_setconsolegstate()
 {
-  arg_t *argv = gfx_arg_1(OTYPE_GSTATE | IS_NIL);
+  arg_t *argv = gfx_arg_1(OTYPE_CANVAS | IS_NIL);
 
   if(!argv) return;
 
-  OBJ_ID_ASSIGN(gfxboot_data->console.gstate_id, argv[0].id);
+  OBJ_ID_ASSIGN(gfxboot_data->console.canvas_id, argv[0].id);
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 }
@@ -4045,11 +3924,7 @@ void gfx_prim_show()
 
   data_t *data = OBJ_DATA_FROM_PTR(argv[0].ptr);
 
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
-
-  if(gstate) {
-    gfx_puts(gstate->canvas_id, data->ptr, data->size);
-  }
+  gfx_puts(gfxboot_data->canvas_id, data->ptr, data->size);
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 }
@@ -4095,14 +3970,6 @@ void gfx_prim_dim()
       canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[0].ptr);
       area.width = canvas->geo.width;
       area.height = canvas->geo.height;
-      break;
-
-    case OTYPE_GSTATE:
-      ;
-      gstate_t *gstate = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
-      canvas = GSTATE_TO_CANVAS(gstate);
-      area.width = canvas->region.width;
-      area.height = canvas->region.height;
       break;
 
     default:
@@ -4252,32 +4119,7 @@ void gfx_prim_unpackimage()
 //
 void gfx_prim_unpackimage2()
 {
-  arg_t *argv = gfx_arg_1(OTYPE_MEM);
-
-  if(!argv) return;
-
-  obj_id_t gstate_id = 0;
-
-  obj_id_t canvas_id = gfx_image_open(argv[0].id);
-  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
-
-  if(canvas) {
-    gstate_id = gfx_obj_gstate_new();
-    gstate_t *gstate = gfx_obj_gstate_ptr(gstate_id);
-
-    if(gstate) {
-      gstate->canvas_id = canvas_id;
-      canvas->geo.width = canvas->region.width = canvas->max_width;
-      canvas->geo.height = canvas->region.height = canvas->max_height;
-    }
-  }
-  else {
-    gfx_obj_ref_dec(canvas_id);
-  }
-
-  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
-
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gstate_id, 0);
+  gfx_prim_unpackimage();
 }
 
 
@@ -4298,15 +4140,12 @@ void gfx_prim_unpackimage2()
 //
 void gfx_prim_blt()
 {
-  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_GSTATE, OTYPE_GSTATE });
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_CANVAS, OTYPE_CANVAS });
 
   if(!argv) return;
 
-  gstate_t *gstate1 = OBJ_GSTATE_FROM_PTR(argv[0].ptr);
-  gstate_t *gstate2 = OBJ_GSTATE_FROM_PTR(argv[1].ptr);
-
-  canvas_t *canvas1 = GSTATE_TO_CANVAS(gstate1);
-  canvas_t *canvas2 = GSTATE_TO_CANVAS(gstate2);
+  canvas_t *canvas1 = OBJ_CANVAS_FROM_PTR(argv[0].ptr);
+  canvas_t *canvas2 = OBJ_CANVAS_FROM_PTR(argv[1].ptr);
 
   area_t area2 = canvas2->region;
   area_t area1 = {
@@ -4333,7 +4172,7 @@ void gfx_prim_blt()
   );
 #endif
 
-  gfx_blt(canvas1->draw_mode, gstate1->canvas_id, area1, gstate2->canvas_id, area2);
+  gfx_blt(canvas1->draw_mode, argv[0].id, area1, argv[1].id, area2);
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
 }
@@ -4383,13 +4222,11 @@ void gfx_prim_getpixel()
 {
   obj_id_t val = 0;
 
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
-
-  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
   if(canvas) {
     color_t color;
-    if(gfx_getpixel(gstate->canvas_id, canvas->cursor.x, canvas->cursor.y, &color)) {
+    if(gfx_getpixel(gfxboot_data->canvas_id, canvas->cursor.x, canvas->cursor.y, &color)) {
       val = gfx_obj_num_new(color, t_int);
     }
   }
@@ -4415,12 +4252,10 @@ void gfx_prim_getpixel()
 //
 void gfx_prim_putpixel()
 {
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
-
-  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
   if(canvas) {
-    gfx_putpixel(gstate->canvas_id, canvas->cursor.x, canvas->cursor.y, canvas->color);
+    gfx_putpixel(gfxboot_data->canvas_id, canvas->cursor.x, canvas->cursor.y, canvas->color);
   }
 }
 
@@ -4451,12 +4286,10 @@ void gfx_prim_lineto()
   int64_t val1 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
   int64_t val2 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
 
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
-
-  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
   if(canvas) {
-    gfx_line(gstate->canvas_id, canvas->cursor.x, canvas->cursor.y, val1, val2, canvas->color);
+    gfx_line(gfxboot_data->canvas_id, canvas->cursor.x, canvas->cursor.y, val1, val2, canvas->color);
 
     canvas->cursor.x = val1;
     canvas->cursor.y = val2;
@@ -4491,12 +4324,10 @@ void gfx_prim_fillrect()
   int64_t val1 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
   int64_t val2 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
 
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
-
-  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
   if(canvas) {
-    gfx_rect(gstate->canvas_id, canvas->cursor.x, canvas->cursor.y, val1, val2, canvas->color);
+    gfx_rect(gfxboot_data->canvas_id, canvas->cursor.x, canvas->cursor.y, val1, val2, canvas->color);
   }
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);

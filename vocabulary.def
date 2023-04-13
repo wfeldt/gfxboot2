@@ -77,11 +77,8 @@ setlocation
 getdrawmode
 setdrawmode
 canvas
-getcanvas
-setcanvas
 getgstate
 setgstate
-gstate
 gstate2
 getconsolegstate
 setconsolegstate

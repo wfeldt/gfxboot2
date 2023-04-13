@@ -84,13 +84,6 @@ obj_descr_t obj_descr[] = {
     0,
     0
   },
-  [OTYPE_GSTATE] = {
-    1,
-    gfx_obj_gstate_dump,
-    gfx_obj_gstate_gc,
-    gfx_obj_gstate_contains,
-    0
-  },
   [OTYPE_INVALID] = {
     0,
     gfx_obj_invalid_dump,

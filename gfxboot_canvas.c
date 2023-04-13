@@ -16,8 +16,8 @@ obj_id_t gfx_obj_canvas_new(int width, int height)
   canvas_t *c = gfx_obj_canvas_ptr(id);
 
   if(c) {
-    c->max_width = c->geo.width = width;
-    c->max_height = c->geo.height = height;
+    c->max_width = c->geo.width = c->region.width = width;
+    c->max_height = c->geo.height = c->region.height = height;
   }
 
   return id;

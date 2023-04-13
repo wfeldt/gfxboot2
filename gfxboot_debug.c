@@ -204,18 +204,14 @@ void gfx_program_debug_on_off(unsigned state)
     }
   }
 
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->console.gstate_id);
-
-  if(!gstate) return;
-
-  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->console.canvas_id);
 
   if(!canvas) return;
 
   gfx_screen_compose(canvas->geo);
 
   gfx_rect(
-    gstate->canvas_id,
+    gfxboot_data->console.canvas_id,
     0,
     canvas->region.height - canvas->cursor.height,
     canvas->region.width,
@@ -244,10 +240,6 @@ void gfx_program_debug_on_off(unsigned state)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 void gfx_program_debug_putc(unsigned c, unsigned cursor)
 {
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->console.gstate_id);
-
-  if(!gstate) return;
-
   if(c) gfx_console_putc(c, 1);
 
   if(cursor) gfx_console_putc(cursor, 0);
@@ -257,9 +249,9 @@ void gfx_program_debug_putc(unsigned c, unsigned cursor)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 void gfx_program_debug(unsigned key)
 {
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->console.gstate_id);
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->console.canvas_id);
 
-  canvas_t *canvas = GSTATE_TO_CANVAS(gstate);
+  if(!canvas) return;
 
   unsigned pos = gfxboot_data->vm.debug.console.buf_pos;
 
@@ -287,7 +279,6 @@ void gfx_program_debug(unsigned key)
   if(key && key < ' ') return;
 
   if(
-    !gstate ||
     pos >= sizeof gfxboot_data->vm.debug.console.buf - 1 ||
     canvas->cursor.x >= canvas->region.width - canvas->cursor.width
   ) {
@@ -337,10 +328,9 @@ void gfx_vm_status_dump()
     gfxboot_data->screen.real.res.pos
   );
 
-  gfxboot_log("virtual screen:\n  id = %s\n", gfx_obj_id2str(gfxboot_data->screen.gstate_id));
+  gfxboot_log("virtual screen:\n  id = %s\n", gfx_obj_id2str(gfxboot_data->screen.canvas_id));
 
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->screen.gstate_id);
-  canvas_t *c = gfx_obj_canvas_ptr(gstate ? gstate->canvas_id : 0);
+  canvas_t *c = gfx_obj_canvas_ptr(gfxboot_data->screen.canvas_id);
 
   if(c) {
     gfxboot_log(
@@ -391,16 +381,13 @@ void gfx_vm_status_dump()
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 void gfx_status_dump()
 {
-  gstate_t *console_gstate = gfx_obj_gstate_ptr(gfxboot_data->console.gstate_id);
-  gstate_t *gfx_gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
-
-  canvas_t *console_canvas = GSTATE_TO_CANVAS(console_gstate);
-  canvas_t *gfx_canvas = GSTATE_TO_CANVAS(gfx_gstate);
+  canvas_t *console_canvas = gfx_obj_canvas_ptr(gfxboot_data->console.canvas_id);
+  canvas_t *gfx_canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
   gfxboot_log("graphics screen:\n");
-  if(gfx_gstate) {
-    gfxboot_log("  gstate = ");
-    gfx_obj_dump(gfxboot_data->gstate_id, (dump_style_t) { .inspect = 1 });
+  if(gfx_canvas) {
+    gfxboot_log("  canvas = ");
+    gfx_obj_dump(gfxboot_data->canvas_id, (dump_style_t) { .inspect = 1 });
     gfxboot_log("  cursor = %dx%d, color #%08x, bg_color #%08x\n",
       gfx_canvas->cursor.x, gfx_canvas->cursor.y,
       gfx_canvas->color, gfx_canvas->bg_color
@@ -410,9 +397,9 @@ void gfx_status_dump()
   }
 
   gfxboot_log("text console:\n");
-  if(console_gstate) {
-    gfxboot_log("  gstate = ");
-    gfx_obj_dump(gfxboot_data->console.gstate_id, (dump_style_t) { .inspect = 1 });
+  if(console_canvas) {
+    gfxboot_log("  canvas = ");
+    gfx_obj_dump(gfxboot_data->console.canvas_id, (dump_style_t) { .inspect = 1 });
     gfxboot_log("  cursor = %dx%d, color #%08x, bg_color #%08x\n",
       console_canvas->cursor.x, console_canvas->cursor.y,
       console_canvas->color, console_canvas->bg_color
@@ -557,13 +544,13 @@ void debug_cmd_dump(int argc, char **argv)
       id = gfxboot_data->vm.gc_list;
     }
     else if(!gfx_strcmp(argv[1], "screen")) {
-      id = gfxboot_data->screen.gstate_id;
+      id = gfxboot_data->screen.canvas_id;
     }
     else if(!gfx_strcmp(argv[1], "gstate")) {
-      id = gfxboot_data->gstate_id;
+      id = gfxboot_data->canvas_id;
     }
     else if(!gfx_strcmp(argv[1], "consolegstate")) {
-      id = gfxboot_data->console.gstate_id;
+      id = gfxboot_data->console.canvas_id;
     }
     else if(!gfx_strcmp(argv[1], "compose")) {
       id = gfxboot_data->compose.list_id;
@@ -812,18 +799,18 @@ void debug_cmd_set(int argc, char **argv)
     gfx_obj_ref_dec(old);
   }
   else if(!gfx_strcmp(argv[0], "screen")) {
-    obj_id_t old = gfxboot_data->screen.gstate_id;
-    gfxboot_data->screen.gstate_id = gfx_obj_ref_inc(id);
+    obj_id_t old = gfxboot_data->screen.canvas_id;
+    gfxboot_data->screen.canvas_id = gfx_obj_ref_inc(id);
     gfx_obj_ref_dec(old);
   }
   else if(!gfx_strcmp(argv[0], "gstate")) {
-    obj_id_t old = gfxboot_data->gstate_id;
-    gfxboot_data->gstate_id = gfx_obj_ref_inc(id);
+    obj_id_t old = gfxboot_data->canvas_id;
+    gfxboot_data->canvas_id = gfx_obj_ref_inc(id);
     gfx_obj_ref_dec(old);
   }
   else if(!gfx_strcmp(argv[0], "consolegstate")) {
-    obj_id_t old = gfxboot_data->console.gstate_id;
-    gfxboot_data->console.gstate_id = gfx_obj_ref_inc(id);
+    obj_id_t old = gfxboot_data->console.canvas_id;
+    gfxboot_data->console.canvas_id = gfx_obj_ref_inc(id);
     gfx_obj_ref_dec(old);
   }
   else if(!gfx_strcmp(argv[0], "compose")) {

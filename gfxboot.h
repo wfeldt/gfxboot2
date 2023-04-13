@@ -278,6 +278,9 @@ typedef struct {
   int64_t inc;
 } context_t;
 
+// dm_no_update is a bit mask
+typedef enum { dm_merge = 0, dm_direct = 1, dm_no_update = 2 } draw_mode_t;
+
 typedef struct {
   area_t geo;		// current canvas location & size; width, height <= canvas.max_width, canvas.max_height
   area_t region;	// FIXME: [NOT screen relative] drawing (clipping) area, relative to screen (in pixel)
@@ -286,6 +289,7 @@ typedef struct {
   color_t bg_color;	// background color
   obj_id_t canvas_id;
   obj_id_t font_id;
+  draw_mode_t draw_mode;
 } gstate_t;
 
 typedef struct {
@@ -420,7 +424,7 @@ void gfx_console_puts(char *s);
 void gfx_putc(gstate_t *gstate, unsigned c, int update_pos);
 void gfx_puts(gstate_t *gstate, char *s, unsigned len);
 area_t gfx_clip(area_t *area1, area_t *area2);
-void gfx_blt(int mode, obj_id_t dst_id, area_t dst_area, obj_id_t src_id, area_t src_area);
+void gfx_blt(draw_mode_t mode, obj_id_t dst_id, area_t dst_area, obj_id_t src_id, area_t src_area);
 int gfx_getpixel(gstate_t *gstate, int x, int y, color_t *color);
 void gfx_putpixel(gstate_t *gstate, int x, int y, color_t color);
 void gfx_line(gstate_t *gstate, int x0, int y0, int x1, int y1, color_t color);

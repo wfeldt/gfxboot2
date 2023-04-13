@@ -133,7 +133,7 @@ void gfx_screen_compose(area_t area)
 
   gfx_clip(&area, &target_gstate->geo);
 
-  int blt_mode = 2;
+  draw_mode_t blt_mode = dm_direct + dm_no_update;
 
   for(int i = 0; i <= list_size; i++) {
     gstate_t *gstate = 0;
@@ -155,7 +155,7 @@ void gfx_screen_compose(area_t area)
       src_area.height = dst_area.height;
       // gfxboot_serial(0, "compose %d: src = %dx%d_%dx%d, dst = %dx%d_%dx%d\n", i, src_area.x, src_area.y, src_area.width, src_area.height, dst_area.x, dst_area.y, dst_area.width, dst_area.height);
       gfx_blt(blt_mode, target_gstate->canvas_id, dst_area, gstate->canvas_id, src_area);
-      blt_mode = 3;
+      blt_mode = dm_merge + dm_no_update;
     }
   }
 
@@ -399,9 +399,7 @@ void gfx_console_putc(unsigned c, int update_pos)
         gstate->cursor.y -= gstate->cursor.height;
 
         // scroll up
-        gfx_blt(0, gstate->canvas_id, dst_area, gstate->canvas_id, src_area);
-
-        color_t x = gstate->bg_color;
+        gfx_blt(gstate->draw_mode, gstate->canvas_id, dst_area, gstate->canvas_id, src_area);
 
         gfx_rect(
           gstate,
@@ -409,7 +407,7 @@ void gfx_console_putc(unsigned c, int update_pos)
           gstate->region.height - gstate->cursor.height,
           gstate->region.width,
           gstate->cursor.height,
-          x
+          gstate->bg_color
         );
       }
       break;
@@ -480,7 +478,7 @@ void gfx_putc(gstate_t *gstate, unsigned c, int update_pos)
 
     ADD_AREA(glyph_area, diff);
 
-    gfx_blt(1, gstate->canvas_id, area, glyph_id, glyph_area);
+    gfx_blt(gstate->draw_mode, gstate->canvas_id, area, glyph_id, glyph_area);
 
     if(update_pos) gstate->cursor.x += geo.width;
   }
@@ -566,7 +564,7 @@ area_t gfx_clip(area_t *area1, area_t *area2)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_blt(int mode, obj_id_t dst_id, area_t dst_area, obj_id_t src_id, area_t src_area)
+void gfx_blt(draw_mode_t mode, obj_id_t dst_id, area_t dst_area, obj_id_t src_id, area_t src_area)
 {
   canvas_t *dst_c = gfx_obj_canvas_ptr(dst_id);
   canvas_t *src_c = gfx_obj_canvas_ptr(src_id);
@@ -580,8 +578,8 @@ void gfx_blt(int mode, obj_id_t dst_id, area_t dst_area, obj_id_t src_id, area_t
 
   if(!dst_c || !src_c) return;
 
-  int mode_no_update = mode & 2;
-  mode &= 1;
+  draw_mode_t mode_no_update = mode & dm_no_update;
+  mode &= dm_no_update - 1;
 
   dst_area.width = MIN(src_area.width, dst_area.width);
   dst_area.height = MIN(src_area.height, dst_area.height);
@@ -611,13 +609,13 @@ void gfx_blt(int mode, obj_id_t dst_id, area_t dst_area, obj_id_t src_id, area_t
   dst_pixel += dst_area.y * dst_c->size.width + dst_area.x;
   src_pixel += src_area.y * src_c->size.width + src_area.x;
 
-  if(mode == 0) {
+  if(mode == dm_direct) {
     int i;
     for(i = 0; i < dst_area.height; i++, dst_pixel += dst_c->size.width, src_pixel += src_c->size.width) {
       gfx_memcpy(dst_pixel, src_pixel, (unsigned) dst_area.width * COLOR_BYTES);
     }
   }
-  else if(mode == 1) {
+  else if(mode == dm_merge) {
     int i, j;
     for(j = 0; j < dst_area.height; j++, dst_pixel += dst_c->size.width, src_pixel += src_c->size.width) {
       for(i = 0; i < dst_area.width; i++) {
@@ -691,6 +689,9 @@ int gfx_getpixel(gstate_t *gstate, int x, int y, color_t *color)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 void gfx_putpixel(gstate_t *gstate, int x, int y, color_t color)
 {
+  draw_mode_t mode_no_update = gstate->draw_mode & dm_no_update;
+  draw_mode_t mode = gstate->draw_mode & (dm_no_update - 1);
+
   // gfxboot_serial(0, "X putpixel %dx%d\n", x, y);
 
   canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
@@ -702,9 +703,14 @@ void gfx_putpixel(gstate_t *gstate, int x, int y, color_t color)
     y += gstate->region.y;
     if(x >= 0 && y >= 0 && x < canvas->size.width && y < canvas->size.height) {
       int ofs = x + y * canvas->size.width;
-      canvas->ptr[ofs] = gfx_color_merge(canvas->ptr[ofs], color);
+      if(mode == dm_direct) {
+        canvas->ptr[ofs] = color;
+      }
+      else if(mode == dm_merge) {
+        canvas->ptr[ofs] = gfx_color_merge(canvas->ptr[ofs], color);
+      }
 
-      gfx_canvas_update(gstate->canvas_id, (area_t) { .x = x, .y = y, .width = 1, .height = 1 });
+      if(!mode_no_update) gfx_canvas_update(gstate->canvas_id, (area_t) { .x = x, .y = y, .width = 1, .height = 1 });
     }
   }
 }
@@ -790,6 +796,9 @@ void gfx_line(gstate_t *gstate, int x0, int y0, int x1, int y1, color_t color)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 void gfx_rect(gstate_t *gstate, int x, int y, int width, int height, color_t c)
 {
+  draw_mode_t mode_no_update = gstate->draw_mode & dm_no_update;
+  draw_mode_t mode = gstate->draw_mode & (dm_no_update - 1);
+
   canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
 
   if(!canvas) return;
@@ -822,13 +831,22 @@ void gfx_rect(gstate_t *gstate, int x, int y, int width, int height, color_t c)
 
   int i, j;
 
-  for(j = 0; j < area.height; j++, pixel += canvas->size.width) {
-    for(i = 0; i < area.width; i++) {
-      pixel[i] = gfx_color_merge(pixel[i], c);
+  if(mode == dm_direct) {
+    for(j = 0; j < area.height; j++, pixel += canvas->size.width) {
+      for(i = 0; i < area.width; i++) {
+        pixel[i] = c;
+      }
+    }
+  }
+  else if(mode == dm_merge) {
+    for(j = 0; j < area.height; j++, pixel += canvas->size.width) {
+      for(i = 0; i < area.width; i++) {
+        pixel[i] = gfx_color_merge(pixel[i], c);
+      }
     }
   }
 
-  gfx_canvas_update(gstate->canvas_id, area);
+  if(!mode_no_update) gfx_canvas_update(gstate->canvas_id, area);
 }
 
 

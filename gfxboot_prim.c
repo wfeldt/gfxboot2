@@ -3529,6 +3529,60 @@ void gfx_prim_newfont()
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// get drawing mode
+//
+// group: gfx
+//
+// ( -- int_1 )
+// int_1: drawing mode
+//
+// Return drawing mode of current canvas.
+//
+// Drawing mode is either 0 (merge mode) or 1 (direct mode).
+//
+// example:
+//
+// getdrawmode                             # 0 ('merge' mode)
+//
+void gfx_prim_getdrawmode()
+{
+  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(gstate ? gstate->draw_mode : 0, t_int), 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// set drawing mode
+//
+// group: gfx
+//
+// ( int_1 -- )
+// int_1: drawing mode
+//
+// Set drawing mode if current canvas.
+//
+// Drawing mode is either 0 (merge mode) or 1 (direct mode).
+//
+// example:
+//
+// 1 setdrawmode                           # set 'direct' mode
+//
+void gfx_prim_setdrawmode()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_NUM);
+
+  if(!argv) return;
+
+  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
+
+  if(gstate) gstate->draw_mode = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // get drawing region
 //
 // group: gfx
@@ -4266,7 +4320,7 @@ void gfx_prim_blt()
   );
 #endif
 
-  gfx_blt(1, gstate1->canvas_id, area1, gstate2->canvas_id, area2);
+  gfx_blt(gstate1->draw_mode, gstate1->canvas_id, area1, gstate2->canvas_id, area2);
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
 }

@@ -68,13 +68,16 @@ int gfxboot_init()
   int t_x = (gfxboot_data->screen.real.width - t_width) / 2;
   int t_y = (gfxboot_data->screen.real.height - t_height) / 2;
 
+  console_gstate->draw_mode = dm_direct;
   console_gstate->canvas_id = gfx_obj_canvas_new(t_width, t_height);
   console_gstate->geo = (area_t) { .x = t_x, .y = t_y, .width = t_width, .height = t_height };
   console_gstate->region = (area_t) { .width = t_width, .height = t_height };
   console_gstate->cursor.y = t_height - console_gstate->cursor.height;
   console_gstate->cursor = (area_t) { .y = t_height - console_gstate->cursor.height, .width = area.width, .height = area.height };
   console_gstate->color = COLOR(0x00, 0xff, 0xff, 0xff);
-  console_gstate->bg_color = COLOR(0x80, 0x24, 0x16, 0x32);
+  console_gstate->bg_color = COLOR(0x60, 0x32, 0x32, 0x32);
+
+  gfx_rect(console_gstate, 0, 0, t_width, t_height, console_gstate->bg_color);
 
   // load main program
   obj_id_t pfile_id = gfx_read_file("main.gc");

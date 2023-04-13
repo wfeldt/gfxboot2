@@ -74,6 +74,8 @@ getregion
 setregion
 getlocation
 setlocation
+getdrawmode
+setdrawmode
 canvas
 getcanvas
 setcanvas

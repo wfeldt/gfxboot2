@@ -17,8 +17,9 @@
 
 #include <gfxboot.h>
 
-#define FAKE_WIDTH	800
-#define FAKE_HEIGHT	600
+#define FAKE_WIDTH		800
+#define FAKE_HEIGHT		600
+#define GFX_MEMORY_IN_MIB	16
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 gfxboot_data_t *gfxboot_data;
@@ -437,8 +438,7 @@ int x11_gfxboot_init()
   u &= ((uint64_t) 1 << (gfxboot_data->screen.real.bytes_per_pixel * 8)) - 1;
   gfxboot_data->screen.real.res = mask_to_color_bits(u);
 
- // reserve 16 MiB for our VM
-  gfxboot_data->vm.mem.size = 16 * (1 << 20);
+  gfxboot_data->vm.mem.size = GFX_MEMORY_IN_MIB * (1 << 20);
   gfxboot_data->vm.mem.ptr = calloc(1, gfxboot_data->vm.mem.size);
   if(!gfxboot_data->vm.mem.ptr) return 1;
 

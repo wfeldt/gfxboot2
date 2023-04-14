@@ -3565,7 +3565,7 @@ void gfx_prim_getdrawmode()
 // ( int_1 -- )
 // int_1: drawing mode
 //
-// Set drawing mode if current canvas.
+// Set drawing mode of current canvas.
 //
 // Drawing mode is either 0 (merge mode) or 1 (direct mode).
 //

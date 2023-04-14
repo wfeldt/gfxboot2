@@ -6,18 +6,31 @@ getcanvas getconsole setcanvas 0x40405070 setbgcolor setcanvas
 
 /text "ABC 12345 xyz # * % & § öäüß €" def
 
-/image "katze_800.jpg" readfile unpackimage def
-/x1 "x1.jpg" readfile unpackimage def
-x1 400 50 setlocation
+/kater "kater_0800.jpg" readfile unpackimage def
 
-/x2 "x2.jpg" readfile unpackimage def
-x2 -80 -80 setlocation
+/katze_orig "katze_0400.jpg" readfile unpackimage def
+/katze katze_orig dim newcanvas def
 
-[ getcanvas x1 x2 ] setcompose
+getcanvas
+  katze setcanvas
+  0x80000000 setcolor
+  1 setdrawmode
+  getcanvas dim fillrect
+  0 setdrawmode
+setcanvas
 
-0 0 setpos getcanvas image blt
+katze katze_orig blt
+
+katze 500 50 setlocation
+
+/pilz "pilz_0400.jpg" readfile unpackimage def
+pilz -180 -180 setlocation
+
+[ getcanvas katze pilz ] setcompose
+
+0 0 setpos getcanvas kater blt
 0x90000000 setcolor
-image dim fillrect
+getcanvas dim fillrect
 
 0xffff00 setcolor
 

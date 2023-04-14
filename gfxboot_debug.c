@@ -546,10 +546,10 @@ void debug_cmd_dump(int argc, char **argv)
     else if(!gfx_strcmp(argv[1], "screen")) {
       id = gfxboot_data->screen.canvas_id;
     }
-    else if(!gfx_strcmp(argv[1], "gstate")) {
+    else if(!gfx_strcmp(argv[1], "canvas")) {
       id = gfxboot_data->canvas_id;
     }
-    else if(!gfx_strcmp(argv[1], "consolegstate")) {
+    else if(!gfx_strcmp(argv[1], "consolecanvas")) {
       id = gfxboot_data->console.canvas_id;
     }
     else if(!gfx_strcmp(argv[1], "compose")) {
@@ -803,12 +803,12 @@ void debug_cmd_set(int argc, char **argv)
     gfxboot_data->screen.canvas_id = gfx_obj_ref_inc(id);
     gfx_obj_ref_dec(old);
   }
-  else if(!gfx_strcmp(argv[0], "gstate")) {
+  else if(!gfx_strcmp(argv[0], "canvas")) {
     obj_id_t old = gfxboot_data->canvas_id;
     gfxboot_data->canvas_id = gfx_obj_ref_inc(id);
     gfx_obj_ref_dec(old);
   }
-  else if(!gfx_strcmp(argv[0], "consolegstate")) {
+  else if(!gfx_strcmp(argv[0], "consolecanvas")) {
     obj_id_t old = gfxboot_data->console.canvas_id;
     gfxboot_data->console.canvas_id = gfx_obj_ref_inc(id);
     gfx_obj_ref_dec(old);

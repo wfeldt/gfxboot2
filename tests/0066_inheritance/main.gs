@@ -1,4 +1,4 @@
-getgstate getconsolegstate getfont setfont
+getcanvas getconsole getfont setfont
 
 /widget (
   /draw1 {

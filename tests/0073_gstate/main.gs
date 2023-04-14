@@ -1,1 +1,1 @@
-300 200 gstate2
+300 200 newcanvas

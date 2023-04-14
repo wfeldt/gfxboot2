@@ -3436,16 +3436,18 @@ void gfx_prim_setpos()
 //
 // group: gfx
 //
-// ( gstate_1 -- font_1 )
-// ( gstate_1 -- nil )
-// gstate_1: graphics state
+// ( canvas_1 -- font_1 )
+// ( canvas_1 -- nil )
+// canvas_1: canvas
 // font_1: font
 //
-// Get font from graphics state. 
+// Get font used in canvas. 
 //
 // example:
 //
-// getgstate getfont                    # current font
+// # get currently used font
+//
+// getcanvas getfont
 //
 void gfx_prim_getfont()
 {
@@ -3454,10 +3456,11 @@ void gfx_prim_getfont()
   if(!argv) return;
 
   canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[0].ptr);
+  obj_id_t font_id = canvas ? canvas->font_id : 0;
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, canvas->font_id, 1);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, font_id, 1);
 }
 
 
@@ -3466,17 +3469,19 @@ void gfx_prim_getfont()
 //
 // group: gfx
 //
-// ( gstate_1 font_1 -- )
-// ( gstate_1 nil -- )
-// gstate_1: graphics state
+// ( canvas_1 font_1 -- )
+// ( canvas_1 nil -- )
+// canvas_1: canvas
 // font_1: font
 //
-// Set font in graphics state. If nil is passed, any font is removed from the graphics state.
+// Set font used in canvas. If nil is passed, no font will be associated with canvas.
 //
 // example:
 //
+// # read font from file and use it
+//
 // /foo_font "foo.fnt" readfile newfont def
-// getgstate foo_font setfont                   # use "foo.fnt"
+// getcanvas foo_font setfont
 //
 void gfx_prim_setfont()
 {
@@ -3587,8 +3592,8 @@ void gfx_prim_setdrawmode()
 //
 // group: gfx
 //
-// ( gstate_1 -- int_1 int_2 int_3 int_4 )
-// gstate_1: graphics state
+// ( canvas_1 -- int_1 int_2 int_3 int_4 )
+// canvas_1: canvas
 // int_1: x
 // int_2: y
 // int_3: width
@@ -3600,7 +3605,7 @@ void gfx_prim_setdrawmode()
 //
 // example:
 //
-// getgstate getregion                  # 0 0 800 600
+// getcanvas getregion                  # 0 0 800 600
 //
 void gfx_prim_getregion()
 {
@@ -3624,8 +3629,8 @@ void gfx_prim_getregion()
 //
 // group: gfx
 //
-// ( gstate_1 int_1 int_2 int_3 int_4 -- )
-// gstate_1: graphics state
+// ( canvas_1 int_1 int_2 int_3 int_4 -- )
+// canvas_1: canvas
 // int_1: x
 // int_2: y
 // int_3: width
@@ -3637,7 +3642,7 @@ void gfx_prim_getregion()
 //
 // example:
 //
-// getgstate 10 10 200 100 setregion
+// getcanvas 10 10 200 100 setregion
 //
 void gfx_prim_setregion()
 {
@@ -3669,8 +3674,8 @@ void gfx_prim_setregion()
 //
 // group: gfx
 //
-// ( gstate_1 -- int_1 int_2 )
-// gstate_1: graphics state
+// ( canvas_1 -- int_1 int_2 )
+// canvas_1: canvas
 // int_1: x
 // int_2: y
 //
@@ -3678,7 +3683,7 @@ void gfx_prim_setregion()
 //
 // example:
 //
-// getgstate getlocation                  # 0 0
+// getcanvas getlocation                  # 0 0
 //
 void gfx_prim_getlocation()
 {
@@ -3700,8 +3705,8 @@ void gfx_prim_getlocation()
 //
 // group: gfx
 //
-// ( gstate_1 int_1 int_2 -- )
-// gstate_1: graphics state
+// ( canvas_1 int_1 int_2 -- )
+// canvas_1: canvas
 // int_1: x
 // int_2: y
 //
@@ -3709,7 +3714,7 @@ void gfx_prim_getlocation()
 //
 // example:
 //
-// getgstate 10 10 setlocation
+// getcanvas 10 10 setlocation
 //
 void gfx_prim_setlocation()
 {
@@ -3732,73 +3737,53 @@ void gfx_prim_setlocation()
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// create canvas
+// get default canvas
 //
 // group: gfx
 //
-// ( int_1 int_2 -- canvas_1 )
-// int_1: width
-// int_2: height
-//
-// Create a new empty canvas of the specified size.
-//
-// example:
-//
-// 800 600 canvas
-//
-void gfx_prim_canvas()
-{
-  gfx_prim_gstate2();
-}
-
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// get graphics state
-//
-// group: gfx
-//
-// ( -- gstate_1 )
+// ( -- canvas_1 )
 // ( -- nil )
 //
-// Get current graphics state. If none has been set, return nil.
+// Get default canvas used for graphics operations. If none has been set, return nil.
 //
-// The graphics state consists of a canvas to draw into, a region describing
-// a rectangular drawing and clipping area in that canvas, a drawing
-// position (relative to the drawing region), drawing color, background
-// color (for text), and a text font.
+// A canvas has associated
+//   - a size and position on screen (see 'getlocation')
+//   - a rectangular region used for drawing and clipping (see 'getregion')
+//   - a cursor position (see 'getpos')
+//   - a font (see 'getfont')
+//   - a color (see 'getcolor')
+//   - a background color - used in debug console (see 'getbgcolor')
+//   - a drawing mode (see 'getdrawmode')
 //
 // example:
 //
-// /saved_state getgstate def                   # save current graphics state
+// # get current default canvas
 //
-void gfx_prim_getgstate()
+// /current_canvas getcanvas def
+//
+void gfx_prim_getcanvas()
 {
   gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfxboot_data->canvas_id, 1);
 }
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// set graphics state
+// set default canvas
 //
 // group: gfx
 //
-// ( gstate_1 -- )
+// ( canvas_1 -- )
 // ( nil -- )
 //
-// Set current graphics state. If nil is passed, the current state is removed.
-//
-// The graphics state consists of a canvas to draw into, a region describing
-// a rectangular drawing and clipping area in that canvas, a drawing
-// position (relative to the drawing region), drawing color, background
-// color (for text), and a text font.
+// Set default canvas. If nil is passed, there will be no default canvas.
 //
 // example:
 //
-// /saved_state getgstate def                   # save current graphics state
+// /saved_state getcanvas def                   # save current graphics state
 // ...
-// saved_state setgstate                        # restore saved graphics state
+// saved_state setcanvas                        # restore saved graphics state
 //
-void gfx_prim_setgstate()
+void gfx_prim_setcanvas()
 {
   arg_t *argv = gfx_arg_1(OTYPE_CANVAS | IS_NIL);
 
@@ -3811,21 +3796,21 @@ void gfx_prim_setgstate()
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// create graphics state
+// create canvas
 //
 // group: gfx
 //
-// ( int_1 int_2 -- gstate_1 )
+// ( int_1 int_2 -- canvas_1 )
 // int_1: width
 // int_2: height
 //
-// Create a new empty graphics state with canvas of the specified size.
+// Create a new empty canvas of the specified size.
 //
 // example:
 //
-// 800 600 gstate2
+// 800 600 newcanvas
 //
-void gfx_prim_gstate2()
+void gfx_prim_newcanvas()
 {
   arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_NUM, OTYPE_NUM });
 
@@ -3834,59 +3819,53 @@ void gfx_prim_gstate2()
   int64_t val1 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
   int64_t val2 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
 
-  obj_id_t canvas_id = gfx_obj_canvas_new(val1, val2);
-  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
-
-  if(canvas) {
-    canvas->geo.width = canvas->region.width = canvas->max_width;
-    canvas->geo.height = canvas->region.height = canvas->max_height;
-  }
-  else {
-    gfx_obj_ref_dec(canvas_id);
-  }
-
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, canvas_id, 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_canvas_new(val1, val2), 0);
 }
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// get graphics state of the debug console
+// get debug console canvas
 //
 // group: gfx
 //
-// ( -- gstate_1 )
+// ( -- canvas_1 )
 // ( -- nil )
 //
-// Get graphics state of the debug console. If none has been set, return nil.
+// Get canvas of the debug console. If none has been set, return nil.
 //
 // example:
 //
-// /saved_state getconsolegstate def            # save current debug console state
+// # get console font
 //
-void gfx_prim_getconsolegstate()
+// /console_font getconsole getfont def
+//
+void gfx_prim_getconsole()
 {
   gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfxboot_data->console.canvas_id, 1);
 }
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// set graphics state of the debug console
+// set debug console canvas
 //
 // group: gfx
 //
-// ( gstate_1 -- )
+// ( canvas_1 -- )
 // ( nil -- )
 //
-// Set graphics state of the debug console. If nil is passed, the current state is removed.
+// Set canvas of the debug console. If nil is passed, the current canvas is removed
+// (and debug console disabled).
+//
+// You can use this to change the appearance of the debug console.
 //
 // example:
 //
-// /saved_state getconsolegstate def
-// ...
-// saved_state setconsolegstate                 # restore saved debug console state
+// # change debug console backgound color to transparent light blue
 //
-void gfx_prim_setconsolegstate()
+// getcanvas getconsole setcanvas 0x40405070 setbgcolor setcanvas
+//
+void gfx_prim_setconsole()
 {
   arg_t *argv = gfx_arg_1(OTYPE_CANVAS | IS_NIL);
 
@@ -3948,9 +3927,9 @@ void gfx_prim_show()
 //
 // example:
 //
-// getconsolegstate getcanvas dim               # 800 600
-// getconsolegstate dim                         # 640 480
-// getconsolegstate getfont dim                 # 8 16
+// getconsole getcanvas dim               # 800 600
+// getconsole dim                         # 640 480
+// getconsole getfont dim                 # 8 16
 //
 void gfx_prim_dim()
 {
@@ -4102,41 +4081,21 @@ void gfx_prim_unpackimage()
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// unpack image
-//
-// group: gfx
-//
-// ( string_1 -- gstate_1 )
-// ( string_1 -- nil )
-// string_1: image file data
-//
-// Unpacks image and returns a gstate object with the image or nil if the
-// data does not contain image data.
-//
-// example:
-//
-// "foo.jpg" readfile unpackimage2
-//
-void gfx_prim_unpackimage2()
-{
-  gfx_prim_unpackimage();
-}
-
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // copy rectangular region
 //
 // group: gfx
 //
-// ( gstate_1 gstate_2 -- )
+// ( canvas_1 canvas_2 -- )
 //
-// Copy from the drawing region of gstate_2 to the drawing region of gstate_1, at the drawing pos of gstate_1.
+// Copy from the drawing region of canvas_2 to the drawing region of canvas_1,
+// at the drawing pos of canvas_1 using the drawing mode of canvas_1.
 //
 // example:
 //
-// /cat_pic gstate def
-// cat_pic "cat.jpg" readfile unpackimage setcanvas
-// 0 0 setpos getgstate cat_pic blt                     # show cat picture
+// # show cat picture
+//
+// /cat_pic "cat.jpg" readfile unpackimage def
+// 300 200 setpos getcanvas cat_pic blt
 //
 void gfx_prim_blt()
 {
@@ -4275,9 +4234,9 @@ void gfx_prim_putpixel()
 //
 // example:
 //
-// 100 200 lineto
+// 100 200 drawline
 //
-void gfx_prim_lineto()
+void gfx_prim_drawline()
 {
   arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_NUM, OTYPE_NUM });
 
@@ -4348,11 +4307,11 @@ void gfx_prim_fillrect()
 //
 // example:
 //
-// "ABC" utf8decode                     # [ 65 66 67 ]
-// "Ä €" utf8decode                     # [ 196 32 8364 ]
-// "A\xf0B" utf8decode                  # [ 65 -240 66 ]
+// "ABC" decodeutf8                     # [ 65 66 67 ]
+// "Ä €" decodeutf8                     # [ 196 32 8364 ]
+// "A\xf0B" decodeutf8                  # [ 65 -240 66 ]
 //
-void gfx_prim_utf8decode()
+void gfx_prim_decodeutf8()
 {
   arg_t *argv = gfx_arg_1(OTYPE_MEM);
 
@@ -4405,11 +4364,11 @@ void gfx_prim_utf8decode()
 //
 // example:
 //
-// [ 65 66 67 ] utf8encode              # "ABC"
-// [ 196 32 8364 ] utf8encode           # "Ä €"
-// [ 65 -240 66 ] utf8encode            # "A\xf0B"
+// [ 65 66 67 ] encodeutf8              # "ABC"
+// [ 196 32 8364 ] encodeutf8           # "Ä €"
+// [ 65 -240 66 ] encodeutf8            # "A\xf0B"
 //
-void gfx_prim_utf8encode()
+void gfx_prim_encodeutf8()
 {
   arg_t *argv = gfx_arg_1(OTYPE_ARRAY);
 
@@ -4677,9 +4636,9 @@ void gfx_prim_setcompose()
 //
 // example:
 //
-// 10 10 200 100 update
+// 10 10 200 100 updatescreen
 //
-void gfx_prim_update()
+void gfx_prim_updatescreen()
 {
   arg_t *argv = gfx_arg_n(4, (uint8_t [4]) { OTYPE_NUM, OTYPE_NUM, OTYPE_NUM, OTYPE_NUM });
 

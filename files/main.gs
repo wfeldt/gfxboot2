@@ -1,35 +1,37 @@
-/cfont getconsolegstate getfont def
+getcanvas getconsole setcanvas 0x40405070 setbgcolor setcanvas
+
+/cfont getconsole getfont def
 /foo "foo.fnt" readfile newfont def
 /bar "bar.fnt" readfile newfont def
 
 /text "ABC 12345 xyz # * % & § öäüß €" def
 
-/image "katze_800.jpg" readfile unpackimage2 def
-/x1 "x1.jpg" readfile unpackimage2 def
+/image "katze_800.jpg" readfile unpackimage def
+/x1 "x1.jpg" readfile unpackimage def
 x1 400 50 setlocation
 
-/x2 "x2.jpg" readfile unpackimage2 def
+/x2 "x2.jpg" readfile unpackimage def
 x2 -80 -80 setlocation
 
-[ getgstate x1 x2 ] setcompose
+[ getcanvas x1 x2 ] setcompose
 
 0 0 setpos
-image getgstate exch blt
+image getcanvas exch blt
 0x90000000 setcolor
 image dim fillrect
 
 0xffff00 setcolor
 
-getgstate cfont setfont
+getcanvas cfont setfont
 50 50 setpos "Some font samples" show
 
 0x00ffffff setcolor
 
-getgstate cfont setfont
+getcanvas cfont setfont
 50 100 setpos text show
 
-getgstate bar setfont
+getcanvas bar setfont
 50 130 setpos text show
 
-getgstate foo setfont
+getcanvas foo setfont
 50 180 setpos text show

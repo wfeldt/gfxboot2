@@ -1,12 +1,12 @@
-getgstate 50 20 400 400 setregion
+getcanvas 50 20 400 400 setregion
 0x00ffffff setcolor
 
-# rlineto
+# draw line relative to cursor position
 /r {
   getpos
   4 1 roll add
   3 1 roll add exch
-  lineto
+  drawline
 } def
 
 200 200 setpos  200    0 r

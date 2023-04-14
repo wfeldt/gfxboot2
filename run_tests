@@ -179,10 +179,11 @@ sub verify_test
     }
     else {
       $err = $res eq "" || $res ne $ref ? ($ref eq "" ? 2 : 1) : 0;
+      $err = 3 if $res =~ /\n\s*error\s\d\s\(/ && $res !~ /"error ok"/;
     }
     $all_err ||= $err;
     
-    $msg .= sprintf "%8s", ("ok", "fail", "new")[$err];
+    $msg .= sprintf "%8s", ("ok", "fail", "new", "err")[$err];
   }
 
   print "$msg\n";

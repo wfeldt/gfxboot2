@@ -1,3 +1,6 @@
+# syntax erros are ok
+"error ok" pop
+
 /foo_1 99 def
 
 /bar {

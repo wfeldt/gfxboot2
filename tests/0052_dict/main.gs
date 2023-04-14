@@ -1,3 +1,6 @@
+# syntax errors are ok
+"error ok" pop
+
 getdict
 
 /foo_0 99 def

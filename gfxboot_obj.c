@@ -127,7 +127,7 @@ int gfx_obj_init()
 char *gfx_obj_id2str(obj_id_t id)
 {
   // corresponds to OTYPE_* defines
-  static const char *names[] = { "nil", "mem", "olist", "font", "canv", "array", "hash", "ctx", "num", "gstate" };
+  static const char *names[] = { "nil", "mem", "olist", "font", "canv", "array", "hash", "ctx", "num" };
   static char buf[64], buf2[32];
   const char *s, *sub_type = "", *ro = "";
   unsigned idx = OBJ_ID2IDX(id);

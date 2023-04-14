@@ -71,9 +71,8 @@ typedef uint32_t obj_id_t;
 #define OTYPE_HASH		6
 #define OTYPE_CONTEXT		7
 #define OTYPE_NUM		8
-// #define OTYPE_GSTATE		9
-#define OTYPE_INVALID		10
-#define OTYPE_ANY		11
+#define OTYPE_INVALID		9
+#define OTYPE_ANY		10
 
 // internal memory size of object with size n
 #define OBJ_OLIST_SIZE(n)	(sizeof (olist_t) + (n) * sizeof (obj_t))

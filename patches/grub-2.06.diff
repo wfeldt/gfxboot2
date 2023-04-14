@@ -1,7 +1,7 @@
 diff -r -u grub-2.06.orig/grub-core/Makefile.core.def grub-2.06/grub-core/Makefile.core.def
 --- grub-2.06.orig/grub-core/Makefile.core.def	2023-01-30 14:19:42.437138023 +0100
 +++ grub-2.06/grub-core/Makefile.core.def	2023-01-30 14:24:21.848790570 +0100
-@@ -1630,6 +1630,29 @@
+@@ -1630,6 +1630,28 @@
  };
  
  module = {
@@ -14,7 +14,6 @@ diff -r -u grub-2.06.orig/grub-core/Makefile.core.def grub-2.06/grub-core/Makefi
 +  common = gfxboot/gfxboot_draw.c;
 +  common = gfxboot/gfxboot_font.c;
 +  common = gfxboot/gfxboot_grub.c;
-+  common = gfxboot/gfxboot_gstate.c;
 +  common = gfxboot/gfxboot_hash.c;
 +  common = gfxboot/gfxboot_jpeg.c;
 +  common = gfxboot/gfxboot_lib.c;

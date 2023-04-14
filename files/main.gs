@@ -15,8 +15,7 @@ x2 -80 -80 setlocation
 
 [ getcanvas x1 x2 ] setcompose
 
-0 0 setpos
-image getcanvas exch blt
+0 0 setpos getcanvas image blt
 0x90000000 setcolor
 image dim fillrect
 

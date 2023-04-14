@@ -16,8 +16,10 @@ int gfxboot_init()
 
   gfx_vm_status_dump();
 
-  // gfxboot_data->vm.debug.show_pointer = 1;
-  // gfx_obj_dump(OBJ_ID(0, 1), (dump_style_t) { .dump = 1, .no_check = 1 });
+  // memory debug example:
+  //   gfxboot_data->vm.debug.show_pointer = 1;
+  //   gfx_malloc_dump((dump_style_t) { .dump = 1, .no_check = 1, .max = 64 });
+  //   gfx_obj_dump(OBJ_ID(0, 1), (dump_style_t) { .dump = 1, .no_check = 1, .max  = 64 });
 
   // setup compiled-in console font
   obj_id_t console_font_data_id = gfx_obj_const_mem_nofree_new(_console_font, sizeof _console_font, 0, 0);

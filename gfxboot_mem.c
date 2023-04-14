@@ -240,7 +240,7 @@ int gfx_obj_mem_dump(obj_t *ptr, dump_style_t style)
     }
   }
   else {
-    // if(len > 64) len = 64;		// log at most this much
+    if(style.max && len > style.max) len = style.max;		// log at most this much
     gfxboot_log("   ");
     s_idx = 0;
     for(cnt = 0; cnt < len; cnt++) {

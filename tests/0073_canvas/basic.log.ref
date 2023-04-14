@@ -16,4 +16,4 @@ GC: --#xxxx.1.1.num.int
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.gstate <geo 0x0_300x200, clip 0x0_300x200>
+  [0] #xxxx.1.1.canv <geo 0x0_300x200, region 0x0_300x200, chk 0xc14d4110>

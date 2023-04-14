@@ -1,29 +1,29 @@
 # ---  trace  ---
 IP: #197:0x0, type 5, 1[7]
 == backtrace ==
-  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x8 (0x0), dict #5.1.2.hash>
+  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x8 (0x0), dict #8.1.2.hash>
 == stack (#198.1.1.array) ==
 IP: #197:0x8, type 1, 100 (0x64)
 == backtrace ==
-  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0xa (0x8), dict #5.1.2.hash>
+  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0xa (0x8), dict #8.1.2.hash>
 == stack (#198.1.1.array) ==
   [0] #200.1.1.num.int <100 (0x64)>
 IP: #197:0xa, type 1, 200 (0xc8)
 == backtrace ==
-  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0xd (0xa), dict #5.1.2.hash>
+  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0xd (0xa), dict #8.1.2.hash>
 == stack (#198.1.1.array) ==
   [0] #201.1.1.num.int <200 (0xc8)>
   [1] #200.1.1.num.int <100 (0x64)>
 IP: #197:0xd, type 1, 300 (0x12c)
 == backtrace ==
-  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x10 (0xd), dict #5.1.2.hash>
+  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x10 (0xd), dict #8.1.2.hash>
 == stack (#198.1.1.array) ==
   [0] #202.1.1.num.int <300 (0x12c)>
   [1] #201.1.1.num.int <200 (0xc8)>
   [2] #200.1.1.num.int <100 (0x64)>
 IP: #197:0x10, type 1, 400 (0x190)
 == backtrace ==
-  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x13 (0x10), dict #5.1.2.hash>
+  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x13 (0x10), dict #8.1.2.hash>
 == stack (#198.1.1.array) ==
   [0] #203.1.1.num.int <400 (0x190)>
   [1] #202.1.1.num.int <300 (0x12c)>
@@ -31,7 +31,7 @@ IP: #197:0x10, type 1, 400 (0x190)
   [3] #200.1.1.num.int <100 (0x64)>
 IP: #197:0x13, type 1, 500 (0x1f4)
 == backtrace ==
-  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x16 (0x13), dict #5.1.2.hash>
+  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x16 (0x13), dict #8.1.2.hash>
 == stack (#198.1.1.array) ==
   [0] #204.1.1.num.int <500 (0x1f4)>
   [1] #203.1.1.num.int <400 (0x190)>
@@ -40,7 +40,7 @@ IP: #197:0x13, type 1, 500 (0x1f4)
   [4] #200.1.1.num.int <100 (0x64)>
 IP: #197:0x16, type 1, 0 (0x0)
 == backtrace ==
-  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x17 (0x16), dict #5.1.2.hash>
+  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x17 (0x16), dict #8.1.2.hash>
 == stack (#198.1.1.array) ==
   [0] #205.1.1.num.int <0 (0x0)>
   [1] #204.1.1.num.int <500 (0x1f4)>
@@ -52,7 +52,7 @@ IP: #197:0x17, type 8, 24[5]
 GC: --#205.1.1.num.int
 GC: ++#204.1.1.num.int
 == backtrace ==
-  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x1d (0x17), dict #5.1.2.hash>
+  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x1d (0x17), dict #8.1.2.hash>
 == stack (#198.1.1.array) ==
   [0] #204.1.2.num.int <500 (0x1f4)>
   [1] #204.1.2.num.int <500 (0x1f4)>
@@ -62,7 +62,7 @@ GC: ++#204.1.1.num.int
   [5] #200.1.1.num.int <100 (0x64)>
 IP: #197:0x1d, type 1, 2 (0x2)
 == backtrace ==
-  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x1e (0x1d), dict #5.1.2.hash>
+  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x1e (0x1d), dict #8.1.2.hash>
 == stack (#198.1.1.array) ==
   [0] #207.1.1.num.int <2 (0x2)>
   [1] #204.1.2.num.int <500 (0x1f4)>
@@ -75,7 +75,7 @@ IP: #197:0x1e, type 8, 31[5]
 GC: --#207.1.1.num.int
 GC: ++#203.1.1.num.int
 == backtrace ==
-  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x24 (0x1e), dict #5.1.2.hash>
+  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x24 (0x1e), dict #8.1.2.hash>
 == stack (#198.1.1.array) ==
   [0] #203.1.2.num.int <400 (0x190)>
   [1] #204.1.2.num.int <500 (0x1f4)>
@@ -86,7 +86,7 @@ GC: ++#203.1.1.num.int
   [6] #200.1.1.num.int <100 (0x64)>
 IP: #197:0x24, type 1, 6 (0x6)
 == backtrace ==
-  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x25 (0x24), dict #5.1.2.hash>
+  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x25 (0x24), dict #8.1.2.hash>
 == stack (#198.1.1.array) ==
   [0] #208.1.1.num.int <6 (0x6)>
   [1] #203.1.2.num.int <400 (0x190)>
@@ -100,7 +100,7 @@ IP: #197:0x25, type 8, 38[5]
 GC: --#208.1.1.num.int
 GC: ++#200.1.1.num.int
 == backtrace ==
-  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x2b (0x25), dict #5.1.2.hash>
+  [0] #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x2b (0x25), dict #8.1.2.hash>
 == stack (#198.1.1.array) ==
   [0] #200.1.2.num.int <100 (0x64)>
   [1] #203.1.2.num.int <400 (0x190)>

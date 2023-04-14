@@ -1,34 +1,37 @@
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# code: 28 entries (28 - 0)
+# code: 30 entries (30 - 0)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # line i index  offset   type   hex                      word
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
              0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
-     1       1  0x00008  prim   83 36                    getdict
-     3       2  0x0000a  ref    59 66 6f 6f 5f 30        /foo_0
-             3  0x00010  int    81 63                    99
-             4  0x00012  prim   63                       def
-     5       5  0x00013  ref    59 66 6f 6f 5f 31        /foo_1
-             6  0x00019  code   36                       {
-     6       7  0x0001a  prim   83 36                      getdict
-     7       8  0x0001c  prim   13                       }
-             9  0x0001d  prim   63                       def
-     9      10  0x0001e  ref    59 66 6f 6f 5f 32        /foo_2
-            11  0x00024  code   c6 1e                    {
-    10      12  0x00026  prim   43                         (
-            13  0x00027  prim   53                         )
-            14  0x00028  prim   83 37                      setdict
-    11      15  0x0002a  ref    59 62 61 72 5f 32          /bar_2
-            16  0x00030  code   36                         {
-    12      17  0x00031  int    81 0b                        11
-    13      18  0x00033  prim   13                         }
-            19  0x00034  prim   63                         def
-    14      20  0x00035  prim   83 36                      getdict
-    15      21  0x00037  word   58 62 61 72 5f 32          bar_2
-    16      22  0x0003d  word   58 66 6f 6f 5f 30          foo_0
-    17      23  0x00043  prim   13                       }
-            24  0x00044  prim   63                       def
-    19      25  0x00045  word   58 66 6f 6f 5f 31        foo_1
-    20      26  0x0004b  word   58 66 6f 6f 5f 32        foo_2
-    21      27  0x00051  xref   84 1a                    bar_2
+     2       1  0x00008  str    87 65 72 72 6f 72 20 6f  "error ok"
+                                6b
+             2  0x00011  prim   83 17                    pop
+     4       3  0x00013  prim   83 36                    getdict
+     6       4  0x00015  ref    59 66 6f 6f 5f 30        /foo_0
+             5  0x0001b  int    81 63                    99
+             6  0x0001d  prim   63                       def
+     8       7  0x0001e  ref    59 66 6f 6f 5f 31        /foo_1
+             8  0x00024  code   36                       {
+     9       9  0x00025  prim   83 36                      getdict
+    10      10  0x00027  prim   13                       }
+            11  0x00028  prim   63                       def
+    12      12  0x00029  ref    59 66 6f 6f 5f 32        /foo_2
+            13  0x0002f  code   c6 1e                    {
+    13      14  0x00031  prim   43                         (
+            15  0x00032  prim   53                         )
+            16  0x00033  prim   83 37                      setdict
+    14      17  0x00035  ref    59 62 61 72 5f 32          /bar_2
+            18  0x0003b  code   36                         {
+    15      19  0x0003c  int    81 0b                        11
+    16      20  0x0003e  prim   13                         }
+            21  0x0003f  prim   63                         def
+    17      22  0x00040  prim   83 36                      getdict
+    18      23  0x00042  word   58 62 61 72 5f 32          bar_2
+    19      24  0x00048  word   58 66 6f 6f 5f 30          foo_0
+    20      25  0x0004e  prim   13                       }
+            26  0x0004f  prim   63                       def
+    22      27  0x00050  word   58 66 6f 6f 5f 31        foo_1
+    23      28  0x00056  word   58 66 6f 6f 5f 32        foo_2
+    24      29  0x0005c  xref   84 1a                    bar_2

@@ -5,7 +5,7 @@
 # line i index  offset   type   hex                      word
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
              0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
-     1       1  0x00008  prim   83 47                    getgstate
+     1       1  0x00008  prim   83 49                    getcanvas
              2  0x0000a  int    81 32                    50
              3  0x0000c  int    81 14                    20
              4  0x0000e  int    91 90 01                 400
@@ -25,7 +25,7 @@
             18  0x0002b  prim   83 1a                      roll
             19  0x0002d  prim   83 1e                      add
             20  0x0002f  prim   83 18                      exch
-     9      21  0x00031  prim   83 57                      lineto
+     9      21  0x00031  prim   83 56                      drawline
     10      22  0x00033  prim   13                       }
             23  0x00034  prim   63                       def
     12      24  0x00035  int    91 c8 00                 200

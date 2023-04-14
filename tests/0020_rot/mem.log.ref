@@ -1,432 +1,21 @@
 # ---  mem  ---
 ===  memory dump  ===
-   0: 0x0000000c[      56] [14849100/      68]  #195.1.1.font <glyphs 256, size 8x16, line height 16>
-   1: 0x00000050[ 1920024] [      68/ 1920036]  #1.1.3.canv <max 800x600, loc 0x0_800x600, chk 0x5ae3d880>
-   2: 0x001d4c74[    6200] [ 1920036/    6212]  #0.1.*.olist <size 203, next 203, max 258>
-   3: 0x001d64b8[      64] [    6212/      76]  #2.1.2.gstate <geo 0x0_800x600, clip 0x0_800x600>
-   4: 0x001d6504[      72] [      76/      84]  #3.1.1.array <size 1, max 16>
-   5: 0x001d6558[      64] [      84/      76]  #4.1.1.gstate <geo 0x0_800x600, clip 80x100_640x400>
-   6: 0x001d65a4[     820] [      76/     832]  #5.1.2.hash <size 94, max 101>
-   7: 0x001d68e4[     536] [     832/     548]  #196.1.1.canv <max 8x16, loc 0x0_8x16, chk 0x4e8c3ac0>
-   8: 0x001d6b08[      20] [     548/      32]  #197.1.1.mem.ro <size 20>
-   9: 0x001d6b28[      72] [      32/      84]  #198.1.1.array <size 3, max 16>
-  10: 0x001d6b7c[      56] [      84/      68]  #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x14 (0x14), dict #5.1.2.hash>
-  11* 0x001d6bc0[14849088] [      68/14849100]
+   0: 0x0000000c[      56] [11904988/      68]  #2.1.1.font <glyphs 256, size 8x16, line height 16>
+   1: 0x00000050[    6200] [      68/    6212]  #0.1.*.olist <size 203, next 203, max 258>
+   2: 0x00001894[     584] [    6212/     596]  #3.1.1.canv <geo 0x0_8x16, region 0x0_8x16, chk 0x4e8c3ac0>
+   3: 0x00001ae8[ 1920072] [     596/ 1920084]  #4.1.1.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
+   4: 0x001d673c[ 1920072] [ 1920084/ 1920084]  #5.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
+   5: 0x003ab390[ 1024072] [ 1920084/ 1024084]  #6.1.1.canv <geo 80x100_640x400, region 0x0_640x400, chk 0x8ccedc00>
+   6: 0x004a53e4[      72] [ 1024084/      84]  #7.1.1.array <size 1, max 16>
+   7: 0x004a5438[     820] [      84/     832]  #8.1.2.hash <size 94, max 101>
+   8: 0x004a5778[      20] [     832/      32]  #197.1.1.mem.ro <size 20>
+   9: 0x004a5798[      72] [      32/      84]  #198.1.1.array <size 3, max 16>
+  10: 0x004a57ec[      56] [      84/      68]  #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x14 (0x14), dict #8.1.2.hash>
+  11* 0x004a5830[11904976] [      68/11904988]
 == object dump (id #0.1.*.olist) ==
   #0.1.*.olist <size 203, next 203, max 258>
   #0.1.*.olist <size 203, next 203, max 258>
-  #1.1.3.canv <max 800x600, loc 0x0_800x600, chk 0x5ae3d880>
-    unit 10x30
-    |                                                                                |
-    |                                                                                |
-    |                                                                                |
-    |                                                                                |
-    |                                                                                |
-    |                                                                                |
-    |                                                                                |
-    |                                                                                |
-    |                                                                                |
-    |                                                                                |
-    |                                                                                |
-    |                                                                                |
-    |                                                                                |
-    |                                                                                |
-    |                                                                                |
-    |                                                                                |
-    |                                                                                |
-    |                                                                                |
-    |                                                                                |
-    |                                                                                |
-  #2.1.2.gstate <geo 0x0_800x600, clip 0x0_800x600>
-    cursor 0x0_0x0
-    color #00ffffff, bg_color #ff000000
-    canvas #1.1.3.canv (800x600)
-    font #0.0.nil
-  #3.1.1.array <size 1, max 16>
-    [ 0] #2.1.2.gstate <geo 0x0_800x600, clip 0x0_800x600>
-  #4.1.1.gstate <geo 0x0_800x600, clip 80x100_640x400>
-    cursor 0x384_8x16
-    color #00ffffff, bg_color #00241632
-    canvas #1.1.3.canv (800x600)
-    font #195.1.1.font
-  #5.1.2.hash <size 94, max 101>
-    #15.1.1.mem.ref.ro <size 1, "("> => #14.1.1.num.prim <4 (0x4)>
-    #17.1.1.mem.ref.ro <size 1, ")"> => #16.1.1.num.prim <5 (0x5)>
-    #11.1.1.mem.ref.ro <size 1, "["> => #10.1.1.num.prim <2 (0x2)>
-    #13.1.1.mem.ref.ro <size 1, "]"> => #12.1.1.num.prim <3 (0x3)>
-    #79.1.1.mem.ref.ro <size 3, "abs"> => #78.1.1.num.prim <36 (0x24)>
-    #67.1.1.mem.ref.ro <size 3, "add"> => #66.1.1.num.prim <30 (0x1e)>
-    #85.1.1.mem.ref.ro <size 3, "and"> => #84.1.1.num.prim <39 (0x27)>
-    #173.1.1.mem.ref.ro <size 3, "blt"> => #172.1.1.num.prim <83 (0x53)>
-    #143.1.1.mem.ref.ro <size 6, "canvas"> => #142.1.1.num.prim <68 (0x44)>
-    #109.1.1.mem.ref.ro <size 3, "cmp"> => #108.1.1.num.prim <51 (0x33)>
-    #175.1.1.mem.ref.ro <size 5, "debug"> => #174.1.1.num.prim <84 (0x54)>
-    #19.1.1.mem.ref.ro <size 3, "def"> => #18.1.1.num.prim <6 (0x6)>
-    #47.1.1.mem.ref.ro <size 6, "delete"> => #46.1.1.num.prim <20 (0x14)>
-    #163.1.1.mem.ref.ro <size 3, "dim"> => #162.1.1.num.prim <78 (0x4e)>
-    #73.1.1.mem.ref.ro <size 3, "div"> => #72.1.1.num.prim <33 (0x21)>
-    #51.1.1.mem.ref.ro <size 3, "dup"> => #50.1.1.num.prim <22 (0x16)>
-    #97.1.1.mem.ref.ro <size 2, "eq"> => #96.1.1.num.prim <45 (0x2d)>
-    #55.1.1.mem.ref.ro <size 4, "exch"> => #54.1.1.num.prim <24 (0x18)>
-    #65.1.1.mem.ref.ro <size 4, "exec"> => #64.1.1.num.prim <29 (0x1d)>
-    #37.1.1.mem.ref.ro <size 4, "exit"> => #36.1.1.num.prim <15 (0xf)>
-    #183.1.1.mem.ref.ro <size 8, "fillrect"> => #182.1.1.num.prim <88 (0x58)>
-    #33.1.1.mem.ref.ro <size 3, "for"> => #32.1.1.num.prim <13 (0xd)>
-    #35.1.1.mem.ref.ro <size 6, "forall"> => #34.1.1.num.prim <14 (0xe)>
-    #189.1.1.mem.ref.ro <size 6, "format"> => #188.1.1.num.prim <91 (0x5b)>
-    #119.1.1.mem.ref.ro <size 6, "freeze"> => #118.1.1.num.prim <56 (0x38)>
-    #23.1.1.mem.ref.ro <size 4, "gdef"> => #22.1.1.num.prim <8 (0x8)>
-    #103.1.1.mem.ref.ro <size 2, "ge"> => #102.1.1.num.prim <48 (0x30)>
-    #43.1.1.mem.ref.ro <size 3, "get"> => #42.1.1.num.prim <18 (0x12)>
-    #125.1.1.mem.ref.ro <size 10, "getbgcolor"> => #124.1.1.num.prim <59 (0x3b)>
-    #145.1.1.mem.ref.ro <size 9, "getcanvas"> => #144.1.1.num.prim <69 (0x45)>
-    #121.1.1.mem.ref.ro <size 8, "getcolor"> => #120.1.1.num.prim <57 (0x39)>
-    #191.1.1.mem.ref.ro <size 10, "getcompose"> => #190.1.1.num.prim <92 (0x5c)>
-    #157.1.1.mem.ref.ro <size 16, "getconsolegstate"> => #156.1.1.num.prim <75 (0x4b)>
-    #115.1.1.mem.ref.ro <size 7, "getdict"> => #114.1.1.num.prim <54 (0x36)>
-    #133.1.1.mem.ref.ro <size 7, "getfont"> => #132.1.1.num.prim <63 (0x3f)>
-    #149.1.1.mem.ref.ro <size 9, "getgstate"> => #148.1.1.num.prim <71 (0x47)>
-    #111.1.1.mem.ref.ro <size 9, "getparent"> => #110.1.1.num.prim <52 (0x34)>
-    #177.1.1.mem.ref.ro <size 8, "getpixel"> => #176.1.1.num.prim <85 (0x55)>
-    #129.1.1.mem.ref.ro <size 6, "getpos"> => #128.1.1.num.prim <61 (0x3d)>
-    #139.1.1.mem.ref.ro <size 9, "getregion"> => #138.1.1.num.prim <66 (0x42)>
-    #153.1.1.mem.ref.ro <size 6, "gstate"> => #152.1.1.num.prim <73 (0x49)>
-    #155.1.1.mem.ref.ro <size 7, "gstate2"> => #154.1.1.num.prim <74 (0x4a)>
-    #101.1.1.mem.ref.ro <size 2, "gt"> => #100.1.1.num.prim <47 (0x2f)>
-    #25.1.1.mem.ref.ro <size 2, "if"> => #24.1.1.num.prim <9 (0x9)>
-    #27.1.1.mem.ref.ro <size 6, "ifelse"> => #26.1.1.num.prim <10 (0xa)>
-    #63.1.1.mem.ref.ro <size 5, "index"> => #62.1.1.num.prim <28 (0x1c)>
-    #21.1.1.mem.ref.ro <size 4, "ldef"> => #20.1.1.num.prim <7 (0x7)>
-    #107.1.1.mem.ref.ro <size 2, "le"> => #106.1.1.num.prim <50 (0x32)>
-    #49.1.1.mem.ref.ro <size 6, "length"> => #48.1.1.num.prim <21 (0x15)>
-    #181.1.1.mem.ref.ro <size 6, "lineto"> => #180.1.1.num.prim <87 (0x57)>
-    #29.1.1.mem.ref.ro <size 4, "loop"> => #28.1.1.num.prim <11 (0xb)>
-    #105.1.1.mem.ref.ro <size 2, "lt"> => #104.1.1.num.prim <49 (0x31)>
-    #83.1.1.mem.ref.ro <size 3, "max"> => #82.1.1.num.prim <38 (0x26)>
-    #81.1.1.mem.ref.ro <size 3, "min"> => #80.1.1.num.prim <37 (0x25)>
-    #75.1.1.mem.ref.ro <size 3, "mod"> => #74.1.1.num.prim <34 (0x22)>
-    #71.1.1.mem.ref.ro <size 3, "mul"> => #70.1.1.num.prim <32 (0x20)>
-    #99.1.1.mem.ref.ro <size 2, "ne"> => #98.1.1.num.prim <46 (0x2e)>
-    #77.1.1.mem.ref.ro <size 3, "neg"> => #76.1.1.num.prim <35 (0x23)>
-    #137.1.1.mem.ref.ro <size 7, "newfont"> => #136.1.1.num.prim <65 (0x41)>
-    #91.1.1.mem.ref.ro <size 3, "not"> => #90.1.1.num.prim <42 (0x2a)>
-    #87.1.1.mem.ref.ro <size 2, "or"> => #86.1.1.num.prim <40 (0x28)>
-    #61.1.1.mem.ref.ro <size 4, "over"> => #60.1.1.num.prim <27 (0x1b)>
-    #53.1.1.mem.ref.ro <size 3, "pop"> => #52.1.1.num.prim <23 (0x17)>
-    #45.1.1.mem.ref.ro <size 3, "put"> => #44.1.1.num.prim <19 (0x13)>
-    #179.1.1.mem.ref.ro <size 8, "putpixel"> => #178.1.1.num.prim <86 (0x56)>
-    #167.1.1.mem.ref.ro <size 8, "readfile"> => #166.1.1.num.prim <80 (0x50)>
-    #31.1.1.mem.ref.ro <size 6, "repeat"> => #30.1.1.num.prim <12 (0xc)>
-    #39.1.1.mem.ref.ro <size 6, "return"> => #38.1.1.num.prim <16 (0x10)>
-    #59.1.1.mem.ref.ro <size 4, "roll"> => #58.1.1.num.prim <26 (0x1a)>
-    #57.1.1.mem.ref.ro <size 3, "rot"> => #56.1.1.num.prim <25 (0x19)>
-    #165.1.1.mem.ref.ro <size 3, "run"> => #164.1.1.num.prim <79 (0x4f)>
-    #127.1.1.mem.ref.ro <size 10, "setbgcolor"> => #126.1.1.num.prim <60 (0x3c)>
-    #147.1.1.mem.ref.ro <size 9, "setcanvas"> => #146.1.1.num.prim <70 (0x46)>
-    #123.1.1.mem.ref.ro <size 8, "setcolor"> => #122.1.1.num.prim <58 (0x3a)>
-    #193.1.1.mem.ref.ro <size 10, "setcompose"> => #192.1.1.num.prim <93 (0x5d)>
-    #159.1.1.mem.ref.ro <size 16, "setconsolegstate"> => #158.1.1.num.prim <76 (0x4c)>
-    #117.1.1.mem.ref.ro <size 7, "setdict"> => #116.1.1.num.prim <55 (0x37)>
-    #135.1.1.mem.ref.ro <size 7, "setfont"> => #134.1.1.num.prim <64 (0x40)>
-    #151.1.1.mem.ref.ro <size 9, "setgstate"> => #150.1.1.num.prim <72 (0x48)>
-    #113.1.1.mem.ref.ro <size 9, "setparent"> => #112.1.1.num.prim <53 (0x35)>
-    #131.1.1.mem.ref.ro <size 6, "setpos"> => #130.1.1.num.prim <62 (0x3e)>
-    #141.1.1.mem.ref.ro <size 9, "setregion"> => #140.1.1.num.prim <67 (0x43)>
-    #93.1.1.mem.ref.ro <size 3, "shl"> => #92.1.1.num.prim <43 (0x2b)>
-    #161.1.1.mem.ref.ro <size 4, "show"> => #160.1.1.num.prim <77 (0x4d)>
-    #95.1.1.mem.ref.ro <size 3, "shr"> => #94.1.1.num.prim <44 (0x2c)>
-    #41.1.1.mem.ref.ro <size 6, "string"> => #40.1.1.num.prim <17 (0x11)>
-    #69.1.1.mem.ref.ro <size 3, "sub"> => #68.1.1.num.prim <31 (0x1f)>
-    #169.1.1.mem.ref.ro <size 11, "unpackimage"> => #168.1.1.num.prim <81 (0x51)>
-    #171.1.1.mem.ref.ro <size 12, "unpackimage2"> => #170.1.1.num.prim <82 (0x52)>
-    #185.1.1.mem.ref.ro <size 10, "utf8decode"> => #184.1.1.num.prim <89 (0x59)>
-    #187.1.1.mem.ref.ro <size 10, "utf8encode"> => #186.1.1.num.prim <90 (0x5a)>
-    #89.1.1.mem.ref.ro <size 3, "xor"> => #88.1.1.num.prim <41 (0x29)>
-    #7.1.1.mem.ref.ro <size 1, "{"> => #6.1.1.num.prim <0 (0x0)>
-    #9.1.1.mem.ref.ro <size 1, "}"> => #8.1.1.num.prim <1 (0x1)>
-  #6.1.1.num.prim <0 (0x0)>
-  #7.1.1.mem.ref.ro <size 1, "{">
-    7b                                               {
-  #8.1.1.num.prim <1 (0x1)>
-  #9.1.1.mem.ref.ro <size 1, "}">
-    7d                                               }
-  #10.1.1.num.prim <2 (0x2)>
-  #11.1.1.mem.ref.ro <size 1, "[">
-    5b                                               [
-  #12.1.1.num.prim <3 (0x3)>
-  #13.1.1.mem.ref.ro <size 1, "]">
-    5d                                               ]
-  #14.1.1.num.prim <4 (0x4)>
-  #15.1.1.mem.ref.ro <size 1, "(">
-    28                                               (
-  #16.1.1.num.prim <5 (0x5)>
-  #17.1.1.mem.ref.ro <size 1, ")">
-    29                                               )
-  #18.1.1.num.prim <6 (0x6)>
-  #19.1.1.mem.ref.ro <size 3, "def">
-    64 65 66                                         def
-  #20.1.1.num.prim <7 (0x7)>
-  #21.1.1.mem.ref.ro <size 4, "ldef">
-    6c 64 65 66                                      ldef
-  #22.1.1.num.prim <8 (0x8)>
-  #23.1.1.mem.ref.ro <size 4, "gdef">
-    67 64 65 66                                      gdef
-  #24.1.1.num.prim <9 (0x9)>
-  #25.1.1.mem.ref.ro <size 2, "if">
-    69 66                                            if
-  #26.1.1.num.prim <10 (0xa)>
-  #27.1.1.mem.ref.ro <size 6, "ifelse">
-    69 66 65 6c 73 65                                ifelse
-  #28.1.1.num.prim <11 (0xb)>
-  #29.1.1.mem.ref.ro <size 4, "loop">
-    6c 6f 6f 70                                      loop
-  #30.1.1.num.prim <12 (0xc)>
-  #31.1.1.mem.ref.ro <size 6, "repeat">
-    72 65 70 65 61 74                                repeat
-  #32.1.1.num.prim <13 (0xd)>
-  #33.1.1.mem.ref.ro <size 3, "for">
-    66 6f 72                                         for
-  #34.1.1.num.prim <14 (0xe)>
-  #35.1.1.mem.ref.ro <size 6, "forall">
-    66 6f 72 61 6c 6c                                forall
-  #36.1.1.num.prim <15 (0xf)>
-  #37.1.1.mem.ref.ro <size 4, "exit">
-    65 78 69 74                                      exit
-  #38.1.1.num.prim <16 (0x10)>
-  #39.1.1.mem.ref.ro <size 6, "return">
-    72 65 74 75 72 6e                                return
-  #40.1.1.num.prim <17 (0x11)>
-  #41.1.1.mem.ref.ro <size 6, "string">
-    73 74 72 69 6e 67                                string
-  #42.1.1.num.prim <18 (0x12)>
-  #43.1.1.mem.ref.ro <size 3, "get">
-    67 65 74                                         get
-  #44.1.1.num.prim <19 (0x13)>
-  #45.1.1.mem.ref.ro <size 3, "put">
-    70 75 74                                         put
-  #46.1.1.num.prim <20 (0x14)>
-  #47.1.1.mem.ref.ro <size 6, "delete">
-    64 65 6c 65 74 65                                delete
-  #48.1.1.num.prim <21 (0x15)>
-  #49.1.1.mem.ref.ro <size 6, "length">
-    6c 65 6e 67 74 68                                length
-  #50.1.1.num.prim <22 (0x16)>
-  #51.1.1.mem.ref.ro <size 3, "dup">
-    64 75 70                                         dup
-  #52.1.1.num.prim <23 (0x17)>
-  #53.1.1.mem.ref.ro <size 3, "pop">
-    70 6f 70                                         pop
-  #54.1.1.num.prim <24 (0x18)>
-  #55.1.1.mem.ref.ro <size 4, "exch">
-    65 78 63 68                                      exch
-  #56.1.1.num.prim <25 (0x19)>
-  #57.1.1.mem.ref.ro <size 3, "rot">
-    72 6f 74                                         rot
-  #58.1.1.num.prim <26 (0x1a)>
-  #59.1.1.mem.ref.ro <size 4, "roll">
-    72 6f 6c 6c                                      roll
-  #60.1.1.num.prim <27 (0x1b)>
-  #61.1.1.mem.ref.ro <size 4, "over">
-    6f 76 65 72                                      over
-  #62.1.1.num.prim <28 (0x1c)>
-  #63.1.1.mem.ref.ro <size 5, "index">
-    69 6e 64 65 78                                   index
-  #64.1.1.num.prim <29 (0x1d)>
-  #65.1.1.mem.ref.ro <size 4, "exec">
-    65 78 65 63                                      exec
-  #66.1.1.num.prim <30 (0x1e)>
-  #67.1.1.mem.ref.ro <size 3, "add">
-    61 64 64                                         add
-  #68.1.1.num.prim <31 (0x1f)>
-  #69.1.1.mem.ref.ro <size 3, "sub">
-    73 75 62                                         sub
-  #70.1.1.num.prim <32 (0x20)>
-  #71.1.1.mem.ref.ro <size 3, "mul">
-    6d 75 6c                                         mul
-  #72.1.1.num.prim <33 (0x21)>
-  #73.1.1.mem.ref.ro <size 3, "div">
-    64 69 76                                         div
-  #74.1.1.num.prim <34 (0x22)>
-  #75.1.1.mem.ref.ro <size 3, "mod">
-    6d 6f 64                                         mod
-  #76.1.1.num.prim <35 (0x23)>
-  #77.1.1.mem.ref.ro <size 3, "neg">
-    6e 65 67                                         neg
-  #78.1.1.num.prim <36 (0x24)>
-  #79.1.1.mem.ref.ro <size 3, "abs">
-    61 62 73                                         abs
-  #80.1.1.num.prim <37 (0x25)>
-  #81.1.1.mem.ref.ro <size 3, "min">
-    6d 69 6e                                         min
-  #82.1.1.num.prim <38 (0x26)>
-  #83.1.1.mem.ref.ro <size 3, "max">
-    6d 61 78                                         max
-  #84.1.1.num.prim <39 (0x27)>
-  #85.1.1.mem.ref.ro <size 3, "and">
-    61 6e 64                                         and
-  #86.1.1.num.prim <40 (0x28)>
-  #87.1.1.mem.ref.ro <size 2, "or">
-    6f 72                                            or
-  #88.1.1.num.prim <41 (0x29)>
-  #89.1.1.mem.ref.ro <size 3, "xor">
-    78 6f 72                                         xor
-  #90.1.1.num.prim <42 (0x2a)>
-  #91.1.1.mem.ref.ro <size 3, "not">
-    6e 6f 74                                         not
-  #92.1.1.num.prim <43 (0x2b)>
-  #93.1.1.mem.ref.ro <size 3, "shl">
-    73 68 6c                                         shl
-  #94.1.1.num.prim <44 (0x2c)>
-  #95.1.1.mem.ref.ro <size 3, "shr">
-    73 68 72                                         shr
-  #96.1.1.num.prim <45 (0x2d)>
-  #97.1.1.mem.ref.ro <size 2, "eq">
-    65 71                                            eq
-  #98.1.1.num.prim <46 (0x2e)>
-  #99.1.1.mem.ref.ro <size 2, "ne">
-    6e 65                                            ne
-  #100.1.1.num.prim <47 (0x2f)>
-  #101.1.1.mem.ref.ro <size 2, "gt">
-    67 74                                            gt
-  #102.1.1.num.prim <48 (0x30)>
-  #103.1.1.mem.ref.ro <size 2, "ge">
-    67 65                                            ge
-  #104.1.1.num.prim <49 (0x31)>
-  #105.1.1.mem.ref.ro <size 2, "lt">
-    6c 74                                            lt
-  #106.1.1.num.prim <50 (0x32)>
-  #107.1.1.mem.ref.ro <size 2, "le">
-    6c 65                                            le
-  #108.1.1.num.prim <51 (0x33)>
-  #109.1.1.mem.ref.ro <size 3, "cmp">
-    63 6d 70                                         cmp
-  #110.1.1.num.prim <52 (0x34)>
-  #111.1.1.mem.ref.ro <size 9, "getparent">
-    67 65 74 70 61 72 65 6e 74                       getparent
-  #112.1.1.num.prim <53 (0x35)>
-  #113.1.1.mem.ref.ro <size 9, "setparent">
-    73 65 74 70 61 72 65 6e 74                       setparent
-  #114.1.1.num.prim <54 (0x36)>
-  #115.1.1.mem.ref.ro <size 7, "getdict">
-    67 65 74 64 69 63 74                             getdict
-  #116.1.1.num.prim <55 (0x37)>
-  #117.1.1.mem.ref.ro <size 7, "setdict">
-    73 65 74 64 69 63 74                             setdict
-  #118.1.1.num.prim <56 (0x38)>
-  #119.1.1.mem.ref.ro <size 6, "freeze">
-    66 72 65 65 7a 65                                freeze
-  #120.1.1.num.prim <57 (0x39)>
-  #121.1.1.mem.ref.ro <size 8, "getcolor">
-    67 65 74 63 6f 6c 6f 72                          getcolor
-  #122.1.1.num.prim <58 (0x3a)>
-  #123.1.1.mem.ref.ro <size 8, "setcolor">
-    73 65 74 63 6f 6c 6f 72                          setcolor
-  #124.1.1.num.prim <59 (0x3b)>
-  #125.1.1.mem.ref.ro <size 10, "getbgcolor">
-    67 65 74 62 67 63 6f 6c 6f 72                    getbgcolor
-  #126.1.1.num.prim <60 (0x3c)>
-  #127.1.1.mem.ref.ro <size 10, "setbgcolor">
-    73 65 74 62 67 63 6f 6c 6f 72                    setbgcolor
-  #128.1.1.num.prim <61 (0x3d)>
-  #129.1.1.mem.ref.ro <size 6, "getpos">
-    67 65 74 70 6f 73                                getpos
-  #130.1.1.num.prim <62 (0x3e)>
-  #131.1.1.mem.ref.ro <size 6, "setpos">
-    73 65 74 70 6f 73                                setpos
-  #132.1.1.num.prim <63 (0x3f)>
-  #133.1.1.mem.ref.ro <size 7, "getfont">
-    67 65 74 66 6f 6e 74                             getfont
-  #134.1.1.num.prim <64 (0x40)>
-  #135.1.1.mem.ref.ro <size 7, "setfont">
-    73 65 74 66 6f 6e 74                             setfont
-  #136.1.1.num.prim <65 (0x41)>
-  #137.1.1.mem.ref.ro <size 7, "newfont">
-    6e 65 77 66 6f 6e 74                             newfont
-  #138.1.1.num.prim <66 (0x42)>
-  #139.1.1.mem.ref.ro <size 9, "getregion">
-    67 65 74 72 65 67 69 6f 6e                       getregion
-  #140.1.1.num.prim <67 (0x43)>
-  #141.1.1.mem.ref.ro <size 9, "setregion">
-    73 65 74 72 65 67 69 6f 6e                       setregion
-  #142.1.1.num.prim <68 (0x44)>
-  #143.1.1.mem.ref.ro <size 6, "canvas">
-    63 61 6e 76 61 73                                canvas
-  #144.1.1.num.prim <69 (0x45)>
-  #145.1.1.mem.ref.ro <size 9, "getcanvas">
-    67 65 74 63 61 6e 76 61 73                       getcanvas
-  #146.1.1.num.prim <70 (0x46)>
-  #147.1.1.mem.ref.ro <size 9, "setcanvas">
-    73 65 74 63 61 6e 76 61 73                       setcanvas
-  #148.1.1.num.prim <71 (0x47)>
-  #149.1.1.mem.ref.ro <size 9, "getgstate">
-    67 65 74 67 73 74 61 74 65                       getgstate
-  #150.1.1.num.prim <72 (0x48)>
-  #151.1.1.mem.ref.ro <size 9, "setgstate">
-    73 65 74 67 73 74 61 74 65                       setgstate
-  #152.1.1.num.prim <73 (0x49)>
-  #153.1.1.mem.ref.ro <size 6, "gstate">
-    67 73 74 61 74 65                                gstate
-  #154.1.1.num.prim <74 (0x4a)>
-  #155.1.1.mem.ref.ro <size 7, "gstate2">
-    67 73 74 61 74 65 32                             gstate2
-  #156.1.1.num.prim <75 (0x4b)>
-  #157.1.1.mem.ref.ro <size 16, "getconsolegstate">
-    67 65 74 63 6f 6e 73 6f 6c 65 67 73 74 61 74 65  getconsolegstate
-  #158.1.1.num.prim <76 (0x4c)>
-  #159.1.1.mem.ref.ro <size 16, "setconsolegstate">
-    73 65 74 63 6f 6e 73 6f 6c 65 67 73 74 61 74 65  setconsolegstate
-  #160.1.1.num.prim <77 (0x4d)>
-  #161.1.1.mem.ref.ro <size 4, "show">
-    73 68 6f 77                                      show
-  #162.1.1.num.prim <78 (0x4e)>
-  #163.1.1.mem.ref.ro <size 3, "dim">
-    64 69 6d                                         dim
-  #164.1.1.num.prim <79 (0x4f)>
-  #165.1.1.mem.ref.ro <size 3, "run">
-    72 75 6e                                         run
-  #166.1.1.num.prim <80 (0x50)>
-  #167.1.1.mem.ref.ro <size 8, "readfile">
-    72 65 61 64 66 69 6c 65                          readfile
-  #168.1.1.num.prim <81 (0x51)>
-  #169.1.1.mem.ref.ro <size 11, "unpackimage">
-    75 6e 70 61 63 6b 69 6d 61 67 65                 unpackimage
-  #170.1.1.num.prim <82 (0x52)>
-  #171.1.1.mem.ref.ro <size 12, "unpackimage2">
-    75 6e 70 61 63 6b 69 6d 61 67 65 32              unpackimage2
-  #172.1.1.num.prim <83 (0x53)>
-  #173.1.1.mem.ref.ro <size 3, "blt">
-    62 6c 74                                         blt
-  #174.1.1.num.prim <84 (0x54)>
-  #175.1.1.mem.ref.ro <size 5, "debug">
-    64 65 62 75 67                                   debug
-  #176.1.1.num.prim <85 (0x55)>
-  #177.1.1.mem.ref.ro <size 8, "getpixel">
-    67 65 74 70 69 78 65 6c                          getpixel
-  #178.1.1.num.prim <86 (0x56)>
-  #179.1.1.mem.ref.ro <size 8, "putpixel">
-    70 75 74 70 69 78 65 6c                          putpixel
-  #180.1.1.num.prim <87 (0x57)>
-  #181.1.1.mem.ref.ro <size 6, "lineto">
-    6c 69 6e 65 74 6f                                lineto
-  #182.1.1.num.prim <88 (0x58)>
-  #183.1.1.mem.ref.ro <size 8, "fillrect">
-    66 69 6c 6c 72 65 63 74                          fillrect
-  #184.1.1.num.prim <89 (0x59)>
-  #185.1.1.mem.ref.ro <size 10, "utf8decode">
-    75 74 66 38 64 65 63 6f 64 65                    utf8decode
-  #186.1.1.num.prim <90 (0x5a)>
-  #187.1.1.mem.ref.ro <size 10, "utf8encode">
-    75 74 66 38 65 6e 63 6f 64 65                    utf8encode
-  #188.1.1.num.prim <91 (0x5b)>
-  #189.1.1.mem.ref.ro <size 6, "format">
-    66 6f 72 6d 61 74                                format
-  #190.1.1.num.prim <92 (0x5c)>
-  #191.1.1.mem.ref.ro <size 10, "getcompose">
-    67 65 74 63 6f 6d 70 6f 73 65                    getcompose
-  #192.1.1.num.prim <93 (0x5d)>
-  #193.1.1.mem.ref.ro <size 10, "setcompose">
-    73 65 74 63 6f 6d 70 6f 73 65                    setcompose
-  #194.1.1.mem.ro <size 4947>
+  #1.1.1.mem.ro <size 4947>
     72 b5 4a 86 00 00 00 00 20 00 00 00 01 00 00 00  r.J..... .......
     00 01 00 00 10 00 00 00 10 00 00 00 08 00 00 00  ................
     00 00 7e c3 99 99 f3 e7 e7 ff e7 e7 7e 00 00 00  ..~.........~...
@@ -737,15 +326,17 @@
     b4 ff c3 b5 ff c3 b6 ff c3 b7 ff c3 b8 ff c3 b9  ................
     ff c3 ba ff c3 bb ff c3 bc ff c3 bd ff c3 be ff  ................
     c3 bf ff                                         ...
-  #195.1.1.font <glyphs 256, size 8x16, line height 16>
+  #2.1.1.font <glyphs 256, size 8x16, line height 16>
     type 1, glyphs 256
     font size 8x16, line height 16, baseline 0
     bitmap size 8x16
     bitmap table: offset 32, size 4096
     char index: offset 4128, size 819
-    data_id #194.1.1.mem.ro
-    glyph_id #196.1.1.canv
-  #196.1.1.canv <max 8x16, loc 0x0_8x16, chk 0x4e8c3ac0>
+    data_id #1.1.1.mem.ro
+    glyph_id #3.1.1.canv
+  #3.1.1.canv <geo 0x0_8x16, region 0x0_8x16, chk 0x4e8c3ac0>
+    cursor 0x0_0x0, draw_mode 0, max 8x16
+    color #00000000, bg_color #00000000, font #0.0.nil
     unit 1x1
     |        |
     |        |
@@ -763,6 +354,457 @@
     |        |
     |        |
     |        |
+  #4.1.1.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
+    cursor 0x0_0x0, draw_mode 0, max 800x600
+    color #00ffffff, bg_color #ff000000, font #0.0.nil
+    unit 10x30
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+  #5.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
+    cursor 0x0_0x0, draw_mode 0, max 800x600
+    color #00ffffff, bg_color #ff000000, font #0.0.nil
+    unit 10x30
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+    |                                                                                |
+  #6.1.1.canv <geo 80x100_640x400, region 0x0_640x400, chk 0x8ccedc00>
+    cursor 0x384_8x16, draw_mode 1, max 640x400
+    color #00ffffff, bg_color #60323232, font #2.1.1.font
+    unit 8x20
+    |................................................................................|
+    |................................................................................|
+    |................................................................................|
+    |................................................................................|
+    |................................................................................|
+    |................................................................................|
+    |................................................................................|
+    |................................................................................|
+    |................................................................................|
+    |................................................................................|
+    |................................................................................|
+    |................................................................................|
+    |................................................................................|
+    |................................................................................|
+    |................................................................................|
+    |................................................................................|
+    |................................................................................|
+    |................................................................................|
+    |................................................................................|
+    |................................................................................|
+  #7.1.1.array <size 1, max 16>
+    [ 0] #5.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
+  #8.1.2.hash <size 94, max 101>
+    #18.1.1.mem.ref.ro <size 1, "("> => #17.1.1.num.prim <4 (0x4)>
+    #20.1.1.mem.ref.ro <size 1, ")"> => #19.1.1.num.prim <5 (0x5)>
+    #14.1.1.mem.ref.ro <size 1, "["> => #13.1.1.num.prim <2 (0x2)>
+    #16.1.1.mem.ref.ro <size 1, "]"> => #15.1.1.num.prim <3 (0x3)>
+    #82.1.1.mem.ref.ro <size 3, "abs"> => #81.1.1.num.prim <36 (0x24)>
+    #70.1.1.mem.ref.ro <size 3, "add"> => #69.1.1.num.prim <30 (0x1e)>
+    #88.1.1.mem.ref.ro <size 3, "and"> => #87.1.1.num.prim <39 (0x27)>
+    #174.1.1.mem.ref.ro <size 3, "blt"> => #173.1.1.num.prim <82 (0x52)>
+    #112.1.1.mem.ref.ro <size 3, "cmp"> => #111.1.1.num.prim <51 (0x33)>
+    #176.1.1.mem.ref.ro <size 5, "debug"> => #175.1.1.num.prim <83 (0x53)>
+    #186.1.1.mem.ref.ro <size 10, "decodeutf8"> => #185.1.1.num.prim <88 (0x58)>
+    #22.1.1.mem.ref.ro <size 3, "def"> => #21.1.1.num.prim <6 (0x6)>
+    #50.1.1.mem.ref.ro <size 6, "delete"> => #49.1.1.num.prim <20 (0x14)>
+    #166.1.1.mem.ref.ro <size 3, "dim"> => #165.1.1.num.prim <78 (0x4e)>
+    #76.1.1.mem.ref.ro <size 3, "div"> => #75.1.1.num.prim <33 (0x21)>
+    #182.1.1.mem.ref.ro <size 8, "drawline"> => #181.1.1.num.prim <86 (0x56)>
+    #54.1.1.mem.ref.ro <size 3, "dup"> => #53.1.1.num.prim <22 (0x16)>
+    #188.1.1.mem.ref.ro <size 10, "encodeutf8"> => #187.1.1.num.prim <89 (0x59)>
+    #100.1.1.mem.ref.ro <size 2, "eq"> => #99.1.1.num.prim <45 (0x2d)>
+    #58.1.1.mem.ref.ro <size 4, "exch"> => #57.1.1.num.prim <24 (0x18)>
+    #68.1.1.mem.ref.ro <size 4, "exec"> => #67.1.1.num.prim <29 (0x1d)>
+    #40.1.1.mem.ref.ro <size 4, "exit"> => #39.1.1.num.prim <15 (0xf)>
+    #184.1.1.mem.ref.ro <size 8, "fillrect"> => #183.1.1.num.prim <87 (0x57)>
+    #36.1.1.mem.ref.ro <size 3, "for"> => #35.1.1.num.prim <13 (0xd)>
+    #38.1.1.mem.ref.ro <size 6, "forall"> => #37.1.1.num.prim <14 (0xe)>
+    #190.1.1.mem.ref.ro <size 6, "format"> => #189.1.1.num.prim <90 (0x5a)>
+    #122.1.1.mem.ref.ro <size 6, "freeze"> => #121.1.1.num.prim <56 (0x38)>
+    #26.1.1.mem.ref.ro <size 4, "gdef"> => #25.1.1.num.prim <8 (0x8)>
+    #106.1.1.mem.ref.ro <size 2, "ge"> => #105.1.1.num.prim <48 (0x30)>
+    #46.1.1.mem.ref.ro <size 3, "get"> => #45.1.1.num.prim <18 (0x12)>
+    #128.1.1.mem.ref.ro <size 10, "getbgcolor"> => #127.1.1.num.prim <59 (0x3b)>
+    #156.1.1.mem.ref.ro <size 9, "getcanvas"> => #155.1.1.num.prim <73 (0x49)>
+    #124.1.1.mem.ref.ro <size 8, "getcolor"> => #123.1.1.num.prim <57 (0x39)>
+    #192.1.1.mem.ref.ro <size 10, "getcompose"> => #191.1.1.num.prim <91 (0x5b)>
+    #160.1.1.mem.ref.ro <size 10, "getconsole"> => #159.1.1.num.prim <75 (0x4b)>
+    #118.1.1.mem.ref.ro <size 7, "getdict"> => #117.1.1.num.prim <54 (0x36)>
+    #150.1.1.mem.ref.ro <size 11, "getdrawmode"> => #149.1.1.num.prim <70 (0x46)>
+    #136.1.1.mem.ref.ro <size 7, "getfont"> => #135.1.1.num.prim <63 (0x3f)>
+    #146.1.1.mem.ref.ro <size 11, "getlocation"> => #145.1.1.num.prim <68 (0x44)>
+    #114.1.1.mem.ref.ro <size 9, "getparent"> => #113.1.1.num.prim <52 (0x34)>
+    #178.1.1.mem.ref.ro <size 8, "getpixel"> => #177.1.1.num.prim <84 (0x54)>
+    #132.1.1.mem.ref.ro <size 6, "getpos"> => #131.1.1.num.prim <61 (0x3d)>
+    #142.1.1.mem.ref.ro <size 9, "getregion"> => #141.1.1.num.prim <66 (0x42)>
+    #104.1.1.mem.ref.ro <size 2, "gt"> => #103.1.1.num.prim <47 (0x2f)>
+    #28.1.1.mem.ref.ro <size 2, "if"> => #27.1.1.num.prim <9 (0x9)>
+    #30.1.1.mem.ref.ro <size 6, "ifelse"> => #29.1.1.num.prim <10 (0xa)>
+    #66.1.1.mem.ref.ro <size 5, "index"> => #65.1.1.num.prim <28 (0x1c)>
+    #24.1.1.mem.ref.ro <size 4, "ldef"> => #23.1.1.num.prim <7 (0x7)>
+    #110.1.1.mem.ref.ro <size 2, "le"> => #109.1.1.num.prim <50 (0x32)>
+    #52.1.1.mem.ref.ro <size 6, "length"> => #51.1.1.num.prim <21 (0x15)>
+    #32.1.1.mem.ref.ro <size 4, "loop"> => #31.1.1.num.prim <11 (0xb)>
+    #108.1.1.mem.ref.ro <size 2, "lt"> => #107.1.1.num.prim <49 (0x31)>
+    #86.1.1.mem.ref.ro <size 3, "max"> => #85.1.1.num.prim <38 (0x26)>
+    #84.1.1.mem.ref.ro <size 3, "min"> => #83.1.1.num.prim <37 (0x25)>
+    #78.1.1.mem.ref.ro <size 3, "mod"> => #77.1.1.num.prim <34 (0x22)>
+    #74.1.1.mem.ref.ro <size 3, "mul"> => #73.1.1.num.prim <32 (0x20)>
+    #102.1.1.mem.ref.ro <size 2, "ne"> => #101.1.1.num.prim <46 (0x2e)>
+    #80.1.1.mem.ref.ro <size 3, "neg"> => #79.1.1.num.prim <35 (0x23)>
+    #154.1.1.mem.ref.ro <size 9, "newcanvas"> => #153.1.1.num.prim <72 (0x48)>
+    #140.1.1.mem.ref.ro <size 7, "newfont"> => #139.1.1.num.prim <65 (0x41)>
+    #94.1.1.mem.ref.ro <size 3, "not"> => #93.1.1.num.prim <42 (0x2a)>
+    #90.1.1.mem.ref.ro <size 2, "or"> => #89.1.1.num.prim <40 (0x28)>
+    #64.1.1.mem.ref.ro <size 4, "over"> => #63.1.1.num.prim <27 (0x1b)>
+    #56.1.1.mem.ref.ro <size 3, "pop"> => #55.1.1.num.prim <23 (0x17)>
+    #48.1.1.mem.ref.ro <size 3, "put"> => #47.1.1.num.prim <19 (0x13)>
+    #180.1.1.mem.ref.ro <size 8, "putpixel"> => #179.1.1.num.prim <85 (0x55)>
+    #170.1.1.mem.ref.ro <size 8, "readfile"> => #169.1.1.num.prim <80 (0x50)>
+    #34.1.1.mem.ref.ro <size 6, "repeat"> => #33.1.1.num.prim <12 (0xc)>
+    #42.1.1.mem.ref.ro <size 6, "return"> => #41.1.1.num.prim <16 (0x10)>
+    #62.1.1.mem.ref.ro <size 4, "roll"> => #61.1.1.num.prim <26 (0x1a)>
+    #60.1.1.mem.ref.ro <size 3, "rot"> => #59.1.1.num.prim <25 (0x19)>
+    #168.1.1.mem.ref.ro <size 3, "run"> => #167.1.1.num.prim <79 (0x4f)>
+    #130.1.1.mem.ref.ro <size 10, "setbgcolor"> => #129.1.1.num.prim <60 (0x3c)>
+    #158.1.1.mem.ref.ro <size 9, "setcanvas"> => #157.1.1.num.prim <74 (0x4a)>
+    #126.1.1.mem.ref.ro <size 8, "setcolor"> => #125.1.1.num.prim <58 (0x3a)>
+    #194.1.1.mem.ref.ro <size 10, "setcompose"> => #193.1.1.num.prim <92 (0x5c)>
+    #162.1.1.mem.ref.ro <size 10, "setconsole"> => #161.1.1.num.prim <76 (0x4c)>
+    #120.1.1.mem.ref.ro <size 7, "setdict"> => #119.1.1.num.prim <55 (0x37)>
+    #152.1.1.mem.ref.ro <size 11, "setdrawmode"> => #151.1.1.num.prim <71 (0x47)>
+    #138.1.1.mem.ref.ro <size 7, "setfont"> => #137.1.1.num.prim <64 (0x40)>
+    #148.1.1.mem.ref.ro <size 11, "setlocation"> => #147.1.1.num.prim <69 (0x45)>
+    #116.1.1.mem.ref.ro <size 9, "setparent"> => #115.1.1.num.prim <53 (0x35)>
+    #134.1.1.mem.ref.ro <size 6, "setpos"> => #133.1.1.num.prim <62 (0x3e)>
+    #144.1.1.mem.ref.ro <size 9, "setregion"> => #143.1.1.num.prim <67 (0x43)>
+    #96.1.1.mem.ref.ro <size 3, "shl"> => #95.1.1.num.prim <43 (0x2b)>
+    #164.1.1.mem.ref.ro <size 4, "show"> => #163.1.1.num.prim <77 (0x4d)>
+    #98.1.1.mem.ref.ro <size 3, "shr"> => #97.1.1.num.prim <44 (0x2c)>
+    #44.1.1.mem.ref.ro <size 6, "string"> => #43.1.1.num.prim <17 (0x11)>
+    #72.1.1.mem.ref.ro <size 3, "sub"> => #71.1.1.num.prim <31 (0x1f)>
+    #172.1.1.mem.ref.ro <size 11, "unpackimage"> => #171.1.1.num.prim <81 (0x51)>
+    #196.1.1.mem.ref.ro <size 12, "updatescreen"> => #195.1.1.num.prim <93 (0x5d)>
+    #92.1.1.mem.ref.ro <size 3, "xor"> => #91.1.1.num.prim <41 (0x29)>
+    #10.1.1.mem.ref.ro <size 1, "{"> => #9.1.1.num.prim <0 (0x0)>
+    #12.1.1.mem.ref.ro <size 1, "}"> => #11.1.1.num.prim <1 (0x1)>
+  #9.1.1.num.prim <0 (0x0)>
+  #10.1.1.mem.ref.ro <size 1, "{">
+    7b                                               {
+  #11.1.1.num.prim <1 (0x1)>
+  #12.1.1.mem.ref.ro <size 1, "}">
+    7d                                               }
+  #13.1.1.num.prim <2 (0x2)>
+  #14.1.1.mem.ref.ro <size 1, "[">
+    5b                                               [
+  #15.1.1.num.prim <3 (0x3)>
+  #16.1.1.mem.ref.ro <size 1, "]">
+    5d                                               ]
+  #17.1.1.num.prim <4 (0x4)>
+  #18.1.1.mem.ref.ro <size 1, "(">
+    28                                               (
+  #19.1.1.num.prim <5 (0x5)>
+  #20.1.1.mem.ref.ro <size 1, ")">
+    29                                               )
+  #21.1.1.num.prim <6 (0x6)>
+  #22.1.1.mem.ref.ro <size 3, "def">
+    64 65 66                                         def
+  #23.1.1.num.prim <7 (0x7)>
+  #24.1.1.mem.ref.ro <size 4, "ldef">
+    6c 64 65 66                                      ldef
+  #25.1.1.num.prim <8 (0x8)>
+  #26.1.1.mem.ref.ro <size 4, "gdef">
+    67 64 65 66                                      gdef
+  #27.1.1.num.prim <9 (0x9)>
+  #28.1.1.mem.ref.ro <size 2, "if">
+    69 66                                            if
+  #29.1.1.num.prim <10 (0xa)>
+  #30.1.1.mem.ref.ro <size 6, "ifelse">
+    69 66 65 6c 73 65                                ifelse
+  #31.1.1.num.prim <11 (0xb)>
+  #32.1.1.mem.ref.ro <size 4, "loop">
+    6c 6f 6f 70                                      loop
+  #33.1.1.num.prim <12 (0xc)>
+  #34.1.1.mem.ref.ro <size 6, "repeat">
+    72 65 70 65 61 74                                repeat
+  #35.1.1.num.prim <13 (0xd)>
+  #36.1.1.mem.ref.ro <size 3, "for">
+    66 6f 72                                         for
+  #37.1.1.num.prim <14 (0xe)>
+  #38.1.1.mem.ref.ro <size 6, "forall">
+    66 6f 72 61 6c 6c                                forall
+  #39.1.1.num.prim <15 (0xf)>
+  #40.1.1.mem.ref.ro <size 4, "exit">
+    65 78 69 74                                      exit
+  #41.1.1.num.prim <16 (0x10)>
+  #42.1.1.mem.ref.ro <size 6, "return">
+    72 65 74 75 72 6e                                return
+  #43.1.1.num.prim <17 (0x11)>
+  #44.1.1.mem.ref.ro <size 6, "string">
+    73 74 72 69 6e 67                                string
+  #45.1.1.num.prim <18 (0x12)>
+  #46.1.1.mem.ref.ro <size 3, "get">
+    67 65 74                                         get
+  #47.1.1.num.prim <19 (0x13)>
+  #48.1.1.mem.ref.ro <size 3, "put">
+    70 75 74                                         put
+  #49.1.1.num.prim <20 (0x14)>
+  #50.1.1.mem.ref.ro <size 6, "delete">
+    64 65 6c 65 74 65                                delete
+  #51.1.1.num.prim <21 (0x15)>
+  #52.1.1.mem.ref.ro <size 6, "length">
+    6c 65 6e 67 74 68                                length
+  #53.1.1.num.prim <22 (0x16)>
+  #54.1.1.mem.ref.ro <size 3, "dup">
+    64 75 70                                         dup
+  #55.1.1.num.prim <23 (0x17)>
+  #56.1.1.mem.ref.ro <size 3, "pop">
+    70 6f 70                                         pop
+  #57.1.1.num.prim <24 (0x18)>
+  #58.1.1.mem.ref.ro <size 4, "exch">
+    65 78 63 68                                      exch
+  #59.1.1.num.prim <25 (0x19)>
+  #60.1.1.mem.ref.ro <size 3, "rot">
+    72 6f 74                                         rot
+  #61.1.1.num.prim <26 (0x1a)>
+  #62.1.1.mem.ref.ro <size 4, "roll">
+    72 6f 6c 6c                                      roll
+  #63.1.1.num.prim <27 (0x1b)>
+  #64.1.1.mem.ref.ro <size 4, "over">
+    6f 76 65 72                                      over
+  #65.1.1.num.prim <28 (0x1c)>
+  #66.1.1.mem.ref.ro <size 5, "index">
+    69 6e 64 65 78                                   index
+  #67.1.1.num.prim <29 (0x1d)>
+  #68.1.1.mem.ref.ro <size 4, "exec">
+    65 78 65 63                                      exec
+  #69.1.1.num.prim <30 (0x1e)>
+  #70.1.1.mem.ref.ro <size 3, "add">
+    61 64 64                                         add
+  #71.1.1.num.prim <31 (0x1f)>
+  #72.1.1.mem.ref.ro <size 3, "sub">
+    73 75 62                                         sub
+  #73.1.1.num.prim <32 (0x20)>
+  #74.1.1.mem.ref.ro <size 3, "mul">
+    6d 75 6c                                         mul
+  #75.1.1.num.prim <33 (0x21)>
+  #76.1.1.mem.ref.ro <size 3, "div">
+    64 69 76                                         div
+  #77.1.1.num.prim <34 (0x22)>
+  #78.1.1.mem.ref.ro <size 3, "mod">
+    6d 6f 64                                         mod
+  #79.1.1.num.prim <35 (0x23)>
+  #80.1.1.mem.ref.ro <size 3, "neg">
+    6e 65 67                                         neg
+  #81.1.1.num.prim <36 (0x24)>
+  #82.1.1.mem.ref.ro <size 3, "abs">
+    61 62 73                                         abs
+  #83.1.1.num.prim <37 (0x25)>
+  #84.1.1.mem.ref.ro <size 3, "min">
+    6d 69 6e                                         min
+  #85.1.1.num.prim <38 (0x26)>
+  #86.1.1.mem.ref.ro <size 3, "max">
+    6d 61 78                                         max
+  #87.1.1.num.prim <39 (0x27)>
+  #88.1.1.mem.ref.ro <size 3, "and">
+    61 6e 64                                         and
+  #89.1.1.num.prim <40 (0x28)>
+  #90.1.1.mem.ref.ro <size 2, "or">
+    6f 72                                            or
+  #91.1.1.num.prim <41 (0x29)>
+  #92.1.1.mem.ref.ro <size 3, "xor">
+    78 6f 72                                         xor
+  #93.1.1.num.prim <42 (0x2a)>
+  #94.1.1.mem.ref.ro <size 3, "not">
+    6e 6f 74                                         not
+  #95.1.1.num.prim <43 (0x2b)>
+  #96.1.1.mem.ref.ro <size 3, "shl">
+    73 68 6c                                         shl
+  #97.1.1.num.prim <44 (0x2c)>
+  #98.1.1.mem.ref.ro <size 3, "shr">
+    73 68 72                                         shr
+  #99.1.1.num.prim <45 (0x2d)>
+  #100.1.1.mem.ref.ro <size 2, "eq">
+    65 71                                            eq
+  #101.1.1.num.prim <46 (0x2e)>
+  #102.1.1.mem.ref.ro <size 2, "ne">
+    6e 65                                            ne
+  #103.1.1.num.prim <47 (0x2f)>
+  #104.1.1.mem.ref.ro <size 2, "gt">
+    67 74                                            gt
+  #105.1.1.num.prim <48 (0x30)>
+  #106.1.1.mem.ref.ro <size 2, "ge">
+    67 65                                            ge
+  #107.1.1.num.prim <49 (0x31)>
+  #108.1.1.mem.ref.ro <size 2, "lt">
+    6c 74                                            lt
+  #109.1.1.num.prim <50 (0x32)>
+  #110.1.1.mem.ref.ro <size 2, "le">
+    6c 65                                            le
+  #111.1.1.num.prim <51 (0x33)>
+  #112.1.1.mem.ref.ro <size 3, "cmp">
+    63 6d 70                                         cmp
+  #113.1.1.num.prim <52 (0x34)>
+  #114.1.1.mem.ref.ro <size 9, "getparent">
+    67 65 74 70 61 72 65 6e 74                       getparent
+  #115.1.1.num.prim <53 (0x35)>
+  #116.1.1.mem.ref.ro <size 9, "setparent">
+    73 65 74 70 61 72 65 6e 74                       setparent
+  #117.1.1.num.prim <54 (0x36)>
+  #118.1.1.mem.ref.ro <size 7, "getdict">
+    67 65 74 64 69 63 74                             getdict
+  #119.1.1.num.prim <55 (0x37)>
+  #120.1.1.mem.ref.ro <size 7, "setdict">
+    73 65 74 64 69 63 74                             setdict
+  #121.1.1.num.prim <56 (0x38)>
+  #122.1.1.mem.ref.ro <size 6, "freeze">
+    66 72 65 65 7a 65                                freeze
+  #123.1.1.num.prim <57 (0x39)>
+  #124.1.1.mem.ref.ro <size 8, "getcolor">
+    67 65 74 63 6f 6c 6f 72                          getcolor
+  #125.1.1.num.prim <58 (0x3a)>
+  #126.1.1.mem.ref.ro <size 8, "setcolor">
+    73 65 74 63 6f 6c 6f 72                          setcolor
+  #127.1.1.num.prim <59 (0x3b)>
+  #128.1.1.mem.ref.ro <size 10, "getbgcolor">
+    67 65 74 62 67 63 6f 6c 6f 72                    getbgcolor
+  #129.1.1.num.prim <60 (0x3c)>
+  #130.1.1.mem.ref.ro <size 10, "setbgcolor">
+    73 65 74 62 67 63 6f 6c 6f 72                    setbgcolor
+  #131.1.1.num.prim <61 (0x3d)>
+  #132.1.1.mem.ref.ro <size 6, "getpos">
+    67 65 74 70 6f 73                                getpos
+  #133.1.1.num.prim <62 (0x3e)>
+  #134.1.1.mem.ref.ro <size 6, "setpos">
+    73 65 74 70 6f 73                                setpos
+  #135.1.1.num.prim <63 (0x3f)>
+  #136.1.1.mem.ref.ro <size 7, "getfont">
+    67 65 74 66 6f 6e 74                             getfont
+  #137.1.1.num.prim <64 (0x40)>
+  #138.1.1.mem.ref.ro <size 7, "setfont">
+    73 65 74 66 6f 6e 74                             setfont
+  #139.1.1.num.prim <65 (0x41)>
+  #140.1.1.mem.ref.ro <size 7, "newfont">
+    6e 65 77 66 6f 6e 74                             newfont
+  #141.1.1.num.prim <66 (0x42)>
+  #142.1.1.mem.ref.ro <size 9, "getregion">
+    67 65 74 72 65 67 69 6f 6e                       getregion
+  #143.1.1.num.prim <67 (0x43)>
+  #144.1.1.mem.ref.ro <size 9, "setregion">
+    73 65 74 72 65 67 69 6f 6e                       setregion
+  #145.1.1.num.prim <68 (0x44)>
+  #146.1.1.mem.ref.ro <size 11, "getlocation">
+    67 65 74 6c 6f 63 61 74 69 6f 6e                 getlocation
+  #147.1.1.num.prim <69 (0x45)>
+  #148.1.1.mem.ref.ro <size 11, "setlocation">
+    73 65 74 6c 6f 63 61 74 69 6f 6e                 setlocation
+  #149.1.1.num.prim <70 (0x46)>
+  #150.1.1.mem.ref.ro <size 11, "getdrawmode">
+    67 65 74 64 72 61 77 6d 6f 64 65                 getdrawmode
+  #151.1.1.num.prim <71 (0x47)>
+  #152.1.1.mem.ref.ro <size 11, "setdrawmode">
+    73 65 74 64 72 61 77 6d 6f 64 65                 setdrawmode
+  #153.1.1.num.prim <72 (0x48)>
+  #154.1.1.mem.ref.ro <size 9, "newcanvas">
+    6e 65 77 63 61 6e 76 61 73                       newcanvas
+  #155.1.1.num.prim <73 (0x49)>
+  #156.1.1.mem.ref.ro <size 9, "getcanvas">
+    67 65 74 63 61 6e 76 61 73                       getcanvas
+  #157.1.1.num.prim <74 (0x4a)>
+  #158.1.1.mem.ref.ro <size 9, "setcanvas">
+    73 65 74 63 61 6e 76 61 73                       setcanvas
+  #159.1.1.num.prim <75 (0x4b)>
+  #160.1.1.mem.ref.ro <size 10, "getconsole">
+    67 65 74 63 6f 6e 73 6f 6c 65                    getconsole
+  #161.1.1.num.prim <76 (0x4c)>
+  #162.1.1.mem.ref.ro <size 10, "setconsole">
+    73 65 74 63 6f 6e 73 6f 6c 65                    setconsole
+  #163.1.1.num.prim <77 (0x4d)>
+  #164.1.1.mem.ref.ro <size 4, "show">
+    73 68 6f 77                                      show
+  #165.1.1.num.prim <78 (0x4e)>
+  #166.1.1.mem.ref.ro <size 3, "dim">
+    64 69 6d                                         dim
+  #167.1.1.num.prim <79 (0x4f)>
+  #168.1.1.mem.ref.ro <size 3, "run">
+    72 75 6e                                         run
+  #169.1.1.num.prim <80 (0x50)>
+  #170.1.1.mem.ref.ro <size 8, "readfile">
+    72 65 61 64 66 69 6c 65                          readfile
+  #171.1.1.num.prim <81 (0x51)>
+  #172.1.1.mem.ref.ro <size 11, "unpackimage">
+    75 6e 70 61 63 6b 69 6d 61 67 65                 unpackimage
+  #173.1.1.num.prim <82 (0x52)>
+  #174.1.1.mem.ref.ro <size 3, "blt">
+    62 6c 74                                         blt
+  #175.1.1.num.prim <83 (0x53)>
+  #176.1.1.mem.ref.ro <size 5, "debug">
+    64 65 62 75 67                                   debug
+  #177.1.1.num.prim <84 (0x54)>
+  #178.1.1.mem.ref.ro <size 8, "getpixel">
+    67 65 74 70 69 78 65 6c                          getpixel
+  #179.1.1.num.prim <85 (0x55)>
+  #180.1.1.mem.ref.ro <size 8, "putpixel">
+    70 75 74 70 69 78 65 6c                          putpixel
+  #181.1.1.num.prim <86 (0x56)>
+  #182.1.1.mem.ref.ro <size 8, "drawline">
+    64 72 61 77 6c 69 6e 65                          drawline
+  #183.1.1.num.prim <87 (0x57)>
+  #184.1.1.mem.ref.ro <size 8, "fillrect">
+    66 69 6c 6c 72 65 63 74                          fillrect
+  #185.1.1.num.prim <88 (0x58)>
+  #186.1.1.mem.ref.ro <size 10, "decodeutf8">
+    64 65 63 6f 64 65 75 74 66 38                    decodeutf8
+  #187.1.1.num.prim <89 (0x59)>
+  #188.1.1.mem.ref.ro <size 10, "encodeutf8">
+    65 6e 63 6f 64 65 75 74 66 38                    encodeutf8
+  #189.1.1.num.prim <90 (0x5a)>
+  #190.1.1.mem.ref.ro <size 6, "format">
+    66 6f 72 6d 61 74                                format
+  #191.1.1.num.prim <91 (0x5b)>
+  #192.1.1.mem.ref.ro <size 10, "getcompose">
+    67 65 74 63 6f 6d 70 6f 73 65                    getcompose
+  #193.1.1.num.prim <92 (0x5c)>
+  #194.1.1.mem.ref.ro <size 10, "setcompose">
+    73 65 74 63 6f 6d 70 6f 73 65                    setcompose
+  #195.1.1.num.prim <93 (0x5d)>
+  #196.1.1.mem.ref.ro <size 12, "updatescreen">
+    75 70 64 61 74 65 73 63 72 65 65 6e              updatescreen
   #197.1.1.mem.ro <size 20>
     75 51 12 a9 42 7a ad 60 81 64 91 c8 00 91 2c 01  uQ..Bz.`.d....,.
     38 72 6f 74                                      8rot
@@ -770,11 +812,11 @@
     [ 0] #201.1.1.num.int <200 (0xc8)>
     [ 1] #202.1.1.num.int <300 (0x12c)>
     [ 2] #200.1.1.num.int <100 (0x64)>
-  #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x14 (0x14), dict #5.1.2.hash>
+  #199.1.1.ctx.func <code #197.1.1.mem.ro, ip 0x14 (0x14), dict #8.1.2.hash>
     type 17, ip 0x14 (0x14)
     code #197.1.1.mem.ro
     parent #0.0.nil
-    dict #5.1.2.hash
+    dict #8.1.2.hash
     iterate #0.0.nil
   #200.1.1.num.int <100 (0x64)>
   #201.1.1.num.int <200 (0xc8)>

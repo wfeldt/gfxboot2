@@ -4597,13 +4597,13 @@ void gfx_prim_getcompose()
 // ( array_1 -- )
 // ( nil -- )
 //
-// Set current comnpose list. If nil is passed, the current list is removed.
+// Set current compose list. If nil is passed, the current list is removed.
 //
-// The compose list is an array of graphics states.
+// The compose list is an array of canvas objects.
 //
 // example:
 //
-// /saved_list getcompose def                   # save current öist
+// /saved_list getcompose def                   # save current list
 // ...
 // saved_list setcompose                        # restore list
 //

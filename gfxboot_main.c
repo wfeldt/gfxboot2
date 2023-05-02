@@ -119,7 +119,6 @@ void gfxboot_debug_command(char *str)
 */
 int gfxboot_process_key(unsigned key)
 {
-  static int x = 0, y = 0;
   int action = 0;
 
   gfxboot_debug(2, 2, "gfxboot_process_key: key = 0x%08x\n", key);
@@ -139,16 +138,6 @@ int gfxboot_process_key(unsigned key)
   }
 
 #if 0
-  gfx_rect(gfxboot_data->canvas_id, x, y, 100, 20, (40 + y) * 0x7834242296 * (x + 1));
-
-  y += 20;
-
-  if(y >= gfxboot_data->screen.real.height) {
-    y = 0;
-    x += 120;
-    x = x % gfxboot_data->screen.real.width;
-  }
-
   switch(key) {
     case '0'...'9':
       gfxboot_data->menu.entry = (int) key - '0';

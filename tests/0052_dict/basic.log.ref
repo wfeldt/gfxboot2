@@ -16,19 +16,19 @@ GC: ++#xxxx.1.2.hash
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.3.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.3.hash <size 94, max 101>
+  [0] #xxxx.1.3.hash <size 96, max 101>
 GC: ++#xxxx.1.1.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.ro, dict #xxxx.1.3.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.2.mem.ro, "foo_0">
-  [1] #xxxx.1.3.hash <size 94, max 101>
+  [1] #xxxx.1.3.hash <size 96, max 101>
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.ro, dict #xxxx.1.3.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.1.num.int <99 (0x63)>
   [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.2.mem.ro, "foo_0">
-  [2] #xxxx.1.3.hash <size 94, max 101>
+  [2] #xxxx.1.3.hash <size 96, max 101>
 GC: ++#xxxx.1.1.mem.ref.ro
 GC: ++#xxxx.1.1.num.int
 GC: --#xxxx.1.2.num.int
@@ -36,20 +36,20 @@ GC: --#xxxx.1.2.mem.ref.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.ro, dict #xxxx.1.3.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.3.hash <size 95, max 101>
+  [0] #xxxx.1.3.hash <size 97, max 101>
 GC: ++#xxxx.1.2.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.3.mem.ro, dict #xxxx.1.3.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.3.mem.ro, "foo_1">
-  [1] #xxxx.1.3.hash <size 95, max 101>
+  [1] #xxxx.1.3.hash <size 97, max 101>
 GC: ++#xxxx.1.3.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.3.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.1.mem.code.ro <#xxxx.1.4.mem.ro>
   [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.4.mem.ro, "foo_1">
-  [2] #xxxx.1.3.hash <size 95, max 101>
+  [2] #xxxx.1.3.hash <size 97, max 101>
 GC: ++#xxxx.1.1.mem.ref.ro
 GC: ++#xxxx.1.1.mem.code.ro
 GC: --#xxxx.1.2.mem.code.ro
@@ -57,20 +57,20 @@ GC: --#xxxx.1.2.mem.ref.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.3.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.3.hash <size 96, max 101>
+  [0] #xxxx.1.3.hash <size 98, max 101>
 GC: ++#xxxx.1.4.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.5.mem.ro, dict #xxxx.1.3.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.5.mem.ro, "foo_2">
-  [1] #xxxx.1.3.hash <size 96, max 101>
+  [1] #xxxx.1.3.hash <size 98, max 101>
 GC: ++#xxxx.1.5.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.3.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
   [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.6.mem.ro, "foo_2">
-  [2] #xxxx.1.3.hash <size 96, max 101>
+  [2] #xxxx.1.3.hash <size 98, max 101>
 GC: ++#xxxx.1.1.mem.ref.ro
 GC: ++#xxxx.1.1.mem.code.ro
 GC: --#xxxx.1.2.mem.code.ro
@@ -78,19 +78,19 @@ GC: --#xxxx.1.2.mem.ref.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.3.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.3.hash <size 97, max 101>
+  [0] #xxxx.1.3.hash <size 99, max 101>
 GC: ++#xxxx.1.1.mem.code.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
   [1] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.3.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.3.hash <size 97, max 101>
+  [0] #xxxx.1.3.hash <size 99, max 101>
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
   [1] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.3.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #0.0.nil <nil>
-  [1] #xxxx.1.3.hash <size 97, max 101>
+  [1] #xxxx.1.3.hash <size 99, max 101>
 GC: ++#xxxx.1.1.ctx.func
 GC: --#xxxx.1.1.ctx.func
 GC: --#xxxx.1.2.ctx.func
@@ -99,14 +99,14 @@ GC: --#xxxx.1.2.mem.code.ro
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.3.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #0.0.nil <nil>
-  [1] #xxxx.1.3.hash <size 97, max 101>
+  [1] #xxxx.1.3.hash <size 99, max 101>
 GC: ++#xxxx.1.1.mem.code.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
   [1] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.3.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #0.0.nil <nil>
-  [1] #xxxx.1.3.hash <size 97, max 101>
+  [1] #xxxx.1.3.hash <size 99, max 101>
 GC: ++#xxxx.1.1.num.prim
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
@@ -114,7 +114,7 @@ GC: ++#xxxx.1.1.num.prim
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.2.num.prim <4 (0x4)>
   [1] #0.0.nil <nil>
-  [2] #xxxx.1.3.hash <size 97, max 101>
+  [2] #xxxx.1.3.hash <size 99, max 101>
 GC: --#xxxx.1.2.num.prim
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
@@ -122,7 +122,7 @@ GC: --#xxxx.1.2.num.prim
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.1.hash <size 0, max 16>
   [1] #0.0.nil <nil>
-  [2] #xxxx.1.3.hash <size 97, max 101>
+  [2] #xxxx.1.3.hash <size 99, max 101>
 GC: ++#xxxx.1.1.hash
 GC: --#xxxx.1.2.hash
 == backtrace ==
@@ -130,7 +130,7 @@ GC: --#xxxx.1.2.hash
   [1] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.3.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #0.0.nil <nil>
-  [1] #xxxx.1.3.hash <size 97, max 101>
+  [1] #xxxx.1.3.hash <size 99, max 101>
 GC: ++#xxxx.1.6.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
@@ -138,7 +138,7 @@ GC: ++#xxxx.1.6.mem.ro
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.7.mem.ro, "bar_2">
   [1] #0.0.nil <nil>
-  [2] #xxxx.1.3.hash <size 97, max 101>
+  [2] #xxxx.1.3.hash <size 99, max 101>
 GC: ++#xxxx.1.7.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
@@ -147,7 +147,7 @@ GC: ++#xxxx.1.7.mem.ro
   [0] #xxxx.1.1.mem.code.ro <#xxxx.1.8.mem.ro>
   [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.8.mem.ro, "bar_2">
   [2] #0.0.nil <nil>
-  [3] #xxxx.1.3.hash <size 97, max 101>
+  [3] #xxxx.1.3.hash <size 99, max 101>
 GC: ++#xxxx.1.1.mem.ref.ro
 GC: ++#xxxx.1.1.mem.code.ro
 GC: --#xxxx.1.2.mem.code.ro
@@ -157,7 +157,7 @@ GC: --#xxxx.1.2.mem.ref.ro
   [1] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.3.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #0.0.nil <nil>
-  [1] #xxxx.1.3.hash <size 97, max 101>
+  [1] #xxxx.1.3.hash <size 99, max 101>
 GC: ++#xxxx.1.1.hash
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.2.hash>
@@ -165,7 +165,7 @@ GC: ++#xxxx.1.1.hash
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.2.hash <size 1, max 16>
   [1] #0.0.nil <nil>
-  [2] #xxxx.1.3.hash <size 97, max 101>
+  [2] #xxxx.1.3.hash <size 99, max 101>
 GC: ++#xxxx.1.1.mem.code.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
@@ -174,7 +174,7 @@ GC: ++#xxxx.1.1.mem.code.ro
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.2.hash <size 1, max 16>
   [1] #0.0.nil <nil>
-  [2] #xxxx.1.3.hash <size 97, max 101>
+  [2] #xxxx.1.3.hash <size 99, max 101>
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
   [1] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.2.hash>
@@ -183,7 +183,7 @@ GC: ++#xxxx.1.1.mem.code.ro
   [0] #xxxx.1.1.num.int <11 (0xb)>
   [1] #xxxx.1.2.hash <size 1, max 16>
   [2] #0.0.nil <nil>
-  [3] #xxxx.1.3.hash <size 97, max 101>
+  [3] #xxxx.1.3.hash <size 99, max 101>
 GC: ++#xxxx.1.1.ctx.func
 GC: --#xxxx.1.1.ctx.func
 GC: --#xxxx.1.2.ctx.func
@@ -195,7 +195,7 @@ GC: --#xxxx.1.2.mem.code.ro
   [0] #xxxx.1.1.num.int <11 (0xb)>
   [1] #xxxx.1.2.hash <size 1, max 16>
   [2] #0.0.nil <nil>
-  [3] #xxxx.1.3.hash <size 97, max 101>
+  [3] #xxxx.1.3.hash <size 99, max 101>
 GC: ++#xxxx.1.1.num.int
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.2.hash>
@@ -205,7 +205,7 @@ GC: ++#xxxx.1.1.num.int
   [1] #xxxx.1.1.num.int <11 (0xb)>
   [2] #xxxx.1.2.hash <size 1, max 16>
   [3] #0.0.nil <nil>
-  [4] #xxxx.1.3.hash <size 97, max 101>
+  [4] #xxxx.1.3.hash <size 99, max 101>
 GC: ++#xxxx.1.1.ctx.func
 GC: --#xxxx.1.1.ctx.func
 GC: --#xxxx.1.2.ctx.func
@@ -218,7 +218,7 @@ GC: --#xxxx.1.2.hash
   [1] #xxxx.1.1.num.int <11 (0xb)>
   [2] #xxxx.1.1.hash <size 1, max 16>
   [3] #0.0.nil <nil>
-  [4] #xxxx.1.3.hash <size 97, max 101>
+  [4] #xxxx.1.3.hash <size 99, max 101>
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.3.hash>
 == stack (#xxxx.1.1.array) ==
@@ -226,5 +226,5 @@ GC: --#xxxx.1.2.hash
   [1] #xxxx.1.1.num.int <11 (0xb)>
   [2] #xxxx.1.1.hash <size 1, max 16>
   [3] #0.0.nil <nil>
-  [4] #xxxx.1.3.hash <size 97, max 101>
-error 1 (invalid code), ip = #197
+  [4] #xxxx.1.3.hash <size 99, max 101>
+error 1 (invalid code), ip = #201

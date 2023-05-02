@@ -4653,3 +4653,70 @@ void gfx_prim_updatescreen()
 
   gfx_obj_array_pop_n(4, gfxboot_data->vm.program.pstack, 1);
 }
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// get event handler
+//
+// group: system
+//
+// ( -- code_1 )
+// ( -- nil )
+//
+// Get current event handler. If none has been set, return nil.
+//
+// The event handler is a reference to a code blöck or function.
+//
+// example:
+//
+// /current_handler geteventhandler def                   # get current event handler
+//
+void gfx_prim_geteventhandler()
+{
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfxboot_data->event_handler_id, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// set event handler
+//
+// group: system
+//
+// ( code_1 -- )
+// ( nil -- )
+//
+// Set current event handler. If nil is passed, the current event handler is removed.
+//
+// The event handler is a reference to a code blöck or function.
+//
+// example:
+//
+// /old_handler geteventhandler def             # save current event handler
+// ...
+// old_handler seteventhandler                  # restore event handler
+//
+void gfx_prim_seteventhandler()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_MEM | IS_NIL);
+
+  if(!argv) return;
+
+  obj_id_t id = argv[0].id;
+  obj_t *ptr = argv[0].ptr;
+
+  if(ptr && ptr->sub_type == t_ref) {
+    id = gfx_lookup_dict(OBJ_DATA_FROM_PTR(ptr)).id2;
+    ptr = gfx_obj_ptr(id);
+  }
+
+  if(
+    ptr && ptr->sub_type != t_code
+  ) {
+    GFX_ERROR(err_invalid_arguments);
+    return;
+  }
+
+  OBJ_ID_ASSIGN(gfxboot_data->event_handler_id, id);
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+}

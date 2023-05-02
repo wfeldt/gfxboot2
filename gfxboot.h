@@ -317,6 +317,8 @@ typedef struct {
     obj_id_t list_id;		// array of canvas ids
   } compose;
 
+  obj_id_t event_handler_id;	// event handler (keyboard, timer, ...)
+
   struct {
     int nested;
     int entry;
@@ -533,7 +535,7 @@ int gfx_decode_instr(decoded_instr_t *code);
 void gfx_program_run(void);
 void gfx_program_debug(unsigned key);
 void gfx_program_debug_on_off(unsigned state);
-void gfx_program_process_key(unsigned key);
+int gfx_program_process_key(unsigned key);
 char *gfx_debug_get_ip(void);
 void gfx_debug_cmd(char *str);
 void gfx_debug_show_trace(void);

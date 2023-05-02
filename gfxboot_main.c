@@ -79,7 +79,7 @@ int gfxboot_init()
   }
 
   if(!gfx_program_init(pfile_id)) {
-    gfxboot_log("failed to setup prgram\n");
+    gfxboot_log("failed to setup program\n");
     return 1;
   }
 
@@ -135,9 +135,10 @@ int gfxboot_process_key(unsigned key)
       return action;
     }
 
-    gfx_program_process_key(key);
+    action = gfx_program_process_key(key);
   }
 
+#if 0
   gfx_rect(gfxboot_data->canvas_id, x, y, 100, 20, (40 + y) * 0x7834242296 * (x + 1));
 
   y += 20;
@@ -168,6 +169,7 @@ int gfxboot_process_key(unsigned key)
       action = (-1 << 8) + 0x10 + 1;
       break;
   }
+#endif
 
   return action;
 }

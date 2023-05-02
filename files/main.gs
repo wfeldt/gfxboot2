@@ -47,3 +47,32 @@ getcanvas bar setfont
 
 getcanvas foo setfont
 50 180 setpos text show
+
+/event1_vars ( /x 0 /y 0 /type 0 /key 0 /action 0 ) def
+
+/event1 {
+  event1_vars setdict
+
+  /type exch def
+  /key exch def
+
+  getpos getcolor
+
+  x y setpos
+  y 40 add 0x7834242296 mul x 1 add mul setcolor
+  100 20 fillrect
+  /y y 20 add def
+  y getcanvas dim exch pop ge {
+    /y 0 def
+    /x x 120 add def
+    /x x getcanvas dim pop mod def
+  } if
+
+  setcolor setpos
+
+  action
+
+  debug
+} def
+
+/event1 seteventhandler

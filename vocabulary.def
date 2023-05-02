@@ -98,3 +98,5 @@ format
 getcompose
 setcompose
 updatescreen
+geteventhandler
+seteventhandler

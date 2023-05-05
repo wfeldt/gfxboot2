@@ -160,6 +160,8 @@ int gfxboot_process_key(unsigned key)
   }
 #endif
 
+  gfxboot_debug(2, 2, "gfxboot_process_key: action = 0x%x\n", action);
+
   return action;
 }
 

@@ -308,16 +308,18 @@ int gfx_program_process_key(unsigned key)
 
   gfxboot_debug(2, 2, "gfx_program_process_key: 0x%x\n", key);
 
-  if(!gfxboot_data->event_handler_id) return 0;
+  if(!key || !gfxboot_data->event_handler_id) return 0;
 
   if(gfx_program_init(gfxboot_data->event_handler_id)) {
     gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(key, t_int), 0);
     gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(1, t_int), 0);
     gfx_program_run();
-    array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
-    if(pstack && pstack->size >= 1) {
-      int64_t *val = gfx_obj_num_subtype_ptr(pstack->ptr[pstack->size - 1], t_int);
-      if(val) action = *val;
+    if(!gfxboot_data->vm.debug.console.show) {
+      array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+      if(pstack && pstack->size >= 1) {
+        int64_t *val = gfx_obj_num_subtype_ptr(pstack->ptr[pstack->size - 1], t_int);
+        if(val) action = *val;
+      }
     }
   }
 

@@ -88,9 +88,8 @@ unsigned gfx_program_init(obj_id_t program)
   ctx->dict_id = gfx_obj_ref_inc(gfxboot_data->vm.program.dict);
   ctx->code_id = gfx_obj_ref_inc(program);
 
-  data_t *code = gfx_obj_mem_ptr(ctx->code_id);
-
-  gfxboot_log("program loaded %s (%u bytes)\n", gfx_obj_id2str(program), code->size);
+  // data_t *code = gfx_obj_mem_ptr(ctx->code_id);
+  // gfxboot_log("program loaded %s (%u bytes)\n", gfx_obj_id2str(program), code->size);
 
   gfxboot_data->vm.program.context = ctx_id;
 

@@ -23,7 +23,7 @@ getcanvas bar setfont
 0xffffff setcolor 0 setbgcolor
 50 520 setpos text show
 
-/a ( /x 100 /y { /x 200 def } ) def
+/a ( /x 100 /y { /x 10 ldef debug } ) def
 
 a .x
 a .y

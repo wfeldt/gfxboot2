@@ -3583,35 +3583,37 @@ void gfx_prim_setdrawmode()
 //
 // group: gfx
 //
-// ( canvas_1 -- int_1 int_2 int_3 int_4 )
-// canvas_1: canvas
+// ( -- int_1 int_2 int_3 int_4 )
 // int_1: x
 // int_2: y
 // int_3: width
 // int_4: height
 //
-// Get drawing region associated with graphics state. Any drawing operation
+// Get drawing region associated with current graphics state. Any drawing operation
 // will be relative to this region. Graphics output will be clipped at the
 // region boundaries.
 //
 // example:
 //
-// getcanvas getregion                  # 0 0 800 600
+// getregion                  # 0 0 800 600
 //
 void gfx_prim_getregion()
 {
-  arg_t *argv = gfx_arg_1(OTYPE_CANVAS);
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
-  if(!argv) return;
+  int64_t x = 0, y = 0, width = 0, height = 0;
 
-  canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[0].ptr);
+  if(canvas) {
+    x = canvas->region.x;
+    y = canvas->region.y;
+    width = canvas->region.width;
+    height = canvas->region.height;
+  }
 
-  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
-
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->region.x : 0, t_int), 0);
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->region.y : 0, t_int), 0);
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->region.width : 0, t_int), 0);
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->region.height : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(x, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(y, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(width, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(height, t_int), 0);
 }
 
 
@@ -3620,35 +3622,34 @@ void gfx_prim_getregion()
 //
 // group: gfx
 //
-// ( canvas_1 int_1 int_2 int_3 int_4 -- )
-// canvas_1: canvas
+// ( int_1 int_2 int_3 int_4 -- )
 // int_1: x
 // int_2: y
 // int_3: width
 // int_4: height
 //
-// Set drawing region associated with graphics state. Any drawing operation
+// Set drawing region associated with current graphics state. Any drawing operation
 // will be relative to this region. Graphics output will be clipped at the
 // region boundaries.
 //
 // example:
 //
-// getcanvas 10 10 200 100 setregion
+// 10 10 200 100 setregion
 //
 void gfx_prim_setregion()
 {
-  arg_t *argv = gfx_arg_n(5, (uint8_t [5]) { OTYPE_CANVAS, OTYPE_NUM, OTYPE_NUM, OTYPE_NUM, OTYPE_NUM });
+  arg_t *argv = gfx_arg_n(4, (uint8_t [4]) { OTYPE_NUM, OTYPE_NUM, OTYPE_NUM, OTYPE_NUM });
 
   if(!argv) return;
 
-  canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[0].ptr);
-
+  int64_t val0 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
   int64_t val1 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
   int64_t val2 = OBJ_VALUE_FROM_PTR(argv[2].ptr);
   int64_t val3 = OBJ_VALUE_FROM_PTR(argv[3].ptr);
-  int64_t val4 = OBJ_VALUE_FROM_PTR(argv[4].ptr);
 
-  area_t area = { .x = val1, .y = val2, .width = val3, .height = val4 };
+  area_t area = { .x = val0, .y = val1, .width = val2, .height = val3 };
+
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
   if(canvas) {
     area_t clip = { .width = canvas->geo.width, .height = canvas->geo.height };
@@ -3656,7 +3657,7 @@ void gfx_prim_setregion()
     canvas->region = area;
   }
 
-  gfx_obj_array_pop_n(5, gfxboot_data->vm.program.pstack, 1);
+  gfx_obj_array_pop_n(4, gfxboot_data->vm.program.pstack, 1);
 }
 
 

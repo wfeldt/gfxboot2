@@ -1,4 +1,4 @@
-getcanvas 50 20 400 400 setregion
+50 20 400 400 setregion
 0x00ffffff setcolor
 
 # draw line relative to cursor position

@@ -24,13 +24,15 @@ typedef struct {
   unsigned char *ptr;
   char *name;
   int line;
+  int start_offset;
 } file_data_t;
 
 struct option options[] = {
   { "create", 1, NULL, 'c' },
   { "show", 0, NULL, 's' },
   { "log", 1, NULL, 'l' },
-  { "opt", 0, NULL, 'O' },
+  { "opt", 1, NULL, 'O' },
+  { "debug", 0, NULL, 'g' },
   { "lib", 1, NULL, 'L' },
   { "help", 0, NULL, 'h' },
   { }
@@ -100,6 +102,7 @@ int config_ok = 0;
 
 file_data_t pscode = {};
 file_data_t dict_file = {};
+file_data_t source_code = {};
 
 dict_t *dict = NULL;
 unsigned dict_size = 0;
@@ -118,6 +121,7 @@ struct {
   unsigned verbose;
   unsigned optimize;
   unsigned show:1;
+  unsigned debug:1;
   char *file;
   char *log_file;
   char *lib_path[2];
@@ -129,7 +133,7 @@ int main(int argc, char **argv)
 
   opterr = 0;
 
-  while((i = getopt_long(argc, argv, "c:sfhL:l:O:v", options, NULL)) != -1) {
+  while((i = getopt_long(argc, argv, "c:sfhL:l:O:vg", options, NULL)) != -1) {
     switch(i) {
       case 'c':
         opt.file = optarg;
@@ -137,6 +141,10 @@ int main(int argc, char **argv)
 
       case 's':
         opt.show = 1;
+        break;
+
+      case 'g':
+        opt.debug = 1;
         break;
 
       case 'l':
@@ -187,6 +195,7 @@ void help()
     "  -c, --create FILE       Compile SOURCE to FILE.\n"
     "  -l, --log LOGFILE       Write compile log to LOGFILE.\n"
     "  -s, --show              Decompile SOURCE.\n"
+    "  -g, --debug             Embed debug info.\n"
     "  -L, --lib PATH          Set include file search path to PATH.\n"
     "  -O, --opt LEVEL         Optimization level (0 - 3).\n"
     "  -v, --verbose           Create more verbose log.\n"
@@ -284,6 +293,11 @@ int write_data(char *name)
   }
 
   fclose(f);
+
+  // FIXME XXXXX
+  if(opt.debug) {
+    fwrite(source_code.data, source_code.size, 1, stdout);
+  }
 
   return 0;
 }
@@ -943,6 +957,8 @@ int parse_config(char *name, char *log_file)
     }
   }
 
+  add_data(&source_code, cfg[incl_level].data, cfg[incl_level].size);
+
   // setup initial vocabulary
   for(u = 0; u < prim_words; u++) {
     d = new_dict();
@@ -976,6 +992,8 @@ int parse_config(char *name, char *log_file)
             return 1;
           }
           else {
+            incl.start_offset = source_code.size;
+            add_data(&source_code, incl.data, incl.size);
             cfg[incl_level].line = line;
             cfg[++incl_level] = incl;
             line = 1;
@@ -985,7 +1003,7 @@ int parse_config(char *name, char *log_file)
       continue;
     }
 
-    if(opt.verbose >= 2) printf(">%s< [%d] (line %d)\n", word, word_len, line);
+    if(opt.verbose >= 2) printf(">%s< [%d] (line %d - start %d)\n", word, word_len, line, cfg[incl_level].start_offset);
 
     c = new_code();
     c->line = line;

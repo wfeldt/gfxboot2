@@ -3281,7 +3281,13 @@ void gfx_prim_getcolor()
 {
   canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->color : 0, t_int), 0);
+  int64_t col = 0;
+
+  if(canvas) {
+    col = canvas->color;
+  }
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(col, t_int), 0);
 }
 
 
@@ -3337,7 +3343,13 @@ void gfx_prim_getbgcolor()
 {
   canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->bg_color : 0, t_int), 0);
+  int64_t col = 0;
+
+  if(canvas) {
+    col = canvas->bg_color;
+  }
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(col, t_int), 0);
 }
 
 
@@ -3391,8 +3403,15 @@ void gfx_prim_getpos()
 {
   canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->cursor.x : 0, t_int), 0);
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->cursor.y : 0, t_int), 0);
+  int64_t x = 0, y = 0;
+
+  if(canvas) {
+    x = canvas->cursor.x;
+    y = canvas->cursor.y;
+  }
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(x, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(y, t_int), 0);
 }
 
 
@@ -3417,14 +3436,14 @@ void gfx_prim_setpos()
 
   if(!argv) return;
 
-  int64_t val1 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
-  int64_t val2 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
+  int64_t val0 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+  int64_t val1 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
 
   canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
   if(canvas) {
-    canvas->cursor.x = val1;
-    canvas->cursor.y = val2;
+    canvas->cursor.x = val0;
+    canvas->cursor.y = val1;
   }
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
@@ -3482,6 +3501,7 @@ void gfx_prim_setfont()
   if(!argv) return;
 
   canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
+
   if(canvas) {
     OBJ_ID_ASSIGN(canvas->font_id, argv[0].id);
     area_t area = gfx_font_dim(canvas->font_id);
@@ -3544,7 +3564,13 @@ void gfx_prim_getdrawmode()
 {
   canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->draw_mode : 0, t_int), 0);
+  int64_t mode = 0;
+
+  if(canvas) {
+    mode = canvas->draw_mode;
+  }
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(mode, t_int), 0);
 }
 
 
@@ -3807,11 +3833,11 @@ void gfx_prim_newcanvas()
 
   if(!argv) return;
 
-  int64_t val1 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
-  int64_t val2 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
+  int64_t val0 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+  int64_t val1 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_canvas_new(val1, val2), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_canvas_new(val0, val1), 0);
 }
 
 

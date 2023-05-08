@@ -3666,29 +3666,29 @@ void gfx_prim_setregion()
 //
 // group: gfx
 //
-// ( canvas_1 -- int_1 int_2 )
-// canvas_1: canvas
+// ( -- int_1 int_2 )
 // int_1: x
 // int_2: y
 //
-// Get location associated with graphics state.
+// Get location associated with current graphics state.
 //
 // example:
 //
-// getcanvas getlocation                  # 0 0
+// getlocation                  # 0 0
 //
 void gfx_prim_getlocation()
 {
-  arg_t *argv = gfx_arg_1(OTYPE_CANVAS);
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
-  if(!argv) return;
+  int64_t x = 0, y = 0;
 
-  canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[0].ptr);
+  if(canvas) {
+    x = canvas->geo.x;
+    y = canvas->geo.y;
+  }
 
-  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
-
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->geo.x : 0, t_int), 0);
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(canvas ? canvas->geo.y : 0, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(x, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(y, t_int), 0);
 }
 
 
@@ -3697,34 +3697,33 @@ void gfx_prim_getlocation()
 //
 // group: gfx
 //
-// ( canvas_1 int_1 int_2 -- )
-// canvas_1: canvas
+// ( int_1 int_2 -- )
 // int_1: x
 // int_2: y
 //
-// Set location associated with graphics state.
+// Set location associated with current graphics state.
 //
 // example:
 //
-// getcanvas 10 10 setlocation
+// 10 10 setlocation
 //
 void gfx_prim_setlocation()
 {
-  arg_t *argv = gfx_arg_n(3, (uint8_t [3]) { OTYPE_CANVAS, OTYPE_NUM, OTYPE_NUM });
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_NUM, OTYPE_NUM });
 
   if(!argv) return;
 
-  canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[0].ptr);
-
+  int64_t val0 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
   int64_t val1 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
-  int64_t val2 = OBJ_VALUE_FROM_PTR(argv[2].ptr);
+
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
   if(canvas) {
-    canvas->geo.x = val1;
-    canvas->geo.y = val2;
+    canvas->geo.x = val0;
+    canvas->geo.y = val1;
   }
 
-  gfx_obj_array_pop_n(3, gfxboot_data->vm.program.pstack, 1);
+  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
 }
 
 

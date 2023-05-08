@@ -3933,18 +3933,17 @@ void gfx_prim_show()
 //
 // ( canvas_1 -- int_1 int_2 )
 // ( font_1 -- int_1 int_2 )
-// ( canvas_1 -- int_1 int_2 )
 // int_1: width
 // int_2: height
 //
 // Get dimension of graphics object. For a canvas it is its size, for a fixed size
-// font it is its glyph size, for proportional font the width is 0 and the
+// font it is its glyph size, for a proportional font the width is 0 and the
 // height is the font height.
 //
 // example:
 //
 // getconsole dim                         # 640 480
-// getconsole getfont dim                 # 8 16
+// getconsole setcanvas getfont dim       # 8 16
 //
 void gfx_prim_dim()
 {

@@ -3436,29 +3436,23 @@ void gfx_prim_setpos()
 //
 // group: gfx
 //
-// ( canvas_1 -- font_1 )
-// ( canvas_1 -- nil )
-// canvas_1: canvas
+// ( -- font_1 )
+// ( -- nil )
 // font_1: font
 //
-// Get font used in canvas. 
+// Get current font.
 //
 // example:
 //
 // # get currently used font
 //
-// getcanvas getfont
+// getfont
 //
 void gfx_prim_getfont()
 {
-  arg_t *argv = gfx_arg_1(OTYPE_CANVAS);
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
-  if(!argv) return;
-
-  canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[0].ptr);
   obj_id_t font_id = canvas ? canvas->font_id : 0;
-
-  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 
   gfx_obj_array_push(gfxboot_data->vm.program.pstack, font_id, 1);
 }
@@ -3469,36 +3463,33 @@ void gfx_prim_getfont()
 //
 // group: gfx
 //
-// ( canvas_1 font_1 -- )
-// ( canvas_1 nil -- )
-// canvas_1: canvas
+// ( font_1 -- )
+// ( nil -- )
 // font_1: font
 //
-// Set font used in canvas. If nil is passed, no font will be associated with canvas.
+// Set font. If nil is passed, no active font will be associated with the current canvas.
 //
 // example:
 //
 // # read font from file and use it
 //
-// /foo_font "foo.fnt" readfile newfont def
-// getcanvas foo_font setfont
+// "foo.fnt" readfile newfont setfont
 //
 void gfx_prim_setfont()
 {
-  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_CANVAS, OTYPE_FONT | IS_NIL });
+  arg_t *argv = gfx_arg_1(OTYPE_FONT | IS_NIL);
 
   if(!argv) return;
 
-  canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[0].ptr);
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
+  if(canvas) {
+    OBJ_ID_ASSIGN(canvas->font_id, argv[0].id);
+    area_t area = gfx_font_dim(canvas->font_id);
+    canvas->cursor.width = area.width;
+    canvas->cursor.height = area.height;
+  }
 
-  OBJ_ID_ASSIGN(canvas->font_id, argv[1].id);
-
-  area_t area = gfx_font_dim(canvas->font_id);
-
-  canvas->cursor.width = area.width;
-  canvas->cursor.height = area.height;
-
-  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 }
 
 

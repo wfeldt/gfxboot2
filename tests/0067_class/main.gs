@@ -11,7 +11,7 @@
 } def
 
 
-getcanvas getconsole getfont setfont
+getcanvas getconsole setcanvas getfont exch setcanvas setfont
 
 /widget (
   /draw1 {

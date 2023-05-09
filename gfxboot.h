@@ -421,6 +421,8 @@ void gfx_console_putc(unsigned c, int update_pos);
 void gfx_console_puts(char *s);
 void gfx_putc(obj_id_t canvas_id, unsigned c, int update_pos);
 void gfx_puts(obj_id_t canvas_id, char *s, unsigned len);
+area_t gfx_text_dim(obj_id_t canvas_id, char *text, unsigned len);
+area_t gfx_char_dim(obj_id_t canvas_id, unsigned chr);
 area_t gfx_clip(area_t *area1, area_t *area2);
 void gfx_blt(draw_mode_t mode, obj_id_t dst_id, area_t dst_area, obj_id_t src_id, area_t src_area);
 int gfx_getpixel(obj_id_t canvas_id, int x, int y, color_t *color);

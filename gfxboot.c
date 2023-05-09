@@ -372,7 +372,8 @@ area_t gfx_font_dim(obj_id_t font_id)
 
   for(; (font = gfx_obj_font_ptr(font_id)); font_id = font->parent_id) {
     if(font->width > area.width) area.width = font->width;
-    if(font->height > area.height) area.height = font->line_height;
+    if(font->height > area.height) area.height = font->height;
+    if(font->line_height > area.y) area.y = font->line_height;
   }
 
   return area;

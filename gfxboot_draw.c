@@ -10,9 +10,9 @@
 static void gfx_screen_update(obj_id_t canvas_id, area_t area);
 static void gfx_canvas_update(obj_id_t canvas_id, area_t area);
 
-static obj_id_t gfx_font_render_glyph(obj_id_t canvas_id, area_t *geo, unsigned c);
-static obj_id_t gfx_font_render_font1_glyph(obj_id_t canvas_id, font_t *font, area_t *geo, unsigned c);
-static obj_id_t gfx_font_render_font2_glyph(obj_id_t canvas_id, font_t *font, area_t *geo, unsigned c);
+static obj_id_t gfx_font_render_glyph(obj_id_t canvas_id, area_t *geo, unsigned c, unsigned size_only);
+static obj_id_t gfx_font_render_font1_glyph(obj_id_t canvas_id, font_t *font, area_t *geo, unsigned c, unsigned size_only);
+static obj_id_t gfx_font_render_font2_glyph(obj_id_t canvas_id, font_t *font, area_t *geo, unsigned c, unsigned size_only);
 static unsigned read_unsigned_bits(uint8_t *buf, unsigned *bit_ofs, unsigned bits);
 static int read_signed_bits(uint8_t *buf, unsigned *bit_ofs, unsigned bits);
 
@@ -168,22 +168,23 @@ void gfx_screen_compose(area_t area)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-obj_id_t gfx_font_render_glyph(obj_id_t canvas_id, area_t *geo, unsigned c)
+obj_id_t gfx_font_render_glyph(obj_id_t canvas_id, area_t *geo, unsigned c, unsigned size_only)
 {
   font_t *font;
   obj_id_t font_id, glyph_id = 0;
 
-  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
-
   while(1) {
+    canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+    if(!canvas) return 0;
+
     for(font_id = canvas->font_id; (font = gfx_obj_font_ptr(font_id)); font_id = font->parent_id) {
       switch(font->type) {
         case 1:
-          glyph_id = gfx_font_render_font1_glyph(canvas_id, font, geo, c);
+          glyph_id = gfx_font_render_font1_glyph(canvas_id, font, geo, c, size_only);
           break;
 
         case 2:
-          glyph_id = gfx_font_render_font2_glyph(canvas_id, font, geo, c);
+          glyph_id = gfx_font_render_font2_glyph(canvas_id, font, geo, c, size_only);
           break;
       }
       if(glyph_id) return glyph_id;
@@ -199,7 +200,7 @@ obj_id_t gfx_font_render_glyph(obj_id_t canvas_id, area_t *geo, unsigned c)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-obj_id_t gfx_font_render_font1_glyph(obj_id_t canvas_id, font_t *font, area_t *geo, unsigned c)
+obj_id_t gfx_font_render_font1_glyph(obj_id_t canvas_id, font_t *font, area_t *geo, unsigned c, unsigned size_only)
 {
   canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
 
@@ -241,6 +242,8 @@ obj_id_t gfx_font_render_font1_glyph(obj_id_t canvas_id, font_t *font, area_t *g
     return 0;
   }
 
+  if(size_only) return font->glyph_id;
+
   // gfxboot_log("char 0x%04x, idx %u, bitmap %p\n", c, idx, bitmap);
 
   // got bitmap, now go for it
@@ -267,7 +270,7 @@ obj_id_t gfx_font_render_font1_glyph(obj_id_t canvas_id, font_t *font, area_t *g
 #define MAX_GRAY	((1 << GRAY_BITS) - 3)
 #define REP_BG		(MAX_GRAY + 1)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-obj_id_t gfx_font_render_font2_glyph(obj_id_t canvas_id, font_t *font, area_t *geo, unsigned c)
+obj_id_t gfx_font_render_font2_glyph(obj_id_t canvas_id, font_t *font, area_t *geo, unsigned c, unsigned size_only)
 {
   canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
 
@@ -328,6 +331,8 @@ obj_id_t gfx_font_render_font2_glyph(obj_id_t canvas_id, font_t *font, area_t *g
   int d_y = font->height - font->baseline - y_ofs - bitmap_height;
 
   *geo = (area_t) { .x = x_ofs, .y = d_y, .width = x_advance, .height = 0 };
+
+  if(size_only) return font->glyph_id;
 
   unsigned len = (unsigned) (bitmap_height * bitmap_width);
 
@@ -456,7 +461,7 @@ void gfx_putc(obj_id_t canvas_id, unsigned c, int update_pos)
 
   if(!canvas) return;
 
-  if((glyph_id = gfx_font_render_glyph(canvas_id, &geo, c))) {
+  if((glyph_id = gfx_font_render_glyph(canvas_id, &geo, c, 0))) {
     canvas_t *glyph = gfx_obj_canvas_ptr(glyph_id);
     if(!glyph) return;
 
@@ -525,6 +530,65 @@ void gfx_puts(obj_id_t canvas_id, char *s, unsigned len)
         gfx_putc(canvas_id, (unsigned) c, 1);
     }
   }
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+area_t gfx_text_dim(obj_id_t canvas_id, char *text, unsigned len)
+{
+  area_t area = {};
+
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+  if(!canvas) return area;
+
+  area_t font_dim = gfx_font_dim(canvas->font_id);
+  area_t geo = {};
+
+  int width = 0;
+  int lines = 0;
+
+  while(len) {
+    int c = gfx_utf8_dec(&text, &len);
+    if(c < 0) c = 0xfffd;
+
+    switch(c) {
+      case 0x0a:
+        // ignore newline at text end
+        if(len) lines++;
+
+      case 0x0d:
+        width = 0;
+        break;
+
+      default:
+        gfx_font_render_glyph(canvas_id, &geo, (unsigned) c, 1);
+        width += geo.width;
+        if(width > area.width) area.width = width;
+    }
+  }
+
+  area.height = font_dim.height + lines * font_dim.y;
+
+  return area;
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+area_t gfx_char_dim(obj_id_t canvas_id, unsigned chr)
+{
+  area_t area = {};
+
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+  if(!canvas) return area;
+
+  area = gfx_font_dim(canvas->font_id);
+
+  area_t geo = {};
+  gfx_font_render_glyph(canvas_id, &geo, chr, 1);
+
+  area.width = geo.width;
+
+  return area;
 }
 
 

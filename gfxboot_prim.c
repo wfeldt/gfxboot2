@@ -3506,7 +3506,7 @@ void gfx_prim_setfont()
     OBJ_ID_ASSIGN(canvas->font_id, argv[0].id);
     area_t area = gfx_font_dim(canvas->font_id);
     canvas->cursor.width = area.width;
-    canvas->cursor.height = area.height;
+    canvas->cursor.height = area.y;
   }
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
@@ -3900,27 +3900,41 @@ void gfx_prim_setconsole()
 // group: gfx
 //
 // ( string_1 -- )
+// ( int_1 -- )
 //
-// Print string_1 at current cursor position in canvas associated with
-// current graphics state.
+// Print string string_1 or character int_1 at current cursor position in default canvas.
 //
 // The cursor position is advanced to point at the end of the printed text.
-// Newline ('\x0a') and carriage return ('\x0d') characters are interpreted
+// In strings, newline ('\x0a') and carriage return ('\x0d') characters are interpreted
 // and the cursor position is adjusted relative to the starting position.
 //
 // example:
 //
 // "Hello!" show                        # print "Hello!"
+// 65 show                              # print "A"
 //
 void gfx_prim_show()
 {
-  arg_t *argv = gfx_arg_1(OTYPE_MEM);
+  arg_t *argv = gfx_arg_1(OTYPE_ANY);
 
   if(!argv) return;
 
-  data_t *data = OBJ_DATA_FROM_PTR(argv[0].ptr);
+  switch(argv[0].ptr->base_type) {
+    case OTYPE_NUM:
+      int64_t chr = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+      if(chr < 0) chr = 0xfffd;
+      gfx_putc(gfxboot_data->canvas_id, chr, 1);
+      break;
 
-  gfx_puts(gfxboot_data->canvas_id, data->ptr, data->size);
+    case OTYPE_MEM:
+      data_t *data = OBJ_DATA_FROM_PTR(argv[0].ptr);
+      gfx_puts(gfxboot_data->canvas_id, data->ptr, data->size);
+      break;
+
+    default:
+      GFX_ERROR(err_invalid_arguments);
+      return;
+  }
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 }
@@ -3951,15 +3965,25 @@ void gfx_prim_dim()
 
   if(!argv) return;
 
-  area_t area;
+  area_t area = {};
 
   switch(argv[0].ptr->base_type) {
+    case OTYPE_NUM:
+      int64_t chr = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+      if(chr < 0) chr = 0xfffd;
+      area = gfx_char_dim(gfxboot_data->canvas_id, chr);
+      break;
+
     case OTYPE_FONT:
       area = gfx_font_dim(argv[0].id);
       break;
 
+    case OTYPE_MEM:
+      data_t *data = OBJ_DATA_FROM_PTR(argv[0].ptr);
+      area = gfx_text_dim(gfxboot_data->canvas_id, data->ptr, data->size);
+      break;
+
     case OTYPE_CANVAS:
-      ;
       canvas_t *canvas = OBJ_CANVAS_FROM_PTR(argv[0].ptr);
       area.width = canvas->geo.width;
       area.height = canvas->geo.height;

@@ -4545,11 +4545,17 @@ void gfx_prim_format()
             data_ptr = "nil";
             len = gfx_strlen(data_ptr);
           }
+
           if(format_spec.precision && format_spec.precision < len) len = format_spec.precision;
         }
         else {
           uint8_t buf[32];	// large enough for 64 bit numbers
           uint64_t *num = gfx_obj_num_ptr(gfx_obj_array_get(argv[1].id, arg_pos));
+
+          if(format_spec.precision) {
+            if(num) format_spec.zero = 1;	// not for nil
+            if(format_spec.precision > format_spec.width) format_spec.width = format_spec.precision;
+          }
 
           if(num) {
             char f[8] = { '%' };
@@ -4571,7 +4577,7 @@ void gfx_prim_format()
         int len_diff = full_len - len;
         if(!format_spec.left) {
           while(len_diff) {
-            gfx_obj_mem_set(result_id, ' ', out_pos++);
+            gfx_obj_mem_set(result_id, format_spec.zero ? '0' : ' ', out_pos++);
             len_diff--;
           }
         }
@@ -4580,7 +4586,7 @@ void gfx_prim_format()
         }
         if(format_spec.left) {
           while(len_diff) {
-            gfx_obj_mem_set(result_id, ' ', out_pos++);
+            gfx_obj_mem_set(result_id, format_spec.zero ? '0' : ' ', out_pos++);
             len_diff--;
           }
         }

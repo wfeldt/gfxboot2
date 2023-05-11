@@ -10,7 +10,7 @@
              3  0x00013  prim   83 11                    string
              4  0x00015  prim   63                       def
      2       5  0x00016  word   38 66 6f 6f              foo
-             6  0x0001a  prim   83 38                    freeze
+             6  0x0001a  prim   83 39                    freeze
      4       7  0x0001c  ref    39 62 61 72              /bar
              8  0x00020  prim   43                       (
              9  0x00021  str    27 61 61                   "aa"
@@ -20,7 +20,7 @@
             13  0x0002b  prim   53                       )
             14  0x0002c  prim   63                       def
      5      15  0x0002d  word   38 62 61 72              bar
-            16  0x00031  prim   83 38                    freeze
+            16  0x00031  prim   83 39                    freeze
      7      17  0x00033  ref    49 7a 61 70 70           /zapp
             18  0x00038  prim   23                       [
             19  0x00039  int    11                         1
@@ -29,8 +29,8 @@
             22  0x0003c  prim   33                       ]
             23  0x0003d  prim   63                       def
      8      24  0x0003e  word   48 7a 61 70 70           zapp
-            25  0x00043  prim   83 38                    freeze
+            25  0x00043  prim   83 39                    freeze
     10      26  0x00045  int    81 0a                    10
-            27  0x00047  prim   83 38                    freeze
+            27  0x00047  prim   83 39                    freeze
     11      28  0x00049  nil    00                       nil
-            29  0x0004a  prim   83 38                    freeze
+            29  0x0004a  prim   83 39                    freeze

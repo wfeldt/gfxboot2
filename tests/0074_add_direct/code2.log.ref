@@ -10,13 +10,13 @@
              3  0x00011  prim   63                       def
      2       4  0x00012  word   58 6e 75 6d 5f 31        num_1
              5  0x00018  int    91 d0 07                 2000
-             6  0x0001b  prim   83 60                    add!
+             6  0x0001b  prim   83 1f                    add!
      4       7  0x0001d  ref    69 62 6f 6f 6c 5f 31     /bool_1
              8  0x00024  bool   12                       true
              9  0x00025  prim   63                       def
      5      10  0x00026  word   68 62 6f 6f 6c 5f 31     bool_1
             11  0x0002d  bool   02                       false
-            12  0x0002e  prim   83 60                    add!
+            12  0x0002e  prim   83 1f                    add!
      7      13  0x00030  ref    89 73 74 72 69 6e 67 5f  /string_1
                                 31
             14  0x00039  str    47 31 32 33 34           "1234"
@@ -26,7 +26,7 @@
      8      18  0x00042  word   88 73 74 72 69 6e 67 5f  string_1
                                 31
             19  0x0004b  str    37 61 62 63              "abc"
-            20  0x0004f  prim   83 60                    add!
+            20  0x0004f  prim   83 1f                    add!
     10      21  0x00051  ref    79 61 72 72 61 79 5f 31  /array_1
             22  0x00059  prim   23                       [
             23  0x0005a  int    81 0a                      10
@@ -41,7 +41,7 @@
             32  0x0006f  int    81 64                      100
             33  0x00071  int    91 c8 00                   200
             34  0x00074  prim   33                       ]
-            35  0x00075  prim   83 60                    add!
+            35  0x00075  prim   83 1f                    add!
     13      36  0x00077  ref    69 68 61 73 68 5f 31     /hash_1
             37  0x0007e  prim   43                       (
             38  0x0007f  str    27 61 61                   "aa"
@@ -59,7 +59,7 @@
             50  0x000a0  str    27 62 62                   "bb"
             51  0x000a3  int    91 f4 01                   500
             52  0x000a6  prim   53                       )
-            53  0x000a7  prim   83 60                    add!
+            53  0x000a7  prim   83 1f                    add!
     16      54  0x000a9  xref   84 97                    num_1
     17      55  0x000ab  xref   84 85                    bool_1
     18      56  0x000ad  xref   84 6b                    string_1

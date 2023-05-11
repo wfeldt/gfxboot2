@@ -19,7 +19,7 @@
             12  0x0001d  prim   63                       def
      4      13  0x0001e  word   38 66 6f 6f              foo
             14  0x00022  word   38 62 61 72              bar
-            15  0x00026  prim   83 35                    setparent
+            15  0x00026  prim   83 36                    setparent
      6      16  0x00028  xref   84 0a                    foo
             17  0x0002a  str    17 78                    "x"
             18  0x0002c  prim   83 14                    delete

@@ -6,10 +6,10 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
              0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
      1       1  0x00008  int    81 9c                    -100
-             2  0x0000a  prim   83 24                    abs
+             2  0x0000a  prim   83 25                    abs
      2       3  0x0000c  int    91 c8 00                 200
-             4  0x0000f  prim   83 24                    abs
+             4  0x0000f  prim   83 25                    abs
      3       5  0x00011  bool   02                       false
-             6  0x00012  prim   83 24                    abs
+             6  0x00012  prim   83 25                    abs
      4       7  0x00014  bool   12                       true
-             8  0x00015  prim   83 24                    abs
+             8  0x00015  prim   83 25                    abs

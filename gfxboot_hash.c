@@ -180,18 +180,33 @@ obj_id_t gfx_obj_hash_set(obj_id_t hash_id, obj_id_t key_id, obj_id_t value_id, 
 obj_id_pair_t gfx_obj_hash_get(obj_id_t hash_id, data_t *key)
 {
   obj_id_t orig_hash_id = hash_id;
-  unsigned u, level = 0;
+  unsigned u, level = 0, sticky = 0;
   int match;
   hash_t *hash;
 
   do {
-    // Return hash_id for hash where search started - or hash where key was found in?
-    // With next line it's the second. Remove that line for first variant.
-    orig_hash_id = hash_id;
+    // Returned hash_id is either
+    //   (a) hash where search started, or
+    //   (b) hash where key was found in (if no hash with sticky bit has been seen), or
+    //   (c) first hash with sticky bit
+    //
+    // With the next line it's (b) or (c).
+    // Remove that line for variant (a).
+    // Remove sticky bit condition for (b).
+    //
+    // (a) would force all variable updates to local context, preventing any class variables
+    // (b) is problematic for class-like behavior, as you would update the class template
+    // (c) allows you to prepend a layer to a hash that receives the updates for existing variables
+    //
+    if(!sticky) orig_hash_id = hash_id;
 
-    hash = gfx_obj_hash_ptr(hash_id);
+    obj_t *ptr = gfx_obj_ptr(hash_id);
 
-    if(!hash) return (obj_id_pair_t) {};
+    if(!ptr || ptr->base_type != OTYPE_HASH) return (obj_id_pair_t) {};
+
+    if(ptr->flags.sticky) sticky = 1;
+
+    hash = OBJ_HASH_FROM_PTR(ptr);
 
     u = find_key(hash, key, &match);
     // gfxboot_log("XXX get key %s, u %d, match %d\n", (char *) key->ptr, (int) u, match);

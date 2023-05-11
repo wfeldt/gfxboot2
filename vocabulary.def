@@ -100,3 +100,4 @@ setcompose
 updatescreen
 geteventhandler
 seteventhandler
+add!	add_direct

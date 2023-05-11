@@ -17,7 +17,7 @@
 
 # - - - - - - - - - - - - - - -
 
-/edit (
+/edit_class (
   /x 0
   /y 0
   /width 0
@@ -55,8 +55,8 @@
     /key exch def
 
     key 0x0d eq {
-      debug
       text
+      debug
       return
     } if
 
@@ -65,7 +65,12 @@
     key show
     cursor_x [ getpos pop x sub ] add! pop
   }
-) def
+) freeze def
+
+# - - - - - - - - - - - - - - -
+
+/edit ( ) sticky def
+edit edit_class setparent
 
 # - - - - - - - - - - - - - - -
 

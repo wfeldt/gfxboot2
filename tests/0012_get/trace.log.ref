@@ -1,808 +1,808 @@
 # ---  trace  ---
-IP: #201:0x0, type 5, 1[7]
+IP: #203:0x0, type 5, 1[7]
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.1.mem.ro, ip 0x8 (0x0), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-IP: #201:0x8, type 9, 9[5]
-GC: ++#201.1.1.mem.ro
+  [0] #205.1.1.ctx.func <code #203.1.1.mem.ro, ip 0x8 (0x0), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+IP: #203:0x8, type 9, 9[5]
+GC: ++#203.1.1.mem.ro
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0xe (0x8), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #204.1.1.mem.ref.ro <#201.1.2.mem.ro, ofs 0x9, size 5, "foo_1">
-IP: #201:0xe, type 8, 15[1]
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0xe (0x8), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #206.1.1.mem.ref.ro <#203.1.2.mem.ro, ofs 0x9, size 5, "foo_1">
+IP: #203:0xe, type 8, 15[1]
 GC: ++#13.1.1.num.prim
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x10 (0xe), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x10 (0xe), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
   [0] #13.1.2.num.prim <2 (0x2)>
-  [1] #204.1.1.mem.ref.ro <#201.1.2.mem.ro, ofs 0x9, size 5, "foo_1">
-IP: #201:0x10, type 1, 10 (0xa)
+  [1] #206.1.1.mem.ref.ro <#203.1.2.mem.ro, ofs 0x9, size 5, "foo_1">
+IP: #203:0x10, type 1, 10 (0xa)
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x12 (0x10), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #205.1.1.num.int <10 (0xa)>
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x12 (0x10), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #207.1.1.num.int <10 (0xa)>
   [1] #13.1.2.num.prim <2 (0x2)>
-  [2] #204.1.1.mem.ref.ro <#201.1.2.mem.ro, ofs 0x9, size 5, "foo_1">
-IP: #201:0x12, type 1, 20 (0x14)
+  [2] #206.1.1.mem.ref.ro <#203.1.2.mem.ro, ofs 0x9, size 5, "foo_1">
+IP: #203:0x12, type 1, 20 (0x14)
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x14 (0x12), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #206.1.1.num.int <20 (0x14)>
-  [1] #205.1.1.num.int <10 (0xa)>
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x14 (0x12), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #208.1.1.num.int <20 (0x14)>
+  [1] #207.1.1.num.int <10 (0xa)>
   [2] #13.1.2.num.prim <2 (0x2)>
-  [3] #204.1.1.mem.ref.ro <#201.1.2.mem.ro, ofs 0x9, size 5, "foo_1">
-IP: #201:0x14, type 1, 30 (0x1e)
+  [3] #206.1.1.mem.ref.ro <#203.1.2.mem.ro, ofs 0x9, size 5, "foo_1">
+IP: #203:0x14, type 1, 30 (0x1e)
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x16 (0x14), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #207.1.1.num.int <30 (0x1e)>
-  [1] #206.1.1.num.int <20 (0x14)>
-  [2] #205.1.1.num.int <10 (0xa)>
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x16 (0x14), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #209.1.1.num.int <30 (0x1e)>
+  [1] #208.1.1.num.int <20 (0x14)>
+  [2] #207.1.1.num.int <10 (0xa)>
   [3] #13.1.2.num.prim <2 (0x2)>
-  [4] #204.1.1.mem.ref.ro <#201.1.2.mem.ro, ofs 0x9, size 5, "foo_1">
-IP: #201:0x16, type 1, 40 (0x28)
+  [4] #206.1.1.mem.ref.ro <#203.1.2.mem.ro, ofs 0x9, size 5, "foo_1">
+IP: #203:0x16, type 1, 40 (0x28)
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x18 (0x16), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #208.1.1.num.int <40 (0x28)>
-  [1] #207.1.1.num.int <30 (0x1e)>
-  [2] #206.1.1.num.int <20 (0x14)>
-  [3] #205.1.1.num.int <10 (0xa)>
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x18 (0x16), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #210.1.1.num.int <40 (0x28)>
+  [1] #209.1.1.num.int <30 (0x1e)>
+  [2] #208.1.1.num.int <20 (0x14)>
+  [3] #207.1.1.num.int <10 (0xa)>
   [4] #13.1.2.num.prim <2 (0x2)>
-  [5] #204.1.1.mem.ref.ro <#201.1.2.mem.ro, ofs 0x9, size 5, "foo_1">
-IP: #201:0x18, type 8, 25[1]
+  [5] #206.1.1.mem.ref.ro <#203.1.2.mem.ro, ofs 0x9, size 5, "foo_1">
+IP: #203:0x18, type 8, 25[1]
 GC: --#13.1.2.num.prim
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x1a (0x18), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #209.1.1.array <size 4, max 4>
-  [1] #204.1.1.mem.ref.ro <#201.1.2.mem.ro, ofs 0x9, size 5, "foo_1">
-IP: #201:0x1a, type 8, 27[3]
-GC: ++#204.1.1.mem.ref.ro
-GC: ++#209.1.1.array
-GC: --#209.1.2.array
-GC: --#204.1.2.mem.ref.ro
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x1a (0x18), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #211.1.1.array <size 4, max 4>
+  [1] #206.1.1.mem.ref.ro <#203.1.2.mem.ro, ofs 0x9, size 5, "foo_1">
+IP: #203:0x1a, type 8, 27[3]
+GC: ++#206.1.1.mem.ref.ro
+GC: ++#211.1.1.array
+GC: --#211.1.2.array
+GC: --#206.1.2.mem.ref.ro
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x1e (0x1a), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-IP: #201:0x1e, type 8, 31[5]
-GC: ++#209.1.1.array
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x1e (0x1a), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+IP: #203:0x1e, type 8, 31[5]
+GC: ++#211.1.1.array
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x24 (0x1e), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #209.1.2.array <size 4, max 4>
-IP: #201:0x24, type 1, 0 (0x0)
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x24 (0x1e), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #211.1.2.array <size 4, max 4>
+IP: #203:0x24, type 1, 0 (0x0)
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x25 (0x24), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #210.1.1.num.int <0 (0x0)>
-  [1] #209.1.2.array <size 4, max 4>
-IP: #201:0x25, type 8, 38[3]
-GC: ++#205.1.1.num.int
-GC: --#210.1.1.num.int
-GC: --#209.1.2.array
-== backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x29 (0x25), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #205.1.2.num.int <10 (0xa)>
-IP: #201:0x29, type 8, 42[5]
-GC: ++#209.1.1.array
-== backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x2f (0x29), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #209.1.2.array <size 4, max 4>
-  [1] #205.1.2.num.int <10 (0xa)>
-IP: #201:0x2f, type 1, 3 (0x3)
-== backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x30 (0x2f), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #212.1.1.num.int <3 (0x3)>
-  [1] #209.1.2.array <size 4, max 4>
-  [2] #205.1.2.num.int <10 (0xa)>
-IP: #201:0x30, type 8, 49[3]
-GC: ++#208.1.1.num.int
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x25 (0x24), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #212.1.1.num.int <0 (0x0)>
+  [1] #211.1.2.array <size 4, max 4>
+IP: #203:0x25, type 8, 38[3]
+GC: ++#207.1.1.num.int
 GC: --#212.1.1.num.int
-GC: --#209.1.2.array
+GC: --#211.1.2.array
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x34 (0x30), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #208.1.2.num.int <40 (0x28)>
-  [1] #205.1.2.num.int <10 (0xa)>
-IP: #201:0x34, type 8, 53[5]
-GC: ++#209.1.1.array
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x29 (0x25), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #207.1.2.num.int <10 (0xa)>
+IP: #203:0x29, type 8, 42[5]
+GC: ++#211.1.1.array
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x3a (0x34), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #209.1.2.array <size 4, max 4>
-  [1] #208.1.2.num.int <40 (0x28)>
-  [2] #205.1.2.num.int <10 (0xa)>
-IP: #201:0x3a, type 1, 4 (0x4)
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x2f (0x29), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #211.1.2.array <size 4, max 4>
+  [1] #207.1.2.num.int <10 (0xa)>
+IP: #203:0x2f, type 1, 3 (0x3)
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x3b (0x3a), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #213.1.1.num.int <4 (0x4)>
-  [1] #209.1.2.array <size 4, max 4>
-  [2] #208.1.2.num.int <40 (0x28)>
-  [3] #205.1.2.num.int <10 (0xa)>
-IP: #201:0x3b, type 8, 60[3]
-GC: --#213.1.1.num.int
-GC: --#209.1.2.array
-== backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x3f (0x3b), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #0.0.nil <nil>
-  [1] #208.1.2.num.int <40 (0x28)>
-  [2] #205.1.2.num.int <10 (0xa)>
-IP: #201:0x3f, type 8, 64[5]
-GC: ++#209.1.1.array
-== backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x45 (0x3f), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #209.1.2.array <size 4, max 4>
-  [1] #0.0.nil <nil>
-  [2] #208.1.2.num.int <40 (0x28)>
-  [3] #205.1.2.num.int <10 (0xa)>
-IP: #201:0x45, type 1, -5 (0xfffffffffffffffb)
-== backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x47 (0x45), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #214.1.1.num.int <-5 (0xfffffffffffffffb)>
-  [1] #209.1.2.array <size 4, max 4>
-  [2] #0.0.nil <nil>
-  [3] #208.1.2.num.int <40 (0x28)>
-  [4] #205.1.2.num.int <10 (0xa)>
-IP: #201:0x47, type 8, 72[3]
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x30 (0x2f), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #214.1.1.num.int <3 (0x3)>
+  [1] #211.1.2.array <size 4, max 4>
+  [2] #207.1.2.num.int <10 (0xa)>
+IP: #203:0x30, type 8, 49[3]
+GC: ++#210.1.1.num.int
 GC: --#214.1.1.num.int
-GC: --#209.1.2.array
+GC: --#211.1.2.array
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x4b (0x47), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x34 (0x30), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #210.1.2.num.int <40 (0x28)>
+  [1] #207.1.2.num.int <10 (0xa)>
+IP: #203:0x34, type 8, 53[5]
+GC: ++#211.1.1.array
+== backtrace ==
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x3a (0x34), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #211.1.2.array <size 4, max 4>
+  [1] #210.1.2.num.int <40 (0x28)>
+  [2] #207.1.2.num.int <10 (0xa)>
+IP: #203:0x3a, type 1, 4 (0x4)
+== backtrace ==
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x3b (0x3a), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #215.1.1.num.int <4 (0x4)>
+  [1] #211.1.2.array <size 4, max 4>
+  [2] #210.1.2.num.int <40 (0x28)>
+  [3] #207.1.2.num.int <10 (0xa)>
+IP: #203:0x3b, type 8, 60[3]
+GC: --#215.1.1.num.int
+GC: --#211.1.2.array
+== backtrace ==
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x3f (0x3b), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #0.0.nil <nil>
+  [1] #210.1.2.num.int <40 (0x28)>
+  [2] #207.1.2.num.int <10 (0xa)>
+IP: #203:0x3f, type 8, 64[5]
+GC: ++#211.1.1.array
+== backtrace ==
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x45 (0x3f), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #211.1.2.array <size 4, max 4>
+  [1] #0.0.nil <nil>
+  [2] #210.1.2.num.int <40 (0x28)>
+  [3] #207.1.2.num.int <10 (0xa)>
+IP: #203:0x45, type 1, -5 (0xfffffffffffffffb)
+== backtrace ==
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x47 (0x45), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #216.1.1.num.int <-5 (0xfffffffffffffffb)>
+  [1] #211.1.2.array <size 4, max 4>
+  [2] #0.0.nil <nil>
+  [3] #210.1.2.num.int <40 (0x28)>
+  [4] #207.1.2.num.int <10 (0xa)>
+IP: #203:0x47, type 8, 72[3]
+GC: --#216.1.1.num.int
+GC: --#211.1.2.array
+== backtrace ==
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x4b (0x47), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
   [0] #0.0.nil <nil>
   [1] #0.0.nil <nil>
-  [2] #208.1.2.num.int <40 (0x28)>
-  [3] #205.1.2.num.int <10 (0xa)>
-IP: #201:0x4b, type 8, 76[5]
-GC: ++#209.1.1.array
+  [2] #210.1.2.num.int <40 (0x28)>
+  [3] #207.1.2.num.int <10 (0xa)>
+IP: #203:0x4b, type 8, 76[5]
+GC: ++#211.1.1.array
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x51 (0x4b), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #209.1.2.array <size 4, max 4>
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x51 (0x4b), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #211.1.2.array <size 4, max 4>
   [1] #0.0.nil <nil>
   [2] #0.0.nil <nil>
-  [3] #208.1.2.num.int <40 (0x28)>
-  [4] #205.1.2.num.int <10 (0xa)>
-IP: #201:0x51, type 1, -1 (0xffffffffffffffff)
+  [3] #210.1.2.num.int <40 (0x28)>
+  [4] #207.1.2.num.int <10 (0xa)>
+IP: #203:0x51, type 1, -1 (0xffffffffffffffff)
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x53 (0x51), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #215.1.1.num.int <-1 (0xffffffffffffffff)>
-  [1] #209.1.2.array <size 4, max 4>
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x53 (0x51), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #217.1.1.num.int <-1 (0xffffffffffffffff)>
+  [1] #211.1.2.array <size 4, max 4>
   [2] #0.0.nil <nil>
   [3] #0.0.nil <nil>
-  [4] #208.1.2.num.int <40 (0x28)>
-  [5] #205.1.2.num.int <10 (0xa)>
-IP: #201:0x53, type 8, 84[3]
-GC: ++#208.1.2.num.int
-GC: --#215.1.1.num.int
-GC: --#209.1.2.array
+  [4] #210.1.2.num.int <40 (0x28)>
+  [5] #207.1.2.num.int <10 (0xa)>
+IP: #203:0x53, type 8, 84[3]
+GC: ++#210.1.2.num.int
+GC: --#217.1.1.num.int
+GC: --#211.1.2.array
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x57 (0x53), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #208.1.3.num.int <40 (0x28)>
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x57 (0x53), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #210.1.3.num.int <40 (0x28)>
   [1] #0.0.nil <nil>
   [2] #0.0.nil <nil>
-  [3] #208.1.3.num.int <40 (0x28)>
-  [4] #205.1.2.num.int <10 (0xa)>
-IP: #201:0x57, type 8, 88[5]
-GC: ++#209.1.1.array
+  [3] #210.1.3.num.int <40 (0x28)>
+  [4] #207.1.2.num.int <10 (0xa)>
+IP: #203:0x57, type 8, 88[5]
+GC: ++#211.1.1.array
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x5d (0x57), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #209.1.2.array <size 4, max 4>
-  [1] #208.1.3.num.int <40 (0x28)>
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x5d (0x57), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #211.1.2.array <size 4, max 4>
+  [1] #210.1.3.num.int <40 (0x28)>
   [2] #0.0.nil <nil>
   [3] #0.0.nil <nil>
-  [4] #208.1.3.num.int <40 (0x28)>
-  [5] #205.1.2.num.int <10 (0xa)>
-IP: #201:0x5d, type 1, -4 (0xfffffffffffffffc)
+  [4] #210.1.3.num.int <40 (0x28)>
+  [5] #207.1.2.num.int <10 (0xa)>
+IP: #203:0x5d, type 1, -4 (0xfffffffffffffffc)
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x5f (0x5d), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #216.1.1.num.int <-4 (0xfffffffffffffffc)>
-  [1] #209.1.2.array <size 4, max 4>
-  [2] #208.1.3.num.int <40 (0x28)>
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x5f (0x5d), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #218.1.1.num.int <-4 (0xfffffffffffffffc)>
+  [1] #211.1.2.array <size 4, max 4>
+  [2] #210.1.3.num.int <40 (0x28)>
   [3] #0.0.nil <nil>
   [4] #0.0.nil <nil>
-  [5] #208.1.3.num.int <40 (0x28)>
-  [6] #205.1.2.num.int <10 (0xa)>
-IP: #201:0x5f, type 8, 96[3]
-GC: ++#205.1.2.num.int
-GC: --#216.1.1.num.int
-GC: --#209.1.2.array
+  [5] #210.1.3.num.int <40 (0x28)>
+  [6] #207.1.2.num.int <10 (0xa)>
+IP: #203:0x5f, type 8, 96[3]
+GC: ++#207.1.2.num.int
+GC: --#218.1.1.num.int
+GC: --#211.1.2.array
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.2.mem.ro, ip 0x63 (0x5f), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #205.1.3.num.int <10 (0xa)>
-  [1] #208.1.3.num.int <40 (0x28)>
+  [0] #205.1.1.ctx.func <code #203.1.2.mem.ro, ip 0x63 (0x5f), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #207.1.3.num.int <10 (0xa)>
+  [1] #210.1.3.num.int <40 (0x28)>
   [2] #0.0.nil <nil>
   [3] #0.0.nil <nil>
-  [4] #208.1.3.num.int <40 (0x28)>
-  [5] #205.1.3.num.int <10 (0xa)>
-IP: #201:0x63, type 9, 100[5]
-GC: ++#201.1.2.mem.ro
+  [4] #210.1.3.num.int <40 (0x28)>
+  [5] #207.1.3.num.int <10 (0xa)>
+IP: #203:0x63, type 9, 100[5]
+GC: ++#203.1.2.mem.ro
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.3.mem.ro, ip 0x69 (0x63), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #217.1.1.mem.ref.ro <#201.1.3.mem.ro, ofs 0x64, size 5, "foo_2">
-  [1] #205.1.3.num.int <10 (0xa)>
-  [2] #208.1.3.num.int <40 (0x28)>
+  [0] #205.1.1.ctx.func <code #203.1.3.mem.ro, ip 0x69 (0x63), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #219.1.1.mem.ref.ro <#203.1.3.mem.ro, ofs 0x64, size 5, "foo_2">
+  [1] #207.1.3.num.int <10 (0xa)>
+  [2] #210.1.3.num.int <40 (0x28)>
   [3] #0.0.nil <nil>
   [4] #0.0.nil <nil>
-  [5] #208.1.3.num.int <40 (0x28)>
-  [6] #205.1.3.num.int <10 (0xa)>
-IP: #201:0x69, type 8, 106[1]
+  [5] #210.1.3.num.int <40 (0x28)>
+  [6] #207.1.3.num.int <10 (0xa)>
+IP: #203:0x69, type 8, 106[1]
 GC: ++#17.1.1.num.prim
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.3.mem.ro, ip 0x6b (0x69), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
+  [0] #205.1.1.ctx.func <code #203.1.3.mem.ro, ip 0x6b (0x69), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
   [0] #17.1.2.num.prim <4 (0x4)>
-  [1] #217.1.1.mem.ref.ro <#201.1.3.mem.ro, ofs 0x64, size 5, "foo_2">
-  [2] #205.1.3.num.int <10 (0xa)>
-  [3] #208.1.3.num.int <40 (0x28)>
+  [1] #219.1.1.mem.ref.ro <#203.1.3.mem.ro, ofs 0x64, size 5, "foo_2">
+  [2] #207.1.3.num.int <10 (0xa)>
+  [3] #210.1.3.num.int <40 (0x28)>
   [4] #0.0.nil <nil>
   [5] #0.0.nil <nil>
-  [6] #208.1.3.num.int <40 (0x28)>
-  [7] #205.1.3.num.int <10 (0xa)>
-IP: #201:0x6b, type 7, 108[2]
-GC: ++#201.1.3.mem.ro
+  [6] #210.1.3.num.int <40 (0x28)>
+  [7] #207.1.3.num.int <10 (0xa)>
+IP: #203:0x6b, type 7, 108[2]
+GC: ++#203.1.3.mem.ro
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.4.mem.ro, ip 0x6e (0x6b), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #218.1.1.mem.str.ro <#201.1.4.mem.ro, ofs 0x6c, size 2, "aa">
+  [0] #205.1.1.ctx.func <code #203.1.4.mem.ro, ip 0x6e (0x6b), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #220.1.1.mem.str.ro <#203.1.4.mem.ro, ofs 0x6c, size 2, "aa">
   [1] #17.1.2.num.prim <4 (0x4)>
-  [2] #217.1.1.mem.ref.ro <#201.1.4.mem.ro, ofs 0x64, size 5, "foo_2">
-  [3] #205.1.3.num.int <10 (0xa)>
-  [4] #208.1.3.num.int <40 (0x28)>
+  [2] #219.1.1.mem.ref.ro <#203.1.4.mem.ro, ofs 0x64, size 5, "foo_2">
+  [3] #207.1.3.num.int <10 (0xa)>
+  [4] #210.1.3.num.int <40 (0x28)>
   [5] #0.0.nil <nil>
   [6] #0.0.nil <nil>
-  [7] #208.1.3.num.int <40 (0x28)>
-  [8] #205.1.3.num.int <10 (0xa)>
-IP: #201:0x6e, type 1, 11 (0xb)
+  [7] #210.1.3.num.int <40 (0x28)>
+  [8] #207.1.3.num.int <10 (0xa)>
+IP: #203:0x6e, type 1, 11 (0xb)
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.4.mem.ro, ip 0x70 (0x6e), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #219.1.1.num.int <11 (0xb)>
-  [1] #218.1.1.mem.str.ro <#201.1.4.mem.ro, ofs 0x6c, size 2, "aa">
+  [0] #205.1.1.ctx.func <code #203.1.4.mem.ro, ip 0x70 (0x6e), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #221.1.1.num.int <11 (0xb)>
+  [1] #220.1.1.mem.str.ro <#203.1.4.mem.ro, ofs 0x6c, size 2, "aa">
   [2] #17.1.2.num.prim <4 (0x4)>
-  [3] #217.1.1.mem.ref.ro <#201.1.4.mem.ro, ofs 0x64, size 5, "foo_2">
-  [4] #205.1.3.num.int <10 (0xa)>
-  [5] #208.1.3.num.int <40 (0x28)>
+  [3] #219.1.1.mem.ref.ro <#203.1.4.mem.ro, ofs 0x64, size 5, "foo_2">
+  [4] #207.1.3.num.int <10 (0xa)>
+  [5] #210.1.3.num.int <40 (0x28)>
   [6] #0.0.nil <nil>
   [7] #0.0.nil <nil>
-  [8] #208.1.3.num.int <40 (0x28)>
-  [9] #205.1.3.num.int <10 (0xa)>
-IP: #201:0x70, type 7, 113[2]
-GC: ++#201.1.4.mem.ro
+  [8] #210.1.3.num.int <40 (0x28)>
+  [9] #207.1.3.num.int <10 (0xa)>
+IP: #203:0x70, type 7, 113[2]
+GC: ++#203.1.4.mem.ro
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.5.mem.ro, ip 0x73 (0x70), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #220.1.1.mem.str.ro <#201.1.5.mem.ro, ofs 0x71, size 2, "bb">
-  [1] #219.1.1.num.int <11 (0xb)>
-  [2] #218.1.1.mem.str.ro <#201.1.5.mem.ro, ofs 0x6c, size 2, "aa">
+  [0] #205.1.1.ctx.func <code #203.1.5.mem.ro, ip 0x73 (0x70), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #222.1.1.mem.str.ro <#203.1.5.mem.ro, ofs 0x71, size 2, "bb">
+  [1] #221.1.1.num.int <11 (0xb)>
+  [2] #220.1.1.mem.str.ro <#203.1.5.mem.ro, ofs 0x6c, size 2, "aa">
   [3] #17.1.2.num.prim <4 (0x4)>
-  [4] #217.1.1.mem.ref.ro <#201.1.5.mem.ro, ofs 0x64, size 5, "foo_2">
-  [5] #205.1.3.num.int <10 (0xa)>
-  [6] #208.1.3.num.int <40 (0x28)>
+  [4] #219.1.1.mem.ref.ro <#203.1.5.mem.ro, ofs 0x64, size 5, "foo_2">
+  [5] #207.1.3.num.int <10 (0xa)>
+  [6] #210.1.3.num.int <40 (0x28)>
   [7] #0.0.nil <nil>
   [8] #0.0.nil <nil>
-  [9] #208.1.3.num.int <40 (0x28)>
-  [10] #205.1.3.num.int <10 (0xa)>
-IP: #201:0x73, type 1, 22 (0x16)
+  [9] #210.1.3.num.int <40 (0x28)>
+  [10] #207.1.3.num.int <10 (0xa)>
+IP: #203:0x73, type 1, 22 (0x16)
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.5.mem.ro, ip 0x75 (0x73), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #221.1.1.num.int <22 (0x16)>
-  [1] #220.1.1.mem.str.ro <#201.1.5.mem.ro, ofs 0x71, size 2, "bb">
-  [2] #219.1.1.num.int <11 (0xb)>
-  [3] #218.1.1.mem.str.ro <#201.1.5.mem.ro, ofs 0x6c, size 2, "aa">
+  [0] #205.1.1.ctx.func <code #203.1.5.mem.ro, ip 0x75 (0x73), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #223.1.1.num.int <22 (0x16)>
+  [1] #222.1.1.mem.str.ro <#203.1.5.mem.ro, ofs 0x71, size 2, "bb">
+  [2] #221.1.1.num.int <11 (0xb)>
+  [3] #220.1.1.mem.str.ro <#203.1.5.mem.ro, ofs 0x6c, size 2, "aa">
   [4] #17.1.2.num.prim <4 (0x4)>
-  [5] #217.1.1.mem.ref.ro <#201.1.5.mem.ro, ofs 0x64, size 5, "foo_2">
-  [6] #205.1.3.num.int <10 (0xa)>
-  [7] #208.1.3.num.int <40 (0x28)>
+  [5] #219.1.1.mem.ref.ro <#203.1.5.mem.ro, ofs 0x64, size 5, "foo_2">
+  [6] #207.1.3.num.int <10 (0xa)>
+  [7] #210.1.3.num.int <40 (0x28)>
   [8] #0.0.nil <nil>
   [9] #0.0.nil <nil>
-  [10] #208.1.3.num.int <40 (0x28)>
-  [11] #205.1.3.num.int <10 (0xa)>
-IP: #201:0x75, type 7, 118[2]
-GC: ++#201.1.5.mem.ro
+  [10] #210.1.3.num.int <40 (0x28)>
+  [11] #207.1.3.num.int <10 (0xa)>
+IP: #203:0x75, type 7, 118[2]
+GC: ++#203.1.5.mem.ro
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.6.mem.ro, ip 0x78 (0x75), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #222.1.1.mem.str.ro <#201.1.6.mem.ro, ofs 0x76, size 2, "cc">
-  [1] #221.1.1.num.int <22 (0x16)>
-  [2] #220.1.1.mem.str.ro <#201.1.6.mem.ro, ofs 0x71, size 2, "bb">
-  [3] #219.1.1.num.int <11 (0xb)>
-  [4] #218.1.1.mem.str.ro <#201.1.6.mem.ro, ofs 0x6c, size 2, "aa">
+  [0] #205.1.1.ctx.func <code #203.1.6.mem.ro, ip 0x78 (0x75), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #224.1.1.mem.str.ro <#203.1.6.mem.ro, ofs 0x76, size 2, "cc">
+  [1] #223.1.1.num.int <22 (0x16)>
+  [2] #222.1.1.mem.str.ro <#203.1.6.mem.ro, ofs 0x71, size 2, "bb">
+  [3] #221.1.1.num.int <11 (0xb)>
+  [4] #220.1.1.mem.str.ro <#203.1.6.mem.ro, ofs 0x6c, size 2, "aa">
   [5] #17.1.2.num.prim <4 (0x4)>
-  [6] #217.1.1.mem.ref.ro <#201.1.6.mem.ro, ofs 0x64, size 5, "foo_2">
-  [7] #205.1.3.num.int <10 (0xa)>
-  [8] #208.1.3.num.int <40 (0x28)>
+  [6] #219.1.1.mem.ref.ro <#203.1.6.mem.ro, ofs 0x64, size 5, "foo_2">
+  [7] #207.1.3.num.int <10 (0xa)>
+  [8] #210.1.3.num.int <40 (0x28)>
   [9] #0.0.nil <nil>
   [10] #0.0.nil <nil>
-  [11] #208.1.3.num.int <40 (0x28)>
-  [12] #205.1.3.num.int <10 (0xa)>
-IP: #201:0x78, type 1, 33 (0x21)
+  [11] #210.1.3.num.int <40 (0x28)>
+  [12] #207.1.3.num.int <10 (0xa)>
+IP: #203:0x78, type 1, 33 (0x21)
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.6.mem.ro, ip 0x7a (0x78), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #223.1.1.num.int <33 (0x21)>
-  [1] #222.1.1.mem.str.ro <#201.1.6.mem.ro, ofs 0x76, size 2, "cc">
-  [2] #221.1.1.num.int <22 (0x16)>
-  [3] #220.1.1.mem.str.ro <#201.1.6.mem.ro, ofs 0x71, size 2, "bb">
-  [4] #219.1.1.num.int <11 (0xb)>
-  [5] #218.1.1.mem.str.ro <#201.1.6.mem.ro, ofs 0x6c, size 2, "aa">
+  [0] #205.1.1.ctx.func <code #203.1.6.mem.ro, ip 0x7a (0x78), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #225.1.1.num.int <33 (0x21)>
+  [1] #224.1.1.mem.str.ro <#203.1.6.mem.ro, ofs 0x76, size 2, "cc">
+  [2] #223.1.1.num.int <22 (0x16)>
+  [3] #222.1.1.mem.str.ro <#203.1.6.mem.ro, ofs 0x71, size 2, "bb">
+  [4] #221.1.1.num.int <11 (0xb)>
+  [5] #220.1.1.mem.str.ro <#203.1.6.mem.ro, ofs 0x6c, size 2, "aa">
   [6] #17.1.2.num.prim <4 (0x4)>
-  [7] #217.1.1.mem.ref.ro <#201.1.6.mem.ro, ofs 0x64, size 5, "foo_2">
-  [8] #205.1.3.num.int <10 (0xa)>
-  [9] #208.1.3.num.int <40 (0x28)>
+  [7] #219.1.1.mem.ref.ro <#203.1.6.mem.ro, ofs 0x64, size 5, "foo_2">
+  [8] #207.1.3.num.int <10 (0xa)>
+  [9] #210.1.3.num.int <40 (0x28)>
   [10] #0.0.nil <nil>
   [11] #0.0.nil <nil>
-  [12] #208.1.3.num.int <40 (0x28)>
-  [13] #205.1.3.num.int <10 (0xa)>
-IP: #201:0x7a, type 8, 123[1]
+  [12] #210.1.3.num.int <40 (0x28)>
+  [13] #207.1.3.num.int <10 (0xa)>
+IP: #203:0x7a, type 8, 123[1]
 GC: --#17.1.2.num.prim
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.6.mem.ro, ip 0x7c (0x7a), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #224.1.1.hash <size 3, max 3>
-  [1] #217.1.1.mem.ref.ro <#201.1.6.mem.ro, ofs 0x64, size 5, "foo_2">
-  [2] #205.1.3.num.int <10 (0xa)>
-  [3] #208.1.3.num.int <40 (0x28)>
+  [0] #205.1.1.ctx.func <code #203.1.6.mem.ro, ip 0x7c (0x7a), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #226.1.1.hash <size 3, max 3>
+  [1] #219.1.1.mem.ref.ro <#203.1.6.mem.ro, ofs 0x64, size 5, "foo_2">
+  [2] #207.1.3.num.int <10 (0xa)>
+  [3] #210.1.3.num.int <40 (0x28)>
   [4] #0.0.nil <nil>
   [5] #0.0.nil <nil>
-  [6] #208.1.3.num.int <40 (0x28)>
-  [7] #205.1.3.num.int <10 (0xa)>
-IP: #201:0x7c, type 8, 125[3]
-GC: ++#217.1.1.mem.ref.ro
-GC: ++#224.1.1.hash
-GC: --#224.1.2.hash
-GC: --#217.1.2.mem.ref.ro
+  [6] #210.1.3.num.int <40 (0x28)>
+  [7] #207.1.3.num.int <10 (0xa)>
+IP: #203:0x7c, type 8, 125[3]
+GC: ++#219.1.1.mem.ref.ro
+GC: ++#226.1.1.hash
+GC: --#226.1.2.hash
+GC: --#219.1.2.mem.ref.ro
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.6.mem.ro, ip 0x80 (0x7c), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #205.1.3.num.int <10 (0xa)>
-  [1] #208.1.3.num.int <40 (0x28)>
+  [0] #205.1.1.ctx.func <code #203.1.6.mem.ro, ip 0x80 (0x7c), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #207.1.3.num.int <10 (0xa)>
+  [1] #210.1.3.num.int <40 (0x28)>
   [2] #0.0.nil <nil>
   [3] #0.0.nil <nil>
-  [4] #208.1.3.num.int <40 (0x28)>
-  [5] #205.1.3.num.int <10 (0xa)>
-IP: #201:0x80, type 8, 129[5]
-GC: ++#224.1.1.hash
+  [4] #210.1.3.num.int <40 (0x28)>
+  [5] #207.1.3.num.int <10 (0xa)>
+IP: #203:0x80, type 8, 129[5]
+GC: ++#226.1.1.hash
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.6.mem.ro, ip 0x86 (0x80), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #224.1.2.hash <size 3, max 3>
-  [1] #205.1.3.num.int <10 (0xa)>
-  [2] #208.1.3.num.int <40 (0x28)>
+  [0] #205.1.1.ctx.func <code #203.1.6.mem.ro, ip 0x86 (0x80), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #226.1.2.hash <size 3, max 3>
+  [1] #207.1.3.num.int <10 (0xa)>
+  [2] #210.1.3.num.int <40 (0x28)>
   [3] #0.0.nil <nil>
   [4] #0.0.nil <nil>
-  [5] #208.1.3.num.int <40 (0x28)>
-  [6] #205.1.3.num.int <10 (0xa)>
-IP: #201:0x86, type 7, 135[2]
-GC: ++#201.1.6.mem.ro
+  [5] #210.1.3.num.int <40 (0x28)>
+  [6] #207.1.3.num.int <10 (0xa)>
+IP: #203:0x86, type 7, 135[2]
+GC: ++#203.1.6.mem.ro
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.7.mem.ro, ip 0x89 (0x86), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #225.1.1.mem.str.ro <#201.1.7.mem.ro, ofs 0x87, size 2, "bb">
-  [1] #224.1.2.hash <size 3, max 3>
-  [2] #205.1.3.num.int <10 (0xa)>
-  [3] #208.1.3.num.int <40 (0x28)>
+  [0] #205.1.1.ctx.func <code #203.1.7.mem.ro, ip 0x89 (0x86), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #227.1.1.mem.str.ro <#203.1.7.mem.ro, ofs 0x87, size 2, "bb">
+  [1] #226.1.2.hash <size 3, max 3>
+  [2] #207.1.3.num.int <10 (0xa)>
+  [3] #210.1.3.num.int <40 (0x28)>
   [4] #0.0.nil <nil>
   [5] #0.0.nil <nil>
-  [6] #208.1.3.num.int <40 (0x28)>
-  [7] #205.1.3.num.int <10 (0xa)>
-IP: #201:0x89, type 8, 138[3]
-GC: ++#221.1.1.num.int
-GC: --#225.1.1.mem.str.ro
-GC: --#201.1.7.mem.ro
-GC: --#224.1.2.hash
+  [6] #210.1.3.num.int <40 (0x28)>
+  [7] #207.1.3.num.int <10 (0xa)>
+IP: #203:0x89, type 8, 138[3]
+GC: ++#223.1.1.num.int
+GC: --#227.1.1.mem.str.ro
+GC: --#203.1.7.mem.ro
+GC: --#226.1.2.hash
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.6.mem.ro, ip 0x8d (0x89), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #221.1.2.num.int <22 (0x16)>
-  [1] #205.1.3.num.int <10 (0xa)>
-  [2] #208.1.3.num.int <40 (0x28)>
+  [0] #205.1.1.ctx.func <code #203.1.6.mem.ro, ip 0x8d (0x89), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #223.1.2.num.int <22 (0x16)>
+  [1] #207.1.3.num.int <10 (0xa)>
+  [2] #210.1.3.num.int <40 (0x28)>
   [3] #0.0.nil <nil>
   [4] #0.0.nil <nil>
-  [5] #208.1.3.num.int <40 (0x28)>
-  [6] #205.1.3.num.int <10 (0xa)>
-IP: #201:0x8d, type 8, 142[5]
-GC: ++#224.1.1.hash
+  [5] #210.1.3.num.int <40 (0x28)>
+  [6] #207.1.3.num.int <10 (0xa)>
+IP: #203:0x8d, type 8, 142[5]
+GC: ++#226.1.1.hash
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.6.mem.ro, ip 0x93 (0x8d), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #224.1.2.hash <size 3, max 3>
-  [1] #221.1.2.num.int <22 (0x16)>
-  [2] #205.1.3.num.int <10 (0xa)>
-  [3] #208.1.3.num.int <40 (0x28)>
+  [0] #205.1.1.ctx.func <code #203.1.6.mem.ro, ip 0x93 (0x8d), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #226.1.2.hash <size 3, max 3>
+  [1] #223.1.2.num.int <22 (0x16)>
+  [2] #207.1.3.num.int <10 (0xa)>
+  [3] #210.1.3.num.int <40 (0x28)>
   [4] #0.0.nil <nil>
   [5] #0.0.nil <nil>
-  [6] #208.1.3.num.int <40 (0x28)>
-  [7] #205.1.3.num.int <10 (0xa)>
-IP: #201:0x93, type 7, 148[2]
-GC: ++#201.1.6.mem.ro
+  [6] #210.1.3.num.int <40 (0x28)>
+  [7] #207.1.3.num.int <10 (0xa)>
+IP: #203:0x93, type 7, 148[2]
+GC: ++#203.1.6.mem.ro
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.7.mem.ro, ip 0x96 (0x93), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #226.1.1.mem.str.ro <#201.1.7.mem.ro, ofs 0x94, size 2, "dd">
-  [1] #224.1.2.hash <size 3, max 3>
-  [2] #221.1.2.num.int <22 (0x16)>
-  [3] #205.1.3.num.int <10 (0xa)>
-  [4] #208.1.3.num.int <40 (0x28)>
+  [0] #205.1.1.ctx.func <code #203.1.7.mem.ro, ip 0x96 (0x93), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #228.1.1.mem.str.ro <#203.1.7.mem.ro, ofs 0x94, size 2, "dd">
+  [1] #226.1.2.hash <size 3, max 3>
+  [2] #223.1.2.num.int <22 (0x16)>
+  [3] #207.1.3.num.int <10 (0xa)>
+  [4] #210.1.3.num.int <40 (0x28)>
   [5] #0.0.nil <nil>
   [6] #0.0.nil <nil>
-  [7] #208.1.3.num.int <40 (0x28)>
-  [8] #205.1.3.num.int <10 (0xa)>
-IP: #201:0x96, type 8, 151[3]
-GC: --#226.1.1.mem.str.ro
-GC: --#201.1.7.mem.ro
-GC: --#224.1.2.hash
+  [7] #210.1.3.num.int <40 (0x28)>
+  [8] #207.1.3.num.int <10 (0xa)>
+IP: #203:0x96, type 8, 151[3]
+GC: --#228.1.1.mem.str.ro
+GC: --#203.1.7.mem.ro
+GC: --#226.1.2.hash
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.6.mem.ro, ip 0x9a (0x96), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
+  [0] #205.1.1.ctx.func <code #203.1.6.mem.ro, ip 0x9a (0x96), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
   [0] #0.0.nil <nil>
-  [1] #221.1.2.num.int <22 (0x16)>
-  [2] #205.1.3.num.int <10 (0xa)>
-  [3] #208.1.3.num.int <40 (0x28)>
+  [1] #223.1.2.num.int <22 (0x16)>
+  [2] #207.1.3.num.int <10 (0xa)>
+  [3] #210.1.3.num.int <40 (0x28)>
   [4] #0.0.nil <nil>
   [5] #0.0.nil <nil>
-  [6] #208.1.3.num.int <40 (0x28)>
-  [7] #205.1.3.num.int <10 (0xa)>
-IP: #201:0x9a, type 9, 155[5]
-GC: ++#201.1.6.mem.ro
+  [6] #210.1.3.num.int <40 (0x28)>
+  [7] #207.1.3.num.int <10 (0xa)>
+IP: #203:0x9a, type 9, 155[5]
+GC: ++#203.1.6.mem.ro
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.7.mem.ro, ip 0xa0 (0x9a), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #227.1.1.mem.ref.ro <#201.1.7.mem.ro, ofs 0x9b, size 5, "foo_3">
+  [0] #205.1.1.ctx.func <code #203.1.7.mem.ro, ip 0xa0 (0x9a), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #229.1.1.mem.ref.ro <#203.1.7.mem.ro, ofs 0x9b, size 5, "foo_3">
   [1] #0.0.nil <nil>
-  [2] #221.1.2.num.int <22 (0x16)>
-  [3] #205.1.3.num.int <10 (0xa)>
-  [4] #208.1.3.num.int <40 (0x28)>
+  [2] #223.1.2.num.int <22 (0x16)>
+  [3] #207.1.3.num.int <10 (0xa)>
+  [4] #210.1.3.num.int <40 (0x28)>
   [5] #0.0.nil <nil>
   [6] #0.0.nil <nil>
-  [7] #208.1.3.num.int <40 (0x28)>
-  [8] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xa0, type 7, 161[10]
-GC: ++#201.1.7.mem.ro
+  [7] #210.1.3.num.int <40 (0x28)>
+  [8] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xa0, type 7, 161[10]
+GC: ++#203.1.7.mem.ro
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xab (0xa0), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #228.1.1.mem.str.ro <#201.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
-  [1] #227.1.1.mem.ref.ro <#201.1.8.mem.ro, ofs 0x9b, size 5, "foo_3">
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xab (0xa0), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #230.1.1.mem.str.ro <#203.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
+  [1] #229.1.1.mem.ref.ro <#203.1.8.mem.ro, ofs 0x9b, size 5, "foo_3">
   [2] #0.0.nil <nil>
-  [3] #221.1.2.num.int <22 (0x16)>
-  [4] #205.1.3.num.int <10 (0xa)>
-  [5] #208.1.3.num.int <40 (0x28)>
+  [3] #223.1.2.num.int <22 (0x16)>
+  [4] #207.1.3.num.int <10 (0xa)>
+  [5] #210.1.3.num.int <40 (0x28)>
   [6] #0.0.nil <nil>
   [7] #0.0.nil <nil>
-  [8] #208.1.3.num.int <40 (0x28)>
-  [9] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xab, type 8, 172[3]
-GC: ++#227.1.1.mem.ref.ro
-GC: ++#228.1.1.mem.str.ro
-GC: --#228.1.2.mem.str.ro
-GC: --#227.1.2.mem.ref.ro
+  [8] #210.1.3.num.int <40 (0x28)>
+  [9] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xab, type 8, 172[3]
+GC: ++#229.1.1.mem.ref.ro
+GC: ++#230.1.1.mem.str.ro
+GC: --#230.1.2.mem.str.ro
+GC: --#229.1.2.mem.ref.ro
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xaf (0xab), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xaf (0xab), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
   [0] #0.0.nil <nil>
-  [1] #221.1.2.num.int <22 (0x16)>
-  [2] #205.1.3.num.int <10 (0xa)>
-  [3] #208.1.3.num.int <40 (0x28)>
+  [1] #223.1.2.num.int <22 (0x16)>
+  [2] #207.1.3.num.int <10 (0xa)>
+  [3] #210.1.3.num.int <40 (0x28)>
   [4] #0.0.nil <nil>
   [5] #0.0.nil <nil>
-  [6] #208.1.3.num.int <40 (0x28)>
-  [7] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xaf, type 8, 176[5]
-GC: ++#228.1.1.mem.str.ro
+  [6] #210.1.3.num.int <40 (0x28)>
+  [7] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xaf, type 8, 176[5]
+GC: ++#230.1.1.mem.str.ro
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xb5 (0xaf), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #228.1.2.mem.str.ro <#201.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xb5 (0xaf), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #230.1.2.mem.str.ro <#203.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
   [1] #0.0.nil <nil>
-  [2] #221.1.2.num.int <22 (0x16)>
-  [3] #205.1.3.num.int <10 (0xa)>
-  [4] #208.1.3.num.int <40 (0x28)>
+  [2] #223.1.2.num.int <22 (0x16)>
+  [3] #207.1.3.num.int <10 (0xa)>
+  [4] #210.1.3.num.int <40 (0x28)>
   [5] #0.0.nil <nil>
   [6] #0.0.nil <nil>
-  [7] #208.1.3.num.int <40 (0x28)>
-  [8] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xb5, type 1, 0 (0x0)
+  [7] #210.1.3.num.int <40 (0x28)>
+  [8] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xb5, type 1, 0 (0x0)
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xb6 (0xb5), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #229.1.1.num.int <0 (0x0)>
-  [1] #228.1.2.mem.str.ro <#201.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xb6 (0xb5), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #231.1.1.num.int <0 (0x0)>
+  [1] #230.1.2.mem.str.ro <#203.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
   [2] #0.0.nil <nil>
-  [3] #221.1.2.num.int <22 (0x16)>
-  [4] #205.1.3.num.int <10 (0xa)>
-  [5] #208.1.3.num.int <40 (0x28)>
+  [3] #223.1.2.num.int <22 (0x16)>
+  [4] #207.1.3.num.int <10 (0xa)>
+  [5] #210.1.3.num.int <40 (0x28)>
   [6] #0.0.nil <nil>
   [7] #0.0.nil <nil>
-  [8] #208.1.3.num.int <40 (0x28)>
-  [9] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xb6, type 8, 183[3]
-GC: --#229.1.1.num.int
-GC: --#228.1.2.mem.str.ro
-== backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xba (0xb6), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #230.1.1.num.int <65 (0x41)>
-  [1] #0.0.nil <nil>
-  [2] #221.1.2.num.int <22 (0x16)>
-  [3] #205.1.3.num.int <10 (0xa)>
-  [4] #208.1.3.num.int <40 (0x28)>
-  [5] #0.0.nil <nil>
-  [6] #0.0.nil <nil>
-  [7] #208.1.3.num.int <40 (0x28)>
-  [8] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xba, type 8, 187[5]
-GC: ++#228.1.1.mem.str.ro
-== backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xc0 (0xba), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #228.1.2.mem.str.ro <#201.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
-  [1] #230.1.1.num.int <65 (0x41)>
-  [2] #0.0.nil <nil>
-  [3] #221.1.2.num.int <22 (0x16)>
-  [4] #205.1.3.num.int <10 (0xa)>
-  [5] #208.1.3.num.int <40 (0x28)>
-  [6] #0.0.nil <nil>
-  [7] #0.0.nil <nil>
-  [8] #208.1.3.num.int <40 (0x28)>
-  [9] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xc0, type 1, 9 (0x9)
-== backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xc2 (0xc0), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #231.1.1.num.int <9 (0x9)>
-  [1] #228.1.2.mem.str.ro <#201.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
-  [2] #230.1.1.num.int <65 (0x41)>
-  [3] #0.0.nil <nil>
-  [4] #221.1.2.num.int <22 (0x16)>
-  [5] #205.1.3.num.int <10 (0xa)>
-  [6] #208.1.3.num.int <40 (0x28)>
-  [7] #0.0.nil <nil>
-  [8] #0.0.nil <nil>
-  [9] #208.1.3.num.int <40 (0x28)>
-  [10] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xc2, type 8, 195[3]
+  [8] #210.1.3.num.int <40 (0x28)>
+  [9] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xb6, type 8, 183[3]
 GC: --#231.1.1.num.int
-GC: --#228.1.2.mem.str.ro
+GC: --#230.1.2.mem.str.ro
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xc6 (0xc2), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #232.1.1.num.int <53 (0x35)>
-  [1] #230.1.1.num.int <65 (0x41)>
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xba (0xb6), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #232.1.1.num.int <65 (0x41)>
+  [1] #0.0.nil <nil>
+  [2] #223.1.2.num.int <22 (0x16)>
+  [3] #207.1.3.num.int <10 (0xa)>
+  [4] #210.1.3.num.int <40 (0x28)>
+  [5] #0.0.nil <nil>
+  [6] #0.0.nil <nil>
+  [7] #210.1.3.num.int <40 (0x28)>
+  [8] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xba, type 8, 187[5]
+GC: ++#230.1.1.mem.str.ro
+== backtrace ==
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xc0 (0xba), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #230.1.2.mem.str.ro <#203.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
+  [1] #232.1.1.num.int <65 (0x41)>
   [2] #0.0.nil <nil>
-  [3] #221.1.2.num.int <22 (0x16)>
-  [4] #205.1.3.num.int <10 (0xa)>
-  [5] #208.1.3.num.int <40 (0x28)>
+  [3] #223.1.2.num.int <22 (0x16)>
+  [4] #207.1.3.num.int <10 (0xa)>
+  [5] #210.1.3.num.int <40 (0x28)>
   [6] #0.0.nil <nil>
   [7] #0.0.nil <nil>
-  [8] #208.1.3.num.int <40 (0x28)>
-  [9] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xc6, type 8, 199[5]
-GC: ++#228.1.1.mem.str.ro
+  [8] #210.1.3.num.int <40 (0x28)>
+  [9] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xc0, type 1, 9 (0x9)
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xcc (0xc6), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #228.1.2.mem.str.ro <#201.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
-  [1] #232.1.1.num.int <53 (0x35)>
-  [2] #230.1.1.num.int <65 (0x41)>
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xc2 (0xc0), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #233.1.1.num.int <9 (0x9)>
+  [1] #230.1.2.mem.str.ro <#203.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
+  [2] #232.1.1.num.int <65 (0x41)>
   [3] #0.0.nil <nil>
-  [4] #221.1.2.num.int <22 (0x16)>
-  [5] #205.1.3.num.int <10 (0xa)>
-  [6] #208.1.3.num.int <40 (0x28)>
+  [4] #223.1.2.num.int <22 (0x16)>
+  [5] #207.1.3.num.int <10 (0xa)>
+  [6] #210.1.3.num.int <40 (0x28)>
   [7] #0.0.nil <nil>
   [8] #0.0.nil <nil>
-  [9] #208.1.3.num.int <40 (0x28)>
-  [10] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xcc, type 1, 10 (0xa)
-== backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xce (0xcc), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #233.1.1.num.int <10 (0xa)>
-  [1] #228.1.2.mem.str.ro <#201.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
-  [2] #232.1.1.num.int <53 (0x35)>
-  [3] #230.1.1.num.int <65 (0x41)>
-  [4] #0.0.nil <nil>
-  [5] #221.1.2.num.int <22 (0x16)>
-  [6] #205.1.3.num.int <10 (0xa)>
-  [7] #208.1.3.num.int <40 (0x28)>
-  [8] #0.0.nil <nil>
-  [9] #0.0.nil <nil>
-  [10] #208.1.3.num.int <40 (0x28)>
-  [11] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xce, type 8, 207[3]
+  [9] #210.1.3.num.int <40 (0x28)>
+  [10] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xc2, type 8, 195[3]
 GC: --#233.1.1.num.int
-GC: --#228.1.2.mem.str.ro
+GC: --#230.1.2.mem.str.ro
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xd2 (0xce), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #0.0.nil <nil>
-  [1] #232.1.1.num.int <53 (0x35)>
-  [2] #230.1.1.num.int <65 (0x41)>
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xc6 (0xc2), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #234.1.1.num.int <53 (0x35)>
+  [1] #232.1.1.num.int <65 (0x41)>
+  [2] #0.0.nil <nil>
+  [3] #223.1.2.num.int <22 (0x16)>
+  [4] #207.1.3.num.int <10 (0xa)>
+  [5] #210.1.3.num.int <40 (0x28)>
+  [6] #0.0.nil <nil>
+  [7] #0.0.nil <nil>
+  [8] #210.1.3.num.int <40 (0x28)>
+  [9] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xc6, type 8, 199[5]
+GC: ++#230.1.1.mem.str.ro
+== backtrace ==
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xcc (0xc6), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #230.1.2.mem.str.ro <#203.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
+  [1] #234.1.1.num.int <53 (0x35)>
+  [2] #232.1.1.num.int <65 (0x41)>
   [3] #0.0.nil <nil>
-  [4] #221.1.2.num.int <22 (0x16)>
-  [5] #205.1.3.num.int <10 (0xa)>
-  [6] #208.1.3.num.int <40 (0x28)>
+  [4] #223.1.2.num.int <22 (0x16)>
+  [5] #207.1.3.num.int <10 (0xa)>
+  [6] #210.1.3.num.int <40 (0x28)>
   [7] #0.0.nil <nil>
   [8] #0.0.nil <nil>
-  [9] #208.1.3.num.int <40 (0x28)>
-  [10] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xd2, type 8, 211[5]
-GC: ++#228.1.1.mem.str.ro
+  [9] #210.1.3.num.int <40 (0x28)>
+  [10] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xcc, type 1, 10 (0xa)
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xd8 (0xd2), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #228.1.2.mem.str.ro <#201.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
-  [1] #0.0.nil <nil>
-  [2] #232.1.1.num.int <53 (0x35)>
-  [3] #230.1.1.num.int <65 (0x41)>
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xce (0xcc), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #235.1.1.num.int <10 (0xa)>
+  [1] #230.1.2.mem.str.ro <#203.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
+  [2] #234.1.1.num.int <53 (0x35)>
+  [3] #232.1.1.num.int <65 (0x41)>
   [4] #0.0.nil <nil>
-  [5] #221.1.2.num.int <22 (0x16)>
-  [6] #205.1.3.num.int <10 (0xa)>
-  [7] #208.1.3.num.int <40 (0x28)>
+  [5] #223.1.2.num.int <22 (0x16)>
+  [6] #207.1.3.num.int <10 (0xa)>
+  [7] #210.1.3.num.int <40 (0x28)>
   [8] #0.0.nil <nil>
   [9] #0.0.nil <nil>
-  [10] #208.1.3.num.int <40 (0x28)>
-  [11] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xd8, type 1, -11 (0xfffffffffffffff5)
-== backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xda (0xd8), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #234.1.1.num.int <-11 (0xfffffffffffffff5)>
-  [1] #228.1.2.mem.str.ro <#201.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
-  [2] #0.0.nil <nil>
-  [3] #232.1.1.num.int <53 (0x35)>
-  [4] #230.1.1.num.int <65 (0x41)>
-  [5] #0.0.nil <nil>
-  [6] #221.1.2.num.int <22 (0x16)>
-  [7] #205.1.3.num.int <10 (0xa)>
-  [8] #208.1.3.num.int <40 (0x28)>
-  [9] #0.0.nil <nil>
-  [10] #0.0.nil <nil>
-  [11] #208.1.3.num.int <40 (0x28)>
-  [12] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xda, type 8, 219[3]
-GC: --#234.1.1.num.int
-GC: --#228.1.2.mem.str.ro
-== backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xde (0xda), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #0.0.nil <nil>
-  [1] #0.0.nil <nil>
-  [2] #232.1.1.num.int <53 (0x35)>
-  [3] #230.1.1.num.int <65 (0x41)>
-  [4] #0.0.nil <nil>
-  [5] #221.1.2.num.int <22 (0x16)>
-  [6] #205.1.3.num.int <10 (0xa)>
-  [7] #208.1.3.num.int <40 (0x28)>
-  [8] #0.0.nil <nil>
-  [9] #0.0.nil <nil>
-  [10] #208.1.3.num.int <40 (0x28)>
-  [11] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xde, type 8, 223[5]
-GC: ++#228.1.1.mem.str.ro
-== backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xe4 (0xde), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #228.1.2.mem.str.ro <#201.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
-  [1] #0.0.nil <nil>
-  [2] #0.0.nil <nil>
-  [3] #232.1.1.num.int <53 (0x35)>
-  [4] #230.1.1.num.int <65 (0x41)>
-  [5] #0.0.nil <nil>
-  [6] #221.1.2.num.int <22 (0x16)>
-  [7] #205.1.3.num.int <10 (0xa)>
-  [8] #208.1.3.num.int <40 (0x28)>
-  [9] #0.0.nil <nil>
-  [10] #0.0.nil <nil>
-  [11] #208.1.3.num.int <40 (0x28)>
-  [12] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xe4, type 1, -1 (0xffffffffffffffff)
-== backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xe6 (0xe4), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #235.1.1.num.int <-1 (0xffffffffffffffff)>
-  [1] #228.1.2.mem.str.ro <#201.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
-  [2] #0.0.nil <nil>
-  [3] #0.0.nil <nil>
-  [4] #232.1.1.num.int <53 (0x35)>
-  [5] #230.1.1.num.int <65 (0x41)>
-  [6] #0.0.nil <nil>
-  [7] #221.1.2.num.int <22 (0x16)>
-  [8] #205.1.3.num.int <10 (0xa)>
-  [9] #208.1.3.num.int <40 (0x28)>
-  [10] #0.0.nil <nil>
-  [11] #0.0.nil <nil>
-  [12] #208.1.3.num.int <40 (0x28)>
-  [13] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xe6, type 8, 231[3]
+  [10] #210.1.3.num.int <40 (0x28)>
+  [11] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xce, type 8, 207[3]
 GC: --#235.1.1.num.int
-GC: --#228.1.2.mem.str.ro
+GC: --#230.1.2.mem.str.ro
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xea (0xe6), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #236.1.1.num.int <53 (0x35)>
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xd2 (0xce), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #0.0.nil <nil>
+  [1] #234.1.1.num.int <53 (0x35)>
+  [2] #232.1.1.num.int <65 (0x41)>
+  [3] #0.0.nil <nil>
+  [4] #223.1.2.num.int <22 (0x16)>
+  [5] #207.1.3.num.int <10 (0xa)>
+  [6] #210.1.3.num.int <40 (0x28)>
+  [7] #0.0.nil <nil>
+  [8] #0.0.nil <nil>
+  [9] #210.1.3.num.int <40 (0x28)>
+  [10] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xd2, type 8, 211[5]
+GC: ++#230.1.1.mem.str.ro
+== backtrace ==
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xd8 (0xd2), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #230.1.2.mem.str.ro <#203.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
   [1] #0.0.nil <nil>
+  [2] #234.1.1.num.int <53 (0x35)>
+  [3] #232.1.1.num.int <65 (0x41)>
+  [4] #0.0.nil <nil>
+  [5] #223.1.2.num.int <22 (0x16)>
+  [6] #207.1.3.num.int <10 (0xa)>
+  [7] #210.1.3.num.int <40 (0x28)>
+  [8] #0.0.nil <nil>
+  [9] #0.0.nil <nil>
+  [10] #210.1.3.num.int <40 (0x28)>
+  [11] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xd8, type 1, -11 (0xfffffffffffffff5)
+== backtrace ==
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xda (0xd8), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #236.1.1.num.int <-11 (0xfffffffffffffff5)>
+  [1] #230.1.2.mem.str.ro <#203.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
   [2] #0.0.nil <nil>
-  [3] #232.1.1.num.int <53 (0x35)>
-  [4] #230.1.1.num.int <65 (0x41)>
+  [3] #234.1.1.num.int <53 (0x35)>
+  [4] #232.1.1.num.int <65 (0x41)>
   [5] #0.0.nil <nil>
-  [6] #221.1.2.num.int <22 (0x16)>
-  [7] #205.1.3.num.int <10 (0xa)>
-  [8] #208.1.3.num.int <40 (0x28)>
+  [6] #223.1.2.num.int <22 (0x16)>
+  [7] #207.1.3.num.int <10 (0xa)>
+  [8] #210.1.3.num.int <40 (0x28)>
   [9] #0.0.nil <nil>
   [10] #0.0.nil <nil>
-  [11] #208.1.3.num.int <40 (0x28)>
-  [12] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xea, type 8, 235[5]
-GC: ++#228.1.1.mem.str.ro
+  [11] #210.1.3.num.int <40 (0x28)>
+  [12] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xda, type 8, 219[3]
+GC: --#236.1.1.num.int
+GC: --#230.1.2.mem.str.ro
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xf0 (0xea), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #228.1.2.mem.str.ro <#201.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
-  [1] #236.1.1.num.int <53 (0x35)>
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xde (0xda), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #0.0.nil <nil>
+  [1] #0.0.nil <nil>
+  [2] #234.1.1.num.int <53 (0x35)>
+  [3] #232.1.1.num.int <65 (0x41)>
+  [4] #0.0.nil <nil>
+  [5] #223.1.2.num.int <22 (0x16)>
+  [6] #207.1.3.num.int <10 (0xa)>
+  [7] #210.1.3.num.int <40 (0x28)>
+  [8] #0.0.nil <nil>
+  [9] #0.0.nil <nil>
+  [10] #210.1.3.num.int <40 (0x28)>
+  [11] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xde, type 8, 223[5]
+GC: ++#230.1.1.mem.str.ro
+== backtrace ==
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xe4 (0xde), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #230.1.2.mem.str.ro <#203.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
+  [1] #0.0.nil <nil>
+  [2] #0.0.nil <nil>
+  [3] #234.1.1.num.int <53 (0x35)>
+  [4] #232.1.1.num.int <65 (0x41)>
+  [5] #0.0.nil <nil>
+  [6] #223.1.2.num.int <22 (0x16)>
+  [7] #207.1.3.num.int <10 (0xa)>
+  [8] #210.1.3.num.int <40 (0x28)>
+  [9] #0.0.nil <nil>
+  [10] #0.0.nil <nil>
+  [11] #210.1.3.num.int <40 (0x28)>
+  [12] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xe4, type 1, -1 (0xffffffffffffffff)
+== backtrace ==
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xe6 (0xe4), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #237.1.1.num.int <-1 (0xffffffffffffffff)>
+  [1] #230.1.2.mem.str.ro <#203.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
   [2] #0.0.nil <nil>
   [3] #0.0.nil <nil>
-  [4] #232.1.1.num.int <53 (0x35)>
-  [5] #230.1.1.num.int <65 (0x41)>
+  [4] #234.1.1.num.int <53 (0x35)>
+  [5] #232.1.1.num.int <65 (0x41)>
   [6] #0.0.nil <nil>
-  [7] #221.1.2.num.int <22 (0x16)>
-  [8] #205.1.3.num.int <10 (0xa)>
-  [9] #208.1.3.num.int <40 (0x28)>
+  [7] #223.1.2.num.int <22 (0x16)>
+  [8] #207.1.3.num.int <10 (0xa)>
+  [9] #210.1.3.num.int <40 (0x28)>
   [10] #0.0.nil <nil>
   [11] #0.0.nil <nil>
-  [12] #208.1.3.num.int <40 (0x28)>
-  [13] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xf0, type 1, -10 (0xfffffffffffffff6)
+  [12] #210.1.3.num.int <40 (0x28)>
+  [13] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xe6, type 8, 231[3]
+GC: --#237.1.1.num.int
+GC: --#230.1.2.mem.str.ro
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xf2 (0xf0), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #237.1.1.num.int <-10 (0xfffffffffffffff6)>
-  [1] #228.1.2.mem.str.ro <#201.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
-  [2] #236.1.1.num.int <53 (0x35)>
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xea (0xe6), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #238.1.1.num.int <53 (0x35)>
+  [1] #0.0.nil <nil>
+  [2] #0.0.nil <nil>
+  [3] #234.1.1.num.int <53 (0x35)>
+  [4] #232.1.1.num.int <65 (0x41)>
+  [5] #0.0.nil <nil>
+  [6] #223.1.2.num.int <22 (0x16)>
+  [7] #207.1.3.num.int <10 (0xa)>
+  [8] #210.1.3.num.int <40 (0x28)>
+  [9] #0.0.nil <nil>
+  [10] #0.0.nil <nil>
+  [11] #210.1.3.num.int <40 (0x28)>
+  [12] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xea, type 8, 235[5]
+GC: ++#230.1.1.mem.str.ro
+== backtrace ==
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xf0 (0xea), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #230.1.2.mem.str.ro <#203.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
+  [1] #238.1.1.num.int <53 (0x35)>
+  [2] #0.0.nil <nil>
+  [3] #0.0.nil <nil>
+  [4] #234.1.1.num.int <53 (0x35)>
+  [5] #232.1.1.num.int <65 (0x41)>
+  [6] #0.0.nil <nil>
+  [7] #223.1.2.num.int <22 (0x16)>
+  [8] #207.1.3.num.int <10 (0xa)>
+  [9] #210.1.3.num.int <40 (0x28)>
+  [10] #0.0.nil <nil>
+  [11] #0.0.nil <nil>
+  [12] #210.1.3.num.int <40 (0x28)>
+  [13] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xf0, type 1, -10 (0xfffffffffffffff6)
+== backtrace ==
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xf2 (0xf0), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #239.1.1.num.int <-10 (0xfffffffffffffff6)>
+  [1] #230.1.2.mem.str.ro <#203.1.8.mem.ro, ofs 0xa1, size 10, "ABCDE12345">
+  [2] #238.1.1.num.int <53 (0x35)>
   [3] #0.0.nil <nil>
   [4] #0.0.nil <nil>
-  [5] #232.1.1.num.int <53 (0x35)>
-  [6] #230.1.1.num.int <65 (0x41)>
+  [5] #234.1.1.num.int <53 (0x35)>
+  [6] #232.1.1.num.int <65 (0x41)>
   [7] #0.0.nil <nil>
-  [8] #221.1.2.num.int <22 (0x16)>
-  [9] #205.1.3.num.int <10 (0xa)>
-  [10] #208.1.3.num.int <40 (0x28)>
+  [8] #223.1.2.num.int <22 (0x16)>
+  [9] #207.1.3.num.int <10 (0xa)>
+  [10] #210.1.3.num.int <40 (0x28)>
   [11] #0.0.nil <nil>
   [12] #0.0.nil <nil>
-  [13] #208.1.3.num.int <40 (0x28)>
-  [14] #205.1.3.num.int <10 (0xa)>
-IP: #201:0xf2, type 8, 243[3]
-GC: --#237.1.1.num.int
-GC: --#228.1.2.mem.str.ro
+  [13] #210.1.3.num.int <40 (0x28)>
+  [14] #207.1.3.num.int <10 (0xa)>
+IP: #203:0xf2, type 8, 243[3]
+GC: --#239.1.1.num.int
+GC: --#230.1.2.mem.str.ro
 == backtrace ==
-  [0] #203.1.1.ctx.func <code #201.1.8.mem.ro, ip 0xf6 (0xf2), dict #8.1.2.hash>
-== stack (#202.1.1.array) ==
-  [0] #238.1.1.num.int <65 (0x41)>
-  [1] #236.1.1.num.int <53 (0x35)>
+  [0] #205.1.1.ctx.func <code #203.1.8.mem.ro, ip 0xf6 (0xf2), dict #8.1.2.hash>
+== stack (#204.1.1.array) ==
+  [0] #240.1.1.num.int <65 (0x41)>
+  [1] #238.1.1.num.int <53 (0x35)>
   [2] #0.0.nil <nil>
   [3] #0.0.nil <nil>
-  [4] #232.1.1.num.int <53 (0x35)>
-  [5] #230.1.1.num.int <65 (0x41)>
+  [4] #234.1.1.num.int <53 (0x35)>
+  [5] #232.1.1.num.int <65 (0x41)>
   [6] #0.0.nil <nil>
-  [7] #221.1.2.num.int <22 (0x16)>
-  [8] #205.1.3.num.int <10 (0xa)>
-  [9] #208.1.3.num.int <40 (0x28)>
+  [7] #223.1.2.num.int <22 (0x16)>
+  [8] #207.1.3.num.int <10 (0xa)>
+  [9] #210.1.3.num.int <40 (0x28)>
   [10] #0.0.nil <nil>
   [11] #0.0.nil <nil>
-  [12] #208.1.3.num.int <40 (0x28)>
-  [13] #205.1.3.num.int <10 (0xa)>
+  [12] #210.1.3.num.int <40 (0x28)>
+  [13] #207.1.3.num.int <10 (0xa)>

@@ -668,7 +668,7 @@ GC: --#xxxx.1.1.num.int
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <1311768465173141119 (0x123456781234567f)>
+  [0] #xxxx.2.1.num.int <1311768465173141119 (0x123456781234567f)>
   [1] #xxxx.1.1.num.int <-13318347976 (0xfffffffce62a2338)>
   [2] #xxxx.1.1.num.int <13318347976 (0x319d5dcc8)>
   [3] #xxxx.1.1.num.int <-13318347976 (0xfffffffce62a2338)>
@@ -689,8 +689,8 @@ GC: --#xxxx.1.1.num.int
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <1193046 (0x123456)>
-  [1] #xxxx.1.1.num.int <1311768465173141119 (0x123456781234567f)>
+  [0] #xxxx.2.1.num.int <1193046 (0x123456)>
+  [1] #xxxx.2.1.num.int <1311768465173141119 (0x123456781234567f)>
   [2] #xxxx.1.1.num.int <-13318347976 (0xfffffffce62a2338)>
   [3] #xxxx.1.1.num.int <13318347976 (0x319d5dcc8)>
   [4] #xxxx.1.1.num.int <-13318347976 (0xfffffffce62a2338)>
@@ -708,8 +708,8 @@ GC: --#xxxx.1.1.num.int
   [16] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
   [17] #xxxx.1.1.num.int <1 (0x1)>
   [18] #xxxx.1.1.num.int <0 (0x0)>
-GC: --#xxxx.1.1.num.int
-GC: --#xxxx.1.1.num.int
+GC: --#xxxx.2.1.num.int
+GC: --#xxxx.2.1.num.int
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
@@ -1366,4 +1366,4 @@ GC: --#xxxx.2.1.num.int
   [24] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
   [25] #xxxx.1.1.num.int <1 (0x1)>
   [26] #xxxx.1.1.num.int <0 (0x0)>
-error 14 (div by zero), ip = #201
+error 14 (div by zero), ip = #203

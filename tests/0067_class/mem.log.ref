@@ -1,26 +1,26 @@
 # ---  mem  ---
 ===  memory dump  ===
    0: 0x0000000c[      56] [11904248/      68]  #2.1.2.font <glyphs 256, size 8x16, line height 16>
-   1: 0x00000050[    6200] [      68/    6212]  #0.1.*.olist <size 219, next 251, max 258>
+   1: 0x00000050[    6200] [      68/    6212]  #0.1.*.olist <size 221, next 253, max 258>
    2: 0x00001894[     584] [    6212/     596]  #3.1.1.canv <geo 0x0_8x16, region 0x0_8x16, chk 0xc0648438>
    3: 0x00001ae8[ 1920072] [     596/ 1920084]  #4.1.1.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5dfcba60>
    4: 0x001d673c[ 1920072] [ 1920084/ 1920084]  #5.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5dfcba60>
    5: 0x003ab390[ 1024072] [ 1920084/ 1024084]  #6.1.1.canv <geo 80x100_640x400, region 0x0_640x400, chk 0x8ccedc00>
    6: 0x004a53e4[      72] [ 1024084/      84]  #7.1.1.array <size 1, max 16>
-   7: 0x004a5438[     820] [      84/     832]  #8.1.2.hash <size 99, max 101>
-   8: 0x004a5778[     312] [     832/     324]  #201.1.11.mem.ro <size 309>
-   9: 0x004a58bc[      72] [     324/      84]  #202.1.1.array <size 0, max 16>
-  10: 0x004a5910[      56] [      84/      68]  #203.1.1.ctx.func <code #201.1.11.mem.ro, ip 0x135 (0x135), dict #8.1.2.hash>
-  11: 0x004a5954[      20] [      68/      32]  #209.1.2.hash <size 1, max 1>
-  12: 0x004a5974[      36] [      32/      48]  #217.1.1.hash <size 3, max 3, parent #209.1.2.hash>
+   7: 0x004a5438[     820] [      84/     832]  #8.1.2.hash <size 100, max 101>
+   8: 0x004a5778[     312] [     832/     324]  #203.1.11.mem.ro <size 309>
+   9: 0x004a58bc[      72] [     324/      84]  #204.1.1.array <size 0, max 16>
+  10: 0x004a5910[      56] [      84/      68]  #205.1.1.ctx.func <code #203.1.11.mem.ro, ip 0x135 (0x135), dict #8.1.2.hash>
+  11: 0x004a5954[      20] [      68/      32]  #211.1.2.hash <size 1, max 1>
+  12: 0x004a5974[      36] [      32/      48]  #219.1.1.hash <size 3, max 3, parent #211.1.2.hash>
   13* 0x004a59a4[      56] [      48/      68]
-  14: 0x004a59e8[      72] [      68/      84]  #220.1.1.array <size 0, max 16>
+  14: 0x004a59e8[      72] [      68/      84]  #222.1.1.array <size 0, max 16>
   15: 0x004a5a3c[     180] [      84/     192]
-  16: 0x004a5afc[      12] [     192/      24]  #247.1.1.mem.str <size 11, "XX XX XX XX">
+  16: 0x004a5afc[      12] [     192/      24]  #249.1.1.mem.str <size 11, "XX XX XX XX">
   17: 0x004a5b14[11904236] [      24/11904248]
 == object dump (id #0.1.*.olist) ==
-  #0.1.*.olist <size 219, next 251, max 258>
-  #0.1.*.olist <size 219, next 251, max 258>
+  #0.1.*.olist <size 221, next 253, max 258>
+  #0.1.*.olist <size 221, next 253, max 258>
   #1.1.1.mem.ro <size 4947>
     72 b5 4a 86 00 00 00 00 20 00 00 00 01 00 00 00  r.J..... .......
     00 01 00 00 10 00 00 00 10 00 00 00 08 00 00 00  ................
@@ -434,16 +434,17 @@
     |................................................................................|
   #7.1.1.array <size 1, max 16>
     [ 0] #5.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5dfcba60>
-  #8.1.2.hash <size 99, max 101>
+  #8.1.2.hash <size 100, max 101>
     #18.1.1.mem.ref.ro <size 1, "("> => #17.1.1.num.prim <4 (0x4)>
     #20.1.1.mem.ref.ro <size 1, ")"> => #19.1.1.num.prim <5 (0x5)>
     #14.1.1.mem.ref.ro <size 1, "["> => #13.1.1.num.prim <2 (0x2)>
     #16.1.1.mem.ref.ro <size 1, "]"> => #15.1.1.num.prim <3 (0x3)>
     #82.1.1.mem.ref.ro <size 3, "abs"> => #81.1.1.num.prim <36 (0x24)>
     #70.1.1.mem.ref.ro <size 3, "add"> => #69.1.1.num.prim <30 (0x1e)>
+    #202.1.1.mem.ref.ro <size 4, "add!"> => #201.1.1.num.prim <96 (0x60)>
     #88.1.1.mem.ref.ro <size 3, "and"> => #87.1.1.num.prim <39 (0x27)>
     #174.1.1.mem.ref.ro <size 3, "blt"> => #173.1.1.num.prim <82 (0x52)>
-    #204.1.1.mem.ref.ro <#201.1.11.mem.ro, ofs 0x9, size 5, "class"> => #205.1.1.mem.code.ro <#201.1.11.mem.ro, ofs 0x10, size 43>
+    #206.1.1.mem.ref.ro <#203.1.11.mem.ro, ofs 0x9, size 5, "class"> => #207.1.1.mem.code.ro <#203.1.11.mem.ro, ofs 0x10, size 43>
     #112.1.1.mem.ref.ro <size 3, "cmp"> => #111.1.1.num.prim <51 (0x33)>
     #176.1.1.mem.ref.ro <size 5, "debug"> => #175.1.1.num.prim <83 (0x53)>
     #186.1.1.mem.ref.ro <size 10, "decodeutf8"> => #185.1.1.num.prim <88 (0x58)>
@@ -529,8 +530,8 @@
     #72.1.1.mem.ref.ro <size 3, "sub"> => #71.1.1.num.prim <31 (0x1f)>
     #172.1.1.mem.ref.ro <size 11, "unpackimage"> => #171.1.1.num.prim <81 (0x51)>
     #196.1.1.mem.ref.ro <size 12, "updatescreen"> => #195.1.1.num.prim <93 (0x5d)>
-    #206.1.1.mem.ref.ro <#201.1.11.mem.ro, ofs 0x7e, size 6, "widget"> => #209.1.2.hash <size 1, max 1>
-    #210.1.1.mem.ref.ro <#201.1.11.mem.ro, ofs 0xab, size 3, "win"> => #217.1.1.hash <size 3, max 3, parent #209.1.2.hash>
+    #208.1.1.mem.ref.ro <#203.1.11.mem.ro, ofs 0x7e, size 6, "widget"> => #211.1.2.hash <size 1, max 1>
+    #212.1.1.mem.ref.ro <#203.1.11.mem.ro, ofs 0xab, size 3, "win"> => #219.1.1.hash <size 3, max 3, parent #211.1.2.hash>
     #92.1.1.mem.ref.ro <size 3, "xor"> => #91.1.1.num.prim <41 (0x29)>
     #10.1.1.mem.ref.ro <size 1, "{"> => #9.1.1.num.prim <0 (0x0)>
     #12.1.1.mem.ref.ro <size 1, "}"> => #11.1.1.num.prim <1 (0x1)>
@@ -822,7 +823,10 @@
   #199.1.1.num.prim <95 (0x5f)>
   #200.1.1.mem.ref.ro <size 15, "seteventhandler">
     73 65 74 65 76 65 6e 74 68 61 6e 64 6c 65 72     seteventhandler
-  #201.1.11.mem.ro <size 309>
+  #201.1.1.num.prim <96 (0x60)>
+  #202.1.1.mem.ref.ro <size 4, "add!">
+    61 64 64 21                                      add!
+  #203.1.11.mem.ro <size 309>
     75 51 12 a9 42 7a ad 60 59 63 6c 61 73 73 c6 2b  uQ..Bz.`Yclass.+
     21 58 69 6e 64 65 78 48 65 78 63 68 48 67 64 65  !XindexHexchHgde
     66 48 65 78 63 68 48 65 78 65 63 48 65 78 63 68  fHexchHexecHexch
@@ -843,46 +847,46 @@
     6e 5a 64 72 61 77 32 38 77 69 6e 5a 64 72 61 77  nZdraw28winZdraw
     32 38 77 69 6e 5a 64 72 61 77 32 38 77 69 6e 5a  28winZdraw28winZ
     64 72 61 77 31                                   draw1
-  #202.1.1.array <size 0, max 16>
-  #203.1.1.ctx.func <code #201.1.11.mem.ro, ip 0x135 (0x135), dict #8.1.2.hash>
+  #204.1.1.array <size 0, max 16>
+  #205.1.1.ctx.func <code #203.1.11.mem.ro, ip 0x135 (0x135), dict #8.1.2.hash>
     type 17, ip 0x135 (0x135)
-    code #201.1.11.mem.ro
+    code #203.1.11.mem.ro
     parent #0.0.nil
     dict #8.1.2.hash
     iterate #0.0.nil
-  #204.1.1.mem.ref.ro <#201.1.11.mem.ro, ofs 0x9, size 5, "class">
+  #206.1.1.mem.ref.ro <#203.1.11.mem.ro, ofs 0x9, size 5, "class">
     63 6c 61 73 73                                   class
-  #205.1.1.mem.code.ro <#201.1.11.mem.ro, ofs 0x10, size 43>
+  #207.1.1.mem.code.ro <#203.1.11.mem.ro, ofs 0x10, size 43>
     21 58 69 6e 64 65 78 48 65 78 63 68 48 67 64 65  !XindexHexchHgde
     66 48 65 78 63 68 48 65 78 65 63 48 65 78 63 68  fHexchHexecHexch
     98 73 65 74 70 61 72 65 6e 74 13                 .setparent.
-  #206.1.1.mem.ref.ro <#201.1.11.mem.ro, ofs 0x7e, size 6, "widget">
+  #208.1.1.mem.ref.ro <#203.1.11.mem.ro, ofs 0x7e, size 6, "widget">
     77 69 64 67 65 74                                widget
-  #207.1.1.mem.ref.ro <#201.1.11.mem.ro, ofs 0x87, size 5, "draw1">
+  #209.1.1.mem.ref.ro <#203.1.11.mem.ro, ofs 0x87, size 5, "draw1">
     64 72 61 77 31                                   draw1
-  #208.1.1.mem.code.ro <#201.1.11.mem.ro, ofs 0x8e, size 22>
+  #210.1.1.mem.code.ro <#203.1.11.mem.ro, ofs 0x8e, size 22>
     81 0a 18 79 68 73 65 74 70 6f 73 48 74 65 78 74  ...yhsetposHtext
     48 73 68 6f 77 13                                Hshow.
-  #209.1.2.hash <size 1, max 1>
-    #207.1.1.mem.ref.ro <#201.1.11.mem.ro, ofs 0x87, size 5, "draw1"> => #208.1.1.mem.code.ro <#201.1.11.mem.ro, ofs 0x8e, size 22>
-  #210.1.1.mem.ref.ro <#201.1.11.mem.ro, ofs 0xab, size 3, "win">
+  #211.1.2.hash <size 1, max 1>
+    #209.1.1.mem.ref.ro <#203.1.11.mem.ro, ofs 0x87, size 5, "draw1"> => #210.1.1.mem.code.ro <#203.1.11.mem.ro, ofs 0x8e, size 22>
+  #212.1.1.mem.ref.ro <#203.1.11.mem.ro, ofs 0xab, size 3, "win">
     77 69 6e                                         win
-  #215.1.1.mem.ref.ro <#201.1.11.mem.ro, ofs 0xc4, size 5, "draw2">
+  #217.1.1.mem.ref.ro <#203.1.11.mem.ro, ofs 0xc4, size 5, "draw2">
     64 72 61 77 32                                   draw2
-  #216.1.1.mem.code.ro <#201.1.11.mem.ro, ofs 0xcb, size 58>
+  #218.1.1.mem.code.ro <#203.1.11.mem.ro, ofs 0xcb, size 58>
     81 0a 18 79 68 73 65 74 70 6f 73 48 74 65 78 74  ...yhsetposHtext
     48 73 68 6f 77 19 79 18 79 81 14 38 61 64 64 38  Hshow.y.y..8add8
     64 65 66 49 74 65 78 74 48 74 65 78 74 37 20 58  defItextHtext7 X
     58 38 61 64 64 38 64 65 66 13                    X8add8def.
-  #217.1.1.hash <size 3, max 3, parent #209.1.2.hash>
-    #215.1.1.mem.ref.ro <#201.1.11.mem.ro, ofs 0xc4, size 5, "draw2"> => #216.1.1.mem.code.ro <#201.1.11.mem.ro, ofs 0xcb, size 58>
-    #245.1.1.mem.ref.ro <#201.1.11.mem.ro, ofs 0xef, size 4, "text"> => #247.1.1.mem.str <size 11, "XX XX XX XX">
-    #242.1.1.mem.ref.ro <#201.1.11.mem.ro, ofs 0xe1, size 1, "y"> => #244.1.1.num.int <80 (0x50)>
-  #220.1.1.array <size 0, max 16>
-  #242.1.1.mem.ref.ro <#201.1.11.mem.ro, ofs 0xe1, size 1, "y">
+  #219.1.1.hash <size 3, max 3, parent #211.1.2.hash>
+    #217.1.1.mem.ref.ro <#203.1.11.mem.ro, ofs 0xc4, size 5, "draw2"> => #218.1.1.mem.code.ro <#203.1.11.mem.ro, ofs 0xcb, size 58>
+    #247.1.1.mem.ref.ro <#203.1.11.mem.ro, ofs 0xef, size 4, "text"> => #249.1.1.mem.str <size 11, "XX XX XX XX">
+    #244.1.1.mem.ref.ro <#203.1.11.mem.ro, ofs 0xe1, size 1, "y"> => #246.1.1.num.int <80 (0x50)>
+  #222.1.1.array <size 0, max 16>
+  #244.1.1.mem.ref.ro <#203.1.11.mem.ro, ofs 0xe1, size 1, "y">
     79                                               y
-  #244.1.1.num.int <80 (0x50)>
-  #245.1.1.mem.ref.ro <#201.1.11.mem.ro, ofs 0xef, size 4, "text">
+  #246.1.1.num.int <80 (0x50)>
+  #247.1.1.mem.ref.ro <#203.1.11.mem.ro, ofs 0xef, size 4, "text">
     74 65 78 74                                      text
-  #247.1.1.mem.str <size 11, "XX XX XX XX">
+  #249.1.1.mem.str <size 11, "XX XX XX XX">
     58 58 20 58 58 20 58 58 20 58 58                 XX XX XX XX

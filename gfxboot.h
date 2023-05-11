@@ -465,6 +465,7 @@ contains_function_t gfx_obj_contains_function(unsigned type);
 
 obj_id_t gfx_obj_mem_new(uint32_t size, uint8_t subtype);
 data_t *gfx_obj_mem_ptr(obj_id_t id);
+data_t *gfx_obj_mem_ptr_rw(obj_id_t id);
 data_t *gfx_obj_mem_subtype_ptr(obj_id_t id, uint8_t subtype);
 int gfx_obj_mem_get(obj_id_t mem_id, int pos);
 obj_id_t gfx_obj_mem_set(obj_id_t mem_id, uint8_t val, int pos);
@@ -499,6 +500,7 @@ int gfx_obj_canvas_contains(obj_t *ptr, obj_id_t id);
 
 obj_id_t gfx_obj_array_new(unsigned max);
 array_t *gfx_obj_array_ptr(obj_id_t id);
+array_t *gfx_obj_array_ptr_rw(obj_id_t id);
 unsigned gfx_obj_array_iterate(obj_t *ptr, unsigned *idx, obj_id_t *id1, obj_id_t *id2);
 int gfx_obj_array_dump(obj_t *ptr, dump_style_t style);
 obj_id_t gfx_obj_array_set(obj_id_t array_id, obj_id_t id, int pos, int do_ref_cnt);
@@ -513,6 +515,7 @@ void gfx_obj_array_del(obj_id_t array_id, int pos, int do_ref_cnt);
 
 obj_id_t gfx_obj_hash_new(unsigned max);
 hash_t *gfx_obj_hash_ptr(obj_id_t id);
+hash_t *gfx_obj_hash_ptr_rw(obj_id_t id);
 unsigned gfx_obj_hash_iterate(obj_t *ptr, unsigned *idx, obj_id_t *id1, obj_id_t *id2);
 int gfx_obj_hash_dump(obj_t *ptr, dump_style_t style);
 obj_id_t gfx_obj_hash_set(obj_id_t hash_id, obj_id_t key_id, obj_id_t value_id, int do_ref_cnt);

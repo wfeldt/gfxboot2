@@ -34,6 +34,22 @@ array_t *gfx_obj_array_ptr(obj_id_t id)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+array_t *gfx_obj_array_ptr_rw(obj_id_t id)
+{
+  obj_t *ptr = gfx_obj_ptr(id);
+
+  if(!ptr || ptr->base_type != OTYPE_ARRAY) return 0;
+
+  if(ptr->flags.ro) {
+    GFX_ERROR(err_readonly);
+    return 0;
+  }
+
+  return (array_t *) ptr->data.ptr;
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 unsigned gfx_obj_array_iterate(obj_t *ptr, unsigned *idx, obj_id_t *id1, obj_id_t *id2)
 {
   array_t *a = ptr->data.ptr;
@@ -93,7 +109,7 @@ int gfx_obj_array_dump(obj_t *ptr, dump_style_t style)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 obj_id_t gfx_obj_array_set(obj_id_t array_id, obj_id_t id, int pos, int do_ref_cnt)
 {
-  array_t *a = gfx_obj_array_ptr(array_id);
+  array_t *a = gfx_obj_array_ptr_rw(array_id);
 
   if(!a) return 0;
 
@@ -148,7 +164,7 @@ obj_id_t gfx_obj_array_get(obj_id_t array_id, int pos)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 void gfx_obj_array_del(obj_id_t array_id, int pos, int do_ref_cnt)
 {
-  array_t *a = gfx_obj_array_ptr(array_id);
+  array_t *a = gfx_obj_array_ptr_rw(array_id);
 
   if(!a) return;
 
@@ -184,7 +200,7 @@ obj_id_t gfx_obj_array_push(obj_id_t array_id, obj_id_t id, int do_ref_cnt)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 obj_id_t gfx_obj_array_pop(obj_id_t array_id, int do_ref_cnt)
 {
-  array_t *a = gfx_obj_array_ptr(array_id);
+  array_t *a = gfx_obj_array_ptr_rw(array_id);
 
   if(!a) return 0;
 

@@ -60,10 +60,10 @@
       return
     } if
 
-    /buf buf [ key ] add def
+    buf [ key ] add! pop
     cursor_x -1 get x add y setpos
     key show
-    /cursor_x cursor_x [ getpos pop x sub ] add def
+    cursor_x [ getpos pop x sub ] add! pop
   }
 ) def
 

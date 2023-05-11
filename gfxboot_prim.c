@@ -3304,6 +3304,29 @@ void gfx_prim_freeze()
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// make hash sticky
+//
+// group: mem
+//
+// ( hash_1 -- hash_1 )
+//
+// Mark hash as sticky.
+//
+// example:
+//
+// getdict sticky
+//
+void gfx_prim_sticky()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_HASH);
+
+  if(!argv) return;
+
+  if(argv[0].ptr) argv[0].ptr->flags.sticky = 1;
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // get drawing color
 //
 // group: gfx

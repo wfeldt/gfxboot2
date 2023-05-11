@@ -88,9 +88,8 @@ unsigned gfx_program_init(obj_id_t program)
   ctx->dict_id = gfx_obj_ref_inc(gfxboot_data->vm.program.dict);
   ctx->code_id = gfx_obj_ref_inc(program);
 
-  data_t *code = gfx_obj_mem_ptr(ctx->code_id);
-
-  gfxboot_log("program loaded %s (%u bytes)\n", gfx_obj_id2str(program), code->size);
+  // data_t *code = gfx_obj_mem_ptr(ctx->code_id);
+  // gfxboot_log("program loaded %s (%u bytes)\n", gfx_obj_id2str(program), code->size);
 
   gfxboot_data->vm.program.context = ctx_id;
 
@@ -373,7 +372,8 @@ area_t gfx_font_dim(obj_id_t font_id)
 
   for(; (font = gfx_obj_font_ptr(font_id)); font_id = font->parent_id) {
     if(font->width > area.width) area.width = font->width;
-    if(font->height > area.height) area.height = font->line_height;
+    if(font->height > area.height) area.height = font->height;
+    if(font->line_height > area.y) area.y = font->line_height;
   }
 
   return area;
@@ -395,7 +395,13 @@ obj_id_t gfx_image_open(obj_id_t image_file)
   obj_id_t image_id = gfx_obj_canvas_new(width, height);
   canvas_t *canvas = gfx_obj_canvas_ptr(image_id);
 
-  if(gfx_jpeg_decode(mem->ptr, (uint8_t *) &canvas->ptr, 0, canvas->width, 0, canvas->height, 32)) {
+  if(!canvas) {
+    GFX_ERROR(err_no_memory);
+
+    return 0;
+  }
+
+  if(gfx_jpeg_decode(mem->ptr, (uint8_t *) &canvas->ptr, 0, canvas->geo.width, 0, canvas->geo.height, 32)) {
     gfx_obj_ref_dec(image_id);
     image_id = 0;
   } 

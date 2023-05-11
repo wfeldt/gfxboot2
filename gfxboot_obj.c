@@ -52,8 +52,8 @@ obj_descr_t obj_descr[] = {
   [OTYPE_CANVAS] = {
     1,
     gfx_obj_canvas_dump,
-    0,
-    0,
+    gfx_obj_canvas_gc,
+    gfx_obj_canvas_contains,
     0
   },
   [OTYPE_ARRAY] = {
@@ -82,13 +82,6 @@ obj_descr_t obj_descr[] = {
     gfx_obj_num_dump,
     0,
     0,
-    0
-  },
-  [OTYPE_GSTATE] = {
-    1,
-    gfx_obj_gstate_dump,
-    gfx_obj_gstate_gc,
-    gfx_obj_gstate_contains,
     0
   },
   [OTYPE_INVALID] = {
@@ -134,7 +127,7 @@ int gfx_obj_init()
 char *gfx_obj_id2str(obj_id_t id)
 {
   // corresponds to OTYPE_* defines
-  static const char *names[] = { "nil", "mem", "olist", "font", "canv", "array", "hash", "ctx", "num", "gstate" };
+  static const char *names[] = { "nil", "mem", "olist", "font", "canv", "array", "hash", "ctx", "num" };
   static char buf[64], buf2[32];
   const char *s, *sub_type = "", *ro = "";
   unsigned idx = OBJ_ID2IDX(id);

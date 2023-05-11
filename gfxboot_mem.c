@@ -31,6 +31,22 @@ data_t *gfx_obj_mem_ptr(obj_id_t id)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+data_t *gfx_obj_mem_ptr_rw(obj_id_t id)
+{
+  obj_t *ptr = gfx_obj_ptr(id);
+
+  if(!ptr || ptr->base_type != OTYPE_MEM) return 0;
+
+  if(ptr->flags.ro) {
+   GFX_ERROR(err_readonly);
+   return 0;
+  }
+
+  return &ptr->data;
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 data_t *gfx_obj_mem_subtype_ptr(obj_id_t id, uint8_t subtype)
 {
   obj_t *ptr = gfx_obj_ptr(id);
@@ -130,16 +146,13 @@ int gfx_obj_mem_get(obj_id_t mem_id, int pos)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 void gfx_obj_mem_del(obj_id_t mem_id, int pos)
 {
-  data_t *mem = gfx_obj_mem_ptr(mem_id);
+  data_t *mem = gfx_obj_mem_ptr_rw(mem_id);
 
   if(!mem) return;
 
   if(pos < 0) pos = (int) mem->size + pos;
 
   if(pos < 0 || pos >= (int) mem->size) return;
-
-  obj_t *ptr = gfx_obj_ptr(mem_id);
-  if(ptr->flags.ro) return;
 
   mem->size--;
 
@@ -154,11 +167,7 @@ void gfx_obj_mem_del(obj_id_t mem_id, int pos)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 obj_id_t gfx_obj_mem_set(obj_id_t mem_id, uint8_t val, int pos)
 {
-  obj_t *ptr = gfx_obj_ptr(mem_id);
-
-  if(!ptr || ptr->base_type != OTYPE_MEM || ptr->flags.ro) return 0;
-
-  data_t *mem = OBJ_DATA_FROM_PTR(ptr);
+  data_t *mem = gfx_obj_mem_ptr_rw(mem_id);
 
   if(pos < 0) pos = (int) mem->size + pos;
 
@@ -240,7 +249,7 @@ int gfx_obj_mem_dump(obj_t *ptr, dump_style_t style)
     }
   }
   else {
-    // if(len > 64) len = 64;		// log at most this much
+    if(style.max && len > style.max) len = style.max;		// log at most this much
     gfxboot_log("   ");
     s_idx = 0;
     for(cnt = 0; cnt < len; cnt++) {

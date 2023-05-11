@@ -14,61 +14,57 @@ int gfxboot_init()
 
   if(gfx_obj_init()) return 1;
 
-  // setup virtual fb as canvas object
-  gfxboot_data->screen.virt_id = gfx_obj_canvas_new(gfxboot_data->screen.real.width, gfxboot_data->screen.real.height);
-  if(!gfxboot_data->screen.virt_id) return 1;
-
   gfx_vm_status_dump();
 
-  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->screen.virt_id);
-
-  gfxboot_data->gstate_id = gfx_obj_gstate_new();
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
-
-  if(gstate) {
-    gstate->canvas_id = gfx_obj_ref_inc(gfxboot_data->screen.virt_id);
-    gstate->region = (area_t) { .width = canvas->width, .height = canvas->height };
-    gstate->pos = (area_t) {0, 0, 0, 0};
-    gstate->color = COLOR(0x00, 0xff, 0xff, 0xff);
-    gstate->bg_color = COLOR(0xff, 0x00, 0x00, 0x00);
-  }
-
-  gfxboot_data->console.gstate_id = gfx_obj_gstate_new();
-  gstate_t *console_gstate = gfx_obj_gstate_ptr(gfxboot_data->console.gstate_id);
-
-  if(console_gstate) {
-    console_gstate->canvas_id = gfx_obj_ref_inc(gfxboot_data->screen.virt_id);
-    console_gstate->region = (area_t) { .width = canvas->width, .height = canvas->height };
-    console_gstate->pos = (area_t) {0, 0, 0, 0};
-    console_gstate->color = COLOR(0x00, 0xff, 0xff, 0xff);
-    console_gstate->bg_color = COLOR(0x00, 0x24, 0x16, 0x32);
-  }
-
-  if(!gfx_setup_dict()) return 1;
+  // memory debug example:
+  //   gfxboot_data->vm.debug.show_pointer = 1;
+  //   gfx_malloc_dump((dump_style_t) { .dump = 1, .no_check = 1, .max = 64 });
+  //   gfx_obj_dump(OBJ_ID(0, 1), (dump_style_t) { .dump = 1, .no_check = 1, .max  = 64 });
 
   // setup compiled-in console font
   obj_id_t console_font_data_id = gfx_obj_const_mem_nofree_new(_console_font, sizeof _console_font, 0, 0);
-  console_gstate->font_id = gfx_obj_font_open(console_font_data_id);
-
+  obj_id_t font_id = gfx_obj_font_open(console_font_data_id);
   // font structure itself holds ref to data
   gfx_obj_ref_dec(console_font_data_id);
 
-  area_t area = gfx_font_dim(console_gstate->font_id);
-  console_gstate->pos.width = area.width;
-  console_gstate->pos.height = area.height;
+  // create virtual screen, used for drawing
+  gfxboot_data->screen.canvas_id = gfx_obj_canvas_new(gfxboot_data->screen.real.width, gfxboot_data->screen.real.height);
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->screen.canvas_id);
+  if(!canvas) return 1;
+  canvas->color = COLOR(0x00, 0xff, 0xff, 0xff);
+  canvas->bg_color = COLOR(0xff, 0x00, 0x00, 0x00);
 
-  int t_width = console_gstate->pos.width * 80;
-  int t_height = console_gstate->pos.height * 25;
-  if(
-    console_gstate->region.width >= t_width &&
-    console_gstate->region.height >= t_height
-  ) {
-    console_gstate->region.x = (console_gstate->region.width - t_width) / 2;
-    console_gstate->region.y = (console_gstate->region.height - t_height) / 2;
-    console_gstate->region.width = t_width;
-    console_gstate->region.height = t_height;
-    console_gstate->pos.y = t_height - console_gstate->pos.height;
-  }
+  // create default canvas ('background')
+  gfxboot_data->canvas_id = gfx_obj_canvas_new(gfxboot_data->screen.real.width, gfxboot_data->screen.real.height);
+  canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
+  if(!canvas) return 1;
+  canvas->color = COLOR(0x00, 0xff, 0xff, 0xff);
+  canvas->bg_color = COLOR(0xff, 0x00, 0x00, 0x00);
+
+  // create canvas for debug console
+  area_t area = gfx_font_dim(font_id);
+  int t_width = area.width * 80;
+  int t_height = area.height * 25;
+  int t_x = (gfxboot_data->screen.real.width - t_width) / 2;
+  int t_y = (gfxboot_data->screen.real.height - t_height) / 2;
+
+  gfxboot_data->console.canvas_id = gfx_obj_canvas_new(t_width, t_height);
+  canvas = gfx_obj_canvas_ptr(gfxboot_data->console.canvas_id);
+  if(!canvas) return 1;
+  canvas->draw_mode = dm_direct;
+  canvas->font_id = font_id;
+  canvas->geo.x = t_x;
+  canvas->geo.y = t_y;
+  canvas->cursor = (area_t) { .x = 0, .y = t_height - area.height, .width = area.width, .height = area.height };
+  canvas->color = COLOR(0x00, 0xff, 0xff, 0xff);
+  canvas->bg_color = COLOR(0x60, 0x32, 0x32, 0x32);
+  gfx_rect(gfxboot_data->console.canvas_id, 0, 0, t_width, t_height, canvas->bg_color);
+
+  // create default compose list and add default background canvas
+  gfxboot_data->compose.list_id = gfx_obj_array_new(0);
+  gfx_obj_array_push(gfxboot_data->compose.list_id, gfxboot_data->canvas_id, 1);
+
+  if(!gfx_setup_dict()) return 1;
 
   // load main program
   obj_id_t pfile_id = gfx_read_file("main.gc");
@@ -83,7 +79,7 @@ int gfxboot_init()
   }
 
   if(!gfx_program_init(pfile_id)) {
-    gfxboot_log("failed to setup prgram\n");
+    gfxboot_log("failed to setup program\n");
     return 1;
   }
 
@@ -123,7 +119,6 @@ void gfxboot_debug_command(char *str)
 */
 int gfxboot_process_key(unsigned key)
 {
-  static int x = 0, y = 0;
   int action = 0;
 
   gfxboot_debug(2, 2, "gfxboot_process_key: key = 0x%08x\n", key);
@@ -139,21 +134,10 @@ int gfxboot_process_key(unsigned key)
       return action;
     }
 
-    gfx_program_process_key(key);
+    action = gfx_program_process_key(key);
   }
 
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->gstate_id);
-
-  if(gstate) gfx_rect(gstate, x, y, 100, 20, (40 + y) * 0x7834242296 * (x + 1));
-
-  y += 20;
-
-  if(y >= gfxboot_data->screen.real.height) {
-    y = 0;
-    x += 120;
-    x = x % gfxboot_data->screen.real.width;
-  }
-
+#if 0
   switch(key) {
     case '0'...'9':
       gfxboot_data->menu.entry = (int) key - '0';
@@ -174,6 +158,9 @@ int gfxboot_process_key(unsigned key)
       action = (-1 << 8) + 0x10 + 1;
       break;
   }
+#endif
+
+  gfxboot_debug(2, 2, "gfxboot_process_key: action = 0x%x\n", action);
 
   return action;
 }

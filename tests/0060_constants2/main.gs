@@ -13,4 +13,4 @@ true false
 "hjgfahjgsdfahjgsdfahjgsfdjhasfdadfsjhajsdhfadjhsdfhajsdajhasdfgasdfgajksdgfkjasdgfasdfjkasdgfaskdfkasjdgfkjaasdfasdfjkasdgfkjashdgfjkasdgfjhasdgfjaksgdfkjasdgfkajsdgfkjasdgfkjasdfgkjasdfhgaksjdfasdkfjasdgfksajdhfgkajsdhgfjkasdgfjkasdgfkjasjkasdgfkjasdfkdds"
 "abc"
 "abc"
-/foo { 10 20 } { 100 300 400 0 } { 100 300 400 10 } def
+/foo { 100 300 400 10 } def

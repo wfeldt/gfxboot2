@@ -7,9 +7,12 @@
 //
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-static obj_id_t gfx_font_render_glyph(gstate_t *gstate, area_t *geo, unsigned c);
-static obj_id_t gfx_font_render_font1_glyph(gstate_t *gstate, font_t *font, area_t *geo, unsigned c);
-static obj_id_t gfx_font_render_font2_glyph(gstate_t *gstate, font_t *font, area_t *geo, unsigned c);
+static void gfx_screen_update(obj_id_t canvas_id, area_t area);
+static void gfx_canvas_update(obj_id_t canvas_id, area_t area);
+
+static obj_id_t gfx_font_render_glyph(obj_id_t canvas_id, area_t *geo, unsigned c, unsigned size_only);
+static obj_id_t gfx_font_render_font1_glyph(obj_id_t canvas_id, font_t *font, area_t *geo, unsigned c, unsigned size_only);
+static obj_id_t gfx_font_render_font2_glyph(obj_id_t canvas_id, font_t *font, area_t *geo, unsigned c, unsigned size_only);
 static unsigned read_unsigned_bits(uint8_t *buf, unsigned *bit_ofs, unsigned bits);
 static int read_signed_bits(uint8_t *buf, unsigned *bit_ofs, unsigned bits);
 
@@ -17,7 +20,7 @@ static color_t gfx_color_merge(color_t dst, color_t src);
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_screen_update(area_t area)
+void gfx_screen_update(obj_id_t canvas_id, area_t area)
 {
   int i, j;
   uint8_t *r8, *rc8;
@@ -28,7 +31,7 @@ void gfx_screen_update(area_t area)
   int rp, gp, bp;
   int rsize;
 
-  canvas_t *virt_fb = gfx_obj_canvas_ptr(gfxboot_data->screen.virt_id);
+  canvas_t *virt_fb = gfx_obj_canvas_ptr(canvas_id);
   if(!virt_fb) return;
 
   color_t *pixel = virt_fb->ptr;
@@ -58,9 +61,9 @@ void gfx_screen_update(area_t area)
     area.y * gfxboot_data->screen.real.bytes_per_line +
     area.x * gfxboot_data->screen.real.bytes_per_pixel;
 
-  pixel += area.y * virt_fb->width + area.x;
+  pixel += area.y * virt_fb->geo.width + area.x;
 
-  for(j = 0; j < area.height; j++, r8 += gfxboot_data->screen.real.bytes_per_line, pixel += virt_fb->width) {
+  for(j = 0; j < area.height; j++, r8 += gfxboot_data->screen.real.bytes_per_line, pixel += virt_fb->geo.width) {
     for(rc8 = r8, i = 0; i < area.width; i++) {
       c = pixel[i];
       rc = (((c >> rs) & rm) << rp) + (((c >> gs) & gm) << gp) + (((c >> bs) & bm) << bp);
@@ -86,20 +89,102 @@ void gfx_screen_update(area_t area)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-obj_id_t gfx_font_render_glyph(gstate_t *gstate, area_t *geo, unsigned c)
+// update area if canvas_id is in compose list
+//
+void gfx_canvas_update(obj_id_t canvas_id, area_t area)
+{
+  obj_id_t list_id = gfxboot_data->compose.list_id;
+  array_t *list = gfx_obj_array_ptr(list_id);
+
+  if(!list) return;
+
+  int list_size = (int) list->size;
+
+  for(int i = 0; i <= list_size; i++) {
+    obj_id_t c_id = 0;
+    if(i == list_size) {
+      if(gfxboot_data->vm.debug.console.show) c_id = gfxboot_data->console.canvas_id;
+    }
+    else {
+      c_id = gfx_obj_array_get(list_id, i);
+    }
+    if(c_id == canvas_id) {
+      canvas_t *canvas = gfx_obj_canvas_ptr(c_id);
+      area.x += canvas->geo.x;
+      area.y += canvas->geo.y;
+      gfx_screen_compose(area);
+      return;
+    }
+  }
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+void gfx_screen_compose(area_t area)
+{
+  obj_id_t list_id = gfxboot_data->compose.list_id;
+  array_t *list = gfx_obj_array_ptr(list_id);
+
+  if(!list) return;
+
+  obj_id_t target_id = gfxboot_data->screen.canvas_id;
+  canvas_t *target_canvas = gfx_obj_canvas_ptr(target_id);
+
+  if(!target_canvas) return;
+
+  int list_size = (int) list->size;
+
+  gfx_clip(&area, &target_canvas->geo);
+
+  draw_mode_t blt_mode = dm_direct + dm_no_update;
+
+  for(int i = 0; i <= list_size; i++) {
+    obj_id_t c_id = 0;
+    if(i == list_size) {
+      if(gfxboot_data->vm.debug.console.show) c_id = gfxboot_data->console.canvas_id;
+    }
+    else {
+      c_id = gfx_obj_array_get(list_id, i);
+    }
+    canvas_t *canvas = gfx_obj_canvas_ptr(c_id);
+    if(!canvas) continue;
+    area_t dst_area = canvas->geo;
+    area_t src_area = area;
+    area_t diff = gfx_clip(&dst_area, &src_area);
+    if(dst_area.width) {
+      // gfxboot_serial(0, "XXX i = %d: +%dx%d_%dx%d %dx%d_%dx%d\n", i, diff.x, diff.y, diff.width, diff.height, dst_area.x, dst_area.y, dst_area.width, dst_area.height);
+      src_area.x = diff.x;
+      src_area.y = diff.y;
+      src_area.width = dst_area.width;
+      src_area.height = dst_area.height;
+      // gfxboot_serial(0, "compose %d: src = %dx%d_%dx%d, dst = %dx%d_%dx%d\n", i, src_area.x, src_area.y, src_area.width, src_area.height, dst_area.x, dst_area.y, dst_area.width, dst_area.height);
+      gfx_blt(blt_mode, target_id, dst_area, c_id, src_area);
+      blt_mode = dm_merge + dm_no_update;
+    }
+  }
+
+  gfx_screen_update(target_id, area);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+obj_id_t gfx_font_render_glyph(obj_id_t canvas_id, area_t *geo, unsigned c, unsigned size_only)
 {
   font_t *font;
   obj_id_t font_id, glyph_id = 0;
 
   while(1) {
-    for(font_id = gstate->font_id; (font = gfx_obj_font_ptr(font_id)); font_id = font->parent_id) {
+    canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+    if(!canvas) return 0;
+
+    for(font_id = canvas->font_id; (font = gfx_obj_font_ptr(font_id)); font_id = font->parent_id) {
       switch(font->type) {
         case 1:
-          glyph_id = gfx_font_render_font1_glyph(gstate, font, geo, c);
+          glyph_id = gfx_font_render_font1_glyph(canvas_id, font, geo, c, size_only);
           break;
 
         case 2:
-          glyph_id = gfx_font_render_font2_glyph(gstate, font, geo, c);
+          glyph_id = gfx_font_render_font2_glyph(canvas_id, font, geo, c, size_only);
           break;
       }
       if(glyph_id) return glyph_id;
@@ -115,8 +200,10 @@ obj_id_t gfx_font_render_glyph(gstate_t *gstate, area_t *geo, unsigned c)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-obj_id_t gfx_font_render_font1_glyph(gstate_t *gstate, font_t *font, area_t *geo, unsigned c)
+obj_id_t gfx_font_render_font1_glyph(obj_id_t canvas_id, font_t *font, area_t *geo, unsigned c, unsigned size_only)
 {
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+
   data_t *data = gfx_obj_mem_ptr(font->data_id);
   if(!data) return 0;
 
@@ -155,12 +242,14 @@ obj_id_t gfx_font_render_font1_glyph(gstate_t *gstate, font_t *font, area_t *geo
     return 0;
   }
 
+  if(size_only) return font->glyph_id;
+
   // gfxboot_log("char 0x%04x, idx %u, bitmap %p\n", c, idx, bitmap);
 
   // got bitmap, now go for it
 
-  color_t fg = gstate->color;
-  color_t bg = gstate->bg_color;
+  color_t fg = canvas->color;
+  color_t bg = canvas->bg_color;
 
   color_t *col = glyph->ptr;
   uint8_t cb;
@@ -181,8 +270,10 @@ obj_id_t gfx_font_render_font1_glyph(gstate_t *gstate, font_t *font, area_t *geo
 #define MAX_GRAY	((1 << GRAY_BITS) - 3)
 #define REP_BG		(MAX_GRAY + 1)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-obj_id_t gfx_font_render_font2_glyph(gstate_t *gstate, font_t *font, area_t *geo, unsigned c)
+obj_id_t gfx_font_render_font2_glyph(obj_id_t canvas_id, font_t *font, area_t *geo, unsigned c, unsigned size_only)
 {
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+
   data_t *data = gfx_obj_mem_ptr(font->data_id);
   if(!data) return 0;
 
@@ -241,6 +332,8 @@ obj_id_t gfx_font_render_font2_glyph(gstate_t *gstate, font_t *font, area_t *geo
 
   *geo = (area_t) { .x = x_ofs, .y = d_y, .width = x_advance, .height = 0 };
 
+  if(size_only) return font->glyph_id;
+
   unsigned len = (unsigned) (bitmap_height * bitmap_width);
 
   static color_t last_fg = COLOR(0, 0, 0, 0);
@@ -254,7 +347,7 @@ obj_id_t gfx_font_render_font2_glyph(gstate_t *gstate, font_t *font, area_t *geo
     } __attribute__ ((packed));
   } __attribute__ ((packed)) fg, tmp;
 
-  fg.c = gstate->color;
+  fg.c = canvas->color;
 
   // if drawing color changed, recalculate color mapping table
   if(fg.c != last_fg || first_time_ever) {
@@ -288,60 +381,61 @@ obj_id_t gfx_font_render_font2_glyph(gstate_t *gstate, font_t *font, area_t *geo
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 void gfx_console_putc(unsigned c, int update_pos)
 {
-  gstate_t *gstate = gfx_obj_gstate_ptr(gfxboot_data->console.gstate_id);
+  obj_id_t canvas_id = gfxboot_data->console.canvas_id;
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
 
-  if(!gstate) return;
+  if(!canvas) return;
 
   switch(c) {
     case 0x08:
       if(update_pos) {
-        gfx_putc(gstate, ' ', 0);
-        if(gstate->pos.x >= gstate->pos.width) {
-          gstate->pos.x -= gstate->pos.width;
+        gfx_putc(canvas_id, ' ', 0);
+        if(canvas->cursor.x >= canvas->cursor.width) {
+          canvas->cursor.x -= canvas->cursor.width;
         }
         else {
-          gstate->pos.x = 0;
+          canvas->cursor.x = 0;
         }
       }
       break;
 
     case 0x0a:
       if(update_pos) {
-        gstate->pos.x = 0;
-        gstate->pos.y += gstate->pos.height;
+        canvas->cursor.x = 0;
+        canvas->cursor.y += canvas->cursor.height;
       }
 
-      area_t src_area = gstate->region;
-      area_t dst_area = gstate->region;
+      area_t src_area = canvas->region;
+      area_t dst_area = canvas->region;
 
-      dst_area.height = src_area.height -= gstate->pos.height;
-      src_area.y += gstate->pos.height;
+      dst_area.height = src_area.height -= canvas->cursor.height;
+      src_area.y += canvas->cursor.height;
 
-      if(gstate->pos.y + gstate->pos.height > gstate->region.height) {
-        gstate->pos.y -= gstate->pos.height;
+      if(canvas->cursor.y + canvas->cursor.height > canvas->region.height) {
+        canvas->cursor.y -= canvas->cursor.height;
 
         // scroll up
-        gfx_blt(0, gstate->canvas_id, dst_area, gstate->canvas_id, src_area);
+        gfx_blt(canvas->draw_mode, canvas_id, dst_area, canvas_id, src_area);
 
         gfx_rect(
-          gstate,
+          canvas_id,
           0,
-          gstate->region.height - gstate->pos.height,
-          gstate->region.width,
-          gstate->pos.height,
-          gstate->bg_color
+          canvas->region.height - canvas->cursor.height,
+          canvas->region.width,
+          canvas->cursor.height,
+          canvas->bg_color
         );
       }
       break;
 
     case 0x0d:
       if(update_pos) {
-        gstate->pos.x = 0;
+        canvas->cursor.x = 0;
       }
       break;
 
     default:
-      gfx_putc(gstate, c, update_pos);
+      gfx_putc(canvas_id, c, update_pos);
   }
 }
 
@@ -358,45 +452,67 @@ void gfx_console_puts(char *s)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_putc(gstate_t *gstate, unsigned c, int update_pos)
+void gfx_putc(obj_id_t canvas_id, unsigned c, int update_pos)
 {
   obj_id_t glyph_id;
   area_t geo;
 
-  if((glyph_id = gfx_font_render_glyph(gstate, &geo, c))) {
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+
+  if(!canvas) return;
+
+  if((glyph_id = gfx_font_render_glyph(canvas_id, &geo, c, 0))) {
     canvas_t *glyph = gfx_obj_canvas_ptr(glyph_id);
     if(!glyph) return;
 
     area_t area = {
-      .x = gstate->region.x + gstate->pos.x + geo.x,
-      .y = gstate->region.y + gstate->pos.y + geo.y,
-      .width = glyph->width,
-      .height = glyph->height
+      .x = canvas->region.x + canvas->cursor.x + geo.x,
+      .y = canvas->region.y + canvas->cursor.y + geo.y,
+      .width = glyph->geo.width,
+      .height = glyph->geo.height
     };
 
     area_t glyph_area = {
       .x = 0,
       .y = 0,
-      .width = glyph->width,
-      .height = glyph->height
+      .width = glyph->geo.width,
+      .height = glyph->geo.height
     };
 
-    area_t diff = gfx_clip(&area, &gstate->region);
+#if 1
+    gfxboot_serial(1, "putc 0x%2x - area %dx%d_%dx%d",
+      c, area.x, area.y, area.width, area.height
+    );
+#endif
+
+    area_t diff = gfx_clip(&area, &canvas->region);
+
+#if 1
+    gfxboot_serial(1, " - clipped area %dx%d_%dx%d",
+      area.x, area.y, area.width, area.height
+    );
+    gfxboot_serial(1, " - diff %dx%d_%dx%d\n",
+      diff.x, diff.y, diff.width, diff.height
+    );
+#endif
 
     ADD_AREA(glyph_area, diff);
 
-    gfx_blt(1, gstate->canvas_id, area, glyph_id, glyph_area);
+    gfx_blt(canvas->draw_mode, canvas_id, area, glyph_id, glyph_area);
 
-    if(update_pos) gstate->pos.x += geo.width;
+    if(update_pos) canvas->cursor.x += geo.width;
   }
 }
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_puts(gstate_t *gstate, char *s, unsigned len)
+void gfx_puts(obj_id_t canvas_id, char *s, unsigned len)
 {
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+  if(!canvas) return;
+
   int c;
-  int start = gstate->pos.x;
+  int start = canvas->cursor.x;
 
   while(len) {
     c = gfx_utf8_dec(&s, &len);
@@ -404,16 +520,75 @@ void gfx_puts(gstate_t *gstate, char *s, unsigned len)
 
     switch(c) {
       case 0x0a:
-        gstate->pos.y += gstate->pos.height;
+        canvas->cursor.y += canvas->cursor.height;
 
       case 0x0d:
-        gstate->pos.x = start;
+        canvas->cursor.x = start;
         break;
 
       default:
-        gfx_putc(gstate, (unsigned) c, 1);
+        gfx_putc(canvas_id, (unsigned) c, 1);
     }
   }
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+area_t gfx_text_dim(obj_id_t canvas_id, char *text, unsigned len)
+{
+  area_t area = {};
+
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+  if(!canvas) return area;
+
+  area_t font_dim = gfx_font_dim(canvas->font_id);
+  area_t geo = {};
+
+  int width = 0;
+  int lines = 0;
+
+  while(len) {
+    int c = gfx_utf8_dec(&text, &len);
+    if(c < 0) c = 0xfffd;
+
+    switch(c) {
+      case 0x0a:
+        // ignore newline at text end
+        if(len) lines++;
+
+      case 0x0d:
+        width = 0;
+        break;
+
+      default:
+        gfx_font_render_glyph(canvas_id, &geo, (unsigned) c, 1);
+        width += geo.width;
+        if(width > area.width) area.width = width;
+    }
+  }
+
+  area.height = font_dim.height + lines * font_dim.y;
+
+  return area;
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+area_t gfx_char_dim(obj_id_t canvas_id, unsigned chr)
+{
+  area_t area = {};
+
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+  if(!canvas) return area;
+
+  area = gfx_font_dim(canvas->font_id);
+
+  area_t geo = {};
+  gfx_font_render_glyph(canvas_id, &geo, chr, 1);
+
+  area.width = geo.width;
+
+  return area;
 }
 
 
@@ -421,6 +596,11 @@ void gfx_puts(gstate_t *gstate, char *s, unsigned len)
 // clip area1 to difference of area1 and area2
 //
 // return difference (diff = area1_clipped - area1_unclipped)
+//
+// Notes:
+//   - diff.x, diff.y >= 0
+//   - diff.width, diff.height <= 0
+//   - if the clipped area is 0, both width and height will be set to 0
 //
 area_t gfx_clip(area_t *area1, area_t *area2)
 {
@@ -454,13 +634,10 @@ area_t gfx_clip(area_t *area1, area_t *area2)
   area1->width += diff.width;
   area1->height += diff.height;
 
-  if(area1->width < 0) {
-    diff.width = -area1->width;
+  if(area1->width <= 0 || area1->height <= 0) {
+    diff.width -= area1->width;
     area1->width = 0;
-  }
-
-  if(area1->height < 0) {
-    diff.height = -area1->height;
+    diff.height -= area1->height;
     area1->height = 0;
   }
 
@@ -469,7 +646,7 @@ area_t gfx_clip(area_t *area1, area_t *area2)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_blt(int mode, obj_id_t dst_id, area_t dst_area, obj_id_t src_id, area_t src_area)
+void gfx_blt(draw_mode_t mode, obj_id_t dst_id, area_t dst_area, obj_id_t src_id, area_t src_area)
 {
   canvas_t *dst_c = gfx_obj_canvas_ptr(dst_id);
   canvas_t *src_c = gfx_obj_canvas_ptr(src_id);
@@ -482,6 +659,9 @@ void gfx_blt(int mode, obj_id_t dst_id, area_t dst_area, obj_id_t src_id, area_t
   );
 
   if(!dst_c || !src_c) return;
+
+  draw_mode_t mode_no_update = mode & dm_no_update;
+  mode &= dm_no_update - 1;
 
   dst_area.width = MIN(src_area.width, dst_area.width);
   dst_area.height = MIN(src_area.height, dst_area.height);
@@ -508,27 +688,25 @@ void gfx_blt(int mode, obj_id_t dst_id, area_t dst_area, obj_id_t src_id, area_t
   color_t *dst_pixel = dst_c->ptr;
   color_t *src_pixel = src_c->ptr;
 
-  dst_pixel += dst_area.y * dst_c->width + dst_area.x;
-  src_pixel += src_area.y * src_c->width + src_area.x;
+  dst_pixel += dst_area.y * dst_c->geo.width + dst_area.x;
+  src_pixel += src_area.y * src_c->geo.width + src_area.x;
 
-  if(mode == 0) {
+  if(mode == dm_direct) {
     int i;
-    for(i = 0; i < dst_area.height; i++, dst_pixel += dst_c->width, src_pixel += src_c->width) {
+    for(i = 0; i < dst_area.height; i++, dst_pixel += dst_c->geo.width, src_pixel += src_c->geo.width) {
       gfx_memcpy(dst_pixel, src_pixel, (unsigned) dst_area.width * COLOR_BYTES);
     }
   }
-  else if(mode == 1) {
+  else if(mode == dm_merge) {
     int i, j;
-    for(j = 0; j < dst_area.height; j++, dst_pixel += dst_c->width, src_pixel += src_c->width) {
+    for(j = 0; j < dst_area.height; j++, dst_pixel += dst_c->geo.width, src_pixel += src_c->geo.width) {
       for(i = 0; i < dst_area.width; i++) {
         dst_pixel[i] = gfx_color_merge(dst_pixel[i], src_pixel[i]);
       }
     }
   }
 
-  if(dst_id == gfxboot_data->screen.virt_id) {
-    gfx_screen_update(dst_area);
-  }
+  if(!mode_no_update) gfx_canvas_update(dst_id, dst_area);
 }
 
 
@@ -569,15 +747,19 @@ color_t gfx_color_merge(color_t dst, color_t src)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-int gfx_getpixel(gstate_t *gstate, canvas_t *canvas, int x, int y, color_t *color)
+int gfx_getpixel(obj_id_t canvas_id, int x, int y, color_t *color)
 {
   int ok = 0;
 
-  if(x >= 0 && y >= 0 && x < gstate->region.width && y < gstate->region.height) {
-    x += gstate->region.x;
-    y += gstate->region.y;
-    if(x >= 0 && y >= 0 && x < canvas->width && y < canvas->height) {
-      *color = canvas->ptr[x + y * canvas->width];
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+
+  if(!canvas) return 0;
+
+  if(x >= 0 && y >= 0 && x < canvas->region.width && y < canvas->region.height) {
+    x += canvas->region.x;
+    y += canvas->region.y;
+    if(x >= 0 && y >= 0 && x < canvas->geo.width && y < canvas->geo.height) {
+      *color = canvas->ptr[x + y * canvas->geo.width];
       ok = 1;
     }
   }
@@ -587,26 +769,37 @@ int gfx_getpixel(gstate_t *gstate, canvas_t *canvas, int x, int y, color_t *colo
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_putpixel(gstate_t *gstate, canvas_t *canvas, int x, int y, color_t color)
+void gfx_putpixel(obj_id_t canvas_id, int x, int y, color_t color)
 {
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
+
+  draw_mode_t mode_no_update = canvas->draw_mode & dm_no_update;
+  draw_mode_t mode = canvas->draw_mode & (dm_no_update - 1);
+
   // gfxboot_serial(0, "X putpixel %dx%d\n", x, y);
 
-  if(x >= 0 && y >= 0 && x < gstate->region.width && y < gstate->region.height) {
-    x += gstate->region.x;
-    y += gstate->region.y;
-    if(x >= 0 && y >= 0 && x < canvas->width && y < canvas->height) {
-      int ofs = x + y * canvas->width;
-      canvas->ptr[ofs] = gfx_color_merge(canvas->ptr[ofs], color);
-      if(gstate->canvas_id == gfxboot_data->screen.virt_id) {
-        gfx_screen_update((area_t) { .x = x, .y = y, .width = 1, .height = 1 });
+  if(!canvas) return;
+
+  if(x >= 0 && y >= 0 && x < canvas->region.width && y < canvas->region.height) {
+    x += canvas->region.x;
+    y += canvas->region.y;
+    if(x >= 0 && y >= 0 && x < canvas->geo.width && y < canvas->geo.height) {
+      int ofs = x + y * canvas->geo.width;
+      if(mode == dm_direct) {
+        canvas->ptr[ofs] = color;
       }
+      else if(mode == dm_merge) {
+        canvas->ptr[ofs] = gfx_color_merge(canvas->ptr[ofs], color);
+      }
+
+      if(!mode_no_update) gfx_canvas_update(canvas_id, (area_t) { .x = x, .y = y, .width = 1, .height = 1 });
     }
   }
 }
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_line(gstate_t *gstate, canvas_t *canvas, int x0, int y0, int x1, int y1, color_t color)
+void gfx_line(obj_id_t canvas_id, int x0, int y0, int x1, int y1, color_t color)
 {
   if(x1 < x0) {
     int tmp;
@@ -625,10 +818,10 @@ void gfx_line(gstate_t *gstate, canvas_t *canvas, int x0, int y0, int x1, int y1
       dy = -dy;
     }
     if(dx) {
-      gfx_rect(gstate, x0, y0, dx + 1, 1, color);
+      gfx_rect(canvas_id, x0, y0, dx + 1, 1, color);
     }
     else if(dy) {
-      gfx_rect(gstate, x0, y0, 1, dy + 1, color);
+      gfx_rect(canvas_id, x0, y0, 1, dy + 1, color);
     }
 
     return;
@@ -637,7 +830,7 @@ void gfx_line(gstate_t *gstate, canvas_t *canvas, int x0, int y0, int x1, int y1
   if(dy >= 0) {
     if(dy <= dx) {
       for(acc = -(dx / 2); x0 <= x1; x0++) {
-        gfx_putpixel(gstate, canvas, x0, y0, color);
+        gfx_putpixel(canvas_id, x0, y0, color);
         acc += dy;
         if(acc >= 0) {
           acc -= dx;
@@ -647,7 +840,7 @@ void gfx_line(gstate_t *gstate, canvas_t *canvas, int x0, int y0, int x1, int y1
     }
     else {
       for(acc = -(dy / 2); y0 <= y1; y0++) {
-        gfx_putpixel(gstate, canvas, x0, y0, color);
+        gfx_putpixel(canvas_id, x0, y0, color);
         acc += dx;
         if(acc >= 0) {
           acc -= dy;
@@ -660,7 +853,7 @@ void gfx_line(gstate_t *gstate, canvas_t *canvas, int x0, int y0, int x1, int y1
     dy = -dy;
     if(dy <= dx) {
       for(acc = -(dx / 2); x0 <= x1; x0++) {
-        gfx_putpixel(gstate, canvas, x0, y0, color);
+        gfx_putpixel(canvas_id, x0, y0, color);
         acc += dy;
         if(acc >= 0) {
           acc -= dx;
@@ -670,7 +863,7 @@ void gfx_line(gstate_t *gstate, canvas_t *canvas, int x0, int y0, int x1, int y1
     }
     else {
       for(acc = -(dy / 2); y0 >= y1; y0--) {
-        gfx_putpixel(gstate, canvas, x0, y0, color);
+        gfx_putpixel(canvas_id, x0, y0, color);
         acc += dx;
         if(acc >= 0) {
           acc -= dy;
@@ -683,15 +876,17 @@ void gfx_line(gstate_t *gstate, canvas_t *canvas, int x0, int y0, int x1, int y1
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_rect(gstate_t *gstate, int x, int y, int width, int height, color_t c)
+void gfx_rect(obj_id_t canvas_id, int x, int y, int width, int height, color_t c)
 {
-  canvas_t *canvas = gfx_obj_canvas_ptr(gstate->canvas_id);
-
+  canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
   if(!canvas) return;
 
+  draw_mode_t mode_no_update = canvas->draw_mode & dm_no_update;
+  draw_mode_t mode = canvas->draw_mode & (dm_no_update - 1);
+
   area_t area = {
-    .x = gstate->region.x + x,
-    .y = gstate->region.y + y,
+    .x = canvas->region.x + x,
+    .y = canvas->region.y + y,
     .width = width,
     .height = height
   };
@@ -699,11 +894,11 @@ void gfx_rect(gstate_t *gstate, int x, int y, int width, int height, color_t c)
 #if 0
   gfxboot_serial(0, "rect before: %dx%d_%dx%d / %dx%d_%dx%d\n",
     area.x, area.y, area.width, area.height,
-    gstate->region.x, gstate->region.y, gstate->region.width, gstate->region.height
+    canvas->region.x, canvas->region.y, canvas->region.width, canvas->region.height
   );
 #endif
 
-  gfx_clip(&area, &gstate->region);
+  gfx_clip(&area, &canvas->region);
 
 #if 0
   gfxboot_serial(0, "rect after: %dx%d_%dx%d\n",
@@ -713,19 +908,26 @@ void gfx_rect(gstate_t *gstate, int x, int y, int width, int height, color_t c)
 
   color_t *pixel = canvas->ptr;
 
-  pixel += area.y * canvas->width + area.x;
+  pixel += area.y * canvas->geo.width + area.x;
 
   int i, j;
 
-  for(j = 0; j < area.height; j++, pixel += canvas->width) {
-    for(i = 0; i < area.width; i++) {
-      pixel[i] = gfx_color_merge(pixel[i], c);
+  if(mode == dm_direct) {
+    for(j = 0; j < area.height; j++, pixel += canvas->geo.width) {
+      for(i = 0; i < area.width; i++) {
+        pixel[i] = c;
+      }
+    }
+  }
+  else if(mode == dm_merge) {
+    for(j = 0; j < area.height; j++, pixel += canvas->geo.width) {
+      for(i = 0; i < area.width; i++) {
+        pixel[i] = gfx_color_merge(pixel[i], c);
+      }
     }
   }
 
-  if(gstate->canvas_id == gfxboot_data->screen.virt_id) {
-    gfx_screen_update(area);
-  }
+  if(!mode_no_update) gfx_canvas_update(canvas_id, area);
 }
 
 

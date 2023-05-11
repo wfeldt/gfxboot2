@@ -7,6 +7,8 @@
 #pragma GCC diagnostic ignored "-Wshift-negative-value"
 #pragma GCC diagnostic ignored "-Wpointer-arith"
 #pragma GCC diagnostic ignored "-Waddress-of-packed-member"
+#pragma GCC diagnostic ignored "-Wpointer-sign"
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
 
 // #define FULL_ERROR
 
@@ -69,9 +71,8 @@ typedef uint32_t obj_id_t;
 #define OTYPE_HASH		6
 #define OTYPE_CONTEXT		7
 #define OTYPE_NUM		8
-#define OTYPE_GSTATE		9
-#define OTYPE_INVALID		10
-#define OTYPE_ANY		11
+#define OTYPE_INVALID		9
+#define OTYPE_ANY		10
 
 // internal memory size of object with size n
 #define OBJ_OLIST_SIZE(n)	(sizeof (olist_t) + (n) * sizeof (obj_t))
@@ -80,7 +81,6 @@ typedef uint32_t obj_id_t;
 #define OBJ_ARRAY_SIZE(n)	(sizeof (array_t) + (n) * sizeof *((array_t) {0}).ptr)
 #define OBJ_HASH_SIZE(n)	(sizeof (hash_t) + (n) * sizeof *((hash_t) {0}).ptr)
 #define OBJ_CONTEXT_SIZE()	(sizeof (context_t))
-#define OBJ_GSTATE_SIZE()	(sizeof (gstate_t))
 
 #define OBJ_DATA_FROM_PTR(p)	(&(p)->data)
 #define OBJ_MEM_FROM_PTR(p)	((p)->data.ptr)
@@ -90,7 +90,6 @@ typedef uint32_t obj_id_t;
 #define OBJ_ARRAY_FROM_PTR(p)	((array_t *) (p)->data.ptr)
 #define OBJ_HASH_FROM_PTR(p)	((hash_t *) (p)->data.ptr)
 #define OBJ_CONTEXT_FROM_PTR(p)	((context_t *) (p)->data.ptr)
-#define OBJ_GSTATE_FROM_PTR(p)	((gstate_t *) (p)->data.ptr)
 #define OBJ_VALUE_FROM_PTR(p)	((p)->data.value)
 
 #define ADD_AREA(a, b) (a).x += (b).x, (a).y += (b).y, (a).width += (b).width, (a).height += (b).height
@@ -144,6 +143,13 @@ typedef enum {
   mc_xref = (1 << 1)
 } malloc_check_t;
 
+// dm_no_update is a bit mask
+typedef enum {
+  dm_merge = 0,
+  dm_direct = 1,
+  dm_no_update = 2
+} draw_mode_t;
+
 typedef struct {
   unsigned inspect:1;
   unsigned dump:1;
@@ -195,10 +201,17 @@ typedef struct {
 } area_t;
 
 typedef struct {
-  int max_width, max_height;
-  int width, height;
+  int max_width, max_height;	// maximum canvas size; ptr[] array holds max_width * max_height pixels
+  area_t geo;			// current canvas location & size; width, height <= canvas.max_width, canvas.max_height; cf. gfx_canvas_adjust_size()
+  area_t region;		// FIXME: [NOT screen relative] drawing (clipping) area, relative to screen (in pixel)
+  area_t cursor;		// drawing position (in x, y) and font char size (in width, height)
+  color_t color;		// drawing color
+  color_t bg_color;		// background color
+  obj_id_t font_id;		// font
+  draw_mode_t draw_mode;	// drawing mode
+
   color_t ptr[];
-} canvas_t;	// __attribute__ ((packed))
+} __attribute__ ((packed)) canvas_t;
 
 typedef union {
   struct {
@@ -277,15 +290,6 @@ typedef struct {
 } context_t;
 
 typedef struct {
-  area_t region;	// drawing area, relative to screen (in pixel)
-  area_t pos;		// drawing position (in x, y) and font char size (in width, height)
-  color_t color;	// drawing color
-  color_t bg_color;	// background color
-  obj_id_t canvas_id;
-  obj_id_t font_id;
-} gstate_t;
-
-typedef struct {
   context_t *ctx;
   int64_t arg1;
   uint8_t *arg2;
@@ -299,15 +303,21 @@ typedef struct {
 
 typedef struct {
   struct {
-    fb_t real;
-    obj_id_t virt_id;
+    fb_t real;			// real framebuffer
+    obj_id_t canvas_id;		// canvas for internal virtual screen
   } screen;
 
   struct {
-    obj_id_t gstate_id;		// debug console gstate
+    obj_id_t canvas_id;		// debug console
   } console;
 
-  obj_id_t gstate_id;		// normal gstate
+  obj_id_t canvas_id;		// default canvas
+
+  struct {
+    obj_id_t list_id;		// array of canvas ids
+  } compose;
+
+  obj_id_t event_handler_id;	// event handler (keyboard, timer, ...)
 
   struct {
     int nested;
@@ -406,17 +416,19 @@ char *gfx_utf8_enc(unsigned uc);
 int gfx_utf8_dec(char **s, unsigned *len);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_screen_update(area_t area);
+void gfx_screen_compose(area_t area);
 void gfx_console_putc(unsigned c, int update_pos);
 void gfx_console_puts(char *s);
-void gfx_putc(gstate_t *gstate, unsigned c, int update_pos);
-void gfx_puts(gstate_t *gstate, char *s, unsigned len);
+void gfx_putc(obj_id_t canvas_id, unsigned c, int update_pos);
+void gfx_puts(obj_id_t canvas_id, char *s, unsigned len);
+area_t gfx_text_dim(obj_id_t canvas_id, char *text, unsigned len);
+area_t gfx_char_dim(obj_id_t canvas_id, unsigned chr);
 area_t gfx_clip(area_t *area1, area_t *area2);
-void gfx_blt(int mode, obj_id_t dst_id, area_t dst_area, obj_id_t src_id, area_t src_area);
-int gfx_getpixel(gstate_t *gstate, canvas_t *canvas, int x, int y, color_t *color);
-void gfx_putpixel(gstate_t *gstate, canvas_t *canvas, int x, int y, color_t color);
-void gfx_line(gstate_t *gstate, canvas_t *canvas, int x0, int y0, int x1, int y1, color_t color);
-void gfx_rect(gstate_t *gstate, int x, int y, int width, int height, color_t c);
+void gfx_blt(draw_mode_t mode, obj_id_t dst_id, area_t dst_area, obj_id_t src_id, area_t src_area);
+int gfx_getpixel(obj_id_t canvas_id, int x, int y, color_t *color);
+void gfx_putpixel(obj_id_t canvas_id, int x, int y, color_t color);
+void gfx_line(obj_id_t canvas_id, int x0, int y0, int x1, int y1, color_t color);
+void gfx_rect(obj_id_t canvas_id, int x, int y, int width, int height, color_t c);
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -453,6 +465,7 @@ contains_function_t gfx_obj_contains_function(unsigned type);
 
 obj_id_t gfx_obj_mem_new(uint32_t size, uint8_t subtype);
 data_t *gfx_obj_mem_ptr(obj_id_t id);
+data_t *gfx_obj_mem_ptr_rw(obj_id_t id);
 data_t *gfx_obj_mem_subtype_ptr(obj_id_t id, uint8_t subtype);
 int gfx_obj_mem_get(obj_id_t mem_id, int pos);
 obj_id_t gfx_obj_mem_set(obj_id_t mem_id, uint8_t val, int pos);
@@ -482,9 +495,12 @@ canvas_t *gfx_obj_canvas_ptr(obj_id_t id);
 int gfx_obj_canvas_dump(obj_t *ptr, dump_style_t style);
 int gfx_canvas_adjust_size(canvas_t *c, int width, int height);
 int gfx_canvas_resize(obj_id_t canvas_id, int width, int height);
+unsigned gfx_obj_canvas_gc(obj_t *ptr);
+int gfx_obj_canvas_contains(obj_t *ptr, obj_id_t id);
 
 obj_id_t gfx_obj_array_new(unsigned max);
 array_t *gfx_obj_array_ptr(obj_id_t id);
+array_t *gfx_obj_array_ptr_rw(obj_id_t id);
 unsigned gfx_obj_array_iterate(obj_t *ptr, unsigned *idx, obj_id_t *id1, obj_id_t *id2);
 int gfx_obj_array_dump(obj_t *ptr, dump_style_t style);
 obj_id_t gfx_obj_array_set(obj_id_t array_id, obj_id_t id, int pos, int do_ref_cnt);
@@ -499,6 +515,7 @@ void gfx_obj_array_del(obj_id_t array_id, int pos, int do_ref_cnt);
 
 obj_id_t gfx_obj_hash_new(unsigned max);
 hash_t *gfx_obj_hash_ptr(obj_id_t id);
+hash_t *gfx_obj_hash_ptr_rw(obj_id_t id);
 unsigned gfx_obj_hash_iterate(obj_t *ptr, unsigned *idx, obj_id_t *id1, obj_id_t *id2);
 int gfx_obj_hash_dump(obj_t *ptr, dump_style_t style);
 obj_id_t gfx_obj_hash_set(obj_id_t hash_id, obj_id_t key_id, obj_id_t value_id, int do_ref_cnt);
@@ -518,18 +535,12 @@ int64_t *gfx_obj_num_ptr(obj_id_t id);
 int64_t *gfx_obj_num_subtype_ptr(obj_id_t id, uint8_t subtype);
 int gfx_obj_num_dump(obj_t *ptr, dump_style_t style);
 
-obj_id_t gfx_obj_gstate_new(void);
-gstate_t *gfx_obj_gstate_ptr(obj_id_t id);
-int gfx_obj_gstate_dump(obj_t *ptr, dump_style_t style);
-unsigned gfx_obj_gstate_gc(obj_t *ptr);
-int gfx_obj_gstate_contains(obj_t *ptr, obj_id_t id);
-
 unsigned gfx_program_init(obj_id_t program);
 int gfx_decode_instr(decoded_instr_t *code);
 void gfx_program_run(void);
 void gfx_program_debug(unsigned key);
 void gfx_program_debug_on_off(unsigned state);
-void gfx_program_process_key(unsigned key);
+int gfx_program_process_key(unsigned key);
 char *gfx_debug_get_ip(void);
 void gfx_debug_cmd(char *str);
 void gfx_debug_show_trace(void);

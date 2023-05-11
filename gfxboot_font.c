@@ -116,6 +116,9 @@ obj_id_t gfx_obj_font_open(obj_id_t font_file)
 
   if(!mem) return 0;
 
+  uint8_t *ptr = mem->ptr;
+  unsigned size = mem->size;
+
   obj_id_t font_id = gfx_obj_font_new();
 
   font_t *font = gfx_obj_font_ptr(font_id);
@@ -123,9 +126,6 @@ obj_id_t gfx_obj_font_open(obj_id_t font_file)
   if(!font) return 0;
 
   font->data_id = font_file;
-
-  uint8_t *ptr = mem->ptr;
-  unsigned size = mem->size;
 
   int max_bitmap_width = 0;
   int max_bitmap_height = 0;

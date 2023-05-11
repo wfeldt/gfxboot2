@@ -36,6 +36,22 @@ hash_t *gfx_obj_hash_ptr(obj_id_t id)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+hash_t *gfx_obj_hash_ptr_rw(obj_id_t id)
+{
+  obj_t *ptr = gfx_obj_ptr(id);
+
+  if(!ptr || ptr->base_type != OTYPE_HASH) return 0;
+
+  if(ptr->flags.ro) {
+    GFX_ERROR(err_readonly);
+    return 0;
+  }
+
+  return (hash_t *) ptr->data.ptr;
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 unsigned gfx_obj_hash_iterate(obj_t *ptr, unsigned *idx, obj_id_t *id1, obj_id_t *id2)
 {
   hash_t *h = ptr->data.ptr;
@@ -107,7 +123,7 @@ obj_id_t gfx_obj_hash_set(obj_id_t hash_id, obj_id_t key_id, obj_id_t value_id, 
   unsigned u;
   int match;
 
-  hash_t *hash = gfx_obj_hash_ptr(hash_id);
+  hash_t *hash = gfx_obj_hash_ptr_rw(hash_id);
   if(!hash) return 0;
 
   data_t *key = gfx_obj_mem_ptr(key_id);
@@ -196,7 +212,7 @@ void gfx_obj_hash_del(obj_id_t hash_id, obj_id_t key_id, int do_ref_cnt)
   unsigned u;
   int match;
 
-  hash_t *hash = gfx_obj_hash_ptr(hash_id);
+  hash_t *hash = gfx_obj_hash_ptr_rw(hash_id);
   if(!hash) return;
 
   data_t *key = gfx_obj_mem_ptr(key_id);

@@ -71,7 +71,7 @@ int gfx_obj_olist_dump(obj_t *ptr, dump_style_t style)
   for(u = 0; u < ol->max; u++) {
     if(ol->ptr[u].base_type != OTYPE_NONE) {
       obj_id_t id = OBJ_ID(u, ol->ptr[u].gen);
-      dump_style_t s = { .inspect = style.inspect, .no_head = 1 };
+      dump_style_t s = { .inspect = style.inspect, .no_head = 1, .max = style.max };
       s.dump = style.dump && u;
       gfx_obj_dump(id, s);
     }

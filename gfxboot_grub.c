@@ -18,6 +18,7 @@
 
 GRUB_MOD_LICENSE ("GPLv3+");
 
+#define GFX_MEMORY_IN_MIB	16
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 gfxboot_data_t *gfxboot_data;
@@ -274,8 +275,7 @@ grub_err_t grub_gfxboot_init(int entry, grub_menu_t menu, int nested)
 
   serial_init();
 
-  // reserve 16 MiB for our VM
-  gfxboot_data->vm.mem.size = 16 * (1 << 20);
+  gfxboot_data->vm.mem.size = GFX_MEMORY_IN_MIB * (1 << 20);
   gfxboot_data->vm.mem.ptr = grub_zalloc(gfxboot_data->vm.mem.size);
   if(!gfxboot_data->vm.mem.ptr) return grub_errno;
 
@@ -445,7 +445,7 @@ int gfxboot_sys_strcmp(const char *s1, const char *s2)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 long int gfxboot_sys_strtol(const char *nptr, char **endptr, int base)
 {
-  return grub_strtol(nptr, endptr, base);
+  return grub_strtol(nptr, (const char ** const restrict) endptr, base);
 }
 
 

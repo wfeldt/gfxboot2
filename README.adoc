@@ -41,34 +41,32 @@ image::doc/screen_01.png[A cat]
 ====
 [source]
 ----
-/cfont getconsolegstate getfont def
+/cfont getconsole getfont def
 /foo "foo.fnt" readfile newfont def
 /bar "bar.fnt" readfile newfont def
 
 /text "ABC 12345 xyz # * % & § öäüß €" def
 
-/image gstate def
-image "katze_800.jpg" readfile unpackimage setcanvas
+/image "katze_800.jpg" readfile unpackimage def
 
-0 0 setpos
-image getgstate exch blt
+getcanvas image blt
 0x90000000 setcolor
 image dim fillrect
 
 0xffff00 setcolor
 
-getgstate cfont setfont
+getcanvas cfont setfont
 50 50 setpos "Some font samples" show
 
 0x00ffffff setcolor
 
-getgstate cfont setfont
+getcanvas cfont setfont
 50 100 setpos text show
 
-getgstate bar setfont
+getcanvas bar setfont
 50 130 setpos text show
 
-getgstate foo setfont
+getcanvas foo setfont
 50 180 setpos text show
 ----
 ====
@@ -78,21 +76,24 @@ getgstate foo setfont
 ====
 [source]
 ----
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 67 entries (67 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # line i index  offset   type   hex                      word
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
              0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
      1       1  0x00008  ref    59 63 66 6f 6e 74        /cfont
-             2  0x0000e  prim   83 4a                    getconsolegstate
+             2  0x0000e  prim   83 4b                    getconsole
              3  0x00010  prim   83 3f                    getfont
              4  0x00012  prim   63                       def
      2       5  0x00013  ref    39 66 6f 6f              /foo
              6  0x00017  str    77 66 6f 6f 2e 66 6e 74  "foo.fnt"
-             7  0x0001f  prim   83 4f                    readfile
+             7  0x0001f  prim   83 50                    readfile
              8  0x00021  prim   83 41                    newfont
              9  0x00023  prim   63                       def
      3      10  0x00024  ref    39 62 61 72              /bar
             11  0x00028  str    77 62 61 72 2e 66 6e 74  "bar.fnt"
-            12  0x00030  prim   83 4f                    readfile
+            12  0x00030  prim   83 50                    readfile
             13  0x00032  prim   83 41                    newfont
             14  0x00034  prim   63                       def
      5      15  0x00035  ref    49 74 65 78 74           /text
@@ -103,64 +104,57 @@ getgstate foo setfont
                                 bc c3 9f 20 e2 82 ac
             17  0x00061  prim   63                       def
      7      18  0x00062  ref    59 69 6d 61 67 65        /image
-            19  0x00068  prim   83 49                    gstate
-            20  0x0006a  prim   63                       def
-     8      21  0x0006b  word   58 69 6d 61 67 65        image
-            22  0x00071  str    c7 0d 6b 61 74 7a 65 5f  "katze_800.jpg"
+            19  0x00068  str    c7 0d 6b 61 74 7a 65 5f  "katze_800.jpg"
                                 38 30 30 2e 6a 70 67
-            23  0x00080  prim   83 4f                    readfile
-            24  0x00082  prim   83 50                    unpackimage
-            25  0x00084  prim   83 46                    setcanvas
-    10      26  0x00086  int    01                       0
-            27  0x00087  int    01                       0
-            28  0x00088  prim   83 3e                    setpos
-    11      29  0x0008a  xref   84 1f                    image
-            30  0x0008c  prim   83 47                    getgstate
-            31  0x0008e  prim   83 18                    exch
-            32  0x00090  prim   83 51                    blt
-    12      33  0x00092  int    c1 00 00 00 90 00        0x90000000
-            34  0x00098  prim   83 3a                    setcolor
-    13      35  0x0009a  xref   84 2f                    image
-            36  0x0009c  prim   83 4d                    dim
-            37  0x0009e  prim   83 56                    fillrect
-    15      38  0x000a0  int    b1 00 ff ff 00           0xffff00
-            39  0x000a5  prim   83 3a                    setcolor
-    17      40  0x000a7  prim   83 47                    getgstate
-            41  0x000a9  word   58 63 66 6f 6e 74        cfont
-            42  0x000af  prim   83 40                    setfont
-    18      43  0x000b1  int    81 32                    50
-            44  0x000b3  int    81 32                    50
-            45  0x000b5  prim   83 3e                    setpos
-            46  0x000b7  str    c7 11 53 6f 6d 65 20 66  "Some font samples"
+            20  0x00077  prim   83 50                    readfile
+            21  0x00079  prim   83 51                    unpackimage
+            22  0x0007b  prim   63                       def
+     9      23  0x0007c  prim   83 49                    getcanvas
+            24  0x0007e  word   58 69 6d 61 67 65        image
+            25  0x00084  prim   83 52                    blt
+    10      26  0x00086  int    c1 00 00 00 90 00        0x90000000
+            27  0x0008c  prim   83 3a                    setcolor
+    11      28  0x0008e  xref   84 10                    image
+            29  0x00090  prim   83 4e                    dim
+            30  0x00092  prim   83 57                    fillrect
+    13      31  0x00094  int    b1 00 ff ff 00           0xffff00
+            32  0x00099  prim   83 3a                    setcolor
+    15      33  0x0009b  prim   83 49                    getcanvas
+            34  0x0009d  word   58 63 66 6f 6e 74        cfont
+            35  0x000a3  prim   83 40                    setfont
+    16      36  0x000a5  int    81 32                    50
+            37  0x000a7  int    81 32                    50
+            38  0x000a9  prim   83 3e                    setpos
+            39  0x000ab  str    c7 11 53 6f 6d 65 20 66  "Some font samples"
                                 6f 6e 74 20 73 61 6d 70
                                 6c 65 73
-            47  0x000ca  prim   83 4c                    show
-    20      48  0x000cc  int    b1 ff ff ff 00           0x00ffffff
-            49  0x000d1  prim   83 3a                    setcolor
-    22      50  0x000d3  prim   83 47                    getgstate
-            51  0x000d5  xref   84 2c                    cfont
-            52  0x000d7  prim   83 40                    setfont
-    23      53  0x000d9  int    81 32                    50
-            54  0x000db  int    81 64                    100
-            55  0x000dd  prim   83 3e                    setpos
-            56  0x000df  word   48 74 65 78 74           text
-            57  0x000e4  prim   83 4c                    show
-    25      58  0x000e6  prim   83 47                    getgstate
-            59  0x000e8  word   38 62 61 72              bar
-            60  0x000ec  prim   83 40                    setfont
-    26      61  0x000ee  int    81 32                    50
-            62  0x000f0  int    91 82 00                 130
-            63  0x000f3  prim   83 3e                    setpos
-            64  0x000f5  xref   84 16                    text
-            65  0x000f7  prim   83 4c                    show
-    28      66  0x000f9  prim   83 47                    getgstate
-            67  0x000fb  word   38 66 6f 6f              foo
-            68  0x000ff  prim   83 40                    setfont
-    29      69  0x00101  int    81 32                    50
-            70  0x00103  int    91 b4 00                 180
-            71  0x00106  prim   83 3e                    setpos
-            72  0x00108  xref   84 29                    text
-            73  0x0010a  prim   83 4c                    show
+            40  0x000be  prim   83 4d                    show
+    18      41  0x000c0  int    b1 ff ff ff 00           0x00ffffff
+            42  0x000c5  prim   83 3a                    setcolor
+    20      43  0x000c7  prim   83 49                    getcanvas
+            44  0x000c9  xref   84 2c                    cfont
+            45  0x000cb  prim   83 40                    setfont
+    21      46  0x000cd  int    81 32                    50
+            47  0x000cf  int    81 64                    100
+            48  0x000d1  prim   83 3e                    setpos
+            49  0x000d3  word   48 74 65 78 74           text
+            50  0x000d8  prim   83 4d                    show
+    23      51  0x000da  prim   83 49                    getcanvas
+            52  0x000dc  word   38 62 61 72              bar
+            53  0x000e0  prim   83 40                    setfont
+    24      54  0x000e2  int    81 32                    50
+            55  0x000e4  int    91 82 00                 130
+            56  0x000e7  prim   83 3e                    setpos
+            57  0x000e9  xref   84 16                    text
+            58  0x000eb  prim   83 4d                    show
+    26      59  0x000ed  prim   83 49                    getcanvas
+            60  0x000ef  word   38 66 6f 6f              foo
+            61  0x000f3  prim   83 40                    setfont
+    27      62  0x000f5  int    81 32                    50
+            63  0x000f7  int    91 b4 00                 180
+            64  0x000fa  prim   83 3e                    setpos
+            65  0x000fc  xref   84 29                    text
+            66  0x000fe  prim   83 4d                    show
 ----
 ====
 

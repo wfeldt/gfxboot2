@@ -1,0 +1,182 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 143 entries (143 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  ref    c9 0c 63 6f 6e 73 6f 6c  /console-font
+                                65 2d 66 6f 6e 74
+             2  0x00016  word   98 67 65 74 63 61 6e 76  getcanvas
+                                61 73
+             3  0x00020  word   a8 67 65 74 63 6f 6e 73  getconsole
+                                6f 6c 65
+             4  0x0002b  word   98 73 65 74 63 61 6e 76  setcanvas
+                                61 73
+             5  0x00035  word   78 67 65 74 66 6f 6e 74  getfont
+             6  0x0003d  word   48 65 78 63 68           exch
+             7  0x00042  word   98 73 65 74 63 61 6e 76  setcanvas
+                                61 73
+             8  0x0004c  word   38 64 65 66              def
+     3       9  0x00050  ref    c9 0e 64 65 6a 61 76 75  /dejavu-sans-24
+                                2d 73 61 6e 73 2d 32 34
+            10  0x00060  str    c7 12 64 65 6a 61 76 75  "dejavu-sans-24.fnt"
+                                2d 73 61 6e 73 2d 32 34
+                                2e 66 6e 74
+            11  0x00074  word   88 72 65 61 64 66 69 6c  readfile
+                                65
+            12  0x0007d  word   78 6e 65 77 66 6f 6e 74  newfont
+            13  0x00085  word   38 64 65 66              def
+     4      14  0x00089  ref    89 66 6f 6f 2d 66 6f 6e  /foo-font
+                                74
+            15  0x00092  str    77 66 6f 6f 2e 66 6e 74  "foo.fnt"
+            16  0x0009a  word   88 72 65 61 64 66 69 6c  readfile
+                                65
+            17  0x000a3  word   78 6e 65 77 66 6f 6e 74  newfont
+            18  0x000ab  word   38 64 65 66              def
+     5      19  0x000af  ref    89 62 61 72 2d 66 6f 6e  /bar-font
+                                74
+            20  0x000b8  str    77 62 61 72 2e 66 6e 74  "bar.fnt"
+            21  0x000c0  word   88 72 65 61 64 66 69 6c  readfile
+                                65
+            22  0x000c9  word   78 6e 65 77 66 6f 6e 74  newfont
+            23  0x000d1  word   38 64 65 66              def
+     7      24  0x000d5  ref    49 74 65 78 74           /text
+            25  0x000da  str    c7 36 41 42 43 20 26 25  "ABC &%$ *+~ ÄÖß|| 12345 xyz # * % & § öäüß €"
+                                24 20 2a 2b 7e 20 c3 84
+                                c3 96 c3 9f 7c 7c 20 31
+                                32 33 34 35 20 78 79 7a
+                                20 23 20 2a 20 25 20 26
+                                20 c2 a7 20 c3 b6 c3 a4
+                                c3 bc c3 9f 20 e2 82 ac
+            26  0x00112  word   38 64 65 66              def
+     9      27  0x00116  ref    49 74 65 73 74           /test
+            28  0x0011b  code   d6 4c 01                 {
+    10      29  0x0011e  word   78 73 65 74 66 6f 6e 74    setfont
+            30  0x00126  ref    19 79                      /y
+            31  0x00128  word   48 65 78 63 68             exch
+            32  0x0012d  word   38 64 65 66                def
+            33  0x00131  ref    19 78                      /x
+            34  0x00133  word   48 65 78 63 68             exch
+            35  0x00138  word   38 64 65 66                def
+    11      36  0x0013c  int    c1 00 00 00 ff 00          0xff000000
+            37  0x00142  word   a8 73 65 74 62 67 63 6f    setbgcolor
+                                6c 6f 72
+    12      38  0x0014d  int    b1 ff ff ff 00             0x00ffffff
+            39  0x00152  word   88 73 65 74 63 6f 6c 6f    setcolor
+                                72
+            40  0x0015b  word   18 78                      x
+            41  0x0015d  word   18 79                      y
+            42  0x0015f  word   68 73 65 74 70 6f 73       setpos
+            43  0x00166  word   48 74 65 78 74             text
+            44  0x0016b  word   48 73 68 6f 77             show
+    13      45  0x00170  int    a1 90 60 20                0x00206090
+            46  0x00174  word   88 73 65 74 63 6f 6c 6f    setcolor
+                                72
+            47  0x0017d  word   18 78                      x
+            48  0x0017f  int    21                         2
+            49  0x00180  word   38 61 64 64                add
+            50  0x00184  word   18 79                      y
+            51  0x00186  int    81 1e                      30
+            52  0x00188  word   38 61 64 64                add
+            53  0x0018c  word   68 73 65 74 70 6f 73       setpos
+            54  0x00193  word   48 74 65 78 74             text
+            55  0x00198  word   48 73 68 6f 77             show
+    14      56  0x0019d  int    c1 20 ff ff 90 00          0x90ffff20
+            57  0x001a3  word   88 73 65 74 63 6f 6c 6f    setcolor
+                                72
+            58  0x001ac  word   18 78                      x
+            59  0x001ae  int    41                         4
+            60  0x001af  word   38 61 64 64                add
+            61  0x001b3  word   18 79                      y
+            62  0x001b5  int    81 3c                      60
+            63  0x001b7  word   38 61 64 64                add
+            64  0x001bb  word   68 73 65 74 70 6f 73       setpos
+            65  0x001c2  word   48 74 65 78 74             text
+            66  0x001c7  word   48 73 68 6f 77             show
+    15      67  0x001cc  int    c1 a0 70 30 90 00          0x903070a0
+            68  0x001d2  word   a8 73 65 74 62 67 63 6f    setbgcolor
+                                6c 6f 72
+    16      69  0x001dd  int    a1 ff ff 00                0x0000ffff
+            70  0x001e1  word   88 73 65 74 63 6f 6c 6f    setcolor
+                                72
+            71  0x001ea  word   18 78                      x
+            72  0x001ec  int    61                         6
+            73  0x001ed  word   38 61 64 64                add
+            74  0x001f1  word   18 79                      y
+            75  0x001f3  int    81 5a                      90
+            76  0x001f5  word   38 61 64 64                add
+            77  0x001f9  word   68 73 65 74 70 6f 73       setpos
+            78  0x00200  word   48 74 65 78 74             text
+            79  0x00205  word   48 73 68 6f 77             show
+    17      80  0x0020a  int    b1 90 60 a0 00             0x00a06090
+            81  0x0020f  word   88 73 65 74 63 6f 6c 6f    setcolor
+                                72
+            82  0x00218  word   18 78                      x
+            83  0x0021a  int    81 08                      8
+            84  0x0021c  word   38 61 64 64                add
+            85  0x00220  word   18 79                      y
+            86  0x00222  int    81 78                      120
+            87  0x00224  word   38 61 64 64                add
+            88  0x00228  word   68 73 65 74 70 6f 73       setpos
+            89  0x0022f  word   48 74 65 78 74             text
+            90  0x00234  word   48 73 68 6f 77             show
+    18      91  0x00239  int    b1 90 ff 2f 70             0x702fff90
+            92  0x0023e  word   88 73 65 74 63 6f 6c 6f    setcolor
+                                72
+            93  0x00247  word   18 78                      x
+            94  0x00249  int    81 0a                      10
+            95  0x0024b  word   38 61 64 64                add
+            96  0x0024f  word   18 79                      y
+            97  0x00251  int    91 96 00                   150
+            98  0x00254  word   38 61 64 64                add
+            99  0x00258  word   68 73 65 74 70 6f 73       setpos
+           100  0x0025f  word   48 74 65 78 74             text
+           101  0x00264  word   48 73 68 6f 77             show
+    19     102  0x00269  prim   13                       }
+           103  0x0026a  word   38 64 65 66              def
+    21     104  0x0026e  int    01                       0
+           105  0x0026f  int    11                       1
+           106  0x00270  int    91 1f 03                 799
+           107  0x00273  code   c6 41                    {
+    22     108  0x00275  ref    19 78                      /x
+           109  0x00277  word   48 65 78 63 68             exch
+           110  0x0027c  word   38 64 65 66                def
+    23     111  0x00280  int    01                         0x000000
+           112  0x00281  word   18 78                      x
+           113  0x00283  int    81 7f                      0x7f
+           114  0x00285  word   38 61 6e 64                and
+           115  0x00289  int    91 01 01                   0x101
+           116  0x0028c  word   38 6d 75 6c                mul
+           117  0x00290  word   38 61 64 64                add
+           118  0x00294  word   88 73 65 74 63 6f 6c 6f    setcolor
+                                72
+    24     119  0x0029d  word   18 78                      x
+           120  0x0029f  int    01                         0
+           121  0x002a0  word   68 73 65 74 70 6f 73       setpos
+           122  0x002a7  word   18 78                      x
+           123  0x002a9  int    91 57 02                   599
+           124  0x002ac  word   88 64 72 61 77 6c 69 6e    drawline
+                                65
+    25     125  0x002b5  prim   13                       }
+           126  0x002b6  word   38 66 6f 72              for
+    27     127  0x002ba  int    81 0a                    10
+           128  0x002bc  int    81 0a                    10
+           129  0x002be  word   c8 0e 64 65 6a 61 76 75  dejavu-sans-24
+                                2d 73 61 6e 73 2d 32 34
+           130  0x002ce  word   48 74 65 73 74           test
+    28     131  0x002d3  int    81 0a                    10
+           132  0x002d5  int    91 c8 00                 200
+           133  0x002d8  word   c8 0c 63 6f 6e 73 6f 6c  console-font
+                                65 2d 66 6f 6e 74
+           134  0x002e6  word   48 74 65 73 74           test
+    29     135  0x002eb  int    81 d7                    -41
+           136  0x002ed  int    91 90 01                 400
+           137  0x002f0  word   88 66 6f 6f 2d 66 6f 6e  foo-font
+                                74
+           138  0x002f9  word   48 74 65 73 74           test
+    30     139  0x002fe  int    91 90 01                 400
+           140  0x00301  int    91 90 01                 400
+           141  0x00304  word   88 62 61 72 2d 66 6f 6e  bar-font
+                                74
+           142  0x0030d  word   48 74 65 73 74           test

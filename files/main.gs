@@ -3,6 +3,9 @@
 /dejavu-sans-24 "dejavu-sans-24.fnt" readfile newfont def
 /hack-14 "hack-14.fnt" readfile newfont def
 
+/foo-font "foo.fnt" readfile newfont def
+/bar-font "bar.fnt" readfile newfont def
+
 /text "ABC &%$ *+~ ÄÖß||\ 12345 xyA_z_AjzjxjJ # * % & § öäüß €" def
 
 /test {
@@ -25,4 +28,5 @@
 
 10 10 dejavu-sans-24 test
 10 200 console-font test
-10 400 hack-14 test
+-10 400 foo-font test
+400 400 bar-font test

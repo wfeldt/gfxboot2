@@ -28,5 +28,6 @@
 
 10 10 dejavu-sans-24 test
 10 200 console-font test
--10 400 foo-font test
-400 400 bar-font test
+10 400 hack-14 test
+#-10 400 foo-font test
+#400 400 bar-font test

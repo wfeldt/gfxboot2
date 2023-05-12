@@ -272,6 +272,8 @@ obj_id_t gfx_font_render_font1_glyph(obj_id_t canvas_id, font_t *font, area_t *g
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 obj_id_t gfx_font_render_font2_glyph(obj_id_t canvas_id, font_t *font, area_t *geo, unsigned c, unsigned size_only)
 {
+  // font->width != 0 indicates fixed-width font
+
   canvas_t *canvas = gfx_obj_canvas_ptr(canvas_id);
 
   data_t *data = gfx_obj_mem_ptr(font->data_id);
@@ -280,6 +282,7 @@ obj_id_t gfx_font_render_font2_glyph(obj_id_t canvas_id, font_t *font, area_t *g
   uint8_t *ofs_table = data->ptr + font->unimap.offset;
   unsigned u, ofs = 0;
 
+  // FIXME: binary search
   for(u = 0; u < font->glyphs; u++) {
     unsigned g = gfx_read_le32(ofs_table + 5 * u) & ((1 << 21) - 1);
     if(g == c) {
@@ -318,25 +321,36 @@ obj_id_t gfx_font_render_font2_glyph(obj_id_t canvas_id, font_t *font, area_t *g
   );
 #endif
 
-  canvas_t *glyph = gfx_obj_canvas_ptr(font->glyph_id);
-
-  if(
-    !glyph ||
-    !gfx_canvas_adjust_size(glyph, bitmap_width, bitmap_height)
-  ) {
-    return 0;
-  }
-
   // recalculate offset relative to top of glyph
   int d_y = font->height - font->baseline - y_ofs - bitmap_height;
 
-  *geo = (area_t) { .x = x_ofs, .y = d_y, .width = x_advance, .height = 0 };
+  int h_skip = 0;
+
+  if(font->width) {
+    *geo = (area_t) { .x = 0, .y = 0, .width = font->width, .height = 0 };
+    h_skip = font->width - bitmap_width;
+  }
+  else {
+    *geo = (area_t) { .x = x_ofs, .y = d_y, .width = x_advance, .height = 0 };
+  }
 
   if(size_only) return font->glyph_id;
+
+  canvas_t *glyph = gfx_obj_canvas_ptr(font->glyph_id);
+
+  if(!glyph || h_skip < 0) return 0;
+
+  if(font->width) {
+    if(!gfx_canvas_adjust_size(glyph, font->width, font->height)) return 0;
+  }
+  else {
+    if(!gfx_canvas_adjust_size(glyph, bitmap_width, bitmap_height)) return 0;
+  }
 
   unsigned len = (unsigned) (bitmap_height * bitmap_width);
 
   static color_t last_fg = COLOR(0, 0, 0, 0);
+  static color_t last_bg = COLOR(0, 0, 0, 0);
   static color_t color_map[MAX_GRAY + 1] = { };
   static int first_time_ever = 1;
 
@@ -345,34 +359,75 @@ obj_id_t gfx_font_render_font2_glyph(obj_id_t canvas_id, font_t *font, area_t *g
     struct {
       uint8_t b, g, r, a;
     } __attribute__ ((packed));
-  } __attribute__ ((packed)) fg, tmp;
+  } __attribute__ ((packed)) fg, bg, tmp;
 
   fg.c = canvas->color;
+  bg.c = canvas->bg_color;
 
   // if drawing color changed, recalculate color mapping table
-  if(fg.c != last_fg || first_time_ever) {
+  if(fg.c != last_fg || bg.c != last_bg || first_time_ever) {
     first_time_ever = 0;
     last_fg = fg.c;
+    last_bg = bg.c;
 
-    for(int i = 0; i <= MAX_GRAY; i++) {
-      tmp.c = fg.c;
-      tmp.a = 255 - i * (255 - fg.a) / MAX_GRAY;
-      color_map[i] = tmp.c;
+    if(font->width) {
+      for(int i = 0; i <= MAX_GRAY; i++) {
+        tmp.b = bg.b - i * (bg.b - fg.b) / MAX_GRAY;
+        tmp.g = bg.g - i * (bg.g - fg.g) / MAX_GRAY;
+        tmp.r = bg.r - i * (bg.r - fg.r) / MAX_GRAY;
+        tmp.a = bg.a - i * (bg.a - fg.a) / MAX_GRAY;
+        color_map[i] = tmp.c;
+      }
+    }
+    else {
+      for(int i = 0; i <= MAX_GRAY; i++) {
+        tmp.c = fg.c;
+        tmp.a = 255 - i * (255 - fg.a) / MAX_GRAY;
+        color_map[i] = tmp.c;
+      }
     }
   }
 
-  for(u = 0; u < len;) {
-    unsigned lc = read_unsigned_bits(glyph_data, &bit_ofs, GRAY_BITS);
-    // gfxboot_serial(0, "(%u)", lc);
-    if(lc <= MAX_GRAY) {
-      glyph->ptr[u++] = color_map[lc];
-      continue;
+  if(font->width) {
+    unsigned bitmap_size = (unsigned) (font->width * font->height);
+    unsigned skip = (unsigned) (d_y * font->width + x_ofs);
+
+    for(u = 0; u < bitmap_size; u++) glyph->ptr[u] = color_map[0];
+
+    for(u = 0; u < len;) {
+      unsigned lc = read_unsigned_bits(glyph_data, &bit_ofs, GRAY_BITS);
+      // gfxboot_serial(0, "(%u)", lc);
+      if(lc <= MAX_GRAY) {
+        glyph->ptr[skip + u++] = color_map[lc];
+        if(!(u % (unsigned) bitmap_width)) skip += (unsigned) h_skip;
+        continue;
+      }
+      lc = lc == REP_BG ? 0 : MAX_GRAY;
+      unsigned lc_cnt = read_unsigned_bits(glyph_data, &bit_ofs, GRAY_BIT_COUNT) + 3;
+      // gfxboot_serial(0, "(%u)", lc_cnt);
+      while(u < len && lc_cnt--) {
+        glyph->ptr[skip + u++] = color_map[lc];
+        if(!(u % (unsigned) bitmap_width)) skip += (unsigned) h_skip;
+      }
     }
-    lc = lc == REP_BG ? 0 : MAX_GRAY;
-    unsigned lc_cnt = read_unsigned_bits(glyph_data, &bit_ofs, GRAY_BIT_COUNT) + 3;
-    // gfxboot_serial(0, "(%u)", lc_cnt);
-    while(u < len && lc_cnt--) glyph->ptr[u++] = color_map[lc];
   }
+  else {
+    for(u = 0; u < len;) {
+      unsigned lc = read_unsigned_bits(glyph_data, &bit_ofs, GRAY_BITS);
+      // gfxboot_serial(0, "(%u)", lc);
+      if(lc <= MAX_GRAY) {
+        glyph->ptr[u++] = color_map[lc];
+        continue;
+      }
+      lc = lc == REP_BG ? 0 : MAX_GRAY;
+      unsigned lc_cnt = read_unsigned_bits(glyph_data, &bit_ofs, GRAY_BIT_COUNT) + 3;
+      // gfxboot_serial(0, "(%u)", lc_cnt);
+      while(u < len && lc_cnt--) {
+        glyph->ptr[u++] = color_map[lc];
+      }
+    }
+  }
+
 
   return font->glyph_id;
 }

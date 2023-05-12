@@ -177,6 +177,9 @@ obj_id_t gfx_obj_font_open(obj_id_t font_file)
     font->bitmap.offset = font->unimap.offset + font->unimap.size;
     font->bitmap.size = size - font->bitmap.offset;
 
+    if(font->width > max_bitmap_width) max_bitmap_width = font->width;
+    if(font->height > max_bitmap_height) max_bitmap_height = font->height;
+
     if(font->bitmap.size > 0) {
       font->type = 2;
       ok = 1;

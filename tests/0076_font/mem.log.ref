@@ -1,6 +1,6 @@
 # ---  mem  ---
 ===  memory dump  ===
-   0: 0x0000000c[      56] [11854948/      68]  #2.1.2.font <glyphs 256, size 8x16, line height 16, base 0>
+   0: 0x0000000c[      56] [11854012/      68]  #2.1.2.font <glyphs 256, size 8x16, line height 16, base 0>
    1: 0x00000050[    6200] [      68/    6212]  #0.1.*.olist <size 230, next 212, max 258>
    2: 0x00001894[     584] [    6212/     596]  #3.1.1.canv <geo 0x0_8x16, region 0x0_8x16, chk 0x8fb344e0>
    3: 0x00001ae8[ 1920072] [     596/ 1920084]  #4.1.1.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5d9feeb4>
@@ -16,17 +16,17 @@
   13: 0x004a5b84[   13676] [      32/   13688]  #212.1.1.mem <size 13673>
   14: 0x004a90fc[      72] [   13688/      84]  #213.1.1.array <size 0, max 16>
   15: 0x004a9150[      56] [      84/      68]  #214.1.1.font <glyphs 191, size 0x29, line height 31, base 6>
-  16: 0x004a9194[    2376] [      68/    2388]  #215.1.1.canv <geo 0x0_14x18, region 0x0_24x24, chk 0xce87eda2>
-  17: 0x004a9ae8[    7132] [    2388/    7144]  #219.1.1.mem <size 7132>
-  18: 0x004ab6d0[      56] [    7144/      68]  #220.1.1.font <glyphs 191, size 10x16, line height 16, base 3>
-  19: 0x004ab714[     612] [      68/     624]  #221.1.1.canv <geo 0x0_9x15, region 0x0_9x15, chk 0x4cfdc514>
-  20: 0x004ab984[    7116] [     624/    7128]  #225.1.1.mem <size 7116>
-  21: 0x004ad55c[      56] [    7128/      68]  #226.1.1.font <glyphs 191, size 0x17, line height 19, base 3>
-  22: 0x004ad5a0[     912] [      68/     924]  #227.1.1.canv <geo 0x0_8x10, region 0x0_15x14, chk 0xc91bf3b8>
-  23: 0x004ad93c[    1044] [     924/    1056]  #8.1.2.hash <size 105, max 129>
-  24: 0x004add5c[   13124] [    1056/   13136]  #231.1.1.mem <size 13122>
-  25: 0x004b10ac[    2800] [   13136/    2812]  #233.1.1.canv <geo 0x0_0x0, region 0x0_22x31, chk 0x00000000>
-  26: 0x004b1ba8[11854936] [    2812/11854948]
+  16: 0x004a9194[    2856] [      68/    2868]  #215.1.1.canv <geo 0x0_14x18, region 0x0_24x29, chk 0xce87eda2>
+  17: 0x004a9cc8[    7132] [    2868/    7144]  #219.1.1.mem <size 7132>
+  18: 0x004ab8b0[      56] [    7144/      68]  #220.1.1.font <glyphs 191, size 10x16, line height 16, base 3>
+  19: 0x004ab8f4[     712] [      68/     724]  #221.1.1.canv <geo 0x0_10x16, region 0x0_10x16, chk 0xdf266770>
+  20: 0x004abbc8[    7116] [     724/    7128]  #225.1.1.mem <size 7116>
+  21: 0x004ad7a0[      56] [    7128/      68]  #226.1.1.font <glyphs 191, size 0x17, line height 19, base 3>
+  22: 0x004ad7e4[    1092] [      68/    1104]  #227.1.1.canv <geo 0x0_8x10, region 0x0_15x17, chk 0xc91bf3b8>
+  23: 0x004adc34[    1044] [    1104/    1056]  #8.1.2.hash <size 105, max 129>
+  24: 0x004ae054[   13124] [    1056/   13136]  #231.1.1.mem <size 13122>
+  25: 0x004b13a4[    2976] [   13136/    2988]  #233.1.1.canv <geo 0x0_0x0, region 0x0_22x33, chk 0x00000000>
+  26: 0x004b1f50[11854000] [    2988/11854012]
 == object dump (id #0.1.*.olist) ==
   #0.1.*.olist <size 230, next 212, max 258>
   #0.1.*.olist <size 230, next 212, max 258>
@@ -1768,13 +1768,13 @@
   #214.1.1.font <glyphs 191, size 0x29, line height 31, base 6>
     type 2, glyphs 191
     font size 0x29, line height 31, baseline 6
-    bitmap size 24x24
+    bitmap size 24x29
     bitmap table: offset 971, size 12702
     char index: offset 16, size 955
     data_id #212.1.1.mem
     glyph_id #215.1.1.canv
-  #215.1.1.canv <geo 0x0_14x18, region 0x0_24x24, chk 0xce87eda2>
-    cursor 0x0_0x0, draw_mode 0, max 24x24
+  #215.1.1.canv <geo 0x0_14x18, region 0x0_24x29, chk 0xce87eda2>
+    cursor 0x0_0x0, draw_mode 0, max 24x29
     color #00000000, bg_color #00000000, font #0.0.nil
     unit 1x1
     |      .:++:.  |
@@ -2247,30 +2247,31 @@
   #220.1.1.font <glyphs 191, size 10x16, line height 16, base 3>
     type 2, glyphs 191
     font size 10x16, line height 16, baseline 3
-    bitmap size 9x15
+    bitmap size 10x16
     bitmap table: offset 971, size 6161
     char index: offset 16, size 955
     data_id #219.1.1.mem
     glyph_id #221.1.1.canv
-  #221.1.1.canv <geo 0x0_9x15, region 0x0_9x15, chk 0x4cfdc514>
-    cursor 0x0_0x0, draw_mode 0, max 9x15
+  #221.1.1.canv <geo 0x0_10x16, region 0x0_10x16, chk 0xdf266770>
+    cursor 0x0_0x0, draw_mode 0, max 10x16
     color #00000000, bg_color #00000000, font #0.0.nil
     unit 1x1
-    |         |
-    |         |
-    |         |
-    |         |
-    |         |
-    |         |
-    |         |
-    |         |
-    |         |
-    |         |
-    |         |
-    |         |
-    |         |
-    |         |
-    |         |
+    |          |
+    |          |
+    |          |
+    |          |
+    |          |
+    |          |
+    |          |
+    |          |
+    |          |
+    |          |
+    |          |
+    |          |
+    |          |
+    |          |
+    |          |
+    |          |
   #222.1.1.mem.ref.ro <#205.1.10.mem.ro, ofs 0xb3, size 8, "foo-font">
     66 6f 6f 2d 66 6f 6e 74                          foo-font
   #225.1.1.mem <size 7116>
@@ -2722,13 +2723,13 @@
   #226.1.1.font <glyphs 191, size 0x17, line height 19, base 3>
     type 2, glyphs 191
     font size 0x17, line height 19, baseline 3
-    bitmap size 15x14
+    bitmap size 15x17
     bitmap table: offset 971, size 6145
     char index: offset 16, size 955
     data_id #225.1.1.mem
     glyph_id #227.1.1.canv
-  #227.1.1.canv <geo 0x0_8x10, region 0x0_15x14, chk 0xc91bf3b8>
-    cursor 0x0_0x0, draw_mode 0, max 15x14
+  #227.1.1.canv <geo 0x0_8x10, region 0x0_15x17, chk 0xc91bf3b8>
+    cursor 0x0_0x0, draw_mode 0, max 15x17
     color #00000000, bg_color #00000000, font #0.0.nil
     unit 1x1
     |   ,:+:.|
@@ -3568,13 +3569,13 @@
   #232.1.2.font <glyphs 184, size 0x33, line height 35, base 10>
     type 2, glyphs 184
     font size 0x33, line height 35, baseline 10
-    bitmap size 22x31
+    bitmap size 22x33
     bitmap table: offset 936, size 12186
     char index: offset 16, size 920
     data_id #231.1.1.mem
     glyph_id #233.1.1.canv
-  #233.1.1.canv <geo 0x0_0x0, region 0x0_22x31, chk 0x00000000>
-    cursor 0x0_0x0, draw_mode 0, max 22x31
+  #233.1.1.canv <geo 0x0_0x0, region 0x0_22x33, chk 0x00000000>
+    cursor 0x0_0x0, draw_mode 0, max 22x33
     color #00000000, bg_color #00000000, font #0.0.nil
     unit 1x1
   #234.1.1.mem.ref.ro <#205.1.10.mem.ro, ofs 0xff, size 4, "text">

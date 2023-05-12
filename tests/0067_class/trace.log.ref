@@ -50,14 +50,14 @@ GC: ++#2.1.1.font
 == backtrace ==
   [0] #207.1.1.ctx.func <code #205.1.3.mem.ro, ip 0x66 (0x5e), dict #8.1.2.hash>
 == stack (#206.1.1.array) ==
-  [0] #2.1.2.font <glyphs 256, size 8x16, line height 16>
+  [0] #2.1.2.font <glyphs 256, size 8x16, line height 16, base 0>
   [1] #5.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
 IP: #205:0x66, type 8, 103[4]
 == backtrace ==
   [0] #207.1.1.ctx.func <code #205.1.3.mem.ro, ip 0x6b (0x66), dict #8.1.2.hash>
 == stack (#206.1.1.array) ==
   [0] #5.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
-  [1] #2.1.2.font <glyphs 256, size 8x16, line height 16>
+  [1] #2.1.2.font <glyphs 256, size 8x16, line height 16, base 0>
 IP: #205:0x6b, type 8, 108[9]
 GC: ++#5.1.2.canv
 GC: --#6.1.2.canv
@@ -65,7 +65,7 @@ GC: --#5.1.3.canv
 == backtrace ==
   [0] #207.1.1.ctx.func <code #205.1.3.mem.ro, ip 0x75 (0x6b), dict #8.1.2.hash>
 == stack (#206.1.1.array) ==
-  [0] #2.1.2.font <glyphs 256, size 8x16, line height 16>
+  [0] #2.1.2.font <glyphs 256, size 8x16, line height 16, base 0>
 IP: #205:0x75, type 8, 118[7]
 GC: ++#2.1.2.font
 GC: --#2.1.3.font

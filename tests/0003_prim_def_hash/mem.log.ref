@@ -1,6 +1,6 @@
 # ---  mem  ---
 ===  memory dump  ===
-   0: 0x0000000c[      56] [11904904/      68]  #2.1.1.font <glyphs 256, size 8x16, line height 16>
+   0: 0x0000000c[      56] [11904904/      68]  #2.1.1.font <glyphs 256, size 8x16, line height 16, base 0>
    1: 0x00000050[    6200] [      68/    6212]  #0.1.*.olist <size 216, next 216, max 258>
    2: 0x00001894[     584] [    6212/     596]  #3.1.1.canv <geo 0x0_8x16, region 0x0_8x16, chk 0x4e8c3ac0>
    3: 0x00001ae8[ 1920072] [     596/ 1920084]  #4.1.1.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
@@ -327,7 +327,7 @@
     b4 ff c3 b5 ff c3 b6 ff c3 b7 ff c3 b8 ff c3 b9  ................
     ff c3 ba ff c3 bb ff c3 bc ff c3 bd ff c3 be ff  ................
     c3 bf ff                                         ...
-  #2.1.1.font <glyphs 256, size 8x16, line height 16>
+  #2.1.1.font <glyphs 256, size 8x16, line height 16, base 0>
     type 1, glyphs 256
     font size 8x16, line height 16, baseline 0
     bitmap size 8x16

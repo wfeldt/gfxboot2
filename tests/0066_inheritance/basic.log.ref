@@ -24,20 +24,20 @@ GC: ++#xxxx.1.1.font
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.font <glyphs 256, size 8x16, line height 16>
+  [0] #xxxx.1.2.font <glyphs 256, size 8x16, line height 16, base 0>
   [1] #xxxx.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
-  [1] #xxxx.1.2.font <glyphs 256, size 8x16, line height 16>
+  [1] #xxxx.1.2.font <glyphs 256, size 8x16, line height 16, base 0>
 GC: ++#xxxx.1.2.canv
 GC: --#xxxx.1.2.canv
 GC: --#xxxx.1.3.canv
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.font <glyphs 256, size 8x16, line height 16>
+  [0] #xxxx.1.2.font <glyphs 256, size 8x16, line height 16, base 0>
 GC: ++#xxxx.1.2.font
 GC: --#xxxx.1.3.font
 == backtrace ==

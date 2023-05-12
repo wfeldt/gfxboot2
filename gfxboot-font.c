@@ -43,9 +43,11 @@ struct option options[] = {
   { "font",        1, NULL, 'f' },
   { "line-height", 1, NULL, 'l' },
   { "font-height", 1, NULL, 'H' },
+  { "font-width",  1, NULL, 'w' },
   { "font-path",   1, NULL, 'p' },
   { "show",        0, NULL, 's' },
   { "add-text",    1, NULL, 't' },
+  { "fixed",       0, NULL, 'x' },
   { "verbose",     0, NULL, 'v' },
   { "test",        0, NULL, 999 },
   { }
@@ -74,7 +76,8 @@ typedef struct {
 
 typedef struct __attribute ((packed)) {
   uint32_t magic;
-  uint8_t res1, res2, res3;
+  uint8_t width;		/* indicates fixed-width font if != 0 */
+  uint8_t res1, res2;
   uint8_t max_bitmap_width;
   uint8_t max_bitmap_height;
   uint8_t height;
@@ -130,18 +133,22 @@ list_t chars_bottom;	/* n_set_t */
 
 int max_bitmap_width;
 int max_bitmap_height;
+int font_width;
 int font_height;
 int font_y_ofs;
+int min_x_ofs;
 
 struct {
   int verbose;
   int test;
   int line_height;
+  int font_width;
   int max_font_height;
   char *font_path;
   list_t chars;		/* n_set_t */
   char *file;
   unsigned show:1;
+  unsigned fixed:1;
 } opt;
 
 
@@ -202,7 +209,7 @@ int main(int argc, char **argv)
 
   opterr = 0;
 
-  while((i = getopt_long(argc, argv, "Aa:c:f:H:l:p:st:v", options, NULL)) != -1) {
+  while((i = getopt_long(argc, argv, "Aa:c:f:H:l:p:st:vw:x", options, NULL)) != -1) {
     switch(i) {
       case 'a':
         err = parse_int_list(&opt.chars, optarg);
@@ -321,6 +328,16 @@ int main(int argc, char **argv)
         opt.line_height = i;
         break;
 
+      case 'w':
+        str = optarg;
+        i = strtol(str, &str1, 0);
+        if(*str1 || i < 0) {
+          fprintf(stderr, "%s: invalid font width\n", str);
+          return 1;
+        }
+        opt.font_width = i;
+        break;
+
       case 'p':
         opt.font_path = optarg;
         break;
@@ -378,6 +395,10 @@ int main(int argc, char **argv)
           perror(optarg);
           return 1;
         }
+        break;
+
+      case 'x':
+        opt.fixed = 1;
         break;
 
       case 'v':
@@ -469,8 +490,12 @@ int main(int argc, char **argv)
   }
 
   // fix vertical glyph positions
+  // for fixed fonts: fix also horizontal glyph positions
   for(cd = char_list.start; cd; cd = cd->next) {
-    if(cd->ok) cd->y_ofs += cd->font->dy;
+    if(cd->ok) {
+      cd->y_ofs += cd->font->dy;
+      if(opt.fixed && cd->x_ofs < 0) cd->x_ofs = 0;
+    }
   }
 
   if(!opt.test) for(cd = char_list.start; cd; cd = cd->next) add_bbox(cd);
@@ -516,6 +541,8 @@ int main(int argc, char **argv)
     if(!cd->ok) continue;
     if(cd->bitmap_width > max_bitmap_width) max_bitmap_width = cd->bitmap_width;
     if(cd->bitmap_height > max_bitmap_height) max_bitmap_height = cd->bitmap_height;
+    if(cd->bitmap_width + cd->x_ofs > font_width) font_width = cd->bitmap_width + cd->x_ofs;
+    if(cd->x_ofs < min_x_ofs) min_x_ofs = cd->x_ofs;
   }
 
   for(cd = char_list.start; cd; cd = cd->next) encode_char(cd);
@@ -526,6 +553,7 @@ int main(int argc, char **argv)
   fh.max_bitmap_width = max_bitmap_width;
   fh.max_bitmap_height = max_bitmap_height;
   fh.height = font_height;
+  if(opt.fixed) fh.width = opt.font_width ?: font_width + 1;
   fh.line_height = opt.line_height ?: fh.height + 2;
   fh.baseline = -font_y_ofs;
 
@@ -596,9 +624,9 @@ int main(int argc, char **argv)
     }
 
     printf(
-      "Font Size\n  Height: %d\n  Baseline: %d\n  Line Height: %d\n  Bitmap Max: %d x %d\n\n",
-      font_height, -font_y_ofs, fh.line_height,
-      fh.max_bitmap_width, fh.max_bitmap_height
+      "Font Size\n  Height: %d\n  Width: %d\n  Baseline: %d\n  Line Height: %d\n  Bitmap Max: %d x %d\n  Min X: %d\n\n",
+      font_height, fh.width, -font_y_ofs, fh.line_height,
+      fh.max_bitmap_width, fh.max_bitmap_height, min_x_ofs
     );
 
     for(cd = char_list.start; cd; cd = cd->next) dump_char(cd);

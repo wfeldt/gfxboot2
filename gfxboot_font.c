@@ -45,12 +45,8 @@ int gfx_obj_font_dump(obj_t *ptr, dump_style_t style)
   if(!style.ref) {
     if(!style.inspect) return 0;
 
-    if(f->type == 1) {
-      gfxboot_log("glyphs %d, size %dx%d, line height %d", f->glyphs, f->width, f->height, f->line_height);
-    }
-    else if(f->type == 2) {
-      gfxboot_log("glyphs %d, height %d, line height %d, base %d", f->glyphs, f->height, f->line_height, f->baseline);
-    }
+    gfxboot_log("glyphs %d, size %dx%d, line height %d, base %d", f->glyphs, f->width, f->height, f->line_height, f->baseline);
+
     if(f->parent_id) gfxboot_log(", parent %s", gfx_obj_id2str(f->parent_id));
 
     return 1;
@@ -167,6 +163,7 @@ obj_id_t gfx_obj_font_open(obj_id_t font_file)
     unsigned header_size = 0x10;
 
     font->glyphs = gfx_read_le32(ptr + 12);
+    font->width = ptr[4];
     max_bitmap_width = ptr[7];
     max_bitmap_height = ptr[8];
     font->height = ptr[9];

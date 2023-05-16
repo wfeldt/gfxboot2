@@ -374,6 +374,29 @@ int x11_event_loop()
           key_code = gfx_utf8_dec(&buf_ptr, &buf_len);
           if(key_code < 0) key_code = -key_code;
           key_name = XKeysymToString(ks);
+          if(1) {
+            struct { char *name; int key; } key_table[] = {
+              { "Left",   0x80004b },
+              { "Right",  0x80004d },
+              { "Up",     0x800048 },
+              { "Down",   0x800050 },
+              { "Delete", 0x800053 },
+              { "Insert", 0x800052 },
+              { "Home",   0x800047 },
+              { "End",    0x80004f },
+              { "F1",     0x80003b },
+              { "F10",    0x800044 },
+              { "Prior",  0x800049 },
+              { "Next",   0x800051 },
+            };
+
+            for(unsigned u = 0; u < sizeof key_table / sizeof *key_table; u++) {
+              if(!strcmp(key_name, key_table[u].name)) {
+                key_code = key_table[u].key;
+                break;
+              }
+            }
+          }
           gfxboot_debug(2, 2, "x11_event_loop: key = 0x%02x '%s'\n", key_code, key_name);
           // '^C'
           if(key_code == 0x03) exit_event = 1;

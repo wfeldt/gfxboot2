@@ -26,6 +26,7 @@
   /x_shift 0
   /cursor_index 0
   /cursor_x [ 0 ]
+  /cursor_height 0
   /buf [ ]
 
   /init {
@@ -35,6 +36,8 @@
     /y exch def
     /x exch def
     /background width height newcanvas def
+
+    /cursor_height getfont dim exch pop def
 
     getcolor
       0x90000000 setcolor
@@ -47,14 +50,45 @@
 
     x y setpos
     getcanvas background blt
+
+    cursor_on
   }
 
   /text {
     buf encodeutf8
   }
 
+  /add_key_to_buffer {
+    cursor_index buf length ge {
+      # append
+      buf cursor_index key insert
+      cursor_x -1 get x add y setpos
+      key show
+      cursor_x [ getpos pop x sub ] add!
+      cursor_index 1 add!
+    } {
+      # insert
+      buf cursor_index key insert
+    } ifelse
+  }
+
+  /cursor_on {
+    cursor_x cursor_index get x add dup y setpos y cursor_height 1 sub add drawline
+  }
+
+  /cursor_off {
+    getcanvas
+      background setcanvas
+      cursor_x cursor_index get 0 1 cursor_height setregion
+    setcanvas
+    cursor_x cursor_index get x add y setpos
+    getcanvas background blt
+  }
+
   /input {
     /key exch def
+
+    cursor_off
 
     key 0x0d eq {
       text
@@ -62,10 +96,21 @@
       return
     } if
 
-    buf [ key ] add!
-    cursor_x -1 get x add y setpos
-    key show
-    cursor_x [ getpos pop x sub ] add!
+    key 0x80004b eq {
+      cursor_index -1 add!
+      cursor_on
+      return
+    } if
+
+    key 0x80004d eq {
+      cursor_index 1 add!
+      cursor_on
+      return
+    } if
+
+    add_key_to_buffer
+
+    cursor_on
   }
 ) freeze def
 

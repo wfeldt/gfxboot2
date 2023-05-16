@@ -2076,7 +2076,12 @@ void gfx_prim__add(unsigned direct)
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, result_id, 0);
+  if(direct) {
+    gfx_obj_ref_dec(result_id);
+  }
+  else {
+    gfx_obj_array_push(gfxboot_data->vm.program.pstack, result_id, 0);
+  }
 }
 
 

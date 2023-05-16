@@ -175,6 +175,31 @@ obj_id_t gfx_obj_mem_set(obj_id_t mem_id, uint8_t val, int pos)
 
   if(pos >= (int) mem->size) {
     if(!gfx_obj_realloc(mem_id, (unsigned) pos + 1)) return 0;
+    mem = gfx_obj_mem_ptr(mem_id);
+  }
+
+  ((uint8_t *) mem->ptr)[pos] = val;
+
+  return mem_id;
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+obj_id_t gfx_obj_mem_insert(obj_id_t mem_id, uint8_t val, int pos)
+{
+  data_t *mem = gfx_obj_mem_ptr_rw(mem_id);
+
+  if(pos < 0) pos = (int) mem->size + pos;
+
+  if(pos < 0) return 0;
+
+  if(pos >= (int) mem->size) {
+    if(!gfx_obj_realloc(mem_id, (unsigned) pos + 1)) return 0;
+  }
+  else {
+    if(!gfx_obj_realloc(mem_id, mem->size + 1)) return 0;
+    mem = gfx_obj_mem_ptr(mem_id);
+    gfx_memcpy(mem->ptr + pos + 1, mem->ptr + pos, mem->size - 1 - (unsigned) pos);
   }
 
   ((uint8_t *) mem->ptr)[pos] = val;

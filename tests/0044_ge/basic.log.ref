@@ -709,7 +709,7 @@ GC: ++#xxxx.1.1.num.prim
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <2 (0x2)>
+  [0] #xxxx.2.1.num.int <2 (0x2)>
   [1] #xxxx.1.1.num.int <1 (0x1)>
   [2] #xxxx.1.2.num.prim <2 (0x2)>
   [3] #xxxx.1.1.mem.ref.ro <#xxxx.1.2.mem.ro, "foo_1">
@@ -732,8 +732,8 @@ GC: ++#xxxx.1.1.num.prim
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <3 (0x3)>
-  [1] #xxxx.1.1.num.int <2 (0x2)>
+  [0] #xxxx.2.1.num.int <3 (0x3)>
+  [1] #xxxx.2.1.num.int <2 (0x2)>
   [2] #xxxx.1.1.num.int <1 (0x1)>
   [3] #xxxx.1.2.num.prim <2 (0x2)>
   [4] #xxxx.1.1.mem.ref.ro <#xxxx.1.2.mem.ro, "foo_1">

@@ -35,6 +35,7 @@
     /y exch def
     /x exch def
     /background width height newcanvas def
+
     getcolor
       0x90000000 setcolor
       width height fillrect
@@ -43,6 +44,7 @@
       x y width height setregion
       background getcanvas blt
     setregion
+
     x y setpos
     getcanvas background blt
   }
@@ -60,10 +62,10 @@
       return
     } if
 
-    buf [ key ] add! pop
+    buf [ key ] add!
     cursor_x -1 get x add y setpos
     key show
-    cursor_x [ getpos pop x sub ] add! pop
+    cursor_x [ getpos pop x sub ] add!
   }
 ) freeze def
 

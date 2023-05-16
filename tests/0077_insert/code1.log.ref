@@ -1,0 +1,79 @@
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# code: 73 entries (73 - 0)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# line i index  offset   type   hex                      word
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
+     1       1  0x00008  ref    59 66 6f 6f 5f 31        /foo_1
+             2  0x0000e  word   18 5b                    [
+             3  0x00010  int    81 0a                      10
+             4  0x00012  int    81 14                      20
+             5  0x00014  int    81 1e                      30
+             6  0x00016  int    81 28                      40
+             7  0x00018  word   18 5d                    ]
+             8  0x0001a  word   38 64 65 66              def
+     3       9  0x0001e  word   58 66 6f 6f 5f 31        foo_1
+            10  0x00024  int    01                       0
+            11  0x00025  int    81 64                    100
+            12  0x00027  word   68 69 6e 73 65 72 74     insert
+     4      13  0x0002e  xref   84 10                    foo_1
+            14  0x00030  int    81 ff                    -1
+            15  0x00032  int    91 90 01                 400
+            16  0x00035  xref   84 0e                    insert
+     5      17  0x00037  xref   84 19                    foo_1
+            18  0x00039  int    41                       4
+            19  0x0003a  int    91 f4 01                 500
+            20  0x0003d  xref   84 16                    insert
+     6      21  0x0003f  xref   84 21                    foo_1
+            22  0x00041  int    81 0a                    10
+            23  0x00043  int    91 84 03                 900
+            24  0x00046  xref   84 1f                    insert
+     8      25  0x00048  ref    59 66 6f 6f 5f 32        /foo_2
+            26  0x0004e  word   18 28                    (
+            27  0x00050  str    27 61 61                   "aa"
+            28  0x00053  int    81 0b                      11
+            29  0x00055  str    27 62 62                   "bb"
+            30  0x00058  int    81 16                      22
+            31  0x0005a  str    27 63 63                   "cc"
+            32  0x0005d  int    81 21                      33
+            33  0x0005f  word   18 29                    )
+            34  0x00061  xref   84 47                    def
+    10      35  0x00063  word   58 66 6f 6f 5f 32        foo_2
+            36  0x00069  xref   84 14                    "bb"
+            37  0x0006b  int    91 de 00                 222
+            38  0x0006e  xref   84 47                    insert
+    11      39  0x00070  xref   84 0d                    foo_2
+            40  0x00072  str    27 64 64                 "dd"
+            41  0x00075  int    91 bc 01                 444
+            42  0x00078  xref   84 51                    insert
+    13      43  0x0007a  ref    59 66 6f 6f 5f 33        /foo_3
+            44  0x00080  str    27 31 32                 "12"
+            45  0x00083  str    07                       ""
+            46  0x00084  word   38 61 64 64              add
+            47  0x00088  xref   84 6e                    def
+    15      48  0x0008a  word   58 66 6f 6f 5f 33        foo_3
+            49  0x00090  int    01                       0
+            50  0x00091  int    81 41                    'A'
+            51  0x00093  xref   84 6c                    insert
+    16      52  0x00095  xref   84 0b                    foo_3
+            53  0x00097  int    31                       3
+            54  0x00098  int    81 35                    '5'
+            55  0x0009a  xref   84 73                    insert
+    17      56  0x0009c  xref   84 12                    foo_3
+            57  0x0009e  int    81 ff                    -1
+            58  0x000a0  int    81 36                    '6'
+            59  0x000a2  xref   84 7b                    insert
+    18      60  0x000a4  xref   84 1a                    foo_3
+            61  0x000a6  int    81 13                    19
+            62  0x000a8  int    81 58                    'X'
+            63  0x000aa  xref   84 83                    insert
+    20      64  0x000ac  xref   84 8e                    foo_1
+            65  0x000ae  code   16                       {
+            66  0x000af  prim   13                       }
+            67  0x000b0  word   68 66 6f 72 61 6c 6c     forall
+    21      68  0x000b7  xref   84 54                    foo_2
+            69  0x000b9  code   16                       {
+            70  0x000ba  prim   13                       }
+            71  0x000bb  xref   84 0b                    forall
+    22      72  0x000bd  xref   84 33                    foo_3

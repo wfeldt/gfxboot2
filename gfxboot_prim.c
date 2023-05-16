@@ -1308,7 +1308,7 @@ void gfx_prim_put_x(obj_id_t key)
 //
 // ( string_2 int_2 int_3  -- )
 // string_2: string to modify
-// int_2: element index 
+// int_2: element index
 // int_3: new value
 //
 // Set the respective element of array_1, hash_1, or string_2.
@@ -1374,6 +1374,83 @@ void gfx_prim_put()
     gfx_obj_array_pop_n(3, gfxboot_data->vm.program.pstack, 1);
     return;
   }
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// set array, hash, or string element
+//
+// group: get
+//
+// ( array_1 int_1 any_1  -- )
+// array_1: array to modify
+// int_1: element index
+// any_1: new value
+//
+// ( hash_1 string_1 any_2  -- )
+// hash_1: hash to modify
+// string_1: key
+// any_2: new value
+//
+// ( string_2 int_2 int_3  -- )
+// string_2: string to modify
+// int_2: element index
+// int_3: new value
+//
+// Insert an element into array_1, hash_1, or string_2 at the respective position.
+//
+// Note that string constants are read-only and cannot be modified.
+//
+// example:
+//
+// /x [ 10 20 30 ] def
+// x 2 40 insert                        # x is now [ 10 20 40 30 ]
+//
+// /y ( "foo" 10 "bar" 20 ) def
+// y "bar" 40 insert                    # y is now ( "foo" 10 "bar" 40 )
+//
+// /z "ABC" mem def                     # mem is needed to create a writable copy
+// z 1 68 insert                        # z is now "ADBC"
+//
+void gfx_prim_insert()
+{
+  arg_t *argv = gfx_arg_n(3, (uint8_t [3]) { OTYPE_MEM | IS_RW, OTYPE_NUM, OTYPE_NUM });
+  if(!argv) argv = gfx_arg_n(3, (uint8_t [3]) { OTYPE_HASH | IS_RW, OTYPE_MEM, OTYPE_ANY | IS_NIL });
+  if(!argv) argv = gfx_arg_n(3, (uint8_t [3]) { OTYPE_ARRAY | IS_RW, OTYPE_NUM, OTYPE_ANY | IS_NIL });
+
+  if(!argv) return;
+
+  int pos;
+  uint8_t val;
+
+  switch(argv[0].ptr->base_type) {
+    case OTYPE_MEM:
+      val = OBJ_VALUE_FROM_PTR(argv[2].ptr);
+      pos = OBJ_VALUE_FROM_PTR(argv[1].ptr);
+      if(!gfx_obj_mem_insert(argv[0].id, val, pos)) {
+        GFX_ERROR(err_invalid_range);
+        return;
+      }
+      break;
+
+    case OTYPE_ARRAY:
+      pos = OBJ_VALUE_FROM_PTR(argv[1].ptr);
+      if(!gfx_obj_array_insert(argv[0].id, argv[2].id, pos, 1)) {
+        GFX_ERROR(err_invalid_range);
+        return;
+      }
+
+      break;
+
+    case OTYPE_HASH:
+      if(!gfx_obj_hash_set(argv[0].id, argv[1].id, argv[2].id, 1)) {
+        GFX_ERROR(err_invalid_hash_key);
+        return;
+      }
+      break;
+  }
+
+  gfx_obj_array_pop_n(3, gfxboot_data->vm.program.pstack, 1);
 }
 
 

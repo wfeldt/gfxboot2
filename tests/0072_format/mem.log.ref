@@ -1,27 +1,27 @@
 # ---  mem  ---
 ===  memory dump  ===
    0: 0x0000000c[      56] [11904320/      68]  #2.1.1.font <glyphs 256, size 8x16, line height 16, base 0>
-   1: 0x00000050[    6200] [      68/    6212]  #0.1.*.olist <size 214, next 243, max 258>
+   1: 0x00000050[    6200] [      68/    6212]  #0.1.*.olist <size 216, next 245, max 258>
    2: 0x00001894[     584] [    6212/     596]  #3.1.1.canv <geo 0x0_8x16, region 0x0_8x16, chk 0x4e8c3ac0>
    3: 0x00001ae8[ 1920072] [     596/ 1920084]  #4.1.1.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
    4: 0x001d673c[ 1920072] [ 1920084/ 1920084]  #5.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
    5: 0x003ab390[ 1024072] [ 1920084/ 1024084]  #6.1.1.canv <geo 80x100_640x400, region 0x0_640x400, chk 0x8ccedc00>
    6: 0x004a53e4[      72] [ 1024084/      84]  #7.1.1.array <size 1, max 16>
-   7: 0x004a5438[     820] [      84/     832]  #8.1.2.hash <size 98, max 101>
-   8: 0x004a5778[     284] [     832/     296]  #205.1.1.mem.ro <size 283>
-   9: 0x004a58a0[      72] [     296/      84]  #206.1.1.array <size 5, max 16>
-  10: 0x004a58f4[      56] [      84/      68]  #207.1.1.ctx.func <code #205.1.1.mem.ro, ip 0x11b (0x11b), dict #8.1.2.hash>
+   7: 0x004a5438[     820] [      84/     832]  #8.1.2.hash <size 99, max 101>
+   8: 0x004a5778[     284] [     832/     296]  #207.1.1.mem.ro <size 283>
+   9: 0x004a58a0[      72] [     296/      84]  #208.1.1.array <size 5, max 16>
+  10: 0x004a58f4[      56] [      84/      68]  #209.1.1.ctx.func <code #207.1.1.mem.ro, ip 0x11b (0x11b), dict #8.1.2.hash>
   11* 0x004a5938[      68] [      68/      80]
-  12: 0x004a5988[      36] [      80/      48]  #213.1.1.mem.str <size 35, "|nil|   |1    |  |    ni|  |   nil|">
-  13: 0x004a59b8[      72] [      48/      84]  #214.1.1.array <size 0, max 16>
-  14: 0x004a5a0c[      36] [      84/      48]  #221.1.1.mem.str <size 35, "|123|   |234  |  |  +345|  |   456|">
-  15: 0x004a5a3c[      36] [      48/      48]  #228.1.1.mem.str <size 35, "|-123|  |-234 |  |  -345|  |  -456|">
-  16: 0x004a5a6c[      36] [      48/      48]  #235.1.1.mem.str <size 35, "|abc|   |def  |  |   ghi|  |   jkl|">
-  17: 0x004a5a9c[      36] [      48/      48]  #242.1.1.mem.str <size 35, "|abc|   |de   |  |gh|      |    jk|">
+  12: 0x004a5988[      36] [      80/      48]  #215.1.1.mem.str <size 35, "|nil|   |1    |  |    ni|  |   nil|">
+  13: 0x004a59b8[      72] [      48/      84]  #216.1.1.array <size 0, max 16>
+  14: 0x004a5a0c[      36] [      84/      48]  #223.1.1.mem.str <size 35, "|123|   |234  |  |  +345|  |   456|">
+  15: 0x004a5a3c[      36] [      48/      48]  #230.1.1.mem.str <size 35, "|-123|  |-234 |  |  -345|  |  -456|">
+  16: 0x004a5a6c[      36] [      48/      48]  #237.1.1.mem.str <size 35, "|abc|   |def  |  |   ghi|  |   jkl|">
+  17: 0x004a5a9c[      36] [      48/      48]  #244.1.1.mem.str <size 35, "|abc|   |de   |  |gh|      |    jk|">
   18: 0x004a5acc[11904308] [      48/11904320]
 == object dump (id #0.1.*.olist) ==
-  #0.1.*.olist <size 214, next 243, max 258>
-  #0.1.*.olist <size 214, next 243, max 258>
+  #0.1.*.olist <size 216, next 245, max 258>
+  #0.1.*.olist <size 216, next 245, max 258>
   #1.1.1.mem.ro <size 4947>
     72 b5 4a 86 00 00 00 00 20 00 00 00 01 00 00 00  r.J..... .......
     00 01 00 00 10 00 00 00 10 00 00 00 08 00 00 00  ................
@@ -435,7 +435,7 @@
     |................................................................................|
   #7.1.1.array <size 1, max 16>
     [ 0] #5.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
-  #8.1.2.hash <size 98, max 101>
+  #8.1.2.hash <size 99, max 101>
     #18.1.1.mem.ref.ro <size 1, "("> => #17.1.1.num.prim <4 (0x4)>
     #20.1.1.mem.ref.ro <size 1, ")"> => #19.1.1.num.prim <5 (0x5)>
     #14.1.1.mem.ref.ro <size 1, "["> => #13.1.1.num.prim <2 (0x2)>
@@ -485,6 +485,7 @@
     #28.1.1.mem.ref.ro <size 2, "if"> => #27.1.1.num.prim <9 (0x9)>
     #30.1.1.mem.ref.ro <size 6, "ifelse"> => #29.1.1.num.prim <10 (0xa)>
     #66.1.1.mem.ref.ro <size 5, "index"> => #65.1.1.num.prim <28 (0x1c)>
+    #206.1.1.mem.ref.ro <size 6, "insert"> => #205.1.1.num.prim <98 (0x62)>
     #24.1.1.mem.ref.ro <size 4, "ldef"> => #23.1.1.num.prim <7 (0x7)>
     #112.1.1.mem.ref.ro <size 2, "le"> => #111.1.1.num.prim <51 (0x33)>
     #52.1.1.mem.ref.ro <size 6, "length"> => #51.1.1.num.prim <21 (0x15)>
@@ -828,7 +829,10 @@
   #203.1.1.num.prim <97 (0x61)>
   #204.1.1.mem.ref.ro <size 15, "seteventhandler">
     73 65 74 65 76 65 6e 74 68 61 6e 64 6c 65 72     seteventhandler
-  #205.1.1.mem.ro <size 283>
+  #205.1.1.num.prim <98 (0x62)>
+  #206.1.1.mem.ref.ro <size 6, "insert">
+    69 6e 73 65 72 74                                insert
+  #207.1.1.mem.ro <size 283>
     75 51 12 a9 42 7a ad 60 c7 20 7c 25 64 7c 20 20  uQ..Bz.`. |%d|  
     20 7c 25 2d 35 64 7c 20 20 7c 25 2b 36 2e 32 73   |%-5d|  |%+6.2s
     7c 20 20 7c 25 36 2e 32 64 7c 18 5b 17 31 12 81  |  |%6.2d|.[.1..
@@ -847,36 +851,36 @@
     32 73 7c 20 20 20 20 20 20 7c 25 36 2e 32 73 7c  2s|      |%6.2s|
     18 5b 37 61 62 63 37 64 65 66 37 67 68 69 37 6a  .[7abc7def7ghi7j
     6b 6c 18 5d 68 66 6f 72 6d 61 74                 kl.]hformat
-  #206.1.1.array <size 5, max 16>
-    [ 0] #213.1.1.mem.str <size 35, "|nil|   |1    |  |    ni|  |   nil|">
-    [ 1] #221.1.1.mem.str <size 35, "|123|   |234  |  |  +345|  |   456|">
-    [ 2] #228.1.1.mem.str <size 35, "|-123|  |-234 |  |  -345|  |  -456|">
-    [ 3] #235.1.1.mem.str <size 35, "|abc|   |def  |  |   ghi|  |   jkl|">
-    [ 4] #242.1.1.mem.str <size 35, "|abc|   |de   |  |gh|      |    jk|">
-  #207.1.1.ctx.func <code #205.1.1.mem.ro, ip 0x11b (0x11b), dict #8.1.2.hash>
+  #208.1.1.array <size 5, max 16>
+    [ 0] #215.1.1.mem.str <size 35, "|nil|   |1    |  |    ni|  |   nil|">
+    [ 1] #223.1.1.mem.str <size 35, "|123|   |234  |  |  +345|  |   456|">
+    [ 2] #230.1.1.mem.str <size 35, "|-123|  |-234 |  |  -345|  |  -456|">
+    [ 3] #237.1.1.mem.str <size 35, "|abc|   |def  |  |   ghi|  |   jkl|">
+    [ 4] #244.1.1.mem.str <size 35, "|abc|   |de   |  |gh|      |    jk|">
+  #209.1.1.ctx.func <code #207.1.1.mem.ro, ip 0x11b (0x11b), dict #8.1.2.hash>
     type 17, ip 0x11b (0x11b)
-    code #205.1.1.mem.ro
+    code #207.1.1.mem.ro
     parent #0.0.nil
     dict #8.1.2.hash
     iterate #0.0.nil
-  #213.1.1.mem.str <size 35, "|nil|   |1    |  |    ni|  |   nil|">
+  #215.1.1.mem.str <size 35, "|nil|   |1    |  |    ni|  |   nil|">
     7c 6e 69 6c 7c 20 20 20 7c 31 20 20 20 20 7c 20  |nil|   |1    | 
     20 7c 20 20 20 20 6e 69 7c 20 20 7c 20 20 20 6e   |    ni|  |   n
     69 6c 7c                                         il|
-  #214.1.1.array <size 0, max 16>
-  #221.1.1.mem.str <size 35, "|123|   |234  |  |  +345|  |   456|">
+  #216.1.1.array <size 0, max 16>
+  #223.1.1.mem.str <size 35, "|123|   |234  |  |  +345|  |   456|">
     7c 31 32 33 7c 20 20 20 7c 32 33 34 20 20 7c 20  |123|   |234  | 
     20 7c 20 20 2b 33 34 35 7c 20 20 7c 20 20 20 34   |  +345|  |   4
     35 36 7c                                         56|
-  #228.1.1.mem.str <size 35, "|-123|  |-234 |  |  -345|  |  -456|">
+  #230.1.1.mem.str <size 35, "|-123|  |-234 |  |  -345|  |  -456|">
     7c 2d 31 32 33 7c 20 20 7c 2d 32 33 34 20 7c 20  |-123|  |-234 | 
     20 7c 20 20 2d 33 34 35 7c 20 20 7c 20 20 2d 34   |  -345|  |  -4
     35 36 7c                                         56|
-  #235.1.1.mem.str <size 35, "|abc|   |def  |  |   ghi|  |   jkl|">
+  #237.1.1.mem.str <size 35, "|abc|   |def  |  |   ghi|  |   jkl|">
     7c 61 62 63 7c 20 20 20 7c 64 65 66 20 20 7c 20  |abc|   |def  | 
     20 7c 20 20 20 67 68 69 7c 20 20 7c 20 20 20 6a   |   ghi|  |   j
     6b 6c 7c                                         kl|
-  #242.1.1.mem.str <size 35, "|abc|   |de   |  |gh|      |    jk|">
+  #244.1.1.mem.str <size 35, "|abc|   |de   |  |gh|      |    jk|">
     7c 61 62 63 7c 20 20 20 7c 64 65 20 20 20 7c 20  |abc|   |de   | 
     20 7c 67 68 7c 20 20 20 20 20 20 7c 20 20 20 20   |gh|      |    
     6a 6b 7c                                         jk|

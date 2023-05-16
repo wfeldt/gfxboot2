@@ -147,6 +147,57 @@ obj_id_t gfx_obj_array_set(obj_id_t array_id, obj_id_t id, int pos, int do_ref_c
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+obj_id_t gfx_obj_array_insert(obj_id_t array_id, obj_id_t id, int pos, int do_ref_cnt)
+{
+  array_t *a = gfx_obj_array_ptr_rw(array_id);
+
+  if(!a) return 0;
+
+  if(pos < 0) pos = (int) a->size + pos;
+
+  if(pos < 0) return 0;
+
+  unsigned upos = (unsigned) pos;
+
+  unsigned max = a->max;
+
+  if(upos >= max) {
+    max = upos + (upos >> 3) + 0x10;
+  }
+  else if(a->size + 1 > max) {
+    max = max + (max >> 3) + 0x10;
+  }
+
+  if(max > a->max) {
+    array_id = gfx_obj_realloc(array_id, OBJ_ARRAY_SIZE(max));
+    if(!array_id) return 0;
+    a = gfx_obj_array_ptr(array_id);
+    if(!a) return 0;
+    a->max = max;
+  }
+
+  if(upos >= a->size) {
+    // clear new entries
+    for(unsigned u = a->size; u <= upos; u++) a->ptr[u] = 0;
+    a->size = upos + 1;
+  }
+  else {
+    gfx_memcpy(&a->ptr[upos + 1], &a->ptr[upos], (sizeof *a->ptr) * (a->size - upos));
+    a->size++;
+    a->ptr[upos] = 0;
+  }
+
+  if(do_ref_cnt) {
+    gfx_obj_ref_inc(id);
+    gfx_obj_ref_dec(a->ptr[upos]);
+  }
+  a->ptr[upos] = id;
+
+  return array_id;
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 obj_id_t gfx_obj_array_get(obj_id_t array_id, int pos)
 {
   array_t *a = gfx_obj_array_ptr(array_id);
@@ -182,7 +233,7 @@ void gfx_obj_array_del(obj_id_t array_id, int pos, int do_ref_cnt)
     gfx_memcpy(&a->ptr[pos], &a->ptr[pos + 1], (sizeof *a->ptr) * (a->size - (unsigned) pos));
   }
 
-  gfx_memset(&a->ptr[a->size], 0, sizeof *a->ptr);
+  a->ptr[a->size] = 0;
 }
 
 

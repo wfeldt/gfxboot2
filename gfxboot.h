@@ -353,6 +353,7 @@ typedef struct {
         char buf[256];
         unsigned buf_pos;
         unsigned show:1;
+        unsigned show_on_error:1;
       } console;
       int log_level_serial;
       int log_level_console;

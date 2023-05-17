@@ -317,7 +317,8 @@ void gfx_program_run()
 
   gfxboot_data->vm.program.time += tsc() - tsc_start;
 
-  if(gfxboot_data->vm.error.id) {
+  // creating a debug console on demand slows down test scripts, so try to avoid that
+  if(gfxboot_data->vm.error.id && gfxboot_data->vm.debug.console.show_on_error) {
     gfx_program_debug_on_off(1);
   }
 }

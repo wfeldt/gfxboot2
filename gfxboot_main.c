@@ -92,7 +92,11 @@ int gfxboot_init(int auto_run)
   // gfx_obj_asciiz_new("Foo Bar");
 
   // gfxboot_data->vm.debug.trace_ip = 1;
-  if(auto_run) gfx_program_run();
+
+  if(auto_run) {
+    gfxboot_data->vm.debug.console.show_on_error = 1;
+    gfx_program_run();
+  }
   gfx_show_error();
 
   // gfx_obj_dump(OBJ_ID(0, 1), (dump_style_t) { .dump = 1 });

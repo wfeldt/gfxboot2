@@ -28,16 +28,19 @@
 /kEnter 0x0d def
 /kLeft  0x80004b def
 /kRight 0x80004d def
+/kHome  0x800047 def
+/kEnd   0x80004f def
 
 /edit_class (
   /x 0
   /y 0
   /width 0
   /height 0
+  /x_0 4 def
   /background nil
   /x_shift 0
   /cursor_index 0
-  /cursor_x [ 0 ]
+  /cursor_x [ x_0 ]
   /cursor_height 0
   /cursor_state false
   /cursor_back nil
@@ -71,18 +74,46 @@
     buf encodeutf8
   }
 
+  /printable {
+    key ' ' lt { false return } if
+    key 0x1fffff gt { false return } if
+    true
+  }
+
   /add_key_to_buffer {
     cursor_index buf length ge {
       # append
       buf cursor_index key insert
-      cursor_x -1 get x add y setpos
+      cursor_x cursor_index get x add y setpos
       key show
-      cursor_x [ getpos pop x sub ] add!
       cursor_index 1 add!
+      cursor_x cursor_index getpos pop x sub put
     } {
       # insert
       buf cursor_index key insert
+      cursor_x cursor_index get x add y setpos
+      getpos pop
+      key show
+      getpos pop sub
+      /d exch ldef
+      cursor_x cursor_index getpos pop x sub d add insert
+      cursor_index 1 add!
+      cursor_index 1 buf length {
+        cursor_x exch over over get d sub put
+      } for
+      cursor_index 1 sub redraw
     } ifelse
+  }
+
+  /redraw {
+    dup 0 gt { 1 sub } if
+    1 buf length 1 sub {
+      /i exch ldef
+      background cursor_x i get 0 buf i get dim csetregion
+      cursor_x i get x add y setpos
+      getcanvas background blt
+      buf i get show
+    } for
   }
 
   /cursor_on {
@@ -113,18 +144,30 @@
     } if
 
     key kLeft eq {
-      cursor_index -1 add!
+      cursor_index 0 ne { cursor_index -1 add! } if
       cursor_on
       return
     } if
 
     key kRight eq {
-      cursor_index 1 add!
+      cursor_index buf length lt { cursor_index 1 add! } if
       cursor_on
       return
     } if
 
-    add_key_to_buffer
+    key kHome eq {
+      /cursor_index 0 def
+      cursor_on
+      return
+    } if
+
+    key kEnd eq {
+      /cursor_index buf length def
+      cursor_on
+      return
+    } if
+
+    printable { add_key_to_buffer } if
 
     cursor_on
   }

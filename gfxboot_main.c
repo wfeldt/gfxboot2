@@ -4,7 +4,7 @@ static uint8_t _console_font[4947];
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-int gfxboot_init()
+int gfxboot_init(int auto_run)
 {
   gfxboot_log("gfxboot_init\n");
 
@@ -92,7 +92,7 @@ int gfxboot_init()
   // gfx_obj_asciiz_new("Foo Bar");
 
   // gfxboot_data->vm.debug.trace_ip = 1;
-  // gfx_program_run();
+  if(auto_run) gfx_program_run();
   gfx_show_error();
 
   // gfx_obj_dump(OBJ_ID(0, 1), (dump_style_t) { .dump = 1 });

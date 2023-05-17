@@ -288,7 +288,7 @@ grub_err_t grub_gfxboot_init(int entry, grub_menu_t menu, int nested)
     mode_info.mode_type, fb0, fb1
   );
 
-  if(gfxboot_init()) {
+  if(gfxboot_init(1)) {
     err = GRUB_ERR_MENU;
   }
   else {

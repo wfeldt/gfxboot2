@@ -49,18 +49,33 @@ static struct {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 char *gfx_debug_get_ip()
 {
-  static char buf[64];
-  unsigned code_id = 0;
-  unsigned ip = 0;
+  static char buf[128];
+  unsigned ip = 0, ref_ip = 0;
+  obj_id_t code_id = 0, ref_id = 0;
+  data_t *code_data = 0, *ref_data = 0;
 
   context_t *code_ctx = gfx_obj_context_ptr(gfxboot_data->vm.program.context);
 
   if(code_ctx) {
-    code_id = OBJ_ID2IDX(code_ctx->code_id);
+    code_id = code_ctx->code_id;
     ip = gfxboot_data->vm.error.id ? code_ctx->current_ip : code_ctx->ip;
   }
 
-  gfxboot_snprintf(buf, sizeof buf, "#%u:0x%x", code_id, ip);
+  code_data = gfx_obj_mem_ptr(code_id);
+  if(code_data && code_data->ref_id) {
+    ref_id = code_data->ref_id;
+    ref_data = gfx_obj_mem_ptr(ref_id);
+  }
+
+  if(ref_data && code_data->ptr >= ref_data->ptr) {
+    ref_ip = ip + code_data->ptr - ref_data->ptr;
+  }
+
+  gfxboot_snprintf(buf, sizeof buf, "#%u:0x%x", OBJ_ID2IDX(code_id), ip);
+
+  if(ref_id) {
+    gfxboot_snprintf(buf + gfx_strlen(buf), sizeof buf, "[#%u:0x%x]", OBJ_ID2IDX(ref_id), ref_ip);
+  }
 
   return buf;
 }
@@ -232,6 +247,8 @@ void gfx_program_debug_on_off(unsigned state)
 
   if(gfxboot_data->vm.debug.console.show) {
     char buf[64];
+
+    gfx_show_error();
 
     gfxboot_snprintf(buf, sizeof buf, "%s>", gfx_debug_get_ip());
 
@@ -744,6 +761,7 @@ void debug_cmd_run(int argc, char **argv)
   if(argv[1]) steps = (unsigned) gfx_strtol(argv[1], 0, 0);
 
   gfxboot_data->vm.debug.steps = steps;
+  gfxboot_data->vm.error.shown = 0;
 
   gfx_program_run();
 
@@ -871,7 +889,7 @@ void debug_cmd_set(int argc, char **argv)
     gfxboot_log("ip = %s\n", gfx_debug_get_ip());
   }
   else if(!gfx_strcmp(argv[0], "err")) {
-    gfxboot_data->vm.error.id = val;
+    GFX_ERROR(val);
     gfx_show_error();
   }
 }

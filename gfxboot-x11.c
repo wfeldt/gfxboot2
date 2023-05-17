@@ -47,6 +47,7 @@ struct {
   unsigned verbose:1;
   unsigned help:1;
   unsigned x11:1;
+  int auto_run;
   FILE *debug_file;
 } opt;
 
@@ -54,6 +55,8 @@ struct option options[] = {
   { "help", 0, NULL, 'h' },
   { "verbose", 0, NULL, 'v' },
   { "no-x11", 0, NULL, 'n' },
+  { "run", 0, NULL, 1001 },
+  { "no-run", 0, NULL, 1002 },
   { "file", 1, NULL, 1 },
   { }
 };
@@ -106,6 +109,14 @@ int main(int argc, char **argv)
         opt.x11 = 0;
         break;
 
+      case 1001:
+        opt.auto_run = 1;
+        break;
+
+      case 1002:
+        opt.auto_run = -1;
+        break;
+
       default:
         help();
         return i == 'h' ? 0 : 1;
@@ -125,6 +136,7 @@ int main(int argc, char **argv)
   }
 
   if(opt.x11) {
+    opt.auto_run++;
     XSetErrorHandler(NewXErrorHandler);
     XSetIOErrorHandler(NewXIOErrorHandler);
 
@@ -165,6 +177,9 @@ void help()
    "\n"
     "Options:\n"
     "      --file FILE       Run debug commands from FILE at startup.\n"
+    "      --no-x11          Console mode.\n"
+    "      --run             Start code automatically (default in x11 mode).\n"
+    "      --no-run          Do not start code automatically (default in console mode).\n"
     "  -v, --verbose         Show more detailed info.\n"
     "  -h, --help            Show this text.\n"
     "\n"
@@ -465,7 +480,7 @@ int x11_gfxboot_init()
   gfxboot_data->vm.mem.ptr = calloc(1, gfxboot_data->vm.mem.size);
   if(!gfxboot_data->vm.mem.ptr) return 1;
 
-  if(gfxboot_init()) return 1;
+  if(gfxboot_init(opt.auto_run > 0 ? 1 : 0)) return 1;
 
   return 0;
 }

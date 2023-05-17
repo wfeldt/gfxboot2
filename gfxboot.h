@@ -117,7 +117,7 @@ pserr_invalid_prim              equ 201h
 #ifdef FULL_ERROR
 #define GFX_ERROR(a)	gfxboot_data->vm.error = (error_t) { .id = (a), .src_file = __FILE__, .src_line = __LINE__ }
 #else
-#define GFX_ERROR(a)	gfxboot_data->vm.error.id = (a)
+#define GFX_ERROR(a)	gfxboot_data->vm.error = (error_t) { .id = (a) }
 #endif
 
 // see gfx_error_msg()
@@ -132,6 +132,7 @@ typedef enum {
 
 typedef struct {
   error_id_t id;
+  unsigned shown:1;
 #ifdef FULL_ERROR
   const char *src_file;
   int src_line;
@@ -405,7 +406,7 @@ int gfxboot_snprintf(char *str, unsigned size, const char *format, ...) __attrib
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-int gfxboot_init(void);
+int gfxboot_init(int auto_run);
 int gfxboot_process_key(unsigned key);
 void gfxboot_timeout(void);
 void gfxboot_debug_command(char *str);

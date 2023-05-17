@@ -316,6 +316,10 @@ void gfx_program_run()
   }
 
   gfxboot_data->vm.program.time += tsc() - tsc_start;
+
+  if(gfxboot_data->vm.error.id) {
+    gfx_program_debug_on_off(1);
+  }
 }
 
 

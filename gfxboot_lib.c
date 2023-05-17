@@ -8,9 +8,9 @@
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_show_error()
+void gfx_show_error(void)
 {
-  if(gfxboot_data->vm.error.id) {
+  if(gfxboot_data->vm.error.id && !gfxboot_data->vm.error.shown) {
 #ifdef FULL_ERROR
     gfxboot_log(
       "error %d (%s), ip = %s, src = %s:%d\n",
@@ -28,6 +28,7 @@ void gfx_show_error()
       gfx_debug_get_ip()
     );
 #endif
+   gfxboot_data->vm.error.shown = 1;
   }
 }
 

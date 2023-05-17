@@ -15,7 +15,19 @@
   getpos rot add exch rot add exch setpos
 } def
 
+/csetpos {
+  rot getcanvas 4 1 roll setcanvas setpos setcanvas
+} def
+
+/csetregion {
+  5 -1 roll getcanvas 6 1 roll setcanvas setregion setcanvas
+} def
+
 # - - - - - - - - - - - - - - -
+
+/kEnter 0x0d def
+/kLeft  0x80004b def
+/kRight 0x80004d def
 
 /edit_class (
   /x 0
@@ -27,6 +39,8 @@
   /cursor_index 0
   /cursor_x [ 0 ]
   /cursor_height 0
+  /cursor_state false
+  /cursor_back nil
   /buf [ ]
 
   /init {
@@ -43,13 +57,12 @@
       0x90000000 setcolor
       width height fillrect
     setcolor
-    getregion
-      x y width height setregion
-      background getcanvas blt
-    setregion
 
-    x y setpos
+    background getcanvas blt
+
     getcanvas background blt
+
+    /cursor_back 1 height newcanvas def
 
     cursor_on
   }
@@ -73,16 +86,19 @@
   }
 
   /cursor_on {
-    cursor_x cursor_index get x add dup y setpos y cursor_height 1 sub add drawline
+    cursor_state { return } { /cursor_state true def } ifelse
+
+    cursor_x cursor_index get x add y setpos
+    cursor_back getcanvas blt
+
+    cursor_x cursor_index get x add dup y 1 add setpos y cursor_height 1 sub add drawline
   }
 
   /cursor_off {
-    getcanvas
-      background setcanvas
-      cursor_x cursor_index get 0 1 cursor_height setregion
-    setcanvas
+    cursor_state { /cursor_state false def } { return } ifelse
+
     cursor_x cursor_index get x add y setpos
-    getcanvas background blt
+    getcanvas cursor_back blt
   }
 
   /input {
@@ -90,19 +106,19 @@
 
     cursor_off
 
-    key 0x0d eq {
+    key kEnter eq {
       text
       debug
       return
     } if
 
-    key 0x80004b eq {
+    key kLeft eq {
       cursor_index -1 add!
       cursor_on
       return
     } if
 
-    key 0x80004d eq {
+    key kRight eq {
       cursor_index 1 add!
       cursor_on
       return
@@ -146,7 +162,7 @@ title dim 10 add exch 20 add exch fillrect
 0xffffff setcolor
 title show
 
-100 460 setpos
+100 470 setpos
 600 30 edit .init
 
 /eventhandler seteventhandler

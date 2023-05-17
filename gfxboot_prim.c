@@ -4273,8 +4273,9 @@ void gfx_prim_unpackimage()
 //
 // ( canvas_1 canvas_2 -- )
 //
-// Copy from the drawing region of canvas_2 to the drawing region of canvas_1,
-// at the drawing pos of canvas_1 using the drawing mode of canvas_1.
+// Copy content from drawing pos in drawing region of canvas_2 to the
+// drawing pos in drawing region of canvas_1, using drawing mode of
+// canvas_1.
 //
 // example:
 //
@@ -4293,9 +4294,23 @@ void gfx_prim_blt()
   canvas_t *canvas2 = OBJ_CANVAS_FROM_PTR(argv[1].ptr);
 
   area_t area2 = canvas2->region;
+  area2.x += canvas2->cursor.x;
+  area2.y += canvas2->cursor.y;
+
+  area_t diff2 = gfx_clip(&area2, &canvas2->region);
+
+#if 0
+  gfxboot_serial(0, "blt clipped area2 %dx%d_%dx%d\n",
+    area2.x, area2.y, area2.width, area2.height
+  );
+  gfxboot_serial(0, "blt diff2 %dx%d_%dx%d\n",
+    diff2.x, diff2.y, diff2.width, diff2.height
+  );
+#endif
+
   area_t area1 = {
-    .x = canvas1->region.x + canvas1->cursor.x,
-    .y = canvas1->region.y + canvas1->cursor.y,
+    .x = canvas1->region.x + canvas1->cursor.x + diff2.x,
+    .y = canvas1->region.y + canvas1->cursor.y + diff2.y,
     .width = area2.width,
     .height = area2.height
   };
@@ -4312,8 +4327,11 @@ void gfx_prim_blt()
   ADD_AREA(area2, diff);
 
 #if 0
-  gfxboot_serial(4, "blt clipped area1 %dx%d_%dx%d\n",
-    area1.x, area1.y, area1.width, area1.height
+  gfxboot_serial(0, "blt dst #%d (%dx%d_%dx%d), src #%d (%dx%d_%dx%d)\n",
+    OBJ_ID2IDX(argv[0].id),
+    area1.x, area1.y, area1.width, area1.height,
+    OBJ_ID2IDX(argv[1].id),
+    area2.x, area2.y, area2.width, area2.height
   );
 #endif
 

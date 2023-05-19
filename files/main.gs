@@ -30,6 +30,8 @@
 /kRight 0x80004d def
 /kHome  0x800047 def
 /kEnd   0x80004f def
+/kDel   0x800053 def
+/kBack  0x08 def
 
 /edit_class (
   /x 0
@@ -45,6 +47,7 @@
   /cursor_state false
   /cursor_back nil
   /buf [ ]
+  /orig_region nil
 
   /init {
     /height exch def
@@ -74,6 +77,15 @@
     buf encodeutf8
   }
 
+  /switch_region {
+    /orig_region [ getregion ] def
+    x y width height setregion
+  }
+
+  /restore_region {
+    orig_region { } forall setregion
+  }
+
   /printable {
     key ' ' lt { false return } if
     key 0x1fffff gt { false return } if
@@ -81,55 +93,98 @@
   }
 
   /add_key_to_buffer {
+    switch_region
+
     cursor_index buf length ge {
       # append
       buf cursor_index key insert
-      cursor_x cursor_index get x add y setpos
+      cursor_x cursor_index get 0 setpos
       key show
       cursor_index 1 add!
-      cursor_x cursor_index getpos pop x sub put
+      cursor_x cursor_index getpos pop put
     } {
       # insert
       buf cursor_index key insert
-      cursor_x cursor_index get x add y setpos
+      cursor_x cursor_index get 0 setpos
       getpos pop
       key show
       getpos pop sub
       /d exch ldef
-      cursor_x cursor_index getpos pop x sub d add insert
+      cursor_x cursor_index getpos pop d add insert
       cursor_index 1 add!
       cursor_index 1 buf length {
         cursor_x exch over over get d sub put
       } for
-      cursor_index 1 sub redraw
+      cursor_index 1 sub _redraw
     } ifelse
+
+    restore_region
   }
 
-  /redraw {
-    dup 0 gt { 1 sub } if
-    1 buf length 1 sub {
-      /i exch ldef
-      background cursor_x i get 0 buf i get dim csetregion
-      cursor_x i get x add y setpos
-      getcanvas background blt
-      buf i get show
+  /del_key {
+    cursor_index buf length eq { return } if
+
+    switch_region
+
+    buf cursor_index delete
+
+    /d cursor_x cursor_index get cursor_x cursor_index 1 add get sub ldef
+
+    cursor_x cursor_index delete
+
+    cursor_index 1 cursor_x length 1 sub {
+      cursor_x exch over over get d add put
     } for
+
+    cursor_index 1 sub _redraw
+
+    restore_region
+  }
+
+  # region already set
+  /_redraw {
+    dup 0 gt { 1 sub } {
+      background 0 0 x_0 height csetregion
+      0 0 setpos
+      getcanvas background blt
+    } ifelse
+    buf length 0 gt {
+      1 buf length 1 sub {
+        /i exch ldef
+        background cursor_x i get 0 buf i get dim pop height csetregion
+        cursor_x i get 0 setpos
+        getcanvas background blt
+        buf i get show
+      } for
+    } { pop } ifelse
+
+    background cursor_x -1 get 0 20 height csetregion
+    cursor_x -1 get 0 setpos
+    getcanvas background blt
   }
 
   /cursor_on {
     cursor_state { return } { /cursor_state true def } ifelse
 
-    cursor_x cursor_index get x add y setpos
+    switch_region
+
+    cursor_x cursor_index get 0 setpos
     cursor_back getcanvas blt
 
-    cursor_x cursor_index get x add dup y 1 add setpos y cursor_height 1 sub add drawline
+    cursor_x cursor_index get dup 1 setpos cursor_height 1 sub drawline
+
+    restore_region
   }
 
   /cursor_off {
     cursor_state { /cursor_state false def } { return } ifelse
 
-    cursor_x cursor_index get x add y setpos
+    switch_region
+
+    cursor_x cursor_index get 0 setpos
     getcanvas cursor_back blt
+
+    restore_region
   }
 
   /input {
@@ -163,6 +218,18 @@
 
     key kEnd eq {
       /cursor_index buf length def
+      cursor_on
+      return
+    } if
+
+    key kDel eq {
+      del_key
+      cursor_on
+      return
+    } if
+
+    key kBack eq {
+      cursor_index 0 ne { cursor_index -1 add! del_key } if
       cursor_on
       return
     } if

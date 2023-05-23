@@ -41,6 +41,7 @@
   /x_0 4 def
   /background nil
   /x_shift 0
+  /tail_d 0
   /cursor_index 0
   /cursor_x [ x_0 ]
   /cursor_height 0
@@ -128,15 +129,16 @@
 
     buf cursor_index delete
 
-    /d cursor_x cursor_index get cursor_x cursor_index 1 add get sub ldef
+    /tail_d cursor_x cursor_index get cursor_x cursor_index 1 add get sub def
 
     cursor_x cursor_index delete
 
     cursor_index 1 cursor_x length 1 sub {
-      cursor_x exch over over get d add put
+      cursor_x exch over over get tail_d add put
     } for
 
     cursor_index 1 sub _redraw
+    /tail_d 0 def
 
     restore_region
   }
@@ -144,6 +146,8 @@
   # region already set
   /_redraw {
     dup 0 gt { 1 sub } {
+      # in case it's less than 0, ensure it's 0
+      pop 0
       background 0 0 x_0 height csetregion
       0 0 setpos
       getcanvas background blt
@@ -158,7 +162,7 @@
       } for
     } { pop } ifelse
 
-    background cursor_x -1 get 0 20 height csetregion
+    background cursor_x -1 get 0 tail_d neg height csetregion
     cursor_x -1 get 0 setpos
     getcanvas background blt
   }

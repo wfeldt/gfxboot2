@@ -4361,7 +4361,64 @@ void gfx_prim_blt()
 void gfx_prim_debug()
 {
   gfxboot_data->vm.program.stop = 1;
-  gfx_program_debug_on_off(1);
+  gfx_program_debug_on_off(1, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// run debug command
+//
+// group: def
+//
+// ( str_1 -- )
+// ( bool_1 -- )
+//
+// Show debug console and run debug command.
+//
+// If a string is passed, turn on debug console and run debug command.
+//
+// If true is passed, turn on debug console (without capturing input).
+// If false is passed, turn off debug console.
+//
+// example:
+//
+// /foo { 10 20 "p stack" debugcmd } def
+// foo                                  # activate debug console and show current stack
+//
+void gfx_prim_debugcmd()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_ANY);
+
+  if(!argv) return;
+
+  switch(argv[0].ptr->base_type) {
+    case OTYPE_NUM:
+      int64_t val = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+      if(val) {
+        gfx_program_debug_on_off(1, 0);
+      }
+      else {
+        gfx_program_debug_on_off(0, 0);
+      }
+      break;
+
+    case OTYPE_MEM:
+      data_t *data = OBJ_DATA_FROM_PTR(argv[0].ptr);
+      char buf[256];
+      unsigned buf_len = data->size;
+      if(buf_len > sizeof buf - 1) buf_len = sizeof buf - 1;
+      gfx_memcpy(buf, data->ptr, buf_len);
+      buf[buf_len] = 0;
+      gfx_program_debug_on_off(1, 0);
+      gfx_debug_cmd(buf);
+      break;
+
+    default:
+      GFX_ERROR(err_invalid_arguments);
+      return;
+  }
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 }
 
 

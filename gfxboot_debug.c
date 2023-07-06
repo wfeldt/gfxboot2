@@ -211,8 +211,10 @@ void gfx_debug_show_trace()
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void gfx_program_debug_on_off(unsigned state)
+void gfx_program_debug_on_off(unsigned state, unsigned input)
 {
+  gfxboot_data->vm.debug.console.input = input;
+
   if(gfxboot_data->vm.debug.console.show == state) return;
 
   gfxboot_data->vm.debug.console.show = state;
@@ -278,7 +280,7 @@ void gfx_program_debug(unsigned key)
   unsigned pos = gfxboot_data->vm.debug.console.buf_pos;
 
   if(key == 0x04) {	// ^D
-    gfx_program_debug_on_off(0);
+    gfx_program_debug_on_off(0, 0);
     return;
   }
 
@@ -287,7 +289,7 @@ void gfx_program_debug(unsigned key)
     gfx_program_debug_putc(key, 0);
     gfxboot_data->vm.debug.console.buf[pos] = 0;
     gfx_debug_cmd(gfxboot_data->vm.debug.console.buf);
-    gfx_program_debug_on_off(3);
+    gfx_program_debug_on_off(3, 1);
     return;
   }
 

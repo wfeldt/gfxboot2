@@ -127,14 +127,14 @@ int gfxboot_process_key(unsigned key)
 
   gfxboot_debug(2, 2, "gfxboot_process_key: key = 0x%08x\n", key);
 
-  if(gfxboot_data->vm.debug.console.show) {
+  if(gfxboot_data->vm.debug.console.input) {
     gfx_program_debug(key);
 
     return action;
   }
   else {
     if(key == 0x04) {	// '^D'
-      gfx_program_debug_on_off(1);
+      gfx_program_debug_on_off(1, 1);
       return action;
     }
 

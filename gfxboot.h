@@ -354,6 +354,7 @@ typedef struct {
         unsigned buf_pos;
         unsigned show:1;
         unsigned show_on_error:1;
+        unsigned input:1;
       } console;
       int log_level_serial;
       int log_level_console;
@@ -544,7 +545,7 @@ unsigned gfx_program_init(obj_id_t program);
 int gfx_decode_instr(decoded_instr_t *code);
 void gfx_program_run(void);
 void gfx_program_debug(unsigned key);
-void gfx_program_debug_on_off(unsigned state);
+void gfx_program_debug_on_off(unsigned state, unsigned input);
 int gfx_program_process_key(unsigned key);
 char *gfx_debug_get_ip(void);
 void gfx_debug_cmd(char *str);

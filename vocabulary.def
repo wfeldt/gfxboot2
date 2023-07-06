@@ -103,3 +103,4 @@ updatescreen
 geteventhandler
 seteventhandler
 insert
+debugcmd

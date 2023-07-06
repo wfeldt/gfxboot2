@@ -49,6 +49,7 @@
   /cursor_back nil
   /buf [ ]
   /orig_region nil
+  /redraw_needed false
 
   /init {
     /height exch def
@@ -167,6 +168,23 @@
     getcanvas background blt
   }
 
+  /_align {
+    /new_shift x_shift ldef
+
+    /cursor_pos cursor_x cursor_index get ldef
+    cursor_pos x_shift lt {
+      /new_shift _cursor_pos def
+    } {
+      cursor_pos x_shift sub width 1 sub gt {
+        /new_shift cursor_pos width 1 sub sub def
+      } if
+    } ifelse
+
+    /redraw_needed new_shift x_shift ne def
+
+    /x_shift new_shift def
+  }
+
   /cursor_on {
     cursor_state { return } { /cursor_state true def } ifelse
 
@@ -196,6 +214,8 @@
 
     cursor_off
 
+    /redraw_needed false def
+
     key kEnter eq {
       text
       debug
@@ -203,12 +223,14 @@
     } if
 
     key kLeft eq {
+      false debugcmd
       cursor_index 0 ne { cursor_index -1 add! } if
       cursor_on
       return
     } if
 
     key kRight eq {
+      10 20 30 "p stack" debugcmd pop pop pop
       cursor_index buf length lt { cursor_index 1 add! } if
       cursor_on
       return

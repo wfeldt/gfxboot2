@@ -223,14 +223,14 @@
     } if
 
     key kLeft eq {
-      false debugcmd
+#      false debugcmd
       cursor_index 0 ne { cursor_index -1 add! } if
       cursor_on
       return
     } if
 
     key kRight eq {
-      10 20 30 "p stack" debugcmd pop pop pop
+#      10 20 30 "p stack" debugcmd pop pop pop
       cursor_index buf length lt { cursor_index 1 add! } if
       cursor_on
       return

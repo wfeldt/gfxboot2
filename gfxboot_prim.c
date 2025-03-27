@@ -496,7 +496,8 @@ void gfx_prim_def_at(unsigned where)
   }
 
   if(where) {
-    context_t *context = gfx_obj_context_ptr(gfxboot_data->vm.program.context);
+    obj_id_t context_id = gfxboot_data->vm.program.context;
+    context_t *context = gfx_obj_context_ptr(context_id);
     if(!context) {
       GFX_ERROR(err_internal);
       return;
@@ -504,7 +505,7 @@ void gfx_prim_def_at(unsigned where)
 
     if(where == 2) {
       while(context->parent_id) {
-        context = gfx_obj_context_ptr(context->parent_id);
+        context = gfx_obj_context_ptr(context_id = context->parent_id);
         if(!context) {
           GFX_ERROR(err_internal);
           return;
@@ -512,7 +513,16 @@ void gfx_prim_def_at(unsigned where)
       }
     }
 
-    if(!context->dict_id) context->dict_id = gfx_obj_hash_new(0);
+    if(!context->dict_id) {
+      // careful: gfx_obj_hash_new() may invalidate context pointer
+      obj_id_t tmp_id = gfx_obj_hash_new(0);
+      context = gfx_obj_context_ptr(context_id);
+      if(!context) {
+        GFX_ERROR(err_internal);
+        return;
+      }
+      context->dict_id = tmp_id;
+    }
 
     dict_id = context->dict_id;
 
@@ -4391,6 +4401,8 @@ void gfx_prim_debugcmd()
 
   if(!argv) return;
 
+  int pstack_freed = 0;
+
   switch(argv[0].ptr->base_type) {
     case OTYPE_NUM:
       int64_t val = OBJ_VALUE_FROM_PTR(argv[0].ptr);
@@ -4409,6 +4421,8 @@ void gfx_prim_debugcmd()
       if(buf_len > sizeof buf - 1) buf_len = sizeof buf - 1;
       gfx_memcpy(buf, data->ptr, buf_len);
       buf[buf_len] = 0;
+      gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+      pstack_freed = 1;
       gfx_program_debug_on_off(1, 0);
       gfx_debug_cmd(buf);
       break;
@@ -4418,7 +4432,7 @@ void gfx_prim_debugcmd()
       return;
   }
 
-  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+  if(!pstack_freed) gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 }
 
 

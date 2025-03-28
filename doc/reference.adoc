@@ -265,8 +265,9 @@ See also: xref:abs[+abs+], xref:add[+add+], xref:div[+div+], xref:max[+max+], xr
 ** ( __canvas~1~__ __canvas~2~__ -- )
 --
 +
-Copy from the drawing region of __canvas~2~__ to the drawing region of __canvas~1~__,
-at the drawing pos of __canvas~1~__ using the drawing mode of __canvas~1~__.
+Copy content from drawing pos in drawing region of __canvas~2~__ to the
+drawing pos in drawing region of __canvas~1~__, using drawing mode of
+__canvas~1~__.
 +
 .Examples
 ```
@@ -341,7 +342,30 @@ doesn't resume program execution. Use the `run` (or `r`) console command for thi
 foo                                  # activate debug console when 'foo' is run
 ```
 +
-See also: xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+]
+See also: xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+]
+
+* **+debugcmd+** - run debug command [[debugcmd]]
++
+--
+** ( __str~1~__ -- )
+** ( __bool~1~__ -- )
+--
++
+Show debug console and run debug command.
++
+If a string is passed, turn on debug console and run debug command.
++
+If true is passed, turn on debug console (without capturing input).
+If false is passed, turn off debug console.
++
+.Examples
+```
+
+/foo { 10 20 "p stack" debugcmd } def
+foo                                  # activate debug console and show current stack
+```
++
+See also: xref:debug[+debug+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+]
 
 * **+decodeutf8+** - decode Unicode string [[decodeutf8]]
 +
@@ -364,7 +388,7 @@ contains non-UTF8-chars they are represented as the negated 8-bit value.
 "A\xf0B" decodeutf8                  # [ 65 -240 66 ]
 ```
 +
-See also: xref:encodeutf8[+encodeutf8+], xref:format[+format+], xref:freeze[+freeze+], xref:readfile[+readfile+], xref:string[+string+]
+See also: xref:encodeutf8[+encodeutf8+], xref:format[+format+], xref:freeze[+freeze+], xref:readfile[+readfile+], xref:sticky[+sticky+], xref:string[+string+]
 
 * **+def+** - define new word [[def]]
 +
@@ -382,7 +406,7 @@ If __word~1~__ does already exist, redefine __word~1~__ in the context in which 
 /neg { -1 mul } def  # define a function that negates its argument
 ```
 +
-See also: xref:debug[+debug+], xref:gdef[+gdef+], xref:ldef[+ldef+]
+See also: xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:gdef[+gdef+], xref:ldef[+ldef+]
 
 * **+delete+** - delete an array, hash, or string element [[delete]]
 +
@@ -424,14 +448,13 @@ y "foo" delete                       # y is now ( "bar" 20 )
 z 1 delete                           # z is now "AC"
 ```
 +
-See also: xref:get[+get+], xref:length[+length+], xref:put[+put+]
+See also: xref:get[+get+], xref:insert[+insert+], xref:length[+length+], xref:put[+put+]
 
 * **+dim+** - get graphics object dimension [[dim]]
 +
 --
 ** ( __canvas~1~__ -- __int~1~__ __int~2~__ )
 ** ( __font~1~__ -- __int~1~__ __int~2~__ )
-** ( __canvas~1~__ -- __int~1~__ __int~2~__ )
 +
 __int~1~__: width
 +
@@ -439,14 +462,14 @@ __int~2~__: height
 --
 +
 Get dimension of graphics object. For a canvas it is its size, for a fixed size
-font it is its glyph size, for proportional font the width is 0 and the
+font it is its glyph size, for a proportional font the width is 0 and the
 height is the font height.
 +
 .Examples
 ```
 
 getconsole dim                         # 640 480
-getconsole getfont dim                 # 8 16
+getconsole setcanvas getfont dim       # 8 16
 ```
 +
 See also: xref:blt[+blt+], xref:drawline[+drawline+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getcompose[+getcompose+], xref:getconsole[+getconsole+], xref:getdrawmode[+getdrawmode+], xref:getfont[+getfont+], xref:getlocation[+getlocation+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:newcanvas[+newcanvas+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setcompose[+setcompose+], xref:setconsole[+setconsole+], xref:setdrawmode[+setdrawmode+], xref:setfont[+setfont+], xref:setlocation[+setlocation+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+], xref:updatescreen[+updatescreen+]
@@ -537,7 +560,7 @@ value in __array~1~__.
 [ 65 -240 66 ] encodeutf8            # "A\xf0B"
 ```
 +
-See also: xref:decodeutf8[+decodeutf8+], xref:format[+format+], xref:freeze[+freeze+], xref:readfile[+readfile+], xref:string[+string+]
+See also: xref:decodeutf8[+decodeutf8+], xref:format[+format+], xref:freeze[+freeze+], xref:readfile[+readfile+], xref:sticky[+sticky+], xref:string[+string+]
 
 * **+eq+** - equal [[eq]]
 +
@@ -739,7 +762,7 @@ __string~2~__: formatted string
 "%s: %d" [ "bar" 33 ] format         # "bar: 33"
 ```
 +
-See also: xref:decodeutf8[+decodeutf8+], xref:encodeutf8[+encodeutf8+], xref:freeze[+freeze+], xref:readfile[+readfile+], xref:string[+string+]
+See also: xref:decodeutf8[+decodeutf8+], xref:encodeutf8[+encodeutf8+], xref:freeze[+freeze+], xref:readfile[+readfile+], xref:sticky[+sticky+], xref:string[+string+]
 
 * **+freeze+** - make object read-only [[freeze]]
 +
@@ -758,7 +781,7 @@ Note that string constants are read-only by default.
 0 delete                             # raises 'readonly' exception
 ```
 +
-See also: xref:decodeutf8[+decodeutf8+], xref:encodeutf8[+encodeutf8+], xref:format[+format+], xref:readfile[+readfile+], xref:string[+string+]
+See also: xref:decodeutf8[+decodeutf8+], xref:encodeutf8[+encodeutf8+], xref:format[+format+], xref:readfile[+readfile+], xref:sticky[+sticky+], xref:string[+string+]
 
 * **+gdef+** - define new global word [[gdef]]
 +
@@ -773,7 +796,7 @@ Define __word~1~__ in the global context.
 /foo 300 gdef        # define global word foo as 300
 ```
 +
-See also: xref:debug[+debug+], xref:def[+def+], xref:ldef[+ldef+]
+See also: xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:ldef[+ldef+]
 
 * **+ge+** - greater or equal [[ge]]
 +
@@ -844,7 +867,7 @@ Read the respective element of __array~1~__, __hash~1~__, or __string~2~__.
 "ABC" 1 get                          # 66
 ```
 +
-See also: xref:delete[+delete+], xref:length[+length+], xref:put[+put+]
+See also: xref:delete[+delete+], xref:insert[+insert+], xref:length[+length+], xref:put[+put+]
 
 * **+getbgcolor+** - get background color [[getbgcolor]]
 +
@@ -1004,25 +1027,42 @@ getdrawmode                             # 0 ('merge' mode)
 +
 See also: xref:blt[+blt+], xref:dim[+dim+], xref:drawline[+drawline+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getcompose[+getcompose+], xref:getconsole[+getconsole+], xref:getfont[+getfont+], xref:getlocation[+getlocation+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:newcanvas[+newcanvas+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setcompose[+setcompose+], xref:setconsole[+setconsole+], xref:setdrawmode[+setdrawmode+], xref:setfont[+setfont+], xref:setlocation[+setlocation+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+], xref:updatescreen[+updatescreen+]
 
+* **+geteventhandler+** - get event handler [[geteventhandler]]
++
+--
+** ( -- __code~1~__ )
+** ( -- __nil__ )
+--
++
+Get current event handler. If none has been set, return __nil__.
++
+The event handler is a reference to a code blöck or function.
++
+.Examples
+```
+
+/current_handler geteventhandler def                   # get current event handler
+```
++
+See also: xref:seteventhandler[+seteventhandler+]
+
 * **+getfont+** - get font [[getfont]]
 +
 --
-** ( __canvas~1~__ -- __font~1~__ )
-** ( __canvas~1~__ -- __nil__ )
-+
-__canvas~1~__: canvas
+** ( -- __font~1~__ )
+** ( -- __nil__ )
 +
 __font~1~__: font
 --
 +
-Get font used in canvas. 
+Get current font.
 +
 .Examples
 ```
 
 # get currently used font
 
-getcanvas getfont
+getfont
 ```
 +
 See also: xref:blt[+blt+], xref:dim[+dim+], xref:drawline[+drawline+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getcompose[+getcompose+], xref:getconsole[+getconsole+], xref:getdrawmode[+getdrawmode+], xref:getlocation[+getlocation+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:newcanvas[+newcanvas+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setcompose[+setcompose+], xref:setconsole[+setconsole+], xref:setdrawmode[+setdrawmode+], xref:setfont[+setfont+], xref:setlocation[+setlocation+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+], xref:updatescreen[+updatescreen+]
@@ -1030,21 +1070,19 @@ See also: xref:blt[+blt+], xref:dim[+dim+], xref:drawline[+drawline+], xref:fill
 * **+getlocation+** - get location [[getlocation]]
 +
 --
-** ( __canvas~1~__ -- __int~1~__ __int~2~__ )
-+
-__canvas~1~__: canvas
+** ( -- __int~1~__ __int~2~__ )
 +
 __int~1~__: x
 +
 __int~2~__: y
 --
 +
-Get location associated with graphics state.
+Get location associated with current graphics state.
 +
 .Examples
 ```
 
-getcanvas getlocation                  # 0 0
+getlocation                  # 0 0
 ```
 +
 See also: xref:blt[+blt+], xref:dim[+dim+], xref:drawline[+drawline+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getcompose[+getcompose+], xref:getconsole[+getconsole+], xref:getdrawmode[+getdrawmode+], xref:getfont[+getfont+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:newcanvas[+newcanvas+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setcompose[+setcompose+], xref:setconsole[+setconsole+], xref:setdrawmode[+setdrawmode+], xref:setfont[+setfont+], xref:setlocation[+setlocation+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+], xref:updatescreen[+updatescreen+]
@@ -1129,9 +1167,7 @@ See also: xref:blt[+blt+], xref:dim[+dim+], xref:drawline[+drawline+], xref:fill
 * **+getregion+** - get drawing region [[getregion]]
 +
 --
-** ( __canvas~1~__ -- __int~1~__ __int~2~__ __int~3~__ __int~4~__ )
-+
-__canvas~1~__: canvas
+** ( -- __int~1~__ __int~2~__ __int~3~__ __int~4~__ )
 +
 __int~1~__: x
 +
@@ -1142,14 +1178,14 @@ __int~3~__: width
 __int~4~__: height
 --
 +
-Get drawing region associated with graphics state. Any drawing operation
+Get drawing region associated with current graphics state. Any drawing operation
 will be relative to this region. Graphics output will be clipped at the
 region boundaries.
 +
 .Examples
 ```
 
-getcanvas getregion                  # 0 0 800 600
+getregion                  # 0 0 800 600
 ```
 +
 See also: xref:blt[+blt+], xref:dim[+dim+], xref:drawline[+drawline+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getcompose[+getcompose+], xref:getconsole[+getconsole+], xref:getdrawmode[+getdrawmode+], xref:getfont[+getfont+], xref:getlocation[+getlocation+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:newcanvas[+newcanvas+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setcompose[+setcompose+], xref:setconsole[+setconsole+], xref:setdrawmode[+setdrawmode+], xref:setfont[+setfont+], xref:setlocation[+setlocation+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+], xref:updatescreen[+updatescreen+]
@@ -1263,6 +1299,53 @@ Copy the __int~1~__-th-from-top element on the top-of-stack.
 +
 See also: xref:dup[+dup+], xref:exch[+exch+], xref:over[+over+], xref:pop[+pop+], xref:roll[+roll+], xref:rot[+rot+]
 
+* **+insert+** - set array, hash, or string element [[insert]]
++
+--
+** ( __array~1~__ __int~1~__ __any~1~__  -- )
++
+__array~1~__: array to modify
++
+__int~1~__: element index
++
+__any~1~__: new value
++
+** ( __hash~1~__ __string~1~__ __any~2~__  -- )
++
+__hash~1~__: hash to modify
++
+__string~1~__: key
++
+__any~2~__: new value
++
+** ( __string~2~__ __int~2~__ __int~3~__  -- )
++
+__string~2~__: string to modify
++
+__int~2~__: element index
++
+__int~3~__: new value
+--
++
+Insert an element into __array~1~__, __hash~1~__, or __string~2~__ at the respective position.
++
+Note that string constants are read-only and cannot be modified.
++
+.Examples
+```
+
+/x [ 10 20 30 ] def
+x 2 40 insert                        # x is now [ 10 20 40 30 ]
+
+/y ( "foo" 10 "bar" 20 ) def
+y "bar" 40 insert                    # y is now ( "foo" 10 "bar" 40 )
+
+/z "ABC" mem def                     # mem is needed to create a writable copy
+z 1 68 insert                        # z is now "ADBC"
+```
++
+See also: xref:delete[+delete+], xref:get[+get+], xref:length[+length+], xref:put[+put+]
+
 * **+ldef+** - define new local word [[ldef]]
 +
 --
@@ -1276,7 +1359,7 @@ Define __word~1~__ in the current local context.
 /foo 200 ldef        # define local word foo as 200
 ```
 +
-See also: xref:debug[+debug+], xref:def[+def+], xref:gdef[+gdef+]
+See also: xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+]
 
 * **+le+** - less or equal [[le]]
 +
@@ -1341,7 +1424,7 @@ Put the length of __array~1~__, __hash~1~__, or __string~1~__ on the stack.
 "ABC" length                         # 3
 ```
 +
-See also: xref:delete[+delete+], xref:get[+get+], xref:put[+put+]
+See also: xref:delete[+delete+], xref:get[+get+], xref:insert[+insert+], xref:put[+put+]
 
 * **+loop+** - endless loop [[loop]]
 +
@@ -1704,7 +1787,7 @@ __any~2~__: new value
 +
 __string~2~__: string to modify
 +
-__int~2~__: element index 
+__int~2~__: element index
 +
 __int~3~__: new value
 --
@@ -1726,7 +1809,7 @@ y "bar" 40 put                       # y is now ( "foo" 10 "bar" 40 )
 z 1 68 put                           # z is now "ADC"
 ```
 +
-See also: xref:delete[+delete+], xref:get[+get+], xref:length[+length+]
+See also: xref:delete[+delete+], xref:get[+get+], xref:insert[+insert+], xref:length[+length+]
 
 * **+putpixel+** - set pixel [[putpixel]]
 +
@@ -1765,7 +1848,7 @@ Read entire file and return its content. If the file could not be read, return _
 "foo" readfile
 ```
 +
-See also: xref:decodeutf8[+decodeutf8+], xref:encodeutf8[+encodeutf8+], xref:format[+format+], xref:freeze[+freeze+], xref:string[+string+]
+See also: xref:decodeutf8[+decodeutf8+], xref:encodeutf8[+encodeutf8+], xref:format[+format+], xref:freeze[+freeze+], xref:sticky[+sticky+], xref:string[+string+]
 
 * **+repeat+** - repeat code block [[repeat]]
 +
@@ -1998,7 +2081,7 @@ See also: xref:code_start[+{+], xref:code_end[+}+], xref:hash_start[+(+], xref:h
 __int~1~__: drawing mode
 --
 +
-Set drawing mode if current canvas.
+Set drawing mode of current canvas.
 +
 Drawing mode is either 0 (merge mode) or 1 (direct mode).
 +
@@ -2010,26 +2093,44 @@ Drawing mode is either 0 (merge mode) or 1 (direct mode).
 +
 See also: xref:blt[+blt+], xref:dim[+dim+], xref:drawline[+drawline+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getcompose[+getcompose+], xref:getconsole[+getconsole+], xref:getdrawmode[+getdrawmode+], xref:getfont[+getfont+], xref:getlocation[+getlocation+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:newcanvas[+newcanvas+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setcompose[+setcompose+], xref:setconsole[+setconsole+], xref:setfont[+setfont+], xref:setlocation[+setlocation+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+], xref:updatescreen[+updatescreen+]
 
+* **+seteventhandler+** - set event handler [[seteventhandler]]
++
+--
+** ( __code~1~__ -- )
+** ( __nil__ -- )
+--
++
+Set current event handler. If __nil__ is passed, the current event handler is removed.
++
+The event handler is a reference to a code blöck or function.
++
+.Examples
+```
+
+/old_handler geteventhandler def             # save current event handler
+...
+old_handler seteventhandler                  # restore event handler
+```
++
+See also: xref:geteventhandler[+geteventhandler+]
+
 * **+setfont+** - set font [[setfont]]
 +
 --
-** ( __canvas~1~__ __font~1~__ -- )
-** ( __canvas~1~__ __nil__ -- )
-+
-__canvas~1~__: canvas
+** ( __font~1~__ -- )
+** ( __nil__ -- )
 +
 __font~1~__: font
 --
 +
-Set font used in canvas. If __nil__ is passed, no font will be associated with canvas.
+Set font. If __nil__ is passed, no active font will be associated with the current canvas.
 +
 .Examples
 ```
 
 # read font from file and use it
 
-/foo_font "foo.fnt" readfile newfont def
-getcanvas foo_font setfont
+"foo.fnt" readfile newfont setfont
 ```
 +
 See also: xref:blt[+blt+], xref:dim[+dim+], xref:drawline[+drawline+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getcompose[+getcompose+], xref:getconsole[+getconsole+], xref:getdrawmode[+getdrawmode+], xref:getfont[+getfont+], xref:getlocation[+getlocation+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:newcanvas[+newcanvas+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setcompose[+setcompose+], xref:setconsole[+setconsole+], xref:setdrawmode[+setdrawmode+], xref:setlocation[+setlocation+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+], xref:updatescreen[+updatescreen+]
@@ -2037,21 +2138,19 @@ See also: xref:blt[+blt+], xref:dim[+dim+], xref:drawline[+drawline+], xref:fill
 * **+setlocation+** - set location [[setlocation]]
 +
 --
-** ( __canvas~1~__ __int~1~__ __int~2~__ -- )
-+
-__canvas~1~__: canvas
+** ( __int~1~__ __int~2~__ -- )
 +
 __int~1~__: x
 +
 __int~2~__: y
 --
 +
-Set location associated with graphics state.
+Set location associated with current graphics state.
 +
 .Examples
 ```
 
-getcanvas 10 10 setlocation
+10 10 setlocation
 ```
 +
 See also: xref:blt[+blt+], xref:dim[+dim+], xref:drawline[+drawline+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getcompose[+getcompose+], xref:getconsole[+getconsole+], xref:getdrawmode[+getdrawmode+], xref:getfont[+getfont+], xref:getlocation[+getlocation+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:newcanvas[+newcanvas+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setcompose[+setcompose+], xref:setconsole[+setconsole+], xref:setdrawmode[+setdrawmode+], xref:setfont[+setfont+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+], xref:updatescreen[+updatescreen+]
@@ -2123,9 +2222,7 @@ See also: xref:blt[+blt+], xref:dim[+dim+], xref:drawline[+drawline+], xref:fill
 * **+setregion+** - set drawing region [[setregion]]
 +
 --
-** ( __canvas~1~__ __int~1~__ __int~2~__ __int~3~__ __int~4~__ -- )
-+
-__canvas~1~__: canvas
+** ( __int~1~__ __int~2~__ __int~3~__ __int~4~__ -- )
 +
 __int~1~__: x
 +
@@ -2136,14 +2233,14 @@ __int~3~__: width
 __int~4~__: height
 --
 +
-Set drawing region associated with graphics state. Any drawing operation
+Set drawing region associated with current graphics state. Any drawing operation
 will be relative to this region. Graphics output will be clipped at the
 region boundaries.
 +
 .Examples
 ```
 
-getcanvas 10 10 200 100 setregion
+10 10 200 100 setregion
 ```
 +
 See also: xref:blt[+blt+], xref:dim[+dim+], xref:drawline[+drawline+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getcompose[+getcompose+], xref:getconsole[+getconsole+], xref:getdrawmode[+getdrawmode+], xref:getfont[+getfont+], xref:getlocation[+getlocation+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:newcanvas[+newcanvas+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setcompose[+setcompose+], xref:setconsole[+setconsole+], xref:setdrawmode[+setdrawmode+], xref:setfont[+setfont+], xref:setlocation[+setlocation+], xref:setpos[+setpos+], xref:show[+show+], xref:unpackimage[+unpackimage+], xref:updatescreen[+updatescreen+]
@@ -2174,19 +2271,20 @@ See also: xref:abs[+abs+], xref:add[+add+], xref:and[+and+], xref:div[+div+], xr
 +
 --
 ** ( __string~1~__ -- )
+** ( __int~1~__ -- )
 --
 +
-Print __string~1~__ at current cursor position in canvas associated with
-current graphics state.
+Print string __string~1~__ or character __int~1~__ at current cursor position in default canvas.
 +
 The cursor position is advanced to point at the end of the printed text.
-Newline ('\x0a') and carriage return ('\x0d') characters are interpreted
+In strings, newline ('\x0a') and carriage return ('\x0d') characters are interpreted
 and the cursor position is adjusted relative to the starting position.
 +
 .Examples
 ```
 
 "Hello!" show                        # print "Hello!"
+65 show                              # print "A"
 ```
 +
 See also: xref:blt[+blt+], xref:dim[+dim+], xref:drawline[+drawline+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getcompose[+getcompose+], xref:getconsole[+getconsole+], xref:getdrawmode[+getdrawmode+], xref:getfont[+getfont+], xref:getlocation[+getlocation+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:newcanvas[+newcanvas+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setcompose[+setcompose+], xref:setconsole[+setconsole+], xref:setdrawmode[+setdrawmode+], xref:setfont[+setfont+], xref:setlocation[+setlocation+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:unpackimage[+unpackimage+], xref:updatescreen[+updatescreen+]
@@ -2212,6 +2310,22 @@ true false shr               # true
 ```
 +
 See also: xref:abs[+abs+], xref:add[+add+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:sub[+sub+], xref:xor[+xor+]
+
+* **+sticky+** - make hash sticky [[sticky]]
++
+--
+** ( __hash~1~__ -- __hash~1~__ )
+--
++
+Mark hash as sticky.
++
+.Examples
+```
+
+getdict sticky
+```
++
+See also: xref:decodeutf8[+decodeutf8+], xref:encodeutf8[+encodeutf8+], xref:format[+format+], xref:freeze[+freeze+], xref:readfile[+readfile+], xref:string[+string+]
 
 * **+string+** - create or duplicate string [[string]]
 +
@@ -2246,7 +2360,7 @@ Note: duplication works for all string-like objects. For example for word refere
 { 10 20 } string            # a copy of the code block { 10 20 }
 ```
 +
-See also: xref:decodeutf8[+decodeutf8+], xref:encodeutf8[+encodeutf8+], xref:format[+format+], xref:freeze[+freeze+], xref:readfile[+readfile+]
+See also: xref:decodeutf8[+decodeutf8+], xref:encodeutf8[+encodeutf8+], xref:format[+format+], xref:freeze[+freeze+], xref:readfile[+readfile+], xref:sticky[+sticky+]
 
 * **+sub+** - subtraction [[sub]]
 +

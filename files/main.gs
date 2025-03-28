@@ -68,7 +68,8 @@
 
     background getcanvas blt
 
-    getcanvas background blt
+#   FIXME: why?
+#    getcanvas background blt
 
     /cursor_back 1 height newcanvas def
 
@@ -79,11 +80,13 @@
     buf encodeutf8
   }
 
+  # set drawing region to edit object
   /switch_region {
     /orig_region [ getregion ] def
     x y width height setregion
   }
 
+  # restore original drawing region
   /restore_region {
     orig_region { } forall setregion
   }

@@ -32,24 +32,25 @@
 /kEnd   0x80004f def
 /kDel   0x800053 def
 /kBack  0x08 def
+/kCtrlL 0x0c def
+/kCtrlR 0x12 def
 
 /edit_class (
   /x 0
   /y 0
   /width 0
   /height 0
-  /x_0 4 def
+  /margin 4 def
   /background nil
-  /x_shift 0
-  /tail_d 0
+  /x_shift 0			# 0 or positive
+  /tail_d 0			# 0 or negative
   /cursor_index 0
-  /cursor_x [ x_0 ]
+  /cursor_x [ 0 ]
   /cursor_height 0
   /cursor_state false
   /cursor_back nil
   /buf [ ]
   /orig_region nil
-  /redraw_needed false
 
   /init {
     /height exch def
@@ -68,9 +69,6 @@
 
     background getcanvas blt
 
-#   FIXME: why?
-#    getcanvas background blt
-
     /cursor_back 1 height newcanvas def
 
     cursor_on
@@ -83,7 +81,7 @@
   # set drawing region to edit object
   /switch_region {
     /orig_region [ getregion ] def
-    x y width height setregion
+    x margin add y width margin dup add sub height setregion
   }
 
   # restore original drawing region
@@ -103,19 +101,19 @@
     cursor_index buf length ge {
       # append
       buf cursor_index key insert
-      cursor_x cursor_index get 0 setpos
+      cursor_x cursor_index get x_shift sub 0 setpos
       key show
       cursor_index 1 add!
-      cursor_x cursor_index getpos pop put
+      cursor_x cursor_index getpos pop x_shift add put
     } {
       # insert
       buf cursor_index key insert
-      cursor_x cursor_index get 0 setpos
+      cursor_x cursor_index get x_shift sub 0 setpos
       getpos pop
       key show
       getpos pop sub
       /d exch ldef
-      cursor_x cursor_index getpos pop d add insert
+      cursor_x cursor_index getpos pop x_shift add d add insert
       cursor_index 1 add!
       cursor_index 1 buf length {
         cursor_x exch over over get d sub put
@@ -141,51 +139,71 @@
       cursor_x exch over over get tail_d add put
     } for
 
-    cursor_index 1 sub _redraw
+    # Some glyphs ('f') may extend outside bounding box - looking different
+    # at line end vs. within line; also causes cursor drawing issues.
+    # Redraw an additional column, to be safe.
+    tail_d -1 add!
+
+    cursor_index 1 sub _align { pop 0 } if _redraw
     /tail_d 0 def
 
     restore_region
   }
 
+  # ( start_index -- )
   # region already set
   /_redraw {
-    dup 0 gt { 1 sub } {
-      # in case it's less than 0, ensure it's 0
-      pop 0
-      background 0 0 x_0 height csetregion
-      0 0 setpos
-      getcanvas background blt
-    } ifelse
+    # start 1 pos left, but at least 0
+    1 sub 0 max
+
     buf length 0 gt {
       1 buf length 1 sub {
         /i exch ldef
-        background cursor_x i get 0 buf i get dim pop height csetregion
-        cursor_x i get 0 setpos
+        # d: if region has negative start, d compensates for that
+        # abcdefgiii
+        background cursor_x i get x_shift sub margin add  /d over 0 min ldef  0 buf i get dim pop height csetregion
+        /d 0 def
+        cursor_x i get x_shift sub   d sub   0 setpos
         getcanvas background blt
         buf i get show
       } for
     } { pop } ifelse
 
-    background cursor_x -1 get 0 tail_d neg height csetregion
-    cursor_x -1 get 0 setpos
+    background cursor_x -1 get x_shift sub margin add 0 tail_d neg height csetregion
+    cursor_x -1 get x_shift sub 0 setpos
     getcanvas background blt
   }
 
+  # ( -- true|false )
   /_align {
     /new_shift x_shift ldef
+    /_width width margin dup add 1 add sub ldef
+    /_length cursor_x buf length get ldef
 
     /cursor_pos cursor_x cursor_index get ldef
+
     cursor_pos x_shift lt {
-      /new_shift _cursor_pos def
+      /new_shift cursor_pos def
     } {
-      cursor_pos x_shift sub width 1 sub gt {
-        /new_shift cursor_pos width 1 sub sub def
+      cursor_pos x_shift sub _width gt {
+        /new_shift cursor_pos _width sub def
       } if
     } ifelse
 
-    /redraw_needed new_shift x_shift ne def
+    new_shift 0 gt {
+      /_delta _width _length new_shift sub sub ldef
+      _delta 0 gt {
+        /new_shift new_shift _delta new_shift min sub def
+      } if
+    } if
+
+    new_shift x_shift ne
 
     /x_shift new_shift def
+  }
+
+  /align+redraw {
+    _align { switch_region 0 _redraw restore_region } if
   }
 
   /cursor_on {
@@ -193,10 +211,10 @@
 
     switch_region
 
-    cursor_x cursor_index get 0 setpos
+    cursor_x cursor_index get x_shift sub 0 setpos
     cursor_back getcanvas blt
 
-    cursor_x cursor_index get dup 1 setpos cursor_height 1 sub drawline
+    cursor_x cursor_index get x_shift sub dup 1 setpos cursor_height 1 sub drawline
 
     restore_region
   }
@@ -206,7 +224,7 @@
 
     switch_region
 
-    cursor_x cursor_index get 0 setpos
+    cursor_x cursor_index get x_shift sub 0 setpos
     getcanvas cursor_back blt
 
     restore_region
@@ -217,8 +235,6 @@
 
     cursor_off
 
-    /redraw_needed false def
-
     key kEnter eq {
       text
       debug
@@ -226,44 +242,64 @@
     } if
 
     key kLeft eq {
-#      false debugcmd
       cursor_index 0 ne { cursor_index -1 add! } if
+      align+redraw
       cursor_on
       return
     } if
 
     key kRight eq {
-#      10 20 30 "p stack" debugcmd pop pop pop
       cursor_index buf length lt { cursor_index 1 add! } if
+      align+redraw
+      cursor_on
+      return
+    } if
+
+    key kCtrlL eq {
+      x_shift -5 add!
+      /tail_d width neg def
+      switch_region 0 _redraw restore_region
+      cursor_on
+      return
+    } if
+
+    key kCtrlR eq {
+      x_shift 5 add!
+      /tail_d width neg def
+      switch_region 0 _redraw restore_region
       cursor_on
       return
     } if
 
     key kHome eq {
       /cursor_index 0 def
+      align+redraw
       cursor_on
       return
     } if
 
     key kEnd eq {
       /cursor_index buf length def
+      align+redraw
       cursor_on
       return
     } if
 
     key kDel eq {
       del_key
+      align+redraw
       cursor_on
       return
     } if
 
     key kBack eq {
       cursor_index 0 ne { cursor_index -1 add! del_key } if
+      align+redraw
       cursor_on
       return
     } if
 
-    printable { add_key_to_buffer } if
+    printable { add_key_to_buffer align+redraw } if
 
     cursor_on
   }
@@ -289,6 +325,14 @@ unpackimage def
 0 0 setpos
 getcanvas katze blt
 
+0xf0f000 setcolor
+103 450 setpos 103 600 drawline
+696 450 setpos 696 600 drawline
+200 450 setpos 200 600 drawline
+300 450 setpos 300 600 drawline
+400 450 setpos 400 600 drawline
+500 450 setpos 500 600 drawline
+
 dejavu-sans-24 setfont
 
 getcanvas dim pop title dim pop sub 2 div 50 setpos
@@ -301,8 +345,8 @@ title dim 10 add exch 20 add exch fillrect
 0xffffff setcolor
 title show
 
-100 470 setpos
-600 30 edit .init
+100 550 setpos
+100 30 edit .init
 
 /eventhandler seteventhandler
 

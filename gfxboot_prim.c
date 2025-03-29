@@ -3835,12 +3835,7 @@ void gfx_prim_setregion()
 
   canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
 
-  if(canvas) {
-    area_t clip = { .width = canvas->geo.width, .height = canvas->geo.height };
-// FIXME: do *NOT* clip to allow negative offsets?
-//    gfx_clip(&area, &clip);
-    canvas->region = area;
-  }
+  if(canvas) canvas->region = area;
 
   gfx_obj_array_pop_n(4, gfxboot_data->vm.program.pstack, 1);
 }

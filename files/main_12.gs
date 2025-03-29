@@ -139,8 +139,12 @@
       cursor_x exch over over get tail_d add put
     } for
 
-    cursor_index 1 sub _align { pop 0 } if _redraw
+    # Some glyphs ('f') may extend outside bounding box - looking different
+    # at line end vs. within line; also causes cursor drawing issues.
+    # Redraw an additional column, to be safe.
+    tail_d -1 add!
 
+    cursor_index 1 sub _align { pop 0 } if _redraw
     /tail_d 0 def
 
     restore_region
@@ -155,15 +159,17 @@
     buf length 0 gt {
       1 buf length 1 sub {
         /i exch ldef
-        background cursor_x i get x_shift sub margin add 0 buf i get dim pop height csetregion
-        cursor_x i get x_shift sub 0 setpos
+        # d: if region has negative start, d compensates for that
+        # abcdefgiii
+        background cursor_x i get x_shift sub margin add  /d over 0 min ldef  0 buf i get dim pop height csetregion
+        /d 0 def
+        cursor_x i get x_shift sub   d sub   0 setpos
         getcanvas background blt
         buf i get show
       } for
     } { pop } ifelse
 
-    # copy (-tail_d) + 1 column background after string end
-    background cursor_x -1 get x_shift sub margin add 0 1 tail_d sub height csetregion
+    background cursor_x -1 get x_shift sub margin add 0 tail_d neg height csetregion
     cursor_x -1 get x_shift sub 0 setpos
     getcanvas background blt
   }
@@ -340,7 +346,7 @@ title dim 10 add exch 20 add exch fillrect
 title show
 
 100 550 setpos
-600 30 edit .init
+100 30 edit .init
 
 /eventhandler seteventhandler
 

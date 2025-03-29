@@ -721,17 +721,18 @@ void gfx_blt(draw_mode_t mode, obj_id_t dst_id, area_t dst_area, obj_id_t src_id
   dst_area.width = MIN(src_area.width, dst_area.width);
   dst_area.height = MIN(src_area.height, dst_area.height);
 
-#if 0
-  // additional clipping needed?
+#if 1
+  // Additional clipping needed at canvas boundaries as drawing region might
+  // be (partially) outside.
   area_t tmp_area, diff;
 
-  tmp_area = (area_t) { .width = dst_c->width, .height = dst_c->height };
+  tmp_area = (area_t) { .width = dst_c->geo.width, .height = dst_c->geo.height };
 
   diff = gfx_clip(&dst_area, &tmp_area);
 
   ADD_AREA(src_area, diff);
 
-  tmp_area = (area_t) { .width = src_c->width, .height = src_c->height };
+  tmp_area = (area_t) { .width = src_c->geo.width, .height = src_c->geo.height };
 
   diff = gfx_clip(&src_area, &tmp_area);
 
@@ -954,6 +955,12 @@ void gfx_rect(obj_id_t canvas_id, int x, int y, int width, int height, color_t c
 #endif
 
   gfx_clip(&area, &canvas->region);
+
+  // Additional clipping needed at canvas boundaries as drawing region might
+  // be (partially) outside.
+  area_t tmp_area;
+  tmp_area = (area_t) { .width = canvas->geo.width, .height = canvas->geo.height };
+  gfx_clip(&area, &tmp_area);
 
 #if 0
   gfxboot_serial(0, "rect after: %dx%d_%dx%d\n",

@@ -35,7 +35,7 @@
 /kCtrlL 0x0c def
 /kCtrlR 0x12 def
 
-/edit_class (
+/Edit (
   /x 0
   /y 0
   /width 0
@@ -53,11 +53,8 @@
   /orig_region nil
 
   /init {
-    /height exch def
-    /width exch def
-    getpos
-    /y exch def
-    /x exch def
+    x y setpos
+
     /background width height newcanvas def
 
     /cursor_height getfont dim exch pop def
@@ -297,15 +294,13 @@
 
     cursor_on
   }
-) freeze def
+) class def
 
 # - - - - - - - - - - - - - - -
 
-/edit ( ) sticky def
-edit edit_class setparent
-
-# /Edit ( ... ) class def
-# /edit Edit ( /x 100 /y 550 /width 600 /height 30 ) new def
+# new class syntax:
+#   /Edit ( ... ) class def
+#   /edit Edit ( /x 100 /y 550 /width 600 /height 30 ) new def
 
 # - - - - - - - - - - - - - - -
 
@@ -342,8 +337,7 @@ title dim 10 add exch 20 add exch fillrect
 0xffffff setcolor
 title show
 
-100 550 setpos
-600 30 edit .init
+/edit Edit ( /x 100 /y 550 /width 600 /height 30 ) new def
 
 /eventhandler seteventhandler
 

@@ -2,32 +2,14 @@
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-GC: ++#xxxx.1.1.mem.ro
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.2.mem.ro, "klass">
-GC: ++#xxxx.1.2.mem.ro
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.3.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.3.mem.ro>
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.3.mem.ro, "klass">
-GC: ++#xxxx.1.1.mem.ref.ro
-GC: ++#xxxx.1.1.mem.code.ro
-GC: --#xxxx.1.2.mem.code.ro
-GC: --#xxxx.1.2.mem.ref.ro
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.3.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
 GC: ++#xxxx.1.2.canv
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.3.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.3.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
 GC: ++#xxxx.1.1.canv
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.3.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.2.canv <geo 80x100_640x400, region 0x0_640x400, chk 0x8ccedc00>
   [1] #xxxx.1.3.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
@@ -35,17 +17,17 @@ GC: ++#xxxx.1.2.canv
 GC: --#xxxx.1.3.canv
 GC: --#xxxx.1.3.canv
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.3.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
 GC: ++#xxxx.1.1.font
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.3.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.2.font <glyphs 256, size 8x16, line height 16, base 0>
   [1] #xxxx.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.3.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
   [1] #xxxx.1.2.font <glyphs 256, size 8x16, line height 16, base 0>
@@ -53,370 +35,446 @@ GC: ++#xxxx.1.2.canv
 GC: --#xxxx.1.2.canv
 GC: --#xxxx.1.3.canv
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.3.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.2.font <glyphs 256, size 8x16, line height 16, base 0>
 GC: ++#xxxx.1.2.font
 GC: --#xxxx.1.3.font
 == backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+GC: ++#xxxx.1.1.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.2.mem.ro, "Widget1">
+GC: ++#xxxx.1.1.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.num.prim <4 (0x4)>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.2.mem.ro, "Widget1">
+GC: ++#xxxx.1.2.mem.ro
+== backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.3.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.3.mem.ro, "draw1">
+  [1] #xxxx.1.2.num.prim <4 (0x4)>
+  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.3.mem.ro, "Widget1">
 GC: ++#xxxx.1.3.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.4.mem.ro, "widget">
-GC: ++#xxxx.1.1.num.prim
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.4.mem.ro>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.4.mem.ro, "draw1">
+  [2] #xxxx.1.2.num.prim <4 (0x4)>
+  [3] #xxxx.1.1.mem.ref.ro <#xxxx.1.4.mem.ro, "Widget1">
+GC: --#xxxx.1.2.num.prim
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.num.prim <4 (0x4)>
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.4.mem.ro, "widget">
+  [0] #xxxx.1.1.hash <size 1, max 1>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.4.mem.ro, "Widget1">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.hash.class.ro <size 2, max 17>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.4.mem.ro, "Widget1">
+GC: ++#xxxx.1.1.mem.ref.ro
+GC: ++#xxxx.1.1.hash.class.ro
+GC: --#xxxx.1.2.hash.class.ro
+GC: --#xxxx.1.2.mem.ref.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.4.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
 GC: ++#xxxx.1.4.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.5.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.5.mem.ro, "draw1">
-  [1] #xxxx.1.2.num.prim <4 (0x4)>
-  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.5.mem.ro, "widget">
+  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.5.mem.ro, "Widget2">
+GC: ++#xxxx.1.1.num.prim
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.5.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.num.prim <4 (0x4)>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.5.mem.ro, "Widget2">
 GC: ++#xxxx.1.5.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.6.mem.ro>
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.6.mem.ro, "draw1">
+  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.6.mem.ro, "y">
+  [1] #xxxx.1.2.num.prim <4 (0x4)>
+  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.6.mem.ro, "Widget2">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <0 (0x0)>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.6.mem.ro, "y">
   [2] #xxxx.1.2.num.prim <4 (0x4)>
-  [3] #xxxx.1.1.mem.ref.ro <#xxxx.1.6.mem.ro, "widget">
-GC: --#xxxx.1.2.num.prim
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.hash <size 1, max 1>
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.6.mem.ro, "widget">
-GC: ++#xxxx.1.1.mem.ref.ro
-GC: ++#xxxx.1.1.hash
-GC: --#xxxx.1.2.hash
-GC: --#xxxx.1.2.mem.ref.ro
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
+  [3] #xxxx.1.1.mem.ref.ro <#xxxx.1.6.mem.ro, "Widget2">
 GC: ++#xxxx.1.6.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.7.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.7.mem.ro, "win">
-GC: ++#xxxx.1.1.hash
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.7.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.hash <size 1, max 1>
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.7.mem.ro, "win">
-GC: ++#xxxx.1.1.num.prim
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.7.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.num.prim <4 (0x4)>
-  [1] #xxxx.1.2.hash <size 1, max 1>
-  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.7.mem.ro, "win">
+  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.7.mem.ro, "text">
+  [1] #xxxx.1.1.num.int <0 (0x0)>
+  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.7.mem.ro, "y">
+  [3] #xxxx.1.2.num.prim <4 (0x4)>
+  [4] #xxxx.1.1.mem.ref.ro <#xxxx.1.7.mem.ro, "Widget2">
 GC: ++#xxxx.1.7.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.8.mem.ro, "y">
-  [1] #xxxx.1.2.num.prim <4 (0x4)>
-  [2] #xxxx.1.2.hash <size 1, max 1>
-  [3] #xxxx.1.1.mem.ref.ro <#xxxx.1.8.mem.ro, "win">
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <20 (0x14)>
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.8.mem.ro, "y">
-  [2] #xxxx.1.2.num.prim <4 (0x4)>
-  [3] #xxxx.1.2.hash <size 1, max 1>
-  [4] #xxxx.1.1.mem.ref.ro <#xxxx.1.8.mem.ro, "win">
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.8.mem.ro, "">
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.8.mem.ro, "text">
+  [2] #xxxx.1.1.num.int <0 (0x0)>
+  [3] #xxxx.1.1.mem.ref.ro <#xxxx.1.8.mem.ro, "y">
+  [4] #xxxx.1.2.num.prim <4 (0x4)>
+  [5] #xxxx.1.1.mem.ref.ro <#xxxx.1.8.mem.ro, "Widget2">
 GC: ++#xxxx.1.8.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.9.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.9.mem.ro, "text">
-  [1] #xxxx.1.1.num.int <20 (0x14)>
-  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.9.mem.ro, "y">
-  [3] #xxxx.1.2.num.prim <4 (0x4)>
-  [4] #xxxx.1.2.hash <size 1, max 1>
-  [5] #xxxx.1.1.mem.ref.ro <#xxxx.1.9.mem.ro, "win">
+  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.9.mem.ro, "draw2">
+  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.9.mem.ro, "">
+  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.9.mem.ro, "text">
+  [3] #xxxx.1.1.num.int <0 (0x0)>
+  [4] #xxxx.1.1.mem.ref.ro <#xxxx.1.9.mem.ro, "y">
+  [5] #xxxx.1.2.num.prim <4 (0x4)>
+  [6] #xxxx.1.1.mem.ref.ro <#xxxx.1.9.mem.ro, "Widget2">
 GC: ++#xxxx.1.9.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.10.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "XX">
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.10.mem.ro, "text">
-  [2] #xxxx.1.1.num.int <20 (0x14)>
-  [3] #xxxx.1.1.mem.ref.ro <#xxxx.1.10.mem.ro, "y">
-  [4] #xxxx.1.2.num.prim <4 (0x4)>
-  [5] #xxxx.1.2.hash <size 1, max 1>
-  [6] #xxxx.1.1.mem.ref.ro <#xxxx.1.10.mem.ro, "win">
+  [0] #xxxx.1.1.mem.code.ro <#xxxx.1.10.mem.ro>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.10.mem.ro, "draw2">
+  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.10.mem.ro, "">
+  [3] #xxxx.1.1.mem.ref.ro <#xxxx.1.10.mem.ro, "text">
+  [4] #xxxx.1.1.num.int <0 (0x0)>
+  [5] #xxxx.1.1.mem.ref.ro <#xxxx.1.10.mem.ro, "y">
+  [6] #xxxx.1.2.num.prim <4 (0x4)>
+  [7] #xxxx.1.1.mem.ref.ro <#xxxx.1.10.mem.ro, "Widget2">
 GC: ++#xxxx.1.10.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.11.mem.ro, "draw2">
-  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "XX">
-  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.11.mem.ro, "text">
-  [3] #xxxx.1.1.num.int <20 (0x14)>
-  [4] #xxxx.1.1.mem.ref.ro <#xxxx.1.11.mem.ro, "y">
-  [5] #xxxx.1.2.num.prim <4 (0x4)>
-  [6] #xxxx.1.2.hash <size 1, max 1>
-  [7] #xxxx.1.1.mem.ref.ro <#xxxx.1.11.mem.ro, "win">
+  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.11.mem.ro, "init">
+  [1] #xxxx.1.1.mem.code.ro <#xxxx.1.11.mem.ro>
+  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.11.mem.ro, "draw2">
+  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.11.mem.ro, "">
+  [4] #xxxx.1.1.mem.ref.ro <#xxxx.1.11.mem.ro, "text">
+  [5] #xxxx.1.1.num.int <0 (0x0)>
+  [6] #xxxx.1.1.mem.ref.ro <#xxxx.1.11.mem.ro, "y">
+  [7] #xxxx.1.2.num.prim <4 (0x4)>
+  [8] #xxxx.1.1.mem.ref.ro <#xxxx.1.11.mem.ro, "Widget2">
 GC: ++#xxxx.1.11.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.1.mem.code.ro <#xxxx.1.12.mem.ro>
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "draw2">
-  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "XX">
-  [3] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "text">
-  [4] #xxxx.1.1.num.int <20 (0x14)>
-  [5] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "y">
-  [6] #xxxx.1.2.num.prim <4 (0x4)>
-  [7] #xxxx.1.2.hash <size 1, max 1>
-  [8] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "win">
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "init">
+  [2] #xxxx.1.1.mem.code.ro <#xxxx.1.12.mem.ro>
+  [3] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "draw2">
+  [4] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "">
+  [5] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "text">
+  [6] #xxxx.1.1.num.int <0 (0x0)>
+  [7] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "y">
+  [8] #xxxx.1.2.num.prim <4 (0x4)>
+  [9] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "Widget2">
 GC: --#xxxx.1.2.num.prim
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.hash <size 3, max 3>
-  [1] #xxxx.1.2.hash <size 1, max 1>
-  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "win">
-GC: ++#xxxx.1.1.mem.code.ro
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.hash <size 3, max 3>
-  [1] #xxxx.1.2.hash <size 1, max 1>
-  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "win">
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <2 (0x2)>
-  [1] #xxxx.1.1.hash <size 3, max 3>
-  [2] #xxxx.1.2.hash <size 1, max 1>
-  [3] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "win">
-GC: --#xxxx.1.1.num.int
-GC: ++#xxxx.1.1.mem.ref.ro
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.mem.ref.ro <#xxxx.1.12.mem.ro, "win">
-  [1] #xxxx.1.1.hash <size 3, max 3>
-  [2] #xxxx.1.2.hash <size 1, max 1>
-  [3] #xxxx.1.2.mem.ref.ro <#xxxx.1.12.mem.ro, "win">
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.hash <size 3, max 3>
-  [1] #xxxx.1.2.mem.ref.ro <#xxxx.1.12.mem.ro, "win">
-  [2] #xxxx.1.2.hash <size 1, max 1>
-  [3] #xxxx.1.2.mem.ref.ro <#xxxx.1.12.mem.ro, "win">
-GC: ++#xxxx.1.2.mem.ref.ro
+  [0] #xxxx.1.1.hash <size 4, max 4>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "Widget2">
 GC: ++#xxxx.1.1.hash
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.hash <size 4, max 4>
+  [1] #xxxx.1.2.hash <size 4, max 4>
+  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "Widget2">
+GC: ++#xxxx.1.1.hash.class.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.hash.class.ro <size 2, max 17>
+  [1] #xxxx.1.2.hash <size 4, max 4>
+  [2] #xxxx.1.2.hash <size 4, max 4>
+  [3] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "Widget2">
+GC: ++#xxxx.1.2.hash.class.ro
+GC: --#xxxx.1.3.hash.class.ro
 GC: --#xxxx.1.2.hash
-GC: --#xxxx.1.3.mem.ref.ro
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.hash <size 1, max 1>
-  [1] #xxxx.1.2.mem.ref.ro <#xxxx.1.12.mem.ro, "win">
+  [0] #xxxx.1.1.hash <size 4, max 4, parent #xxxx.1.2.hash.class.ro>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "Widget2">
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.mem.ref.ro <#xxxx.1.12.mem.ro, "win">
-  [1] #xxxx.1.2.hash <size 1, max 1>
-GC: ++#xxxx.1.1.hash
+  [0] #xxxx.1.1.hash.class.ro <size 5, max 20, parent #xxxx.1.2.hash.class.ro>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "Widget2">
+GC: ++#xxxx.1.1.mem.ref.ro
+GC: ++#xxxx.1.1.hash.class.ro
+GC: --#xxxx.1.2.hash.class.ro
 GC: --#xxxx.1.2.mem.ref.ro
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.hash <size 3, max 3>
-  [1] #xxxx.1.2.hash <size 1, max 1>
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.hash <size 1, max 1>
-  [1] #xxxx.1.2.hash <size 3, max 3>
-GC: ++#xxxx.1.2.hash
-GC: --#xxxx.1.3.hash
-GC: --#xxxx.1.2.hash
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-GC: ++#xxxx.1.1.ctx.func
-GC: --#xxxx.1.1.ctx.func
-GC: --#xxxx.1.2.ctx.func
-GC: --#xxxx.1.2.mem.code.ro
-== backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-GC: ++#xxxx.1.1.hash
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.hash <size 3, max 3, parent #xxxx.1.2.hash>
-GC: ++#xxxx.1.1.mem.code.ro
-GC: ++#xxxx.1.2.hash
-GC: --#xxxx.1.3.hash
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <10 (0xa)>
-GC: ++#xxxx.1.1.num.int
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.num.int <20 (0x14)>
-  [1] #xxxx.1.1.num.int <10 (0xa)>
-GC: --#xxxx.1.2.num.int
-GC: --#xxxx.1.1.num.int
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-GC: ++#xxxx.1.1.mem.str.ro
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.mem.str.ro <#xxxx.1.12.mem.ro, "XX">
-GC: --#xxxx.1.2.mem.str.ro
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
 GC: ++#xxxx.1.12.mem.ro
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.13.mem.ro, "y">
-GC: ++#xxxx.1.1.num.int
+  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.13.mem.ro, "win">
+GC: ++#xxxx.1.1.hash.class.ro
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.num.int <20 (0x14)>
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.13.mem.ro, "y">
+  [0] #xxxx.1.2.hash.class.ro <size 5, max 20, parent #xxxx.1.2.hash.class.ro>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.13.mem.ro, "win">
+GC: ++#xxxx.1.1.num.prim
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.num.prim <4 (0x4)>
+  [1] #xxxx.1.2.hash.class.ro <size 5, max 20, parent #xxxx.1.2.hash.class.ro>
+  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.13.mem.ro, "win">
+GC: ++#xxxx.1.13.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.14.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.14.mem.ro, "y">
+  [1] #xxxx.1.2.num.prim <4 (0x4)>
+  [2] #xxxx.1.2.hash.class.ro <size 5, max 20, parent #xxxx.1.2.hash.class.ro>
+  [3] #xxxx.1.1.mem.ref.ro <#xxxx.1.14.mem.ro, "win">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.14.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.1.num.int <20 (0x14)>
-  [1] #xxxx.1.2.num.int <20 (0x14)>
-  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.13.mem.ro, "y">
-GC: --#xxxx.1.1.num.int
-GC: --#xxxx.1.2.num.int
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.14.mem.ro, "y">
+  [2] #xxxx.1.2.num.prim <4 (0x4)>
+  [3] #xxxx.1.2.hash.class.ro <size 5, max 20, parent #xxxx.1.2.hash.class.ro>
+  [4] #xxxx.1.1.mem.ref.ro <#xxxx.1.14.mem.ro, "win">
+GC: --#xxxx.1.2.num.prim
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.14.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <40 (0x28)>
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.13.mem.ro, "y">
+  [0] #xxxx.1.1.hash <size 1, max 1>
+  [1] #xxxx.1.2.hash.class.ro <size 5, max 20, parent #xxxx.1.2.hash.class.ro>
+  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.14.mem.ro, "win">
 GC: ++#xxxx.1.1.mem.ref.ro
 GC: ++#xxxx.1.1.num.int
-GC: --#xxxx.1.1.mem.ref.ro
-GC: --#xxxx.1.13.mem.ro
-GC: --#xxxx.1.1.num.int
-GC: --#xxxx.1.2.num.int
+GC: ++#xxxx.1.2.hash.class.ro
+GC: --#xxxx.1.1.hash
 GC: --#xxxx.1.2.mem.ref.ro
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-GC: ++#xxxx.1.12.mem.ro
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.13.mem.ro, "text">
-GC: ++#xxxx.1.1.mem.str.ro
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.mem.str.ro <#xxxx.1.13.mem.ro, "XX">
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.13.mem.ro, "text">
-GC: ++#xxxx.1.13.mem.ro
+GC: --#xxxx.1.2.num.int
+GC: --#xxxx.1.3.hash.class.ro
+GC: ++#xxxx.1.1.mem.code.ro
+GC: ++#xxxx.1.1.hash.class.sticky
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
   [1] #xxxx.1.1.ctx.func <code #xxxx.1.14.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.14.mem.ro, " XX">
-  [1] #xxxx.1.2.mem.str.ro <#xxxx.1.14.mem.ro, "XX">
-  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.14.mem.ro, "text">
-GC: --#xxxx.1.1.mem.str.ro
-GC: --#xxxx.1.14.mem.ro
+  [0] #xxxx.1.2.hash.class.sticky <size 1, max 1, parent #xxxx.1.2.hash.class.ro>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.14.mem.ro, "win">
+GC: ++#xxxx.1.14.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.15.mem.ro, "text">
+  [1] #xxxx.1.2.hash.class.sticky <size 1, max 1, parent #xxxx.1.2.hash.class.ro>
+  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.15.mem.ro, "win">
+GC: ++#xxxx.1.15.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.16.mem.ro, "ZZ">
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.16.mem.ro, "text">
+  [2] #xxxx.1.2.hash.class.sticky <size 1, max 1, parent #xxxx.1.2.hash.class.ro>
+  [3] #xxxx.1.1.mem.ref.ro <#xxxx.1.16.mem.ro, "win">
+GC: ++#xxxx.1.1.mem.ref.ro
+GC: ++#xxxx.1.1.mem.str.ro
+GC: --#xxxx.1.2.mem.str.ro
+GC: --#xxxx.1.2.mem.ref.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.hash.class.sticky <size 2, max 17, parent #xxxx.1.2.hash.class.ro>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.16.mem.ro, "win">
+GC: ++#xxxx.1.1.ctx.func
+GC: --#xxxx.1.1.ctx.func
+GC: --#xxxx.1.2.ctx.func
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.1.1.hash
+GC: --#xxxx.1.2.hash.class.sticky
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.hash.class.sticky <size 2, max 17, parent #xxxx.1.2.hash.class.ro>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.16.mem.ro, "win">
+GC: ++#xxxx.1.1.mem.ref.ro
+GC: ++#xxxx.1.1.hash.class.sticky
+GC: --#xxxx.1.2.hash.class.sticky
+GC: --#xxxx.1.2.mem.ref.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+GC: ++#xxxx.1.1.hash.class.sticky
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.hash.class.sticky <size 2, max 17, parent #xxxx.1.2.hash.class.ro>
+GC: ++#xxxx.1.1.mem.code.ro
+GC: ++#xxxx.1.2.hash.class.sticky
+GC: --#xxxx.1.3.hash.class.sticky
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <10 (0xa)>
+GC: ++#xxxx.1.1.num.int
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.num.int <20 (0x14)>
+  [1] #xxxx.1.1.num.int <10 (0xa)>
+GC: --#xxxx.1.2.num.int
+GC: --#xxxx.1.1.num.int
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+GC: ++#xxxx.1.1.mem.str.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.mem.str.ro <#xxxx.1.16.mem.ro, "ZZ">
 GC: --#xxxx.1.2.mem.str.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.str <size 5, "XX XX">
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.13.mem.ro, "text">
+GC: ++#xxxx.1.16.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.17.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.17.mem.ro, "y">
+GC: ++#xxxx.1.1.num.int
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.17.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.num.int <20 (0x14)>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.17.mem.ro, "y">
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.17.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <20 (0x14)>
+  [1] #xxxx.1.2.num.int <20 (0x14)>
+  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.17.mem.ro, "y">
+GC: --#xxxx.1.1.num.int
+GC: --#xxxx.1.2.num.int
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.17.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.num.int <40 (0x28)>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.17.mem.ro, "y">
+GC: ++#xxxx.1.1.mem.ref.ro
+GC: ++#xxxx.1.1.num.int
+GC: --#xxxx.1.1.mem.ref.ro
+GC: --#xxxx.1.17.mem.ro
+GC: --#xxxx.1.1.num.int
+GC: --#xxxx.1.2.num.int
+GC: --#xxxx.1.2.mem.ref.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+GC: ++#xxxx.1.16.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.17.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.17.mem.ro, "text">
+GC: ++#xxxx.1.1.mem.str.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.17.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.mem.str.ro <#xxxx.1.17.mem.ro, "ZZ">
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.17.mem.ro, "text">
+GC: ++#xxxx.1.17.mem.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.18.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.18.mem.ro, " XX">
+  [1] #xxxx.1.2.mem.str.ro <#xxxx.1.18.mem.ro, "ZZ">
+  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.18.mem.ro, "text">
+GC: --#xxxx.1.1.mem.str.ro
+GC: --#xxxx.1.18.mem.ro
+GC: --#xxxx.1.2.mem.str.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.17.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.1.mem.str <size 5, "ZZ XX">
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.17.mem.ro, "text">
 GC: ++#xxxx.1.1.mem.ref.ro
 GC: ++#xxxx.1.1.mem.str
 GC: --#xxxx.1.1.mem.ref.ro
-GC: --#xxxx.1.13.mem.ro
+GC: --#xxxx.1.17.mem.ro
 GC: --#xxxx.1.1.mem.str.ro
-GC: --#xxxx.1.12.mem.ro
+GC: --#xxxx.1.16.mem.ro
 GC: --#xxxx.1.2.mem.str
 GC: --#xxxx.1.2.mem.ref.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
 GC: ++#xxxx.1.1.ctx.func
 GC: --#xxxx.1.1.ctx.func
 GC: --#xxxx.1.2.ctx.func
 GC: --#xxxx.1.2.mem.code.ro
 GC: --#xxxx.1.1.hash
-GC: --#xxxx.1.2.hash
+GC: --#xxxx.1.2.hash.class.sticky
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-GC: ++#xxxx.1.1.hash
+GC: ++#xxxx.1.1.hash.class.sticky
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.hash <size 3, max 3, parent #xxxx.1.2.hash>
+  [0] #xxxx.1.2.hash.class.sticky <size 2, max 17, parent #xxxx.1.2.hash.class.ro>
 GC: ++#xxxx.1.1.mem.code.ro
-GC: ++#xxxx.1.2.hash
-GC: --#xxxx.1.3.hash
+GC: ++#xxxx.1.2.hash.class.sticky
+GC: --#xxxx.1.3.hash.class.sticky
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.1.num.int <10 (0xa)>
 GC: ++#xxxx.1.1.num.int
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.2.num.int <40 (0x28)>
   [1] #xxxx.1.1.num.int <10 (0xa)>
@@ -424,285 +482,285 @@ GC: --#xxxx.1.2.num.int
 GC: --#xxxx.1.1.num.int
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
 GC: ++#xxxx.1.1.mem.str
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.mem.str <size 5, "XX XX">
+  [0] #xxxx.1.2.mem.str <size 5, "ZZ XX">
 GC: --#xxxx.1.2.mem.str
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-GC: ++#xxxx.1.11.mem.ro
+GC: ++#xxxx.1.15.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "y">
+  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.16.mem.ro, "y">
 GC: ++#xxxx.1.1.num.int
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.2.num.int <40 (0x28)>
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "y">
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.16.mem.ro, "y">
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.1.num.int <20 (0x14)>
   [1] #xxxx.1.2.num.int <40 (0x28)>
-  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "y">
+  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.16.mem.ro, "y">
 GC: --#xxxx.1.1.num.int
 GC: --#xxxx.1.2.num.int
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <60 (0x3c)>
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "y">
+  [0] #xxxx.2.1.num.int <60 (0x3c)>
+  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.16.mem.ro, "y">
 GC: ++#xxxx.1.1.mem.ref.ro
-GC: ++#xxxx.1.1.num.int
+GC: ++#xxxx.2.1.num.int
 GC: --#xxxx.1.1.mem.ref.ro
-GC: --#xxxx.1.12.mem.ro
+GC: --#xxxx.1.16.mem.ro
 GC: --#xxxx.1.1.num.int
-GC: --#xxxx.1.2.num.int
+GC: --#xxxx.2.2.num.int
 GC: --#xxxx.1.2.mem.ref.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-GC: ++#xxxx.1.11.mem.ro
+GC: ++#xxxx.1.15.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "text">
+  [0] #xxxx.2.1.mem.ref.ro <#xxxx.1.16.mem.ro, "text">
 GC: ++#xxxx.1.1.mem.str
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.mem.str <size 5, "XX XX">
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "text">
-GC: ++#xxxx.1.12.mem.ro
+  [0] #xxxx.1.2.mem.str <size 5, "ZZ XX">
+  [1] #xxxx.2.1.mem.ref.ro <#xxxx.1.16.mem.ro, "text">
+GC: ++#xxxx.1.16.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.17.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, " XX">
-  [1] #xxxx.1.2.mem.str <size 5, "XX XX">
-  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.13.mem.ro, "text">
-GC: --#xxxx.1.1.mem.str.ro
-GC: --#xxxx.1.13.mem.ro
+  [0] #xxxx.2.1.mem.str.ro <#xxxx.1.17.mem.ro, " XX">
+  [1] #xxxx.1.2.mem.str <size 5, "ZZ XX">
+  [2] #xxxx.2.1.mem.ref.ro <#xxxx.1.17.mem.ro, "text">
+GC: --#xxxx.2.1.mem.str.ro
+GC: --#xxxx.1.17.mem.ro
 GC: --#xxxx.1.2.mem.str
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.str <size 8, "XX XX XX">
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "text">
-GC: ++#xxxx.1.1.mem.ref.ro
-GC: ++#xxxx.1.1.mem.str
+  [0] #xxxx.2.1.mem.str <size 8, "ZZ XX XX">
+  [1] #xxxx.2.1.mem.ref.ro <#xxxx.1.16.mem.ro, "text">
+GC: ++#xxxx.2.1.mem.ref.ro
+GC: ++#xxxx.2.1.mem.str
 GC: --#xxxx.1.1.mem.ref.ro
-GC: --#xxxx.1.12.mem.ro
+GC: --#xxxx.1.16.mem.ro
 GC: --#xxxx.1.1.mem.str
-GC: --#xxxx.1.2.mem.str
-GC: --#xxxx.1.2.mem.ref.ro
+GC: --#xxxx.2.2.mem.str
+GC: --#xxxx.2.2.mem.ref.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
 GC: ++#xxxx.1.1.ctx.func
 GC: --#xxxx.1.1.ctx.func
 GC: --#xxxx.1.2.ctx.func
 GC: --#xxxx.1.2.mem.code.ro
 GC: --#xxxx.1.1.hash
-GC: --#xxxx.1.2.hash
+GC: --#xxxx.1.2.hash.class.sticky
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-GC: ++#xxxx.1.1.hash
+GC: ++#xxxx.1.1.hash.class.sticky
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.hash <size 3, max 3, parent #xxxx.1.2.hash>
+  [0] #xxxx.1.2.hash.class.sticky <size 2, max 17, parent #xxxx.1.2.hash.class.ro>
 GC: ++#xxxx.1.1.mem.code.ro
-GC: ++#xxxx.1.2.hash
-GC: --#xxxx.1.3.hash
+GC: ++#xxxx.1.2.hash.class.sticky
+GC: --#xxxx.1.3.hash.class.sticky
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <10 (0xa)>
-GC: ++#xxxx.1.1.num.int
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.num.int <60 (0x3c)>
-  [1] #xxxx.1.1.num.int <10 (0xa)>
-GC: --#xxxx.1.2.num.int
-GC: --#xxxx.1.1.num.int
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-GC: ++#xxxx.1.1.mem.str
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.mem.str <size 8, "XX XX XX">
-GC: --#xxxx.1.2.mem.str
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-GC: ++#xxxx.1.11.mem.ro
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "y">
-GC: ++#xxxx.1.1.num.int
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.num.int <60 (0x3c)>
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "y">
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <20 (0x14)>
-  [1] #xxxx.1.2.num.int <60 (0x3c)>
-  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "y">
-GC: --#xxxx.1.1.num.int
-GC: --#xxxx.1.2.num.int
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <80 (0x50)>
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "y">
-GC: ++#xxxx.1.1.mem.ref.ro
-GC: ++#xxxx.1.1.num.int
-GC: --#xxxx.1.1.mem.ref.ro
-GC: --#xxxx.1.12.mem.ro
-GC: --#xxxx.1.1.num.int
-GC: --#xxxx.1.2.num.int
-GC: --#xxxx.1.2.mem.ref.ro
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-GC: ++#xxxx.1.11.mem.ro
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "text">
-GC: ++#xxxx.1.1.mem.str
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.mem.str <size 8, "XX XX XX">
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "text">
-GC: ++#xxxx.1.12.mem.ro
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, " XX">
-  [1] #xxxx.1.2.mem.str <size 8, "XX XX XX">
-  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.13.mem.ro, "text">
-GC: --#xxxx.1.1.mem.str.ro
-GC: --#xxxx.1.13.mem.ro
-GC: --#xxxx.1.2.mem.str
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.str <size 11, "XX XX XX XX">
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "text">
-GC: ++#xxxx.1.1.mem.ref.ro
-GC: ++#xxxx.1.1.mem.str
-GC: --#xxxx.1.1.mem.ref.ro
-GC: --#xxxx.1.12.mem.ro
-GC: --#xxxx.1.1.mem.str
-GC: --#xxxx.1.2.mem.str
-GC: --#xxxx.1.2.mem.ref.ro
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-GC: ++#xxxx.1.1.ctx.func
-GC: --#xxxx.1.1.ctx.func
-GC: --#xxxx.1.2.ctx.func
-GC: --#xxxx.1.2.mem.code.ro
-GC: --#xxxx.1.1.hash
-GC: --#xxxx.1.2.hash
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-GC: ++#xxxx.1.1.hash
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.hash <size 3, max 3, parent #xxxx.1.2.hash>
-GC: ++#xxxx.1.1.mem.code.ro
-GC: ++#xxxx.1.2.hash
-GC: --#xxxx.1.3.hash
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
-== stack (#xxxx.1.1.array) ==
-== backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.2.1.num.int <10 (0xa)>
-GC: ++#xxxx.1.1.num.int
+GC: ++#xxxx.2.1.num.int
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.num.int <80 (0x50)>
+  [0] #xxxx.2.2.num.int <60 (0x3c)>
   [1] #xxxx.2.1.num.int <10 (0xa)>
-GC: --#xxxx.1.2.num.int
+GC: --#xxxx.2.2.num.int
 GC: --#xxxx.2.1.num.int
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-GC: ++#xxxx.1.1.mem.str
+GC: ++#xxxx.2.1.mem.str
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.2.mem.str <size 11, "XX XX XX XX">
-GC: --#xxxx.1.2.mem.str
+  [0] #xxxx.2.2.mem.str <size 8, "ZZ XX XX">
+GC: --#xxxx.2.2.mem.str
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
-  [1] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+GC: ++#xxxx.1.15.mem.ro
+== backtrace ==
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.2.1.mem.ref.ro <#xxxx.1.16.mem.ro, "y">
+GC: ++#xxxx.2.1.num.int
+== backtrace ==
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.2.2.num.int <60 (0x3c)>
+  [1] #xxxx.2.1.mem.ref.ro <#xxxx.1.16.mem.ro, "y">
+== backtrace ==
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.2.1.num.int <20 (0x14)>
+  [1] #xxxx.2.2.num.int <60 (0x3c)>
+  [2] #xxxx.2.1.mem.ref.ro <#xxxx.1.16.mem.ro, "y">
+GC: --#xxxx.2.1.num.int
+GC: --#xxxx.2.2.num.int
+== backtrace ==
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.2.1.num.int <80 (0x50)>
+  [1] #xxxx.2.1.mem.ref.ro <#xxxx.1.16.mem.ro, "y">
+GC: ++#xxxx.2.1.mem.ref.ro
+GC: ++#xxxx.2.1.num.int
+GC: --#xxxx.1.1.mem.ref.ro
+GC: --#xxxx.1.16.mem.ro
+GC: --#xxxx.2.1.num.int
+GC: --#xxxx.2.2.num.int
+GC: --#xxxx.2.2.mem.ref.ro
+== backtrace ==
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+GC: ++#xxxx.1.15.mem.ro
+== backtrace ==
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.2.1.mem.ref.ro <#xxxx.1.16.mem.ro, "text">
+GC: ++#xxxx.2.1.mem.str
+== backtrace ==
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.2.2.mem.str <size 8, "ZZ XX XX">
+  [1] #xxxx.2.1.mem.ref.ro <#xxxx.1.16.mem.ro, "text">
+GC: ++#xxxx.1.16.mem.ro
+== backtrace ==
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.17.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.2.1.mem.str.ro <#xxxx.1.17.mem.ro, " XX">
+  [1] #xxxx.2.2.mem.str <size 8, "ZZ XX XX">
+  [2] #xxxx.2.1.mem.ref.ro <#xxxx.1.17.mem.ro, "text">
+GC: --#xxxx.2.1.mem.str.ro
+GC: --#xxxx.1.17.mem.ro
+GC: --#xxxx.2.2.mem.str
+== backtrace ==
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.2.1.mem.str <size 11, "ZZ XX XX XX">
+  [1] #xxxx.2.1.mem.ref.ro <#xxxx.1.16.mem.ro, "text">
+GC: ++#xxxx.2.1.mem.ref.ro
+GC: ++#xxxx.2.1.mem.str
+GC: --#xxxx.2.1.mem.ref.ro
+GC: --#xxxx.1.16.mem.ro
+GC: --#xxxx.2.1.mem.str
+GC: --#xxxx.2.2.mem.str
+GC: --#xxxx.2.2.mem.ref.ro
+== backtrace ==
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
 GC: ++#xxxx.1.1.ctx.func
-GC: --#xxxx.1.1.ctx.func
+GC: --#xxxx.2.1.ctx.func
 GC: --#xxxx.1.2.ctx.func
 GC: --#xxxx.1.2.mem.code.ro
-GC: --#xxxx.1.1.hash
-GC: --#xxxx.1.2.hash
+GC: --#xxxx.2.1.hash
+GC: --#xxxx.1.2.hash.class.sticky
 == backtrace ==
-  [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+GC: ++#xxxx.1.1.hash.class.sticky
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.hash.class.sticky <size 2, max 17, parent #xxxx.1.2.hash.class.ro>
+GC: ++#xxxx.1.1.mem.code.ro
+GC: ++#xxxx.1.2.hash.class.sticky
+GC: --#xxxx.1.3.hash.class.sticky
+== backtrace ==
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+== backtrace ==
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.2.1.num.int <10 (0xa)>
+GC: ++#xxxx.2.1.num.int
+== backtrace ==
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.2.2.num.int <80 (0x50)>
+  [1] #xxxx.2.1.num.int <10 (0xa)>
+GC: --#xxxx.2.2.num.int
+GC: --#xxxx.2.1.num.int
+== backtrace ==
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+GC: ++#xxxx.2.1.mem.str
+== backtrace ==
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.2.2.mem.str <size 11, "ZZ XX XX XX">
+GC: --#xxxx.2.2.mem.str
+== backtrace ==
+  [0] #xxxx.2.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.2.1.hash>
+  [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+GC: ++#xxxx.1.1.ctx.func
+GC: --#xxxx.2.1.ctx.func
+GC: --#xxxx.1.2.ctx.func
+GC: --#xxxx.1.2.mem.code.ro
+GC: --#xxxx.2.1.hash
+GC: --#xxxx.1.2.hash.class.sticky
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==

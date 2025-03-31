@@ -280,6 +280,26 @@ __canvas~1~__.
 +
 See also: xref:dim[+dim+], xref:drawline[+drawline+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getcompose[+getcompose+], xref:getconsole[+getconsole+], xref:getdrawmode[+getdrawmode+], xref:getfont[+getfont+], xref:getlocation[+getlocation+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:newcanvas[+newcanvas+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setcompose[+setcompose+], xref:setconsole[+setconsole+], xref:setdrawmode[+setdrawmode+], xref:setfont[+setfont+], xref:setlocation[+setlocation+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+], xref:updatescreen[+updatescreen+]
 
+* **+class+** - turn hash into class [[class]]
++
+--
+** ( __ref~1~__ __hash~1~__ -- __ref~1~__ __hash~1~__ )
++
+__ref~1~__: the class name
++
+__hash~1~__: hash to be made a class
+--
++
+Turn regular hash into a class object.
++
+.Examples
+```
+
+/Foo ( /init { } /foo_method  { "foo" } ) class def
+```
++
+See also: xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+], xref:new[+new+]
+
 * **+cmp+** - compare [[cmp]]
 +
 --
@@ -342,7 +362,7 @@ doesn't resume program execution. Use the `run` (or `r`) console command for thi
 foo                                  # activate debug console when 'foo' is run
 ```
 +
-See also: xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+]
+See also: xref:class[+class+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+], xref:new[+new+]
 
 * **+debugcmd+** - run debug command [[debugcmd]]
 +
@@ -365,7 +385,7 @@ If false is passed, turn off debug console.
 foo                                  # activate debug console and show current stack
 ```
 +
-See also: xref:debug[+debug+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+]
+See also: xref:class[+class+], xref:debug[+debug+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+], xref:new[+new+]
 
 * **+decodeutf8+** - decode Unicode string [[decodeutf8]]
 +
@@ -406,7 +426,7 @@ If __word~1~__ does already exist, redefine __word~1~__ in the context in which 
 /neg { -1 mul } def  # define a function that negates its argument
 ```
 +
-See also: xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:gdef[+gdef+], xref:ldef[+ldef+]
+See also: xref:class[+class+], xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:gdef[+gdef+], xref:ldef[+ldef+], xref:new[+new+]
 
 * **+delete+** - delete an array, hash, or string element [[delete]]
 +
@@ -796,7 +816,7 @@ Define __word~1~__ in the global context.
 /foo 300 gdef        # define global word foo as 300
 ```
 +
-See also: xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:ldef[+ldef+]
+See also: xref:class[+class+], xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:ldef[+ldef+], xref:new[+new+]
 
 * **+ge+** - greater or equal [[ge]]
 +
@@ -1359,7 +1379,7 @@ Define __word~1~__ in the current local context.
 /foo 200 ldef        # define local word foo as 200
 ```
 +
-See also: xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+]
+See also: xref:class[+class+], xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+], xref:new[+new+]
 
 * **+le+** - less or equal [[le]]
 +
@@ -1645,6 +1665,31 @@ true neg                     # true
 ```
 +
 See also: xref:abs[+abs+], xref:add[+add+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+
+* **+new+** - create class instance [[new]]
++
+--
+** ( __hash~1~__ __hash~2~__ -- __hash~3~__ )
++
+__hash~1~__: the class
++
+__hash~2~__: hash with arguments for init method
++
+__hash~3~__: initialized class instance
+--
++
+Initialize a new class instance.
+'init' method (if it exists) will be called implicitly.
++
+.Examples
+```
+
+/Foo ( /init { } /foo_method  { "foo" } ) class def
+/foo Foo ( /x 100 ) new def
+foo .x
+```
++
+See also: xref:class[+class+], xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+]
 
 * **+newcanvas+** - create canvas [[newcanvas]]
 +

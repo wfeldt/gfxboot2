@@ -5004,7 +5004,7 @@ void gfx_prim_seteventhandler()
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // turn hash into class
 //
-// group: system
+// group: def
 //
 // ( ref_1 hash_1 -- ref_1 hash_1 )
 // ref_1: the class name
@@ -5014,32 +5014,49 @@ void gfx_prim_seteventhandler()
 //
 // example:
 //
-// /Foo ( /init { } /foo_method  { "foo" } ) class def
+// /Foo (
+//   /init { }
+//   /foo_method  { "foo" }
+// ) class def
+//
+// Define class Bar, derived from Foo:
+//
+// /Bar (
+//   /bar_method { "bar" }
+// ) dup /Foo setparent class def
 //
 void gfx_prim_class()
 {
-  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_NUM, OTYPE_NUM });
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_MEM, OTYPE_HASH });
 
   if(!argv) return;
 
-  int64_t val0 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
-  int64_t val1 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
-
-  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
-
-  if(canvas) {
-    canvas->geo.x = val0;
-    canvas->geo.y = val1;
+  if(argv[0].ptr->sub_type != t_ref) {
+    GFX_ERROR(err_invalid_arguments);
+    return;
   }
 
-  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
+  obj_id_t id = gfx_obj_mem_dup(argv[0].id, 0);
+  obj_t *ptr = gfx_obj_ptr(id);
+  if(ptr) {
+    ptr->sub_type = t_string;
+    ptr->flags.ro = 1;
+  }
+
+  gfx_obj_hash_set(argv[1].id, gfx_obj_asciiz_new("class"), id, 0);
+
+  ptr = gfx_obj_ptr(argv[1].id);
+  if(ptr) {
+    ptr->flags.ro = 1;
+    ptr->flags.hash_is_class = 1;
+  }
 }
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // create class instance
 //
-// group: system
+// group: def
 //
 // ( hash_1 hash_2 -- hash_3 )
 // hash_1: the class
@@ -5047,26 +5064,52 @@ void gfx_prim_class()
 // hash_3: initialized class instance
 //
 // Initialize a new class instance.
+// 'init' method (if it exists) will be called implicitly.
 //
 // example:
 //
+// /Foo ( /init { } /foo_method  { "foo" } ) class def
 // /foo Foo ( /x 100 ) new def
+// foo .x
 //
 void gfx_prim_new()
 {
-  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_NUM, OTYPE_NUM });
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_HASH, OTYPE_HASH });
 
   if(!argv) return;
 
-  int64_t val0 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
-  int64_t val1 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
+  if(!argv[0].ptr->flags.hash_is_class) {
+    GFX_ERROR(err_invalid_arguments);
+    return;
+  }
 
-  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
+  hash_t *hash_vars = OBJ_HASH_FROM_PTR(argv[1].ptr);
 
-  if(canvas) {
-    canvas->geo.x = val0;
-    canvas->geo.y = val1;
+  obj_id_t dict_id = gfx_obj_hash_new(hash_vars->size);
+
+  // copy hash with vars to new dict
+  obj_id_t key, val;
+  unsigned idx = 0;
+  while(gfx_obj_iterate(argv[1].id, &idx, &key, &val)) {
+    // note: reference counting for key & val has been done inside gfx_obj_iterate()
+    gfx_obj_hash_set(dict_id, key, val, 0);
+  }
+
+  obj_t *dict_ptr = gfx_obj_ptr(dict_id);
+  if(dict_ptr) {
+    dict_ptr->flags.sticky = 1;
+    dict_ptr->flags.hash_is_class = 1;
+    OBJ_ID_ASSIGN(OBJ_HASH_FROM_PTR(dict_ptr)->parent_id, argv[0].id);
   }
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, dict_id, 0);
+
+  // now run init method
+  obj_id_pair_t pair = gfx_obj_hash_get(dict_id, & (data_t) { .ptr = "init", .size = sizeof "init" - 1 });
+
+  if(pair.id1) {
+    gfx_exec_id(dict_id, pair.id2, 0);
+  }
 }

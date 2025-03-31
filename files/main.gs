@@ -304,6 +304,9 @@
 /edit ( ) sticky def
 edit edit_class setparent
 
+# /Edit ( ... ) class def
+# /edit Edit ( /x 100 /y 550 /width 600 /height 30 ) new def
+
 # - - - - - - - - - - - - - - -
 
 /console-font getcanvas getconsole setcanvas getfont exch setcanvas def

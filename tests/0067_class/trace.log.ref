@@ -8,14 +8,14 @@ GC: ++#209.1.1.mem.ro
 == backtrace ==
   [0] #211.1.1.ctx.func <code #209.1.2.mem.ro, ip 0xe (0x8), dict #8.1.2.hash>
 == stack (#210.1.1.array) ==
-  [0] #212.1.1.mem.ref.ro <#209.1.2.mem.ro, ofs 0x9, size 5, "class">
+  [0] #212.1.1.mem.ref.ro <#209.1.2.mem.ro, ofs 0x9, size 5, "klass">
 IP: #209:0xe, type 6, 16[43]
 GC: ++#209.1.2.mem.ro
 == backtrace ==
   [0] #211.1.1.ctx.func <code #209.1.3.mem.ro, ip 0x3b (0xe), dict #8.1.2.hash>
 == stack (#210.1.1.array) ==
   [0] #213.1.1.mem.code.ro <#209.1.3.mem.ro, ofs 0x10, size 43>
-  [1] #212.1.1.mem.ref.ro <#209.1.3.mem.ro, ofs 0x9, size 5, "class">
+  [1] #212.1.1.mem.ref.ro <#209.1.3.mem.ro, ofs 0x9, size 5, "klass">
 IP: #209:0x3b, type 8, 60[3]
 GC: ++#212.1.1.mem.ref.ro
 GC: ++#213.1.1.mem.code.ro

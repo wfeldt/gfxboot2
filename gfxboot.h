@@ -236,6 +236,7 @@ typedef struct {
     uint8_t has_ref:1;		// object has been referenced via data.ref_id in another object
     uint8_t utf8:1;		// data is utf8 encoded
     uint8_t sticky:1;		// create new hash entries here
+    uint8_t hash_is_class:1;	// hash is a class
   } flags;
 } obj_t;
 

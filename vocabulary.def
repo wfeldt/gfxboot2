@@ -104,3 +104,5 @@ geteventhandler
 seteventhandler
 insert
 debugcmd
+class
+new

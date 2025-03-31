@@ -5,7 +5,7 @@
 # line i index  offset   type   hex                      word
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
              0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
-     8       1  0x00008  ref    59 63 6c 61 73 73        /class
+     8       1  0x00008  ref    59 6b 6c 61 73 73        /klass
              2  0x0000e  code   c6 10                    {
      9       3  0x00010  int    21                         2
              4  0x00011  prim   83 1c                      index
@@ -62,7 +62,7 @@
             55  0x0008c  prim   63                           def
     31      56  0x0008d  prim   13                         }
     32      57  0x0008e  prim   53                       )
-            58  0x0008f  word   58 63 6c 61 73 73        class
+            58  0x0008f  word   58 6b 6c 61 73 73        klass
     34      59  0x00095  word   38 77 69 6e              win
             60  0x00099  get    5a 64 72 61 77 32        .draw2
     35      61  0x0009f  xref   84 0a                    win

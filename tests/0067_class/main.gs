@@ -5,7 +5,7 @@
 # Define hash_2 as word_1 and make hash_1 its parent. word_1 is created in
 # the global context.
 #
-/class {
+/klass {
   2 index exch gdef
   exch exec exch setparent
 } def
@@ -29,7 +29,7 @@ getcanvas getconsole setcanvas getfont exch setcanvas setfont
     /y y 20 add def
     /text text " XX" add def
   }
-) class
+) klass
 
 win .draw2
 win .draw2

@@ -4999,3 +4999,74 @@ void gfx_prim_seteventhandler()
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 }
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// turn hash into class
+//
+// group: system
+//
+// ( ref_1 hash_1 -- ref_1 hash_1 )
+// ref_1: the class name
+// hash_1: hash to be made a class
+//
+// Turn regular hash into a class object.
+//
+// example:
+//
+// /Foo ( /init { } /foo_method  { "foo" } ) class def
+//
+void gfx_prim_class()
+{
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_NUM, OTYPE_NUM });
+
+  if(!argv) return;
+
+  int64_t val0 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+  int64_t val1 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
+
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
+
+  if(canvas) {
+    canvas->geo.x = val0;
+    canvas->geo.y = val1;
+  }
+
+  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// create class instance
+//
+// group: system
+//
+// ( hash_1 hash_2 -- hash_3 )
+// hash_1: the class
+// hash_2: hash with arguments for init method
+// hash_3: initialized class instance
+//
+// Initialize a new class instance.
+//
+// example:
+//
+// /foo Foo ( /x 100 ) new def
+//
+void gfx_prim_new()
+{
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_NUM, OTYPE_NUM });
+
+  if(!argv) return;
+
+  int64_t val0 = OBJ_VALUE_FROM_PTR(argv[0].ptr);
+  int64_t val1 = OBJ_VALUE_FROM_PTR(argv[1].ptr);
+
+  canvas_t *canvas = gfx_obj_canvas_ptr(gfxboot_data->canvas_id);
+
+  if(canvas) {
+    canvas->geo.x = val0;
+    canvas->geo.y = val1;
+  }
+
+  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
+}

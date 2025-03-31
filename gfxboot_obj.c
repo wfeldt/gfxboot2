@@ -129,7 +129,7 @@ char *gfx_obj_id2str(obj_id_t id)
   // corresponds to OTYPE_* defines
   static const char *names[] = { "nil", "mem", "olist", "font", "canv", "array", "hash", "ctx", "num" };
   static char buf[64], buf2[32];
-  const char *s, *sub_type = "", *ro = "", *sticky = "";
+  const char *s, *sub_type = "", *ro = "", *sticky = "", *hash_is_class = "";
   unsigned idx = OBJ_ID2IDX(id);
   unsigned gen = OBJ_ID2GEN(id);
 
@@ -137,6 +137,7 @@ char *gfx_obj_id2str(obj_id_t id)
   if(ptr && id) {
     if(ptr->flags.ro) ro = ".ro";
     if(ptr->flags.sticky) sticky = ".sticky";
+    if(ptr->flags.hash_is_class) hash_is_class = ".class";
     if(ptr->sub_type) {
       if(ptr->sub_type < sizeof type_name / sizeof *type_name) {
         sub_type = type_name[ptr->sub_type];
@@ -158,7 +159,9 @@ char *gfx_obj_id2str(obj_id_t id)
     *buf2 = 0;
   }
 
-  gfxboot_snprintf(buf, sizeof buf, "#%u.%u%s.%s%s%s%s%s", idx, gen, buf2, s, *sub_type ? "." : "", sub_type, ro, sticky);
+  gfxboot_snprintf(buf, sizeof buf, "#%u.%u%s.%s%s%s%s%s%s",
+    idx, gen, buf2, s, *sub_type ? "." : "", sub_type, hash_is_class, ro, sticky
+  );
 
   return buf;
 }

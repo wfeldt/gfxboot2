@@ -295,7 +295,16 @@ Turn regular hash into a class object.
 .Examples
 ```
 
-/Foo ( /init { } /foo_method  { "foo" } ) class def
+/Foo (
+  /init { }
+  /foo_method  { "foo" }
+) class def
+
+Define class Bar, derived from Foo:
+
+/Bar (
+  /bar_method { "bar" }
+) dup /Foo setparent class def
 ```
 +
 See also: xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+], xref:new[+new+]

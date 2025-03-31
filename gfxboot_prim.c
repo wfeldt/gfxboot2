@@ -1153,6 +1153,7 @@ void gfx_prim_string()
       break;
 
     case OTYPE_MEM:
+      // FIXME: change to set sub_type to t_string?
       val_id = gfx_obj_mem_dup(id1, 0);
       break;
 

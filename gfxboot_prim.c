@@ -5044,6 +5044,7 @@ void gfx_prim_class()
   }
 
   arg_t class_name = { .id = gfx_obj_mem_dup(argv[0].id, 0) };
+
   OBJ_PTR_UPDATE(class_name);
 
   if(class_name.ptr) {
@@ -5054,6 +5055,7 @@ void gfx_prim_class()
   gfx_obj_hash_set(argv[1].id, gfx_obj_asciiz_new("class"), class_name.id, 0);
 
   OBJ_PTR_UPDATE(argv[1]);
+
   if(argv[1].ptr) {
     argv[1].ptr->flags.ro = 1;
     argv[1].ptr->flags.hash_is_class = 1;
@@ -5103,31 +5105,32 @@ void gfx_prim_new()
 
   hash_t *hash_vars = OBJ_HASH_FROM_PTR(argv[1].ptr);
 
-  obj_id_t dict_id = gfx_obj_hash_new(hash_vars->size);
+  arg_t dict = { .id = gfx_obj_hash_new(hash_vars->size) };
 
   // copy hash with vars to new dict
   obj_id_t key, val;
   unsigned idx = 0;
   while(gfx_obj_iterate(argv[1].id, &idx, &key, &val)) {
     // note: reference counting for key & val has been done inside gfx_obj_iterate()
-    gfx_obj_hash_set(dict_id, key, val, 0);
+    gfx_obj_hash_set(dict.id, key, val, 0);
   }
 
-  obj_t *dict_ptr = gfx_obj_ptr(dict_id);
-  if(dict_ptr) {
-    dict_ptr->flags.sticky = 1;
-    dict_ptr->flags.hash_is_class = 1;
-    OBJ_ID_ASSIGN(OBJ_HASH_FROM_PTR(dict_ptr)->parent_id, argv[0].id);
+  OBJ_PTR_UPDATE(dict);
+
+  if(dict.ptr) {
+    dict.ptr->flags.sticky = 1;
+    dict.ptr->flags.hash_is_class = 1;
+    OBJ_ID_ASSIGN(OBJ_HASH_FROM_PTR(dict.ptr)->parent_id, argv[0].id);
   }
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, dict_id, 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, dict.id, 0);
 
   // now run init method
-  obj_id_pair_t pair = gfx_obj_hash_get(dict_id, & (data_t) { .ptr = "init", .size = sizeof "init" - 1 });
+  obj_id_pair_t pair = gfx_obj_hash_get(dict.id, & (data_t) { .ptr = "init", .size = sizeof "init" - 1 });
 
   if(pair.id1) {
-    gfx_exec_id(dict_id, pair.id2, 0);
+    gfx_exec_id(dict.id, pair.id2, 0);
   }
 }

@@ -344,6 +344,7 @@ typedef struct {
       obj_id_t pstack;		// program data stack
       obj_id_t dict;		// global dictionary
       obj_id_t context;		// current program context
+      obj_id_t wait_for_context;	// stop if this context is reached
       unsigned stop:1;
       uint64_t time;
       uint64_t steps;

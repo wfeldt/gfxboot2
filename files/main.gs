@@ -294,12 +294,12 @@
 
     cursor_on
   }
-) class def
+) nil class def
 
 # - - - - - - - - - - - - - - -
 
 # new class syntax:
-#   /Edit ( ... ) class def
+#   /Edit ( ... ) nil class def
 #   /edit Edit ( /x 100 /y 550 /width 600 /height 30 ) new def
 
 # - - - - - - - - - - - - - - -

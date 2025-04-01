@@ -15,3 +15,6 @@
 
 edit .foo
 edit .type
+
+edit 200 =xfoo
+edit "ybar" 200 put

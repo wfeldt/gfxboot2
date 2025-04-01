@@ -313,6 +313,17 @@ void gfx_program_run()
       gfxboot_log("TIME: %llu\n", (unsigned long long) tmp - tsc_last);
       tsc_last = tmp;
     }
+
+    if(gfxboot_data->vm.program.wait_for_context) {
+      // stop if context matches or wait_for_context no longer exists
+      if(
+        gfxboot_data->vm.program.context == gfxboot_data->vm.program.wait_for_context ||
+        !gfx_obj_ptr(gfxboot_data->vm.program.wait_for_context)
+      ) {
+        gfxboot_data->vm.program.wait_for_context = 0;
+        break;
+      }
+    }
   }
 
   gfxboot_data->vm.program.time += tsc() - tsc_start;

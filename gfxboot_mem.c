@@ -58,6 +58,9 @@ data_t *gfx_obj_mem_subtype_ptr(obj_id_t id, uint8_t subtype)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// FIXME:
+//   - check if str is actually inside ref_id?
+//   - also, final ref_id should be ro
 obj_id_t gfx_obj_const_mem_nofree_new(const uint8_t *str, unsigned len, uint8_t sub_type, obj_id_t ref_id)
 {
   obj_id_t id = 0;

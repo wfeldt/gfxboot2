@@ -36,6 +36,7 @@ static struct {
   { "print", debug_cmd_dump },
   { "r", debug_cmd_run },
   { "run", debug_cmd_run },
+  { "s", debug_cmd_run },
   { "set", debug_cmd_set },
   { "t", debug_cmd_run },
   { "trace", debug_cmd_run },
@@ -174,6 +175,26 @@ void gfx_debug_cmd(char *str)
       if(ptr) {
         gfx_memcpy(OBJ_MEM_FROM_PTR(ptr), arg, arg_len);
         gfx_obj_array_push(gfxboot_data->vm.program.pstack, id, 0);
+      }
+    }
+    else if(*argv[i] == '.') {
+      arg++;
+      arg_len--;
+      data_t key = { .ptr = arg, .size = arg_len };
+      gfxboot_data->vm.program.wait_for_context = gfxboot_data->vm.program.context;
+      gfx_prim_get_x(&key);
+      gfx_program_run();
+    }
+    else if(*argv[i] == '=') {
+      arg++;
+      arg_len--;
+      obj_id_t id = gfx_obj_mem_new(arg_len, t_ref);
+      obj_t *ptr = gfx_obj_ptr(id);
+      if(ptr) {
+        ptr->flags.ro = 1;
+        gfx_memcpy(OBJ_MEM_FROM_PTR(ptr), arg, arg_len);
+        gfx_prim_put_x(id);
+        gfx_obj_ref_dec(id);
       }
     }
     else {
@@ -759,6 +780,7 @@ void debug_cmd_run(int argc, char **argv)
   unsigned steps = 0;
 
   if(*argv[0] == 't') steps = 1;
+  if(*argv[0] == 's') gfxboot_data->vm.program.wait_for_context = gfxboot_data->vm.program.context;
 
   if(argv[1]) steps = (unsigned) gfx_strtol(argv[1], 0, 0);
 

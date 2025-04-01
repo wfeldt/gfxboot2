@@ -35,6 +35,8 @@ static void gfx_prim__add(unsigned direct);
 #define IS_RW		0x40
 #define TYPE_MASK	0x3f
 
+#define OBJ_PTR_UPDATE(a) (a).ptr = gfx_obj_ptr((a).id)
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 arg_t *gfx_arg_1(uint8_t type)
 {
@@ -5007,9 +5009,10 @@ void gfx_prim_seteventhandler()
 //
 // group: def
 //
-// ( ref_1 hash_1 -- ref_1 hash_1 )
+// ( ref_1 hash_1 hash_2 -- ref_1 hash_1 )
 // ref_1: the class name
 // hash_1: hash to be made a class
+// hash_2: parent class or nil
 //
 // Turn regular hash into a class object.
 //
@@ -5018,39 +5021,47 @@ void gfx_prim_seteventhandler()
 // /Foo (
 //   /init { }
 //   /foo_method  { "foo" }
-// ) class def
+// ) nil class def
 //
 // Define class Bar, derived from Foo:
 //
 // /Bar (
 //   /bar_method { "bar" }
-// ) dup /Foo setparent class def
+// ) Foo class def
 //
 void gfx_prim_class()
 {
-  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_MEM, OTYPE_HASH });
+  arg_t *argv = gfx_arg_n(3, (uint8_t [3]) { OTYPE_MEM, OTYPE_HASH, OTYPE_HASH | IS_NIL });
 
   if(!argv) return;
 
-  if(argv[0].ptr->sub_type != t_ref) {
+  if(
+    (argv[0].ptr->sub_type != t_ref) ||
+    (argv[2].ptr && !argv[2].ptr->flags.hash_is_class)
+  ) {
     GFX_ERROR(err_invalid_arguments);
     return;
   }
 
-  obj_id_t id = gfx_obj_mem_dup(argv[0].id, 0);
-  obj_t *ptr = gfx_obj_ptr(id);
-  if(ptr) {
-    ptr->sub_type = t_string;
-    ptr->flags.ro = 1;
+  arg_t class_name = { .id = gfx_obj_mem_dup(argv[0].id, 0) };
+  OBJ_PTR_UPDATE(class_name);
+
+  if(class_name.ptr) {
+    class_name.ptr->sub_type = t_string;
+    class_name.ptr->flags.ro = 1;
   }
 
-  gfx_obj_hash_set(argv[1].id, gfx_obj_asciiz_new("class"), id, 0);
+  gfx_obj_hash_set(argv[1].id, gfx_obj_asciiz_new("class"), class_name.id, 0);
 
-  ptr = gfx_obj_ptr(argv[1].id);
-  if(ptr) {
-    ptr->flags.ro = 1;
-    ptr->flags.hash_is_class = 1;
+  OBJ_PTR_UPDATE(argv[1]);
+  if(argv[1].ptr) {
+    argv[1].ptr->flags.ro = 1;
+    argv[1].ptr->flags.hash_is_class = 1;
+
+    OBJ_ID_ASSIGN(OBJ_HASH_FROM_PTR(argv[1].ptr)->parent_id, argv[2].id);
   }
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 }
 
 
@@ -5069,9 +5080,15 @@ void gfx_prim_class()
 //
 // example:
 //
-// /Foo ( /init { } /foo_method  { "foo" } ) class def
+// /Foo (
+//   /x 0
+//   /init { }
+//   /bar  { x }
+// ) nil class def
+//
 // /foo Foo ( /x 100 ) new def
-// foo .x
+//
+// foo .bar
 //
 void gfx_prim_new()
 {

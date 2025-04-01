@@ -5,7 +5,7 @@ getcanvas getconsole setcanvas getfont exch setcanvas setfont
     10 y setpos
     text show
   }
-) class def
+) nil class def
 
 /Widget2 (
   /y 0
@@ -18,7 +18,7 @@ getcanvas getconsole setcanvas getfont exch setcanvas setfont
   }
 
   /init { /text "ZZ" def }
-) dup Widget1 setparent class def
+) Widget1 class def
 
 /win Widget2 ( /y 20 ) new def
 

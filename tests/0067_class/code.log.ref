@@ -1,6 +1,6 @@
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# code: 73 entries (73 - 0)
+# code: 72 entries (72 - 0)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # line i index  offset   type   hex                      word
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -27,58 +27,56 @@
             16  0x00068  word   48 73 68 6f 77               show
      7      17  0x0006d  prim   13                         }
      8      18  0x0006e  word   18 29                    )
-            19  0x00070  word   58 63 6c 61 73 73        class
-            20  0x00076  word   38 64 65 66              def
-    10      21  0x0007a  ref    79 57 69 64 67 65 74 32  /Widget2
-            22  0x00082  word   18 28                    (
-    11      23  0x00084  ref    19 79                      /y
-            24  0x00086  int    01                         0
-    12      25  0x00087  ref    49 74 65 78 74             /text
-            26  0x0008c  str    07                         ""
-    13      27  0x0008d  ref    59 64 72 61 77 32          /draw2
-            28  0x00093  code   c6 3a                      {
-    14      29  0x00095  int    81 0a                        10
-            30  0x00097  word   18 79                        y
-            31  0x00099  word   68 73 65 74 70 6f 73         setpos
-    15      32  0x000a0  word   48 74 65 78 74               text
-            33  0x000a5  word   48 73 68 6f 77               show
-    16      34  0x000aa  ref    19 79                        /y
-            35  0x000ac  word   18 79                        y
-            36  0x000ae  int    81 14                        20
-            37  0x000b0  word   38 61 64 64                  add
-            38  0x000b4  word   38 64 65 66                  def
-    17      39  0x000b8  ref    49 74 65 78 74               /text
-            40  0x000bd  word   48 74 65 78 74               text
-            41  0x000c2  str    37 20 58 58                  " XX"
-            42  0x000c6  word   38 61 64 64                  add
-            43  0x000ca  word   38 64 65 66                  def
-    18      44  0x000ce  prim   13                         }
-    20      45  0x000cf  ref    49 69 6e 69 74             /init
-            46  0x000d4  code   c6 0d                      {
-            47  0x000d6  ref    49 74 65 78 74               /text
-            48  0x000db  str    27 5a 5a                     "ZZ"
-            49  0x000de  word   38 64 65 66                  def
-            50  0x000e2  prim   13                         }
-    21      51  0x000e3  word   18 29                    )
-            52  0x000e5  word   38 64 75 70              dup
-            53  0x000e9  word   78 57 69 64 67 65 74 31  Widget1
-            54  0x000f1  word   98 73 65 74 70 61 72 65  setparent
-                                6e 74
-            55  0x000fb  word   58 63 6c 61 73 73        class
-            56  0x00101  word   38 64 65 66              def
-    23      57  0x00105  ref    39 77 69 6e              /win
-            58  0x00109  word   78 57 69 64 67 65 74 32  Widget2
-            59  0x00111  word   18 28                    (
-            60  0x00113  ref    19 79                      /y
-            61  0x00115  int    81 14                      20
-            62  0x00117  word   18 29                    )
-            63  0x00119  word   38 6e 65 77              new
-            64  0x0011d  word   38 64 65 66              def
-    25      65  0x00121  word   38 77 69 6e              win
-            66  0x00125  get    5a 64 72 61 77 32        .draw2
-    26      67  0x0012b  word   38 77 69 6e              win
-            68  0x0012f  get    5a 64 72 61 77 32        .draw2
-    27      69  0x00135  word   38 77 69 6e              win
-            70  0x00139  get    5a 64 72 61 77 32        .draw2
-    29      71  0x0013f  word   38 77 69 6e              win
-            72  0x00143  get    5a 64 72 61 77 31        .draw1
+            19  0x00070  nil    00                       nil
+            20  0x00071  word   58 63 6c 61 73 73        class
+            21  0x00077  word   38 64 65 66              def
+    10      22  0x0007b  ref    79 57 69 64 67 65 74 32  /Widget2
+            23  0x00083  word   18 28                    (
+    11      24  0x00085  ref    19 79                      /y
+            25  0x00087  int    01                         0
+    12      26  0x00088  ref    49 74 65 78 74             /text
+            27  0x0008d  str    07                         ""
+    13      28  0x0008e  ref    59 64 72 61 77 32          /draw2
+            29  0x00094  code   c6 3a                      {
+    14      30  0x00096  int    81 0a                        10
+            31  0x00098  word   18 79                        y
+            32  0x0009a  word   68 73 65 74 70 6f 73         setpos
+    15      33  0x000a1  word   48 74 65 78 74               text
+            34  0x000a6  word   48 73 68 6f 77               show
+    16      35  0x000ab  ref    19 79                        /y
+            36  0x000ad  word   18 79                        y
+            37  0x000af  int    81 14                        20
+            38  0x000b1  word   38 61 64 64                  add
+            39  0x000b5  word   38 64 65 66                  def
+    17      40  0x000b9  ref    49 74 65 78 74               /text
+            41  0x000be  word   48 74 65 78 74               text
+            42  0x000c3  str    37 20 58 58                  " XX"
+            43  0x000c7  word   38 61 64 64                  add
+            44  0x000cb  word   38 64 65 66                  def
+    18      45  0x000cf  prim   13                         }
+    20      46  0x000d0  ref    49 69 6e 69 74             /init
+            47  0x000d5  code   c6 0d                      {
+            48  0x000d7  ref    49 74 65 78 74               /text
+            49  0x000dc  str    27 5a 5a                     "ZZ"
+            50  0x000df  word   38 64 65 66                  def
+            51  0x000e3  prim   13                         }
+    21      52  0x000e4  word   18 29                    )
+            53  0x000e6  word   78 57 69 64 67 65 74 31  Widget1
+            54  0x000ee  word   58 63 6c 61 73 73        class
+            55  0x000f4  word   38 64 65 66              def
+    23      56  0x000f8  ref    39 77 69 6e              /win
+            57  0x000fc  word   78 57 69 64 67 65 74 32  Widget2
+            58  0x00104  word   18 28                    (
+            59  0x00106  ref    19 79                      /y
+            60  0x00108  int    81 14                      20
+            61  0x0010a  word   18 29                    )
+            62  0x0010c  word   38 6e 65 77              new
+            63  0x00110  word   38 64 65 66              def
+    25      64  0x00114  word   38 77 69 6e              win
+            65  0x00118  get    5a 64 72 61 77 32        .draw2
+    26      66  0x0011e  word   38 77 69 6e              win
+            67  0x00122  get    5a 64 72 61 77 32        .draw2
+    27      68  0x00128  word   38 77 69 6e              win
+            69  0x0012c  get    5a 64 72 61 77 32        .draw2
+    29      70  0x00132  word   38 77 69 6e              win
+            71  0x00136  get    5a 64 72 61 77 31        .draw1

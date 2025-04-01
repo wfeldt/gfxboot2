@@ -283,11 +283,13 @@ See also: xref:dim[+dim+], xref:drawline[+drawline+], xref:fillrect[+fillrect+],
 * **+class+** - turn hash into class [[class]]
 +
 --
-** ( __ref~1~__ __hash~1~__ -- __ref~1~__ __hash~1~__ )
+** ( __ref~1~__ __hash~1~__ __hash~2~__ -- __ref~1~__ __hash~1~__ )
 +
 __ref~1~__: the class name
 +
 __hash~1~__: hash to be made a class
++
+__hash~2~__: parent class or nil
 --
 +
 Turn regular hash into a class object.
@@ -298,13 +300,13 @@ Turn regular hash into a class object.
 /Foo (
   /init { }
   /foo_method  { "foo" }
-) class def
+) nil class def
 
 Define class Bar, derived from Foo:
 
 /Bar (
   /bar_method { "bar" }
-) dup /Foo setparent class def
+) Foo class def
 ```
 +
 See also: xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+], xref:new[+new+]
@@ -1693,9 +1695,15 @@ Initialize a new class instance.
 .Examples
 ```
 
-/Foo ( /init { } /foo_method  { "foo" } ) class def
+/Foo (
+  /x 0
+  /init { }
+  /bar  { x }
+) nil class def
+
 /foo Foo ( /x 100 ) new def
-foo .x
+
+foo .bar
 ```
 +
 See also: xref:class[+class+], xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+]

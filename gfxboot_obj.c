@@ -404,6 +404,7 @@ unsigned gfx_obj_ref_dec_delay_gc(obj_id_t id)
 
   if(ptr->ref_cnt == 0) {
     if(!gfxboot_data->vm.gc_list) {
+      // FIXME: pre-create at program start to avoid having to create a new olist entry
       gfxboot_data->vm.gc_list = gfx_obj_array_new(0);
     }
     if(gfxboot_data->vm.gc_list) {

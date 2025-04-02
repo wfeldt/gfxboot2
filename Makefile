@@ -12,7 +12,7 @@ CC      = gcc
 CFLAGS  = -g -O2 $(OPT_32BIT) -I. -Wall -Wno-pointer-sign -Wsign-conversion -Wsign-compare
 LDFLAGS = $(OPT_32BIT)
 
-GFXBOOT_MAIN       = files/main.gs
+GFXBOOT_MAIN       ?= files/main.gs
 
 GFXBOOT_LIB_SRC    = gfxboot.c gfxboot_main.c \
                      gfxboot_array.c gfxboot_canvas.c gfxboot_draw.c gfxboot_font.c gfxboot_hash.c gfxboot_context.c \

@@ -102,7 +102,7 @@
       buf cursor_index key insert
       cursor_x cursor_index get x_shift sub 0 setpos
       key show
-      cursor_index 1 add!
+      /cursor_index 1 add!
       cursor_x cursor_index getpos pop x_shift add put
     } {
       # insert
@@ -113,7 +113,7 @@
       getpos pop sub
       /d exch ldef
       cursor_x cursor_index getpos pop x_shift add d add insert
-      cursor_index 1 add!
+      /cursor_index 1 add!
       cursor_index 1 buf length {
         cursor_x exch over over get d sub put
       } for
@@ -235,21 +235,21 @@
     } if
 
     key kLeft eq {
-      cursor_index 0 ne { cursor_index -1 add! } if
+      cursor_index 0 ne { /cursor_index -1 add! } if
       align+redraw
       cursor_on
       return
     } if
 
     key kRight eq {
-      cursor_index buf length lt { cursor_index 1 add! } if
+      cursor_index buf length lt { /cursor_index 1 add! } if
       align+redraw
       cursor_on
       return
     } if
 
     key kCtrlL eq {
-      x_shift -5 add!
+      /x_shift -5 add!
       /tail_d width neg def
       switch_region 0 _redraw restore_region
       cursor_on
@@ -257,7 +257,7 @@
     } if
 
     key kCtrlR eq {
-      x_shift 5 add!
+      /x_shift 5 add!
       /tail_d width neg def
       switch_region 0 _redraw restore_region
       cursor_on
@@ -286,7 +286,7 @@
     } if
 
     key kBack eq {
-      cursor_index 0 ne { cursor_index -1 add! del_key } if
+      cursor_index 0 ne { /cursor_index -1 add! del_key } if
       align+redraw
       cursor_on
       return

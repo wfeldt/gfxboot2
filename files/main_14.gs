@@ -18,3 +18,6 @@ edit .type
 
 edit 200 =xfoo
 edit "ybar" 200 put
+
+/zapp 10 def
+/zapp 2 add!

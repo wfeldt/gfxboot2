@@ -2017,7 +2017,7 @@ void gfx_prim_exec()
 // true true add                        # false
 // [ 10 20 ] [ 30 40 ] add              # [ 10 20 30 40 ]
 // ( "foo" 10 ) ( "bar" 20 ) add        # ( "bar" 20 "foo" 10 )
-// "abc" "def" add                      # "abcdef"
+// "abc" "xyz" add                      # "abcxyz"
 //
 void gfx_prim_add()
 {
@@ -2025,6 +2025,27 @@ void gfx_prim_add()
 }
 
 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// addition
+//
+// group: calc
+//
+// ( ref_1 obj_1 -- )
+//
+// Add obj_1 to the object ref_1 references.
+//
+// The same type of object combinations as for add are allowed.
+// But add! modifies the object ref_1 references directly.
+// Also, the result is not put on the stack.
+//
+// example:
+//
+// /foo 10 def
+// /foo 20 add                          # foo is 30
+//
+// /bar "abc" def
+// /bar "xyz" add                       # bar is "abcxyz"
+//
 void gfx_prim_add_direct()
 {
   gfx_prim__add(1);
@@ -2042,10 +2063,32 @@ void gfx_prim__add(unsigned direct)
   obj_id_t id1 = argv[0].id;
   obj_id_t id2 = argv[1].id;
 
+  obj_id_t direct_dict = 0;
+  obj_id_t direct_key = argv[0].id;
+
   obj_t *ptr1 = argv[0].ptr;
   obj_t *ptr2 = argv[1].ptr;
 
-  // FIXME: maybe allow 'mem_ref + int'?
+  if(direct) {
+    if(!ptr1 || ptr1->base_type != OTYPE_MEM || ptr1->sub_type != t_ref) {
+      GFX_ERROR(err_invalid_arguments);
+      return;
+    }
+    obj_id_pair_t pair = gfx_lookup_dict(OBJ_DATA_FROM_PTR(ptr1));
+
+    if(!pair.id1) {
+      GFX_ERROR(err_invalid_hash_key);
+      return;
+    }
+
+    direct_dict = pair.id1;
+    argv[0].id = pair.id2;
+
+    OBJ_PTR_UPDATE(argv[0]);
+
+    id1 = argv[0].id;
+    ptr1 = argv[0].ptr;
+  }
 
   if(!ptr1 || !ptr2 || ptr1->base_type != ptr2->base_type) {
     GFX_ERROR(err_invalid_arguments);
@@ -2167,6 +2210,7 @@ void gfx_prim__add(unsigned direct)
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 
   if(direct) {
+    gfx_obj_hash_set(direct_dict, direct_key, result_id, 1);
     gfx_obj_ref_dec(result_id);
   }
   else {

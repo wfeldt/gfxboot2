@@ -8,66 +8,66 @@
      1       1  0x00008  ref    59 6e 75 6d 5f 31        /num_1
              2  0x0000e  int    91 e8 03                 1000
              3  0x00011  prim   63                       def
-     2       4  0x00012  word   58 6e 75 6d 5f 31        num_1
-             5  0x00018  int    91 d0 07                 2000
-             6  0x0001b  prim   83 1f                    add!
-     4       7  0x0001d  ref    69 62 6f 6f 6c 5f 31     /bool_1
-             8  0x00024  bool   12                       true
-             9  0x00025  prim   63                       def
-     5      10  0x00026  word   68 62 6f 6f 6c 5f 31     bool_1
-            11  0x0002d  bool   02                       false
-            12  0x0002e  prim   83 1f                    add!
-     7      13  0x00030  ref    89 73 74 72 69 6e 67 5f  /string_1
+     2       4  0x00012  xref   84 0a                    /num_1
+             5  0x00014  int    91 d0 07                 2000
+             6  0x00017  prim   83 1f                    add!
+     4       7  0x00019  ref    69 62 6f 6f 6c 5f 31     /bool_1
+             8  0x00020  bool   12                       true
+             9  0x00021  prim   63                       def
+     5      10  0x00022  xref   84 09                    /bool_1
+            11  0x00024  bool   02                       false
+            12  0x00025  prim   83 1f                    add!
+     7      13  0x00027  ref    89 73 74 72 69 6e 67 5f  /string_1
                                 31
-            14  0x00039  str    47 31 32 33 34           "1234"
-            15  0x0003e  str    07                       ""
-            16  0x0003f  prim   83 1e                    add
-            17  0x00041  prim   63                       def
-     8      18  0x00042  word   88 73 74 72 69 6e 67 5f  string_1
+            14  0x00030  str    47 31 32 33 34           "1234"
+            15  0x00035  str    07                       ""
+            16  0x00036  prim   83 1e                    add
+            17  0x00038  prim   63                       def
+     8      18  0x00039  xref   84 12                    /string_1
+            19  0x0003b  str    37 61 62 63              "abc"
+            20  0x0003f  prim   83 1f                    add!
+    10      21  0x00041  ref    79 61 72 72 61 79 5f 31  /array_1
+            22  0x00049  prim   23                       [
+            23  0x0004a  int    81 0a                      10
+            24  0x0004c  int    81 14                      20
+            25  0x0004e  int    81 1e                      30
+            26  0x00050  int    81 28                      40
+            27  0x00052  prim   33                       ]
+            28  0x00053  prim   63                       def
+    11      29  0x00054  xref   84 13                    /array_1
+            30  0x00056  prim   23                       [
+            31  0x00057  xref   84 1c                      "abc"
+            32  0x00059  int    81 64                      100
+            33  0x0005b  int    91 c8 00                   200
+            34  0x0005e  prim   33                       ]
+            35  0x0005f  prim   83 1f                    add!
+    13      36  0x00061  ref    69 68 61 73 68 5f 31     /hash_1
+            37  0x00068  prim   43                       (
+            38  0x00069  str    27 61 61                   "aa"
+            39  0x0006c  int    81 64                      100
+            40  0x0006e  str    27 65 65                   "ee"
+            41  0x00071  int    91 c8 00                   200
+            42  0x00074  str    27 64 64                   "dd"
+            43  0x00077  int    91 2c 01                   300
+            44  0x0007a  prim   53                       )
+            45  0x0007b  prim   63                       def
+    14      46  0x0007c  xref   84 1b                    /hash_1
+            47  0x0007e  prim   43                       (
+            48  0x0007f  str    27 63 63                   "cc"
+            49  0x00082  int    91 90 01                   400
+            50  0x00085  str    27 62 62                   "bb"
+            51  0x00088  int    91 f4 01                   500
+            52  0x0008b  prim   53                       )
+            53  0x0008c  prim   83 1f                    add!
+    16      54  0x0008e  word   58 6e 75 6d 5f 31        num_1
+    17      55  0x00094  word   68 62 6f 6f 6c 5f 31     bool_1
+    18      56  0x0009b  word   88 73 74 72 69 6e 67 5f  string_1
                                 31
-            19  0x0004b  str    37 61 62 63              "abc"
-            20  0x0004f  prim   83 1f                    add!
-    10      21  0x00051  ref    79 61 72 72 61 79 5f 31  /array_1
-            22  0x00059  prim   23                       [
-            23  0x0005a  int    81 0a                      10
-            24  0x0005c  int    81 14                      20
-            25  0x0005e  int    81 1e                      30
-            26  0x00060  int    81 28                      40
-            27  0x00062  prim   33                       ]
-            28  0x00063  prim   63                       def
-    11      29  0x00064  word   78 61 72 72 61 79 5f 31  array_1
-            30  0x0006c  prim   23                       [
-            31  0x0006d  xref   84 22                      "abc"
-            32  0x0006f  int    81 64                      100
-            33  0x00071  int    91 c8 00                   200
-            34  0x00074  prim   33                       ]
-            35  0x00075  prim   83 1f                    add!
-    13      36  0x00077  ref    69 68 61 73 68 5f 31     /hash_1
-            37  0x0007e  prim   43                       (
-            38  0x0007f  str    27 61 61                   "aa"
-            39  0x00082  int    81 64                      100
-            40  0x00084  str    27 65 65                   "ee"
-            41  0x00087  int    91 c8 00                   200
-            42  0x0008a  str    27 64 64                   "dd"
-            43  0x0008d  int    91 2c 01                   300
-            44  0x00090  prim   53                       )
-            45  0x00091  prim   63                       def
-    14      46  0x00092  word   68 68 61 73 68 5f 31     hash_1
-            47  0x00099  prim   43                       (
-            48  0x0009a  str    27 63 63                   "cc"
-            49  0x0009d  int    91 90 01                   400
-            50  0x000a0  str    27 62 62                   "bb"
-            51  0x000a3  int    91 f4 01                   500
-            52  0x000a6  prim   53                       )
-            53  0x000a7  prim   83 1f                    add!
-    16      54  0x000a9  xref   84 97                    num_1
-    17      55  0x000ab  xref   84 85                    bool_1
-    18      56  0x000ad  xref   84 6b                    string_1
-    19      57  0x000af  xref   84 4b                    array_1
-            58  0x000b1  code   16                       {
-            59  0x000b2  prim   13                       }
-            60  0x000b3  prim   83 0e                    forall
-    20      61  0x000b5  xref   84 23                    hash_1
+    19      57  0x000a4  word   78 61 72 72 61 79 5f 31  array_1
+            58  0x000ac  code   16                       {
+            59  0x000ad  prim   13                       }
+            60  0x000ae  prim   83 0e                    forall
+    20      61  0x000b0  word   68 68 61 73 68 5f 31     hash_1
             62  0x000b7  code   16                       {
             63  0x000b8  prim   13                       }
             64  0x000b9  prim   83 0e                    forall

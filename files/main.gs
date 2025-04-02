@@ -1,3 +1,5 @@
+## files dejavu-sans-24.fnt katze_*.jpg
+
 /eventhandler_vars ( /type 0 /key 0 /action 0 ) def
 
 /eventhandler {

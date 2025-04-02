@@ -12,6 +12,8 @@ CC      = gcc
 CFLAGS  = -g -O2 $(OPT_32BIT) -I. -Wall -Wno-pointer-sign -Wsign-conversion -Wsign-compare
 LDFLAGS = $(OPT_32BIT)
 
+GFXBOOT_MAIN       = files/main.gs
+
 GFXBOOT_LIB_SRC    = gfxboot.c gfxboot_main.c \
                      gfxboot_array.c gfxboot_canvas.c gfxboot_draw.c gfxboot_font.c gfxboot_hash.c gfxboot_context.c \
                      gfxboot_lib.c gfxboot_malloc.c gfxboot_jpeg.c \
@@ -48,7 +50,7 @@ grub-bios: $(GRUB_MODULE_BIOS)
 
 grub-efi: $(GRUB_MODULE_EFI)
 
-grub-iso: $(GRUB_ISO)
+grub-iso: gfxboot-compile $(GRUB_ISO)
 
 test-bios: grub-iso
 	vm --cdrom $(GRUB_ISO) $(VM) --serial
@@ -57,15 +59,11 @@ test-efi: grub-iso
 	vm --cdrom $(GRUB_ISO) $(VM) --serial --efi
 
 test-x11: gfxboot-x11 gfxboot-compile
-	./mk_x11_test
+	./prepare_files $(GFXBOOT_MAIN) x11
 	./gfxboot-x11 x11
 
-test-cons: gfxboot-x11 gfxboot-compile
-	./mk_x11_test
-	./gfxboot-x11 --no-x11 --file - x11
-
 test-console: gfxboot-x11 gfxboot-compile
-	./mk_x11_test
+	./prepare_files $(GFXBOOT_MAIN) x11
 	./gfxboot-x11 --no-x11 --file - x11
 
 vocabulary.h: vocabulary.def types.def
@@ -109,4 +107,4 @@ clean:
 	rm -f changelog VERSION vocabulary.h
 	rm -f $(GRUB_ISO) screenlog.0 *~ *.o gfxboot-{x11,font,compile} sample *.log files/*~ *.gc doc/*~
 	rm -f tests/*~ tests/*/{*.log,*~,*.gc,gc.log.ref,opt*.log.ref}
-	rm -rf x11 grub package
+	rm -rf x11 tmp grub package

@@ -1,0 +1,29 @@
+#! /usr/bin/bash
+
+src=$1
+dst=$2
+
+opt=${GFXBOOT_OPT:--O1}
+
+if [ ! -f "$src" -o "$dst" = "" ] ; then
+  echo "usage: prepare_files MAIN_FILE DESTINATION_DIR"
+  exit 1
+fi
+
+mkdir -p "$dst" && rm -rf "$dst"/*
+mkdir "$dst"/.log
+
+cp "$src" "$dst"/main.gs
+
+src_dir=$(dirname "$src")
+
+extra_files=$(sed -E '/## (files|include) /!d ; s/## (files|include) //' "$dst"/main.gs)
+
+for i in $extra_files ; do x="$x $src_dir/$i" ; done
+
+for i in $x ; do
+  cp "$i" "$dst"
+done
+
+./gfxboot-compile $opt -v -l "$dst"/.log/main.log -L "$dst" -c "$dst"/main.gc "$dst"/main.gs
+mv "$dst"/*.gs "$dst"/.log

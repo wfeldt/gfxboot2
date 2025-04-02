@@ -65,11 +65,8 @@ perl -pi -e 's/(linux|initrd)efi/$1/' $test_grub_dir/grub.cfg
 cp files/grub.cfg $grub_iso_dir/EFI/BOOT/
 mcopy -i $grub_iso_dir/boot/x86_64/efi files/grub.cfg ::/EFI/BOOT
 
-cp files/* $test_grub_dir
-
-for i in $test_grub_dir/*.gs ; do
-  ./gfxboot-compile -c ${i/.gs/.gc} $i
-done
+./prepare_files ${GFXBOOT_MAIN:-files/main.gs} tmp
+cp -r tmp/* $test_grub_dir
 
 mksusecd --nano --no-hybrid --no-digest --grub2 -c $grub_iso $grub_iso_dir
 

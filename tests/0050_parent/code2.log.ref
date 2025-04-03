@@ -26,11 +26,11 @@
      5      19  0x0002f  word   38 66 6f 6f              foo
      7      20  0x00033  xref   44                       foo
             21  0x00034  word   38 62 61 72              bar
-            22  0x00038  prim   83 36                    setparent
+            22  0x00038  prim   83 37                    setparent
      9      23  0x0003a  xref   84 0b                    foo
-            24  0x0003c  prim   83 35                    getparent
+            24  0x0003c  prim   83 36                    getparent
     11      25  0x0003e  xref   84 0f                    foo
             26  0x00040  nil    00                       nil
-            27  0x00041  prim   83 36                    setparent
+            27  0x00041  prim   83 37                    setparent
     13      28  0x00043  xref   84 14                    foo
-            29  0x00045  prim   83 35                    getparent
+            29  0x00045  prim   83 36                    getparent

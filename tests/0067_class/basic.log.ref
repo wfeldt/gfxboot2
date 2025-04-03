@@ -492,36 +492,36 @@ GC: ++#xxxx.1.15.mem.ro
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
   [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.16.mem.ro, "y">
+  [0] #xxxx.2.1.mem.ref.ro <#xxxx.1.16.mem.ro, "y">
 GC: ++#xxxx.1.1.num.int
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
   [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.2.num.int <40 (0x28)>
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.16.mem.ro, "y">
+  [1] #xxxx.2.1.mem.ref.ro <#xxxx.1.16.mem.ro, "y">
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
   [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <20 (0x14)>
+  [0] #xxxx.2.1.num.int <20 (0x14)>
   [1] #xxxx.1.2.num.int <40 (0x28)>
-  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.16.mem.ro, "y">
-GC: --#xxxx.1.1.num.int
+  [2] #xxxx.2.1.mem.ref.ro <#xxxx.1.16.mem.ro, "y">
+GC: --#xxxx.2.1.num.int
 GC: --#xxxx.1.2.num.int
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
   [1] #xxxx.1.1.ctx.func <code #xxxx.1.16.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.2.1.num.int <60 (0x3c)>
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.16.mem.ro, "y">
-GC: ++#xxxx.1.1.mem.ref.ro
+  [1] #xxxx.2.1.mem.ref.ro <#xxxx.1.16.mem.ro, "y">
+GC: ++#xxxx.2.1.mem.ref.ro
 GC: ++#xxxx.2.1.num.int
 GC: --#xxxx.1.1.mem.ref.ro
 GC: --#xxxx.1.16.mem.ro
 GC: --#xxxx.1.1.num.int
 GC: --#xxxx.2.2.num.int
-GC: --#xxxx.1.2.mem.ref.ro
+GC: --#xxxx.2.2.mem.ref.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.code.ro, dict #xxxx.1.1.hash>
   [1] #xxxx.1.1.ctx.func <code #xxxx.1.15.mem.ro, dict #xxxx.1.2.hash>
@@ -647,7 +647,7 @@ GC: --#xxxx.2.2.num.int
   [1] #xxxx.2.1.mem.ref.ro <#xxxx.1.16.mem.ro, "y">
 GC: ++#xxxx.2.1.mem.ref.ro
 GC: ++#xxxx.2.1.num.int
-GC: --#xxxx.1.1.mem.ref.ro
+GC: --#xxxx.2.1.mem.ref.ro
 GC: --#xxxx.1.16.mem.ro
 GC: --#xxxx.2.1.num.int
 GC: --#xxxx.2.2.num.int

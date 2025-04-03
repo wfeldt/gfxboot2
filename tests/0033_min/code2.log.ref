@@ -7,19 +7,19 @@
              0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
      1       1  0x00008  int    81 64                    100
              2  0x0000a  int    91 c8 00                 200
-             3  0x0000d  prim   83 26                    min
+             3  0x0000d  prim   83 27                    min
      2       4  0x0000f  int    91 c8 00                 200
              5  0x00012  int    81 64                    100
-             6  0x00014  prim   83 26                    min
+             6  0x00014  prim   83 27                    min
      3       7  0x00016  bool   12                       true
              8  0x00017  bool   02                       false
-             9  0x00018  prim   83 26                    min
+             9  0x00018  prim   83 27                    min
      4      10  0x0001a  bool   02                       false
             11  0x0001b  bool   12                       true
-            12  0x0001c  prim   83 26                    min
+            12  0x0001c  prim   83 27                    min
      5      13  0x0001e  bool   12                       true
             14  0x0001f  int    81 64                    100
-            15  0x00021  prim   83 26                    min
+            15  0x00021  prim   83 27                    min
      6      16  0x00023  int    81 64                    100
             17  0x00025  bool   12                       true
-            18  0x00026  prim   83 26                    min
+            18  0x00026  prim   83 27                    min

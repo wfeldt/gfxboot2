@@ -195,7 +195,7 @@ For boolean 1 bit arithmetic the value is unchanged.
 true abs                     # true
 ```
 +
-See also: xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+See also: xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:sub_direct[+sub!+], xref:xor[+xor+]
 
 * **+add+** - addition [[add]]
 +
@@ -235,7 +235,7 @@ true true add                        # false
 "abc" "xyz" add                      # "abcxyz"
 ```
 +
-See also: xref:abs[+abs+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+See also: xref:abs[+abs+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:sub_direct[+sub!+], xref:xor[+xor+]
 
 * **+add!+** - addition [[add_direct]]
 +
@@ -253,13 +253,13 @@ Also, the result is not put on the stack.
 ```
 
 /foo 10 def
-/foo 20 add                          # foo is 30
+/foo 20 add!                         # foo is 30
 
 /bar "abc" def
-/bar "xyz" add                       # bar is "abcxyz"
+/bar "xyz" add!                      # bar is "abcxyz"
 ```
 +
-See also: xref:abs[+abs+], xref:add[+add+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+See also: xref:abs[+abs+], xref:add[+add+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:sub_direct[+sub!+], xref:xor[+xor+]
 
 * **+and+** - and [[and]]
 +
@@ -281,7 +281,7 @@ __bool~3~__: __bool~1~__ and __bool~2~__
 true false and               # false
 ```
 +
-See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:sub_direct[+sub!+], xref:xor[+xor+]
 
 * **+blt+** - copy rectangular region [[blt]]
 +
@@ -553,7 +553,7 @@ into a division by zero exception if __bool~2~__ is false.
 true true div                # true
 ```
 +
-See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:sub_direct[+sub!+], xref:xor[+xor+]
 
 * **+drawline+** - draw line [[drawline]]
 +
@@ -1557,7 +1557,7 @@ For boolean 1 bit arithmetic this is equivalent to 'or'
 true false max               # true
 ```
 +
-See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:sub_direct[+sub!+], xref:xor[+xor+]
 
 * **+min+** - minimum [[min]]
 +
@@ -1582,7 +1582,7 @@ For boolean 1 bit arithmetic this is equivalent to 'and'
 true false min               # false
 ```
 +
-See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:sub_direct[+sub!+], xref:xor[+xor+]
 
 * **+mod+** - remainder [[mod]]
 +
@@ -1608,7 +1608,7 @@ that this will run into a division by zero exception if __bool~2~__ is false.
 true true mod                # false
 ```
 +
-See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:sub_direct[+sub!+], xref:xor[+xor+]
 
 * **+mul+** - multiplication [[mul]]
 +
@@ -1633,7 +1633,7 @@ For boolean 1 bit arithmetic this is equivalent to 'and'.
 true false mul               # false
 ```
 +
-See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:sub_direct[+sub!+], xref:xor[+xor+]
 
 * **+ne+** - not equal [[ne]]
 +
@@ -1699,7 +1699,7 @@ For boolean 1 bit arithmetic the value is unchanged (this is not a 'not' operati
 true neg                     # true
 ```
 +
-See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:sub_direct[+sub!+], xref:xor[+xor+]
 
 * **+new+** - create class instance [[new]]
 +
@@ -1794,7 +1794,7 @@ __bool~2~__: !__bool~1~__
 true not                     # false
 ```
 +
-See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:sub_direct[+sub!+], xref:xor[+xor+]
 
 * **+or+** - or [[or]]
 +
@@ -1816,7 +1816,7 @@ __bool~3~__: __bool~1~__ or __bool~2~__
 true false or                # true
 ```
 +
-See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:sub_direct[+sub!+], xref:xor[+xor+]
 
 * **+over+** - copy TOS-1 to TOS [[over]]
 +
@@ -2351,7 +2351,7 @@ __bool~3~__: __bool~1~__ and !__bool~2~__
 true false shl               # true
 ```
 +
-See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
+See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shr[+shr+], xref:sub[+sub+], xref:sub_direct[+sub!+], xref:xor[+xor+]
 
 * **+show+** - show [[show]]
 +
@@ -2395,7 +2395,7 @@ __bool~3~__: __bool~1~__ and !__bool~2~__
 true false shr               # true
 ```
 +
-See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:sub[+sub+], xref:xor[+xor+]
+See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:sub[+sub+], xref:sub_direct[+sub!+], xref:xor[+xor+]
 
 * **+sticky+** - make hash sticky [[sticky]]
 +
@@ -2471,7 +2471,27 @@ For boolean 1 bit arithmetic this is equivalent to 'xor'.
 false true sub               # true
 ```
 +
-See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:xor[+xor+]
+See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub_direct[+sub!+], xref:xor[+xor+]
+
+* **+sub!+** - subtraction [[sub_direct]]
++
+--
+** ( __ref~1~__ __int~1~__ -- )
+--
++
+Subtract __int~1~__ from the variable __ref~1~__.
++
+sub! modifies the variable __ref~1~__ directly.
+Also, the result is not put on the stack.
++
+.Examples
+```
+
+/foo 50 def
+/foo 20 sub!                         # foo is 30
+```
++
+See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:xor[+xor+]
 
 * **+unpackimage+** - unpack image [[unpackimage]]
 +
@@ -2537,6 +2557,6 @@ __bool~3~__: __bool~1~__ xor __bool~2~__
 true false or                # true
 ```
 +
-See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+]
+See also: xref:abs[+abs+], xref:add[+add+], xref:add_direct[+add!+], xref:and[+and+], xref:div[+div+], xref:max[+max+], xref:min[+min+], xref:mod[+mod+], xref:mul[+mul+], xref:neg[+neg+], xref:not[+not+], xref:or[+or+], xref:shl[+shl+], xref:shr[+shr+], xref:sub[+sub+], xref:sub_direct[+sub!+]
 
 

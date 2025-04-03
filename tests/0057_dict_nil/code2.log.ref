@@ -15,7 +15,7 @@
              8  0x0001a  xref   84 12                        /foo
              9  0x0001c  nil    00                           nil
             10  0x0001d  prim   53                         )
-            11  0x0001e  prim   83 38                      setdict
+            11  0x0001e  prim   83 39                      setdict
      8      12  0x00020  xref   84 0b                      foo
     10      13  0x00022  xref   84 1a                      /foo
             14  0x00024  int    81 0b                      11

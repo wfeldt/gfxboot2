@@ -37,6 +37,7 @@ exec
 add
 add!	add_direct
 sub
+sub!	sub_direct
 mul
 div
 mod

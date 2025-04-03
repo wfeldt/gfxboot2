@@ -25,7 +25,7 @@ static arg_t *gfx_arg_1(uint8_t type);
 static arg_t *gfx_arg_n(unsigned argc, uint8_t arg_types[]);
 static int is_true(obj_id_t id);
 static error_id_t do_op(op_t op, int64_t *result, int64_t val1, int64_t val2, unsigned sub_type);
-static void binary_op_on_stack(op_t op);
+static void binary_op_on_stack(op_t op, unsigned direct);
 static void unary_op_on_stack(op_t op);
 static void binary_cmp_on_stack(cmp_op_t op);
 static void gfx_prim_def_at(unsigned where);
@@ -36,6 +36,11 @@ static void gfx_prim__add(unsigned direct);
 #define TYPE_MASK	0x3f
 
 #define OBJ_PTR_UPDATE(a) (a).ptr = gfx_obj_ptr((a).id)
+
+static void arg_update(arg_t *arg)
+{
+  arg->ptr = gfx_obj_ptr(arg->id);
+}
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 arg_t *gfx_arg_1(uint8_t type)
@@ -1964,26 +1969,22 @@ void gfx_exec_id(obj_id_t dict_id, obj_id_t id, int on_stack)
 //
 void gfx_prim_exec()
 {
-  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+  arg_t *argv = gfx_arg_1(OTYPE_ANY | IS_NIL);
 
-  if(!pstack || pstack->size < 1) {
-    GFX_ERROR(err_stack_underflow);
-    return;
-  }
+  if(!argv) return;
 
-  obj_id_t id = pstack->ptr[pstack->size - 1];
-  obj_t *ptr = gfx_obj_ptr(id);
+  arg_t code = argv[0];
 
-  if(!ptr) return;
+  if(!code.ptr) return;
 
   if(
-    ptr->base_type == OTYPE_MEM &&
-    (ptr->sub_type == t_word || ptr->sub_type == t_ref)
+    code.ptr->base_type == OTYPE_MEM &&
+    (code.ptr->sub_type == t_word || code.ptr->sub_type == t_ref)
   ) {
-    id = gfx_lookup_dict(OBJ_DATA_FROM_PTR(ptr)).id2;
+    code.id = gfx_lookup_dict(OBJ_DATA_FROM_PTR(code.ptr)).id2;
   }
 
-  gfx_exec_id(0, id, 1);
+  gfx_exec_id(0, code.id, 1);
 }
 
 
@@ -2041,10 +2042,10 @@ void gfx_prim_add()
 // example:
 //
 // /foo 10 def
-// /foo 20 add                          # foo is 30
+// /foo 20 add!                         # foo is 30
 //
 // /bar "abc" def
-// /bar "xyz" add                       # bar is "abcxyz"
+// /bar "xyz" add!                      # bar is "abcxyz"
 //
 void gfx_prim_add_direct()
 {
@@ -2084,7 +2085,7 @@ void gfx_prim__add(unsigned direct)
     direct_dict = pair.id1;
     argv[0].id = pair.id2;
 
-    OBJ_PTR_UPDATE(argv[0]);
+    arg_update(argv + 0);
 
     id1 = argv[0].id;
     ptr1 = argv[0].ptr;
@@ -2241,7 +2242,30 @@ void gfx_prim__add(unsigned direct)
 //
 void gfx_prim_sub()
 {
-  binary_op_on_stack(op_sub);
+  binary_op_on_stack(op_sub, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// subtraction
+//
+// group: calc
+//
+// ( ref_1 int_1 -- )
+//
+// Subtract int_1 from the variable ref_1.
+//
+// sub! modifies the variable ref_1 directly.
+// Also, the result is not put on the stack.
+//
+// example:
+//
+// /foo 50 def
+// /foo 20 sub!                         # foo is 30
+//
+void gfx_prim_sub_direct()
+{
+  binary_op_on_stack(op_sub, 1);
 }
 
 
@@ -2267,7 +2291,7 @@ void gfx_prim_sub()
 //
 void gfx_prim_mul()
 {
-  binary_op_on_stack(op_mul);
+  binary_op_on_stack(op_mul, 0);
 }
 
 
@@ -2294,7 +2318,7 @@ void gfx_prim_mul()
 //
 void gfx_prim_div()
 {
-  binary_op_on_stack(op_div);
+  binary_op_on_stack(op_div, 0);
 }
 
 
@@ -2321,7 +2345,7 @@ void gfx_prim_div()
 //
 void gfx_prim_mod()
 {
-  binary_op_on_stack(op_mod);
+  binary_op_on_stack(op_mod, 0);
 }
 
 
@@ -2399,7 +2423,7 @@ void gfx_prim_abs()
 //
 void gfx_prim_min()
 {
-  binary_op_on_stack(op_min);
+  binary_op_on_stack(op_min, 0);
 }
 
 
@@ -2425,7 +2449,7 @@ void gfx_prim_min()
 //
 void gfx_prim_max()
 {
-  binary_op_on_stack(op_max);
+  binary_op_on_stack(op_max, 0);
 }
 
 
@@ -2447,7 +2471,7 @@ void gfx_prim_max()
 //
 void gfx_prim_and()
 {
-  binary_op_on_stack(op_and);
+  binary_op_on_stack(op_and, 0);
 }
 
 
@@ -2469,7 +2493,7 @@ void gfx_prim_and()
 //
 void gfx_prim_or()
 {
-  binary_op_on_stack(op_or);
+  binary_op_on_stack(op_or, 0);
 }
 
 
@@ -2491,7 +2515,7 @@ void gfx_prim_or()
 //
 void gfx_prim_xor()
 {
-  binary_op_on_stack(op_xor);
+  binary_op_on_stack(op_xor, 0);
 }
 
 
@@ -2535,7 +2559,7 @@ void gfx_prim_not()
 //
 void gfx_prim_shl()
 {
-  binary_op_on_stack(op_shl);
+  binary_op_on_stack(op_shl, 0);
 }
 
 
@@ -2557,7 +2581,7 @@ void gfx_prim_shl()
 //
 void gfx_prim_shr()
 {
-  binary_op_on_stack(op_shr);
+  binary_op_on_stack(op_shr, 0);
 }
 
 
@@ -2966,41 +2990,64 @@ error_id_t do_op(op_t op, int64_t *result, int64_t val1, int64_t val2, unsigned 
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-void binary_op_on_stack(op_t op)
+void binary_op_on_stack(op_t op, unsigned direct)
 {
-  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { direct ? OTYPE_MEM : OTYPE_NUM, OTYPE_NUM });
 
-  if(!pstack || pstack->size < 2) {
-    GFX_ERROR(err_stack_underflow);
-    return;
-  }
+  if(!argv) return;
 
-  obj_id_t id1 = pstack->ptr[pstack->size - 2];
-  obj_id_t id2 = pstack->ptr[pstack->size - 1];
+  arg_t op1 = argv[0];
+  arg_t op2 = argv[1];
 
-  obj_t *ptr1 = gfx_obj_ptr(id1);
-  obj_t *ptr2 = gfx_obj_ptr(id2);
+  obj_id_t direct_dict = 0;
+  obj_id_t direct_key = op1.id;
 
-  if(!ptr1 || !ptr2 || ptr1->base_type != ptr2->base_type || ptr1->base_type != OTYPE_NUM) {
-    GFX_ERROR(err_invalid_arguments);
-    return;
+  if(direct) {
+    if(op1.ptr->sub_type != t_ref) {
+      GFX_ERROR(err_invalid_arguments);
+      return;
+    }
+
+    obj_id_pair_t pair = gfx_lookup_dict(OBJ_DATA_FROM_PTR(op1.ptr));
+
+    if(!pair.id1) {
+      GFX_ERROR(err_invalid_hash_key);
+      return;
+    }
+
+    direct_dict = pair.id1;
+    op1.id = pair.id2;
+
+    arg_update(&op1);
+
+    if(!op1.ptr || op1.ptr->base_type != OTYPE_NUM) {
+      GFX_ERROR(err_invalid_arguments);
+      return;
+    }
   }
 
   int64_t result;
 
-  error_id_t err = do_op(op, &result, ptr1->data.value, ptr2->data.value, ptr1->sub_type);
+  error_id_t err = do_op(op, &result, OBJ_VALUE_FROM_PTR(op1.ptr), OBJ_VALUE_FROM_PTR(op2.ptr), op1.ptr->sub_type);
 
   if(err) {
     GFX_ERROR(err);
     return;
   }
 
-  obj_id_t result_id = gfx_obj_num_new(result, ptr1->sub_type);
+  obj_id_t result_id = gfx_obj_num_new(result, op1.ptr->sub_type);
 
-  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
-  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+  // careful about ordering: direct_key may go away after gfx_obj_array_pop_n()
+  if(direct) {
+    gfx_obj_hash_set(direct_dict, direct_key, result_id, 1);
+    gfx_obj_ref_dec(result_id);
+  }
 
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, result_id, 0);
+  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
+
+  if(!direct) {
+    gfx_obj_array_push(gfxboot_data->vm.program.pstack, result_id, 0);
+  }
 }
 
 
@@ -5027,22 +5074,19 @@ void gfx_prim_seteventhandler()
 
   if(!argv) return;
 
-  obj_id_t id = argv[0].id;
-  obj_t *ptr = argv[0].ptr;
+  arg_t code = argv[0];
 
-  if(ptr && ptr->sub_type == t_ref) {
-    id = gfx_lookup_dict(OBJ_DATA_FROM_PTR(ptr)).id2;
-    ptr = gfx_obj_ptr(id);
+  if(code.ptr && code.ptr->sub_type == t_ref) {
+    code.id = gfx_lookup_dict(OBJ_DATA_FROM_PTR(code.ptr)).id2;
+    arg_update(&code);
   }
 
-  if(
-    ptr && ptr->sub_type != t_code
-  ) {
+  if(code.ptr && code.ptr->sub_type != t_code) {
     GFX_ERROR(err_invalid_arguments);
     return;
   }
 
-  OBJ_ID_ASSIGN(gfxboot_data->event_handler_id, id);
+  OBJ_ID_ASSIGN(gfxboot_data->event_handler_id, code.id);
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 }
@@ -5079,32 +5123,37 @@ void gfx_prim_class()
 
   if(!argv) return;
 
+  arg_t class_name = argv[0];
+  arg_t class_hash = argv[1];
+  arg_t parent = argv[2];
+
   if(
-    (argv[0].ptr->sub_type != t_ref) ||
-    (argv[2].ptr && !argv[2].ptr->flags.hash_is_class)
+    (class_name.ptr->sub_type != t_ref) ||
+    (parent.ptr && !parent.ptr->flags.hash_is_class)
   ) {
     GFX_ERROR(err_invalid_arguments);
     return;
   }
 
-  arg_t class_name = { .id = gfx_obj_mem_dup(argv[0].id, 0) };
+  // make a copy
+  class_name.id = gfx_obj_mem_dup(class_name.id, 0);
 
-  OBJ_PTR_UPDATE(class_name);
+  arg_update(&class_name);
 
   if(class_name.ptr) {
     class_name.ptr->sub_type = t_string;
     class_name.ptr->flags.ro = 1;
   }
 
-  gfx_obj_hash_set(argv[1].id, gfx_obj_asciiz_new("class"), class_name.id, 0);
+  gfx_obj_hash_set(class_hash.id, gfx_obj_asciiz_new("class"), class_name.id, 0);
 
-  OBJ_PTR_UPDATE(argv[1]);
+  arg_update(&class_hash);
 
-  if(argv[1].ptr) {
-    argv[1].ptr->flags.ro = 1;
-    argv[1].ptr->flags.hash_is_class = 1;
+  if(class_hash.ptr) {
+    class_hash.ptr->flags.ro = 1;
+    class_hash.ptr->flags.hash_is_class = 1;
 
-    OBJ_ID_ASSIGN(OBJ_HASH_FROM_PTR(argv[1].ptr)->parent_id, argv[2].id);
+    OBJ_ID_ASSIGN(OBJ_HASH_FROM_PTR(class_hash.ptr)->parent_id, parent.id);
   }
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
@@ -5142,29 +5191,30 @@ void gfx_prim_new()
 
   if(!argv) return;
 
-  if(!argv[0].ptr->flags.hash_is_class) {
+  arg_t class_hash = argv[0];
+  arg_t init_args = argv[1];
+
+  if(!class_hash.ptr->flags.hash_is_class) {
     GFX_ERROR(err_invalid_arguments);
     return;
   }
 
-  hash_t *hash_vars = OBJ_HASH_FROM_PTR(argv[1].ptr);
-
-  arg_t dict = { .id = gfx_obj_hash_new(hash_vars->size) };
+  arg_t dict = { .id = gfx_obj_hash_new(OBJ_HASH_FROM_PTR(init_args.ptr)->size) };
 
   // copy hash with vars to new dict
   obj_id_t key, val;
   unsigned idx = 0;
-  while(gfx_obj_iterate(argv[1].id, &idx, &key, &val)) {
+  while(gfx_obj_iterate(init_args.id, &idx, &key, &val)) {
     // note: reference counting for key & val has been done inside gfx_obj_iterate()
     gfx_obj_hash_set(dict.id, key, val, 0);
   }
 
-  OBJ_PTR_UPDATE(dict);
+  arg_update(&dict);
 
   if(dict.ptr) {
     dict.ptr->flags.sticky = 1;
     dict.ptr->flags.hash_is_class = 1;
-    OBJ_ID_ASSIGN(OBJ_HASH_FROM_PTR(dict.ptr)->parent_id, argv[0].id);
+    OBJ_ID_ASSIGN(OBJ_HASH_FROM_PTR(dict.ptr)->parent_id, class_hash.id);
   }
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);

@@ -9,12 +9,12 @@
              2  0x0000a  int    81 14                    20
              3  0x0000c  int    91 90 01                 400
              4  0x0000f  int    91 90 01                 400
-             5  0x00012  prim   83 45                    setregion
+             5  0x00012  prim   83 46                    setregion
      2       6  0x00014  int    b1 ff ff ff 00           0x00ffffff
-             7  0x00019  prim   83 3c                    setcolor
+             7  0x00019  prim   83 3d                    setcolor
      5       8  0x0001b  ref    19 72                    /r
              9  0x0001d  code   c6 13                    {
-     6      10  0x0001f  prim   83 3f                      getpos
+     6      10  0x0001f  prim   83 40                      getpos
      7      11  0x00021  int    41                         4
             12  0x00022  int    11                         1
             13  0x00023  prim   83 1a                      roll
@@ -24,198 +24,198 @@
             17  0x00029  prim   83 1a                      roll
             18  0x0002b  prim   83 1e                      add
             19  0x0002d  prim   83 18                      exch
-     9      20  0x0002f  prim   83 58                      drawline
+     9      20  0x0002f  prim   83 59                      drawline
     10      21  0x00031  prim   13                       }
             22  0x00032  prim   63                       def
     12      23  0x00033  int    91 c8 00                 200
             24  0x00036  int    91 c8 00                 200
-            25  0x00039  prim   83 40                    setpos
+            25  0x00039  prim   83 41                    setpos
             26  0x0003b  int    91 c8 00                 200
             27  0x0003e  int    01                       0
             28  0x0003f  word   18 72                    r
     14      29  0x00041  int    91 c8 00                 200
             30  0x00044  int    91 c8 00                 200
-            31  0x00047  prim   83 40                    setpos
+            31  0x00047  prim   83 41                    setpos
             32  0x00049  int    91 c8 00                 200
             33  0x0004c  int    81 3c                    60
             34  0x0004e  word   18 72                    r
     15      35  0x00050  int    91 c8 00                 200
             36  0x00053  int    91 c8 00                 200
-            37  0x00056  prim   83 40                    setpos
+            37  0x00056  prim   83 41                    setpos
             38  0x00058  int    91 c8 00                 200
             39  0x0005b  int    81 64                    100
             40  0x0005d  word   18 72                    r
     16      41  0x0005f  int    91 c8 00                 200
             42  0x00062  int    91 c8 00                 200
-            43  0x00065  prim   83 40                    setpos
+            43  0x00065  prim   83 41                    setpos
             44  0x00067  int    91 c8 00                 200
             45  0x0006a  int    91 a0 00                 160
             46  0x0006d  word   18 72                    r
     18      47  0x0006f  int    91 c8 00                 200
             48  0x00072  int    91 c8 00                 200
-            49  0x00075  prim   83 40                    setpos
+            49  0x00075  prim   83 41                    setpos
             50  0x00077  int    91 c8 00                 200
             51  0x0007a  int    91 c8 00                 200
             52  0x0007d  word   18 72                    r
     20      53  0x0007f  int    91 c8 00                 200
             54  0x00082  int    91 c8 00                 200
-            55  0x00085  prim   83 40                    setpos
+            55  0x00085  prim   83 41                    setpos
             56  0x00087  int    91 a0 00                 160
             57  0x0008a  int    91 c8 00                 200
             58  0x0008d  word   18 72                    r
     21      59  0x0008f  int    91 c8 00                 200
             60  0x00092  int    91 c8 00                 200
-            61  0x00095  prim   83 40                    setpos
+            61  0x00095  prim   83 41                    setpos
             62  0x00097  int    81 64                    100
             63  0x00099  int    91 c8 00                 200
             64  0x0009c  word   18 72                    r
     22      65  0x0009e  int    91 c8 00                 200
             66  0x000a1  int    91 c8 00                 200
-            67  0x000a4  prim   83 40                    setpos
+            67  0x000a4  prim   83 41                    setpos
             68  0x000a6  int    81 3c                    60
             69  0x000a8  int    91 c8 00                 200
             70  0x000ab  word   18 72                    r
     24      71  0x000ad  int    91 c8 00                 200
             72  0x000b0  int    91 c8 00                 200
-            73  0x000b3  prim   83 40                    setpos
+            73  0x000b3  prim   83 41                    setpos
             74  0x000b5  int    01                       0
             75  0x000b6  int    91 c8 00                 200
             76  0x000b9  word   18 72                    r
     26      77  0x000bb  int    91 c8 00                 200
             78  0x000be  int    91 c8 00                 200
-            79  0x000c1  prim   83 40                    setpos
+            79  0x000c1  prim   83 41                    setpos
             80  0x000c3  int    81 c4                    -60
             81  0x000c5  int    91 c8 00                 200
             82  0x000c8  word   18 72                    r
     27      83  0x000ca  int    91 c8 00                 200
             84  0x000cd  int    91 c8 00                 200
-            85  0x000d0  prim   83 40                    setpos
+            85  0x000d0  prim   83 41                    setpos
             86  0x000d2  int    81 9c                    -100
             87  0x000d4  int    91 c8 00                 200
             88  0x000d7  word   18 72                    r
     28      89  0x000d9  int    91 c8 00                 200
             90  0x000dc  int    91 c8 00                 200
-            91  0x000df  prim   83 40                    setpos
+            91  0x000df  prim   83 41                    setpos
             92  0x000e1  int    91 60 ff                 -160
             93  0x000e4  int    91 c8 00                 200
             94  0x000e7  word   18 72                    r
     30      95  0x000e9  int    91 c8 00                 200
             96  0x000ec  int    91 c8 00                 200
-            97  0x000ef  prim   83 40                    setpos
+            97  0x000ef  prim   83 41                    setpos
             98  0x000f1  int    91 38 ff                 -200
             99  0x000f4  int    91 c8 00                 200
            100  0x000f7  word   18 72                    r
     32     101  0x000f9  int    91 c8 00                 200
            102  0x000fc  int    91 c8 00                 200
-           103  0x000ff  prim   83 40                    setpos
+           103  0x000ff  prim   83 41                    setpos
            104  0x00101  int    91 38 ff                 -200
            105  0x00104  int    91 a0 00                 160
            106  0x00107  word   18 72                    r
     33     107  0x00109  int    91 c8 00                 200
            108  0x0010c  int    91 c8 00                 200
-           109  0x0010f  prim   83 40                    setpos
+           109  0x0010f  prim   83 41                    setpos
            110  0x00111  int    91 38 ff                 -200
            111  0x00114  int    81 64                    100
            112  0x00116  word   18 72                    r
     34     113  0x00118  int    91 c8 00                 200
            114  0x0011b  int    91 c8 00                 200
-           115  0x0011e  prim   83 40                    setpos
+           115  0x0011e  prim   83 41                    setpos
            116  0x00120  int    91 38 ff                 -200
            117  0x00123  int    81 3c                    60
            118  0x00125  word   18 72                    r
     36     119  0x00127  int    91 c8 00                 200
            120  0x0012a  int    91 c8 00                 200
-           121  0x0012d  prim   83 40                    setpos
+           121  0x0012d  prim   83 41                    setpos
            122  0x0012f  int    91 38 ff                 -200
            123  0x00132  int    01                       0
            124  0x00133  word   18 72                    r
     38     125  0x00135  int    91 c8 00                 200
            126  0x00138  int    91 c8 00                 200
-           127  0x0013b  prim   83 40                    setpos
+           127  0x0013b  prim   83 41                    setpos
            128  0x0013d  int    91 38 ff                 -200
            129  0x00140  int    81 c4                    -60
            130  0x00142  word   18 72                    r
     39     131  0x00144  int    91 c8 00                 200
            132  0x00147  int    91 c8 00                 200
-           133  0x0014a  prim   83 40                    setpos
+           133  0x0014a  prim   83 41                    setpos
            134  0x0014c  int    91 38 ff                 -200
            135  0x0014f  int    81 9c                    -100
            136  0x00151  word   18 72                    r
     40     137  0x00153  int    91 c8 00                 200
            138  0x00156  int    91 c8 00                 200
-           139  0x00159  prim   83 40                    setpos
+           139  0x00159  prim   83 41                    setpos
            140  0x0015b  int    91 38 ff                 -200
            141  0x0015e  int    91 60 ff                 -160
            142  0x00161  word   18 72                    r
     42     143  0x00163  int    91 c8 00                 200
            144  0x00166  int    91 c8 00                 200
-           145  0x00169  prim   83 40                    setpos
+           145  0x00169  prim   83 41                    setpos
            146  0x0016b  int    91 38 ff                 -200
            147  0x0016e  int    91 38 ff                 -200
            148  0x00171  word   18 72                    r
     44     149  0x00173  int    91 c8 00                 200
            150  0x00176  int    91 c8 00                 200
-           151  0x00179  prim   83 40                    setpos
+           151  0x00179  prim   83 41                    setpos
            152  0x0017b  int    91 60 ff                 -160
            153  0x0017e  int    91 38 ff                 -200
            154  0x00181  word   18 72                    r
     45     155  0x00183  int    91 c8 00                 200
            156  0x00186  int    91 c8 00                 200
-           157  0x00189  prim   83 40                    setpos
+           157  0x00189  prim   83 41                    setpos
            158  0x0018b  int    81 9c                    -100
            159  0x0018d  int    91 38 ff                 -200
            160  0x00190  word   18 72                    r
     46     161  0x00192  int    91 c8 00                 200
            162  0x00195  int    91 c8 00                 200
-           163  0x00198  prim   83 40                    setpos
+           163  0x00198  prim   83 41                    setpos
            164  0x0019a  int    81 c4                    -60
            165  0x0019c  int    91 38 ff                 -200
            166  0x0019f  word   18 72                    r
     48     167  0x001a1  int    91 c8 00                 200
            168  0x001a4  int    91 c8 00                 200
-           169  0x001a7  prim   83 40                    setpos
+           169  0x001a7  prim   83 41                    setpos
            170  0x001a9  int    01                       0
            171  0x001aa  int    91 38 ff                 -200
            172  0x001ad  word   18 72                    r
     50     173  0x001af  int    91 c8 00                 200
            174  0x001b2  int    91 c8 00                 200
-           175  0x001b5  prim   83 40                    setpos
+           175  0x001b5  prim   83 41                    setpos
            176  0x001b7  int    81 3c                    60
            177  0x001b9  int    91 38 ff                 -200
            178  0x001bc  word   18 72                    r
     51     179  0x001be  int    91 c8 00                 200
            180  0x001c1  int    91 c8 00                 200
-           181  0x001c4  prim   83 40                    setpos
+           181  0x001c4  prim   83 41                    setpos
            182  0x001c6  int    81 64                    100
            183  0x001c8  int    91 38 ff                 -200
            184  0x001cb  word   18 72                    r
     52     185  0x001cd  int    91 c8 00                 200
            186  0x001d0  int    91 c8 00                 200
-           187  0x001d3  prim   83 40                    setpos
+           187  0x001d3  prim   83 41                    setpos
            188  0x001d5  int    91 a0 00                 160
            189  0x001d8  int    91 38 ff                 -200
            190  0x001db  word   18 72                    r
     54     191  0x001dd  int    91 c8 00                 200
            192  0x001e0  int    91 c8 00                 200
-           193  0x001e3  prim   83 40                    setpos
+           193  0x001e3  prim   83 41                    setpos
            194  0x001e5  int    91 c8 00                 200
            195  0x001e8  int    91 38 ff                 -200
            196  0x001eb  word   18 72                    r
     56     197  0x001ed  int    91 c8 00                 200
            198  0x001f0  int    91 c8 00                 200
-           199  0x001f3  prim   83 40                    setpos
+           199  0x001f3  prim   83 41                    setpos
            200  0x001f5  int    91 c8 00                 200
            201  0x001f8  int    91 60 ff                 -160
            202  0x001fb  word   18 72                    r
     57     203  0x001fd  int    91 c8 00                 200
            204  0x00200  int    91 c8 00                 200
-           205  0x00203  prim   83 40                    setpos
+           205  0x00203  prim   83 41                    setpos
            206  0x00205  int    91 c8 00                 200
            207  0x00208  int    81 9c                    -100
            208  0x0020a  word   18 72                    r
     58     209  0x0020c  int    91 c8 00                 200
            210  0x0020f  int    91 c8 00                 200
-           211  0x00212  prim   83 40                    setpos
+           211  0x00212  prim   83 41                    setpos
            212  0x00214  int    91 c8 00                 200
            213  0x00217  int    81 c4                    -60
            214  0x00219  word   18 72                    r

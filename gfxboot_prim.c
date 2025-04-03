@@ -2055,9 +2055,7 @@ void gfx_prim_add_direct()
 
 void gfx_prim__add(unsigned direct)
 {
-  arg_t *argv;
-
-  argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_ANY, OTYPE_ANY });
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_ANY, OTYPE_ANY });
 
   if(!argv) return;
 
@@ -2207,8 +2205,7 @@ void gfx_prim__add(unsigned direct)
       return;
   }
 
-  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
-  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
 
   if(direct) {
     gfx_obj_hash_set(direct_dict, direct_key, result_id, 1);

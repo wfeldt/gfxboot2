@@ -2055,25 +2055,23 @@ void gfx_prim_add_direct()
 
 void gfx_prim__add(unsigned direct)
 {
-  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_ANY, OTYPE_ANY });
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { direct ? OTYPE_MEM : OTYPE_ANY, OTYPE_ANY });
 
   if(!argv) return;
 
-  obj_id_t id1 = argv[0].id;
-  obj_id_t id2 = argv[1].id;
+  arg_t op1 = argv[0];
+  arg_t op2 = argv[1];
 
   obj_id_t direct_dict = 0;
-  obj_id_t direct_key = argv[0].id;
-
-  obj_t *ptr1 = argv[0].ptr;
-  obj_t *ptr2 = argv[1].ptr;
+  obj_id_t direct_key = op1.id;
 
   if(direct) {
-    if(!ptr1 || ptr1->base_type != OTYPE_MEM || ptr1->sub_type != t_ref) {
+    if(op1.ptr->sub_type != t_ref) {
       GFX_ERROR(err_invalid_arguments);
       return;
     }
-    obj_id_pair_t pair = gfx_lookup_dict(OBJ_DATA_FROM_PTR(ptr1));
+
+    obj_id_pair_t pair = gfx_lookup_dict(OBJ_DATA_FROM_PTR(op1.ptr));
 
     if(!pair.id1) {
       GFX_ERROR(err_invalid_hash_key);
@@ -2081,89 +2079,81 @@ void gfx_prim__add(unsigned direct)
     }
 
     direct_dict = pair.id1;
-    argv[0].id = pair.id2;
+    op1.id = pair.id2;
 
-    arg_update(argv + 0);
+    arg_update(&op1);
 
-    id1 = argv[0].id;
-    ptr1 = argv[0].ptr;
+    if(!op1.ptr) {
+      GFX_ERROR(err_invalid_arguments);
+      return;
+    }
+
+    if(op1.ptr->flags.ro) {
+      GFX_ERROR(err_readonly);
+      return;
+    }
   }
 
-  if(!ptr1 || !ptr2 || ptr1->base_type != ptr2->base_type) {
+  if(op1.ptr->base_type != op2.ptr->base_type) {
     GFX_ERROR(err_invalid_arguments);
-    return;
-  }
-
-  if(direct && ptr1->flags.ro) {
-    GFX_ERROR(err_readonly);
     return;
   }
 
   obj_id_t result_id = 0;
 
-  switch(ptr1->base_type) {
+  switch(op1.ptr->base_type) {
     case OTYPE_NUM:
       {
-        int64_t result = ptr1->data.value + ptr2->data.value;
-        if(ptr1->sub_type == t_bool) result &= 1;
-        if(direct) {
-          ptr1->data.value = result;
-          result_id = gfx_obj_ref_inc(id1);
-        }
-        else {
-          result_id = gfx_obj_num_new(result, ptr1->sub_type);
-        }
+        int64_t result = OBJ_VALUE_FROM_PTR(op1.ptr) + OBJ_VALUE_FROM_PTR(op2.ptr);
+        if(op1.ptr->sub_type == t_bool) result &= 1;
+        result_id = gfx_obj_num_new(result, op1.ptr->sub_type);
       }
       break;
 
     case OTYPE_MEM:
       {
-        unsigned new_size = ptr1->data.size + ptr2->data.size;
-        unsigned part1_size = ptr1->data.size;
-        if(direct) {
-          result_id = new_size > part1_size ? gfx_obj_realloc(id1, new_size) : id1;
-          gfx_obj_ref_inc(result_id);
-        }
-        else {
-          result_id = gfx_obj_mem_new(new_size, 0);
-        }
+        unsigned part1_size = op1.ptr->data.size;
+        unsigned new_size = part1_size + op2.ptr->data.size;
+
+        result_id = gfx_obj_mem_new(new_size, 0);
         obj_t *result_ptr = gfx_obj_ptr(result_id);
+
         if(!result_ptr) {
           GFX_ERROR(err_no_memory);
           return;
         }
-        if(!direct) {
-          result_ptr->sub_type = ptr1->sub_type;
-          gfx_memcpy(result_ptr->data.ptr, ptr1->data.ptr, part1_size);
-        }
-        gfx_memcpy(result_ptr->data.ptr + part1_size, ptr2->data.ptr, ptr2->data.size);
+
+        result_ptr->sub_type = op1.ptr->sub_type;
+
+        gfx_memcpy(result_ptr->data.ptr, op1.ptr->data.ptr, part1_size);
+        gfx_memcpy(result_ptr->data.ptr + part1_size, op2.ptr->data.ptr, op2.ptr->data.size);
       }
       break;
 
     case OTYPE_ARRAY:
       {
-        array_t *array1 = gfx_obj_array_ptr(id1);
-        array_t *array2 = gfx_obj_array_ptr(id2);
-        if(direct) {
-          result_id = gfx_obj_ref_inc(id1);
-        }
-        else if(array1 && array2) {
-          result_id = gfx_obj_array_new(array1->size + array2->size + 0x10);
-        }
+        array_t *array1 = gfx_obj_array_ptr(op1.id);
+        array_t *array2 = gfx_obj_array_ptr(op2.id);
+
+        // not strictly necessary, but add some extra space (0x10)
+        result_id = gfx_obj_array_new(array1->size + array2->size + 0x10);
+
         if(!result_id) {
           GFX_ERROR(err_no_memory);
           return;
         }
+
         obj_id_t val;
         unsigned idx = 0;
-        if(!direct) {
-          while(gfx_obj_iterate(id1, &idx, &val, 0)) {
-            // note: reference counting for val has been done inside gfx_obj_iterate()
-            gfx_obj_array_push(result_id, val, 0);
-          }
+
+        while(gfx_obj_iterate(op1.id, &idx, &val, 0)) {
+          // note: reference counting for val has been done inside gfx_obj_iterate()
+          gfx_obj_array_push(result_id, val, 0);
         }
+
         idx = 0;
-        while(gfx_obj_iterate(id2, &idx, &val, 0)) {
+
+        while(gfx_obj_iterate(op2.id, &idx, &val, 0)) {
           // note: reference counting for val has been done inside gfx_obj_iterate()
           gfx_obj_array_push(result_id, val, 0);
         }
@@ -2172,28 +2162,28 @@ void gfx_prim__add(unsigned direct)
 
     case OTYPE_HASH:
       {
-        hash_t *hash1 = gfx_obj_hash_ptr(id1);
-        hash_t *hash2 = gfx_obj_hash_ptr(id2);
-        if(direct) {
-          result_id = gfx_obj_ref_inc(id1);
-        }
-        else if(hash1 && hash2) {
-          result_id = gfx_obj_hash_new(hash1->size + hash2->size + 0x10);
-        }
+        hash_t *hash1 = gfx_obj_hash_ptr(op1.id);
+        hash_t *hash2 = gfx_obj_hash_ptr(op2.id);
+
+        // not strictly necessary, but add some extra space (0x10)
+        result_id = gfx_obj_hash_new(hash1->size + hash2->size + 0x10);
+
         if(!result_id) {
           GFX_ERROR(err_no_memory);
           return;
         }
+
         obj_id_t key, val;
         unsigned idx = 0;
-        if(!direct) {
-          while(gfx_obj_iterate(id1, &idx, &key, &val)) {
-            // note: reference counting for key & val has been done inside gfx_obj_iterate()
-            gfx_obj_hash_set(result_id, key, val, 0);
-          }
+
+        while(gfx_obj_iterate(op1.id, &idx, &key, &val)) {
+          // note: reference counting for key & val has been done inside gfx_obj_iterate()
+          gfx_obj_hash_set(result_id, key, val, 0);
         }
+
         idx = 0;
-        while(gfx_obj_iterate(id2, &idx, &key, &val)) {
+
+        while(gfx_obj_iterate(op2.id, &idx, &key, &val)) {
           // note: reference counting for key & val has been done inside gfx_obj_iterate()
           gfx_obj_hash_set(result_id, key, val, 0);
         }
@@ -2205,13 +2195,15 @@ void gfx_prim__add(unsigned direct)
       return;
   }
 
-  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
-
+  // careful about ordering: direct_key may go away after gfx_obj_array_pop_n()
   if(direct) {
     gfx_obj_hash_set(direct_dict, direct_key, result_id, 1);
     gfx_obj_ref_dec(result_id);
   }
-  else {
+
+  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
+
+  if(!direct) {
     gfx_obj_array_push(gfxboot_data->vm.program.pstack, result_id, 0);
   }
 }

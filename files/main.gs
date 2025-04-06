@@ -312,7 +312,7 @@
 
 /title "ABC 12345ijklmn xyz # * % & § öäüß €" def
 
-/katze "katze_%04u.jpg" [ getcanvas dim pop ] format readfile
+/katze [ getcanvas dim pop ] "katze_%04u.jpg" format readfile
  dup nil eq { console-font setfont 0 20 setpos 0xff0000 setcolor "Error: no backgound image" show return } if
 unpackimage def
 

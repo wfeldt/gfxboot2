@@ -799,11 +799,11 @@ See also: xref:exec[+exec+], xref:exit[+exit+], xref:for[+for+], xref:if[+if+], 
 * **+format+** - format string [[format]]
 +
 --
-** ( __string~1~__ __array~1~__ -- __string~2~__ )
-+
-__string~1~__: printf-style format string
+** ( __array~1~__ __string~1~__ -- __string~2~__ )
 +
 __array~1~__: array with to-be-formatted arguments
++
+__string~1~__: printf-style format string
 +
 __string~2~__: formatted string
 +
@@ -812,9 +812,9 @@ __string~2~__: formatted string
 .Examples
 ```
 
-"int = %d" [ 200 ] format            # "int = 200"
-"string = %s" [ "foo" ] format       # "string = foo"
-"%s: %d" [ "bar" 33 ] format         # "bar: 33"
+[ 200 ] "int = %d" format            # "int = 200"
+[ "foo" ] "string = %s" format       # "string = foo"
+[ "bar" 33 ] "%s: %d" format         # "bar: 33"
 ```
 +
 See also: xref:decodeutf8[+decodeutf8+], xref:encodeutf8[+encodeutf8+], xref:freeze[+freeze+], xref:readfile[+readfile+], xref:sticky[+sticky+], xref:string[+string+]

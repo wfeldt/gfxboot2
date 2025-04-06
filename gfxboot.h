@@ -82,15 +82,16 @@ typedef uint32_t obj_id_t;
 #define OBJ_HASH_SIZE(n)	(sizeof (hash_t) + (n) * sizeof *((hash_t) {0}).ptr)
 #define OBJ_CONTEXT_SIZE()	(sizeof (context_t))
 
-#define OBJ_DATA_FROM_PTR(p)	(&(p)->data)
-#define OBJ_MEM_FROM_PTR(p)	((p)->data.ptr)
-#define OBJ_OLIST_FROM_PTR(p)	((olist_t *) (p)->data.ptr)
-#define OBJ_FONT_FROM_PTR(p)	((font_t *) (p)->data.ptr)
-#define OBJ_CANVAS_FROM_PTR(p)	((canvas_t *) (p)->data.ptr)
-#define OBJ_ARRAY_FROM_PTR(p)	((array_t *) (p)->data.ptr)
-#define OBJ_HASH_FROM_PTR(p)	((hash_t *) (p)->data.ptr)
-#define OBJ_CONTEXT_FROM_PTR(p)	((context_t *) (p)->data.ptr)
-#define OBJ_VALUE_FROM_PTR(p)	((p)->data.value)
+#define OBJ_DATA_FROM_PTR(p)		(&(p)->data)
+#define OBJ_MEM_FROM_PTR(p)		((p)->data.ptr)
+#define OBJ_MEM_SIZE_FROM_PTR(p)	((p)->data.size)
+#define OBJ_OLIST_FROM_PTR(p)		((olist_t *) (p)->data.ptr)
+#define OBJ_FONT_FROM_PTR(p)		((font_t *) (p)->data.ptr)
+#define OBJ_CANVAS_FROM_PTR(p)		((canvas_t *) (p)->data.ptr)
+#define OBJ_ARRAY_FROM_PTR(p)		((array_t *) (p)->data.ptr)
+#define OBJ_HASH_FROM_PTR(p)		((hash_t *) (p)->data.ptr)
+#define OBJ_CONTEXT_FROM_PTR(p)		((context_t *) (p)->data.ptr)
+#define OBJ_VALUE_FROM_PTR(p)		((p)->data.value)
 
 #define ADD_AREA(a, b) (a).x += (b).x, (a).y += (b).y, (a).width += (b).width, (a).height += (b).height
 

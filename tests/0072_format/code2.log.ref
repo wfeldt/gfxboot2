@@ -5,59 +5,59 @@
 # line i index  offset   type   hex                      word
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
              0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
-     1       1  0x00008  str    c7 20 7c 25 64 7c 20 20  "|%d|   |%-5d|  |%+6.2s|  |%6.2d|"
+     1       1  0x00008  prim   23                       [
+             2  0x00009  str    17 31                      "1"
+             3  0x0000b  bool   12                         true
+             4  0x0000c  int    81 09                      9
+             5  0x0000e  prim   33                       ]
+             6  0x0000f  str    c7 20 7c 25 64 7c 20 20  "|%d|   |%-5d|  |%+6.2s|  |%6.2d|"
                                 20 7c 25 2d 35 64 7c 20
                                 20 7c 25 2b 36 2e 32 73
                                 7c 20 20 7c 25 36 2e 32
                                 64 7c
-             2  0x0002a  prim   23                       [
-             3  0x0002b  str    17 31                      "1"
-             4  0x0002d  bool   12                         true
-             5  0x0002e  int    81 09                      9
-             6  0x00030  prim   33                       ]
              7  0x00031  prim   83 5d                    format
-     2       8  0x00033  str    c7 1c 7c 25 64 7c 20 20  "|%d|   |%-5d|  |%+6d|  |%6d|"
+     2       8  0x00033  prim   23                       [
+             9  0x00034  int    81 7b                      123
+            10  0x00036  int    91 ea 00                   234
+            11  0x00039  int    91 59 01                   345
+            12  0x0003c  int    91 c8 01                   456
+            13  0x0003f  prim   33                       ]
+            14  0x00040  str    c7 1c 7c 25 64 7c 20 20  "|%d|   |%-5d|  |%+6d|  |%6d|"
                                 20 7c 25 2d 35 64 7c 20
                                 20 7c 25 2b 36 64 7c 20
                                 20 7c 25 36 64 7c
-             9  0x00051  prim   23                       [
-            10  0x00052  int    81 7b                      123
-            11  0x00054  int    91 ea 00                   234
-            12  0x00057  int    91 59 01                   345
-            13  0x0005a  int    91 c8 01                   456
-            14  0x0005d  prim   33                       ]
             15  0x0005e  prim   83 5d                    format
-     3      16  0x00060  str    c7 1b 7c 25 64 7c 20 20  "|%d|  |%-5d|  |%+6d|  |%6d|"
+     3      16  0x00060  prim   23                       [
+            17  0x00061  int    81 85                      -123
+            18  0x00063  int    91 16 ff                   -234
+            19  0x00066  int    91 a7 fe                   -345
+            20  0x00069  int    91 38 fe                   -456
+            21  0x0006c  prim   33                       ]
+            22  0x0006d  str    c7 1b 7c 25 64 7c 20 20  "|%d|  |%-5d|  |%+6d|  |%6d|"
                                 7c 25 2d 35 64 7c 20 20
                                 7c 25 2b 36 64 7c 20 20
                                 7c 25 36 64 7c
-            17  0x0007d  prim   23                       [
-            18  0x0007e  int    81 85                      -123
-            19  0x00080  int    91 16 ff                   -234
-            20  0x00083  int    91 a7 fe                   -345
-            21  0x00086  int    91 38 fe                   -456
-            22  0x00089  prim   33                       ]
             23  0x0008a  prim   83 5d                    format
-     4      24  0x0008c  str    c7 1c 7c 25 73 7c 20 20  "|%s|   |%-5s|  |%+6s|  |%6s|"
+     4      24  0x0008c  prim   23                       [
+            25  0x0008d  str    37 61 62 63                "abc"
+            26  0x00091  str    37 64 65 66                "def"
+            27  0x00095  str    37 67 68 69                "ghi"
+            28  0x00099  str    37 6a 6b 6c                "jkl"
+            29  0x0009d  prim   33                       ]
+            30  0x0009e  str    c7 1c 7c 25 73 7c 20 20  "|%s|   |%-5s|  |%+6s|  |%6s|"
                                 20 7c 25 2d 35 73 7c 20
                                 20 7c 25 2b 36 73 7c 20
                                 20 7c 25 36 73 7c
-            25  0x000aa  prim   23                       [
-            26  0x000ab  str    37 61 62 63                "abc"
-            27  0x000af  str    37 64 65 66                "def"
-            28  0x000b3  str    37 67 68 69                "ghi"
-            29  0x000b7  str    37 6a 6b 6c                "jkl"
-            30  0x000bb  prim   33                       ]
             31  0x000bc  prim   83 5d                    format
-     5      32  0x000be  str    c7 24 7c 25 73 7c 20 20  "|%s|   |%-5.2s|  |%.2s|      |%6.2s|"
+     5      32  0x000be  prim   23                       [
+            33  0x000bf  xref   84 32                      "abc"
+            34  0x000c1  xref   84 30                      "def"
+            35  0x000c3  xref   84 2e                      "ghi"
+            36  0x000c5  xref   84 2c                      "jkl"
+            37  0x000c7  prim   33                       ]
+            38  0x000c8  str    c7 24 7c 25 73 7c 20 20  "|%s|   |%-5.2s|  |%.2s|      |%6.2s|"
                                 20 7c 25 2d 35 2e 32 73
                                 7c 20 20 7c 25 2e 32 73
                                 7c 20 20 20 20 20 20 7c
                                 25 36 2e 32 73 7c
-            33  0x000e4  prim   23                       [
-            34  0x000e5  xref   84 3a                      "abc"
-            35  0x000e7  xref   84 38                      "def"
-            36  0x000e9  xref   84 36                      "ghi"
-            37  0x000eb  xref   84 34                      "jkl"
-            38  0x000ed  prim   33                       ]
             39  0x000ee  prim   83 5d                    format

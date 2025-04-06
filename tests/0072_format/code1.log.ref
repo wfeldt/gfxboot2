@@ -5,59 +5,59 @@
 # line i index  offset   type   hex                      word
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
              0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
-     1       1  0x00008  str    c7 20 7c 25 64 7c 20 20  "|%d|   |%-5d|  |%+6.2s|  |%6.2d|"
+     1       1  0x00008  word   18 5b                    [
+             2  0x0000a  str    17 31                      "1"
+             3  0x0000c  bool   12                         true
+             4  0x0000d  int    81 09                      9
+             5  0x0000f  word   18 5d                    ]
+             6  0x00011  str    c7 20 7c 25 64 7c 20 20  "|%d|   |%-5d|  |%+6.2s|  |%6.2d|"
                                 20 7c 25 2d 35 64 7c 20
                                 20 7c 25 2b 36 2e 32 73
                                 7c 20 20 7c 25 36 2e 32
                                 64 7c
-             2  0x0002a  word   18 5b                    [
-             3  0x0002c  str    17 31                      "1"
-             4  0x0002e  bool   12                         true
-             5  0x0002f  int    81 09                      9
-             6  0x00031  word   18 5d                    ]
              7  0x00033  word   68 66 6f 72 6d 61 74     format
-     2       8  0x0003a  str    c7 1c 7c 25 64 7c 20 20  "|%d|   |%-5d|  |%+6d|  |%6d|"
+     2       8  0x0003a  word   18 5b                    [
+             9  0x0003c  int    81 7b                      123
+            10  0x0003e  int    91 ea 00                   234
+            11  0x00041  int    91 59 01                   345
+            12  0x00044  int    91 c8 01                   456
+            13  0x00047  word   18 5d                    ]
+            14  0x00049  str    c7 1c 7c 25 64 7c 20 20  "|%d|   |%-5d|  |%+6d|  |%6d|"
                                 20 7c 25 2d 35 64 7c 20
                                 20 7c 25 2b 36 64 7c 20
                                 20 7c 25 36 64 7c
-             9  0x00058  word   18 5b                    [
-            10  0x0005a  int    81 7b                      123
-            11  0x0005c  int    91 ea 00                   234
-            12  0x0005f  int    91 59 01                   345
-            13  0x00062  int    91 c8 01                   456
-            14  0x00065  word   18 5d                    ]
             15  0x00067  xref   84 34                    format
-     3      16  0x00069  str    c7 1b 7c 25 64 7c 20 20  "|%d|  |%-5d|  |%+6d|  |%6d|"
+     3      16  0x00069  word   18 5b                    [
+            17  0x0006b  int    81 85                      -123
+            18  0x0006d  int    91 16 ff                   -234
+            19  0x00070  int    91 a7 fe                   -345
+            20  0x00073  int    91 38 fe                   -456
+            21  0x00076  word   18 5d                    ]
+            22  0x00078  str    c7 1b 7c 25 64 7c 20 20  "|%d|  |%-5d|  |%+6d|  |%6d|"
                                 7c 25 2d 35 64 7c 20 20
                                 7c 25 2b 36 64 7c 20 20
                                 7c 25 36 64 7c
-            17  0x00086  word   18 5b                    [
-            18  0x00088  int    81 85                      -123
-            19  0x0008a  int    91 16 ff                   -234
-            20  0x0008d  int    91 a7 fe                   -345
-            21  0x00090  int    91 38 fe                   -456
-            22  0x00093  word   18 5d                    ]
             23  0x00095  xref   84 62                    format
-     4      24  0x00097  str    c7 1c 7c 25 73 7c 20 20  "|%s|   |%-5s|  |%+6s|  |%6s|"
+     4      24  0x00097  word   18 5b                    [
+            25  0x00099  str    37 61 62 63                "abc"
+            26  0x0009d  str    37 64 65 66                "def"
+            27  0x000a1  str    37 67 68 69                "ghi"
+            28  0x000a5  str    37 6a 6b 6c                "jkl"
+            29  0x000a9  word   18 5d                    ]
+            30  0x000ab  str    c7 1c 7c 25 73 7c 20 20  "|%s|   |%-5s|  |%+6s|  |%6s|"
                                 20 7c 25 2d 35 73 7c 20
                                 20 7c 25 2b 36 73 7c 20
                                 20 7c 25 36 73 7c
-            25  0x000b5  word   18 5b                    [
-            26  0x000b7  str    37 61 62 63                "abc"
-            27  0x000bb  str    37 64 65 66                "def"
-            28  0x000bf  str    37 67 68 69                "ghi"
-            29  0x000c3  str    37 6a 6b 6c                "jkl"
-            30  0x000c7  word   18 5d                    ]
             31  0x000c9  xref   84 96                    format
-     5      32  0x000cb  str    c7 24 7c 25 73 7c 20 20  "|%s|   |%-5.2s|  |%.2s|      |%6.2s|"
+     5      32  0x000cb  word   18 5b                    [
+            33  0x000cd  xref   84 34                      "abc"
+            34  0x000cf  xref   84 32                      "def"
+            35  0x000d1  xref   84 30                      "ghi"
+            36  0x000d3  xref   84 2e                      "jkl"
+            37  0x000d5  word   18 5d                    ]
+            38  0x000d7  str    c7 24 7c 25 73 7c 20 20  "|%s|   |%-5.2s|  |%.2s|      |%6.2s|"
                                 20 7c 25 2d 35 2e 32 73
                                 7c 20 20 7c 25 2e 32 73
                                 7c 20 20 20 20 20 20 7c
                                 25 36 2e 32 73 7c
-            33  0x000f1  word   18 5b                    [
-            34  0x000f3  xref   84 3c                      "abc"
-            35  0x000f5  xref   84 3a                      "def"
-            36  0x000f7  xref   84 38                      "ghi"
-            37  0x000f9  xref   84 36                      "jkl"
-            38  0x000fb  word   18 5d                    ]
             39  0x000fd  xref   84 ca                    format

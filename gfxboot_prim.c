@@ -35,12 +35,7 @@ static void gfx_prim__add(unsigned direct);
 #define IS_RW		0x40
 #define TYPE_MASK	0x3f
 
-#define OBJ_PTR_UPDATE(a) (a).ptr = gfx_obj_ptr((a).id)
-
-static void arg_update(arg_t *arg)
-{
-  arg->ptr = gfx_obj_ptr(arg->id);
-}
+static void arg_update(arg_t *arg) { arg->ptr = gfx_obj_ptr(arg->id); }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 arg_t *gfx_arg_1(uint8_t type)
@@ -2062,6 +2057,8 @@ void gfx_prim__add(unsigned direct)
   arg_t op1 = argv[0];
   arg_t op2 = argv[1];
 
+  arg_t result = {};
+
   obj_id_t direct_dict = 0;
   obj_id_t direct_key = op1.id;
 
@@ -2099,46 +2096,50 @@ void gfx_prim__add(unsigned direct)
     return;
   }
 
-  obj_id_t result_id = 0;
-
   switch(op1.ptr->base_type) {
     case OTYPE_NUM:
       {
-        int64_t result = OBJ_VALUE_FROM_PTR(op1.ptr) + OBJ_VALUE_FROM_PTR(op2.ptr);
-        if(op1.ptr->sub_type == t_bool) result &= 1;
-        result_id = gfx_obj_num_new(result, op1.ptr->sub_type);
+        int64_t sum = OBJ_VALUE_FROM_PTR(op1.ptr) + OBJ_VALUE_FROM_PTR(op2.ptr);
+        if(op1.ptr->sub_type == t_bool) sum &= 1;
+
+        result.id = gfx_obj_num_new(sum, op1.ptr->sub_type);
       }
       break;
 
     case OTYPE_MEM:
       {
-        unsigned part1_size = op1.ptr->data.size;
-        unsigned new_size = part1_size + op2.ptr->data.size;
+        result.id = gfx_obj_mem_new(OBJ_MEM_SIZE_FROM_PTR(op1.ptr) + OBJ_MEM_SIZE_FROM_PTR(op2.ptr), 0);
+        arg_update(&result);
 
-        result_id = gfx_obj_mem_new(new_size, 0);
-        obj_t *result_ptr = gfx_obj_ptr(result_id);
+        // note: op1.ptr, op2.ptr  possibly invalid after gfx_obj_mem_new()
+        arg_update(&op1);
+        arg_update(&op2);
 
-        if(!result_ptr) {
+        if(!result.ptr) {
           GFX_ERROR(err_no_memory);
           return;
         }
 
-        result_ptr->sub_type = op1.ptr->sub_type;
+        result.ptr->sub_type = op1.ptr->sub_type;
 
-        gfx_memcpy(result_ptr->data.ptr, op1.ptr->data.ptr, part1_size);
-        gfx_memcpy(result_ptr->data.ptr + part1_size, op2.ptr->data.ptr, op2.ptr->data.size);
+        gfx_memcpy(OBJ_MEM_FROM_PTR(result.ptr), OBJ_MEM_FROM_PTR(op1.ptr), OBJ_MEM_SIZE_FROM_PTR(op1.ptr));
+        gfx_memcpy(OBJ_MEM_FROM_PTR(result.ptr) + OBJ_MEM_SIZE_FROM_PTR(op1.ptr), OBJ_MEM_FROM_PTR(op2.ptr), OBJ_MEM_SIZE_FROM_PTR(op2.ptr));
       }
       break;
 
     case OTYPE_ARRAY:
       {
-        array_t *array1 = gfx_obj_array_ptr(op1.id);
-        array_t *array2 = gfx_obj_array_ptr(op2.id);
+        {
+          array_t *array1 = OBJ_ARRAY_FROM_PTR(op1.ptr);
+          array_t *array2 = OBJ_ARRAY_FROM_PTR(op2.ptr);
 
-        // not strictly necessary, but add some extra space (0x10)
-        result_id = gfx_obj_array_new(array1->size + array2->size + 0x10);
+          // not strictly necessary, but add some extra space (0x10)
+          result.id = gfx_obj_array_new(array1->size + array2->size + 0x10);
 
-        if(!result_id) {
+          // note: array1, array2 possibly invalid after gfx_obj_array_new()
+        }
+
+        if(!result.id) {
           GFX_ERROR(err_no_memory);
           return;
         }
@@ -2148,27 +2149,31 @@ void gfx_prim__add(unsigned direct)
 
         while(gfx_obj_iterate(op1.id, &idx, &val, 0)) {
           // note: reference counting for val has been done inside gfx_obj_iterate()
-          gfx_obj_array_push(result_id, val, 0);
+          gfx_obj_array_push(result.id, val, 0);
         }
 
         idx = 0;
 
         while(gfx_obj_iterate(op2.id, &idx, &val, 0)) {
           // note: reference counting for val has been done inside gfx_obj_iterate()
-          gfx_obj_array_push(result_id, val, 0);
+          gfx_obj_array_push(result.id, val, 0);
         }
       }
       break;
 
     case OTYPE_HASH:
       {
-        hash_t *hash1 = gfx_obj_hash_ptr(op1.id);
-        hash_t *hash2 = gfx_obj_hash_ptr(op2.id);
+        {
+          hash_t *hash1 = gfx_obj_hash_ptr(op1.id);
+          hash_t *hash2 = gfx_obj_hash_ptr(op2.id);
 
-        // not strictly necessary, but add some extra space (0x10)
-        result_id = gfx_obj_hash_new(hash1->size + hash2->size + 0x10);
+          // not strictly necessary, but add some extra space (0x10)
+          result.id = gfx_obj_hash_new(hash1->size + hash2->size + 0x10);
 
-        if(!result_id) {
+          // note: hash1, hash2 possibly invalid after gfx_obj_hash_new()
+        }
+
+        if(!result.id) {
           GFX_ERROR(err_no_memory);
           return;
         }
@@ -2178,14 +2183,14 @@ void gfx_prim__add(unsigned direct)
 
         while(gfx_obj_iterate(op1.id, &idx, &key, &val)) {
           // note: reference counting for key & val has been done inside gfx_obj_iterate()
-          gfx_obj_hash_set(result_id, key, val, 0);
+          gfx_obj_hash_set(result.id, key, val, 0);
         }
 
         idx = 0;
 
         while(gfx_obj_iterate(op2.id, &idx, &key, &val)) {
           // note: reference counting for key & val has been done inside gfx_obj_iterate()
-          gfx_obj_hash_set(result_id, key, val, 0);
+          gfx_obj_hash_set(result.id, key, val, 0);
         }
       }
       break;
@@ -2197,14 +2202,14 @@ void gfx_prim__add(unsigned direct)
 
   // careful about ordering: direct_key may go away after gfx_obj_array_pop_n()
   if(direct) {
-    gfx_obj_hash_set(direct_dict, direct_key, result_id, 1);
-    gfx_obj_ref_dec(result_id);
+    gfx_obj_hash_set(direct_dict, direct_key, result.id, 1);
+    gfx_obj_ref_dec(result.id);
   }
 
   gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
 
   if(!direct) {
-    gfx_obj_array_push(gfxboot_data->vm.program.pstack, result_id, 0);
+    gfx_obj_array_push(gfxboot_data->vm.program.pstack, result.id, 0);
   }
 }
 
@@ -4773,28 +4778,30 @@ void gfx_prim_encodeutf8()
 //
 // group: mem
 //
-// ( string_1 array_1 -- string_2 )
-// string_1: printf-style format string
+// ( array_1 string_1 -- string_2 )
 // array_1: array with to-be-formatted arguments
+// string_1: printf-style format string
 // string_2: formatted string
 //
 // example:
 //
-// "int = %d" [ 200 ] format            # "int = 200"
-// "string = %s" [ "foo" ] format       # "string = foo"
-// "%s: %d" [ "bar" 33 ] format         # "bar: 33"
+// [ 200 ] "int = %d" format            # "int = 200"
+// [ "foo" ] "string = %s" format       # "string = foo"
+// [ "bar" 33 ] "%s: %d" format         # "bar: 33"
 //
 void gfx_prim_format()
 {
-  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_MEM, OTYPE_ARRAY });
+  arg_t *argv = gfx_arg_n(2, (uint8_t [2]) { OTYPE_ARRAY, OTYPE_MEM });
 
   if(!argv) return;
 
-  data_t *format_data = gfx_obj_mem_ptr(argv[0].id);
-  uint8_t *format_str = format_data->ptr;
-  unsigned format_size = format_data->size;
+  arg_t values = argv[0];
+  arg_t format = argv[1];
 
   obj_id_t result_id = gfx_obj_mem_new(0, t_string);
+
+  uint8_t *format_str = OBJ_MEM_FROM_PTR(format.ptr);
+  unsigned format_size = OBJ_MEM_SIZE_FROM_PTR(format.ptr);
 
   int arg_pos = 0;
 
@@ -4852,7 +4859,7 @@ void gfx_prim_format()
         uint8_t *data_ptr;
         int len;
         if(f_val == 's') {
-          data_t *str = gfx_obj_mem_ptr(gfx_obj_array_get(argv[1].id, arg_pos));
+          data_t *str = gfx_obj_mem_ptr(gfx_obj_array_get(values.id, arg_pos));
           if(str) {
             data_ptr = str->ptr;
             len = (int) str->size;
@@ -4866,7 +4873,7 @@ void gfx_prim_format()
         }
         else {
           uint8_t buf[32];	// large enough for 64 bit numbers
-          uint64_t *num = gfx_obj_num_ptr(gfx_obj_array_get(argv[1].id, arg_pos));
+          uint64_t *num = gfx_obj_num_ptr(gfx_obj_array_get(values.id, arg_pos));
 
           if(format_spec.precision) {
             if(num) format_spec.zero = 1;	// not for nil

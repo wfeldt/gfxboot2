@@ -7,17 +7,17 @@
    4: 0x001d673c[ 1920072] [ 1920084/ 1920084]  #5.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
    5: 0x003ab390[ 1024072] [ 1920084/ 1024084]  #6.1.1.canv <geo 80x100_640x400, region 0x0_640x400, chk 0x8ccedc00>
    6: 0x004a53e4[      72] [ 1024084/      84]  #7.1.1.array <size 1, max 16>
-   7: 0x004a5438[     276] [      84/     288]  #215.1.10.mem.ro <size 274>
+   7: 0x004a5438[     276] [      84/     288]  #217.1.10.mem.ro <size 274>
    8: 0x004a5558[     208] [     288/     220]
-   9: 0x004a5634[      72] [     220/      84]  #231.1.1.array <size 0, max 16>
+   9: 0x004a5634[      72] [     220/      84]  #233.1.1.array <size 0, max 16>
   10: 0x004a5688[     228] [      84/     240]
-  11: 0x004a5778[    1044] [     240/    1056]  #8.1.1.hash <size 108, max 129>
-  12: 0x004a5b98[     144] [    1056/     156]  #216.1.1.array <size 23, max 34>
-  13: 0x004a5c34[   13112] [     156/   13124]  #0.1.*.olist <size 251, next 267, max 546>
+  11: 0x004a5778[    1044] [     240/    1056]  #8.1.1.hash <size 109, max 129>
+  12: 0x004a5b98[     144] [    1056/     156]  #218.1.1.array <size 23, max 34>
+  13: 0x004a5c34[   13112] [     156/   13124]  #0.1.*.olist <size 253, next 270, max 546>
   14: 0x004a8f78[11890824] [   13124/11890836]
 == object dump (id #0.1.*.olist) ==
-  #0.1.*.olist <size 251, next 267, max 546>
-  #0.1.*.olist <size 251, next 267, max 546>
+  #0.1.*.olist <size 253, next 270, max 546>
+  #0.1.*.olist <size 253, next 270, max 546>
   #1.1.1.mem.ro <size 4947>
     72 b5 4a 86 00 00 00 00 20 00 00 00 01 00 00 00  r.J..... .......
     00 01 00 00 10 00 00 00 10 00 00 00 08 00 00 00  ................
@@ -431,7 +431,7 @@
     |................................................................................|
   #7.1.1.array <size 1, max 16>
     [ 0] #5.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
-  #8.1.1.hash <size 108, max 129>
+  #8.1.1.hash <size 109, max 129>
     #18.1.1.mem.ref.ro <size 1, "("> => #17.1.1.num.prim <4 (0x4)>
     #20.1.1.mem.ref.ro <size 1, ")"> => #19.1.1.num.prim <5 (0x5)>
     #14.1.1.mem.ref.ro <size 1, "["> => #13.1.1.num.prim <2 (0x2)>
@@ -458,11 +458,11 @@
     #68.1.1.mem.ref.ro <size 4, "exec"> => #67.1.1.num.prim <29 (0x1d)>
     #40.1.1.mem.ref.ro <size 4, "exit"> => #39.1.1.num.prim <15 (0xf)>
     #190.1.1.mem.ref.ro <size 8, "fillrect"> => #189.1.1.num.prim <90 (0x5a)>
-    #218.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0x9, size 5, "foo_1"> => #219.1.1.mem.code.ro <#215.1.10.mem.ro, ofs 0xf, size 11>
-    #220.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0x1f, size 5, "foo_2"> => #221.1.1.mem.code.ro <#215.1.10.mem.ro, ofs 0x26, size 21>
-    #222.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0x40, size 5, "foo_3"> => #223.1.1.mem.code.ro <#215.1.10.mem.ro, ofs 0x47, size 31>
-    #224.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0x6b, size 5, "foo_4"> => #225.1.1.mem.code.ro <#215.1.10.mem.ro, ofs 0x72, size 41>
-    #226.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0xa0, size 5, "foo_5"> => #227.1.1.mem.code.ro <#215.1.10.mem.ro, ofs 0xa7, size 61>
+    #220.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0x9, size 5, "foo_1"> => #221.1.1.mem.code.ro <#217.1.10.mem.ro, ofs 0xf, size 11>
+    #222.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0x1f, size 5, "foo_2"> => #223.1.1.mem.code.ro <#217.1.10.mem.ro, ofs 0x26, size 21>
+    #224.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0x40, size 5, "foo_3"> => #225.1.1.mem.code.ro <#217.1.10.mem.ro, ofs 0x47, size 31>
+    #226.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0x6b, size 5, "foo_4"> => #227.1.1.mem.code.ro <#217.1.10.mem.ro, ofs 0x72, size 41>
+    #228.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0xa0, size 5, "foo_5"> => #229.1.1.mem.code.ro <#217.1.10.mem.ro, ofs 0xa7, size 61>
     #36.1.1.mem.ref.ro <size 3, "for"> => #35.1.1.num.prim <13 (0xd)>
     #38.1.1.mem.ref.ro <size 6, "forall"> => #37.1.1.num.prim <14 (0xe)>
     #196.1.1.mem.ref.ro <size 6, "format"> => #195.1.1.num.prim <93 (0x5d)>
@@ -515,6 +515,7 @@
     #62.1.1.mem.ref.ro <size 4, "roll"> => #61.1.1.num.prim <26 (0x1a)>
     #60.1.1.mem.ref.ro <size 3, "rot"> => #59.1.1.num.prim <25 (0x19)>
     #174.1.1.mem.ref.ro <size 3, "run"> => #173.1.1.num.prim <82 (0x52)>
+    #216.1.1.mem.ref.ro <size 4, "self"> => #215.1.1.num.prim <103 (0x67)>
     #136.1.1.mem.ref.ro <size 10, "setbgcolor"> => #135.1.1.num.prim <63 (0x3f)>
     #164.1.1.mem.ref.ro <size 9, "setcanvas"> => #163.1.1.num.prim <77 (0x4d)>
     #132.1.1.mem.ref.ro <size 8, "setcolor"> => #131.1.1.num.prim <61 (0x3d)>
@@ -849,7 +850,10 @@
   #213.1.1.num.prim <102 (0x66)>
   #214.1.1.mem.ref.ro <size 3, "new">
     6e 65 77                                         new
-  #215.1.10.mem.ro <size 274>
+  #215.1.1.num.prim <103 (0x67)>
+  #216.1.1.mem.ref.ro <size 4, "self">
+    73 65 6c 66                                      self
+  #217.1.10.mem.ro <size 274>
     75 51 12 a9 42 7a ad 60 59 66 6f 6f 5f 31 b6 41  uQ..Bz.`Yfoo_1.A
     51 68 72 65 74 75 72 6e 61 13 38 64 65 66 59 66  Qhreturna.8defYf
     6f 6f 5f 32 c6 15 12 c6 0e 81 1e 81 28 68 72 65  oo_2........(hre
@@ -868,78 +872,78 @@
     6f 6f 5f 32 58 66 6f 6f 5f 33 58 66 6f 6f 5f 34  oo_2Xfoo_3Xfoo_4
     58 66 6f 6f 5f 35 71 81 08 68 72 65 74 75 72 6e  Xfoo_5q..hreturn
     81 09                                            ..
-  #216.1.1.array <size 23, max 34>
-    [ 0] #229.1.1.num.int <4 (0x4)>
-    [ 1] #230.1.1.num.int <5 (0x5)>
-    [ 2] #236.1.1.num.int <30 (0x1e)>
-    [ 3] #237.1.1.num.int <40 (0x28)>
-    [ 4] #244.1.1.num.int <100 (0x64)>
-    [ 5] #245.1.1.num.int <200 (0xc8)>
-    [ 6] #253.1.1.num.int <1000 (0x3e8)>
-    [ 7] #255.1.1.num.int <4 (0x4)>
-    [ 8] #256.1.1.num.int <5 (0x5)>
-    [ 9] #257.1.1.num.int <2000 (0x7d0)>
-    [10] #232.2.1.num.int <1 (0x1)>
-    [11] #243.2.1.num.int <10000 (0x2710)>
-    [12] #246.2.1.num.int <20000 (0x4e20)>
-    [13] #248.2.1.num.int <4 (0x4)>
-    [14] #249.2.1.num.int <5 (0x5)>
-    [15] #250.2.1.num.int <30000 (0x7530)>
-    [16] #259.1.1.num.int <1000 (0x3e8)>
-    [17] #261.1.1.num.int <4 (0x4)>
-    [18] #262.1.1.num.int <5 (0x5)>
-    [19] #263.1.1.num.int <2000 (0x7d0)>
-    [20] #264.1.1.num.int <40000 (0x9c40)>
-    [21] #265.1.1.num.int <7 (0x7)>
-    [22] #266.1.1.num.int <8 (0x8)>
-  #218.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0x9, size 5, "foo_1">
+  #218.1.1.array <size 23, max 34>
+    [ 0] #231.1.1.num.int <4 (0x4)>
+    [ 1] #232.1.1.num.int <5 (0x5)>
+    [ 2] #238.1.1.num.int <30 (0x1e)>
+    [ 3] #239.1.1.num.int <40 (0x28)>
+    [ 4] #246.1.1.num.int <100 (0x64)>
+    [ 5] #247.1.1.num.int <200 (0xc8)>
+    [ 6] #255.1.1.num.int <1000 (0x3e8)>
+    [ 7] #257.1.1.num.int <4 (0x4)>
+    [ 8] #230.2.1.num.int <5 (0x5)>
+    [ 9] #234.2.1.num.int <2000 (0x7d0)>
+    [10] #236.2.1.num.int <1 (0x1)>
+    [11] #249.2.1.num.int <10000 (0x2710)>
+    [12] #250.2.1.num.int <20000 (0x4e20)>
+    [13] #252.2.1.num.int <4 (0x4)>
+    [14] #253.2.1.num.int <5 (0x5)>
+    [15] #254.2.1.num.int <30000 (0x7530)>
+    [16] #262.1.1.num.int <1000 (0x3e8)>
+    [17] #264.1.1.num.int <4 (0x4)>
+    [18] #265.1.1.num.int <5 (0x5)>
+    [19] #266.1.1.num.int <2000 (0x7d0)>
+    [20] #267.1.1.num.int <40000 (0x9c40)>
+    [21] #268.1.1.num.int <7 (0x7)>
+    [22] #269.1.1.num.int <8 (0x8)>
+  #220.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0x9, size 5, "foo_1">
     66 6f 6f 5f 31                                   foo_1
-  #219.1.1.mem.code.ro <#215.1.10.mem.ro, ofs 0xf, size 11>
+  #221.1.1.mem.code.ro <#217.1.10.mem.ro, ofs 0xf, size 11>
     41 51 68 72 65 74 75 72 6e 61 13                 AQhreturna.
-  #220.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0x1f, size 5, "foo_2">
+  #222.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0x1f, size 5, "foo_2">
     66 6f 6f 5f 32                                   foo_2
-  #221.1.1.mem.code.ro <#215.1.10.mem.ro, ofs 0x26, size 21>
+  #223.1.1.mem.code.ro <#217.1.10.mem.ro, ofs 0x26, size 21>
     12 c6 0e 81 1e 81 28 68 72 65 74 75 72 6e 81 32  ......(hreturn.2
     13 28 69 66 13                                   .(if.
-  #222.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0x40, size 5, "foo_3">
+  #224.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0x40, size 5, "foo_3">
     66 6f 6f 5f 33                                   foo_3
-  #223.1.1.mem.code.ro <#215.1.10.mem.ro, ofs 0x47, size 31>
+  #225.1.1.mem.code.ro <#217.1.10.mem.ro, ofs 0x47, size 31>
     c6 17 12 c6 10 81 64 91 c8 00 68 72 65 74 75 72  ......d...hretur
     6e 91 2c 01 13 28 69 66 13 48 6c 6f 6f 70 13     n.,..(if.Hloop.
-  #224.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0x6b, size 5, "foo_4">
+  #226.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0x6b, size 5, "foo_4">
     66 6f 6f 5f 34                                   foo_4
-  #225.1.1.mem.code.ro <#215.1.10.mem.ro, ofs 0x72, size 41>
+  #227.1.1.mem.code.ro <#217.1.10.mem.ro, ofs 0x72, size 41>
     21 c6 1e 12 c6 17 91 e8 03 58 66 6f 6f 5f 31 91  !........Xfoo_1.
     d0 07 68 72 65 74 75 72 6e 91 b8 0b 13 28 69 66  ..hreturn....(if
     13 68 72 65 70 65 61 74 13                       .hrepeat.
-  #226.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0xa0, size 5, "foo_5">
+  #228.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0xa0, size 5, "foo_5">
     66 6f 6f 5f 35                                   foo_5
-  #227.1.1.mem.code.ro <#215.1.10.mem.ro, ofs 0xa7, size 61>
+  #229.1.1.mem.code.ro <#217.1.10.mem.ro, ofs 0xa7, size 61>
     18 5b 11 21 31 18 5d c6 28 12 c6 21 91 10 27 91  .[.!1.].(..!..'.
     20 4e 58 66 6f 6f 5f 31 91 30 75 58 66 6f 6f 5f   NXfoo_1.0uXfoo_
     34 a1 40 9c 00 68 72 65 74 75 72 6e 13 28 69 66  4.@..hreturn.(if
     13 68 66 6f 72 61 6c 6c a1 50 c3 00 13           .hforall.P...
-  #229.1.1.num.int <4 (0x4)>
-  #230.1.1.num.int <5 (0x5)>
-  #231.1.1.array <size 0, max 16>
-  #232.2.1.num.int <1 (0x1)>
-  #236.1.1.num.int <30 (0x1e)>
-  #237.1.1.num.int <40 (0x28)>
-  #243.2.1.num.int <10000 (0x2710)>
-  #244.1.1.num.int <100 (0x64)>
-  #245.1.1.num.int <200 (0xc8)>
-  #246.2.1.num.int <20000 (0x4e20)>
-  #248.2.1.num.int <4 (0x4)>
-  #249.2.1.num.int <5 (0x5)>
-  #250.2.1.num.int <30000 (0x7530)>
-  #253.1.1.num.int <1000 (0x3e8)>
-  #255.1.1.num.int <4 (0x4)>
-  #256.1.1.num.int <5 (0x5)>
-  #257.1.1.num.int <2000 (0x7d0)>
-  #259.1.1.num.int <1000 (0x3e8)>
-  #261.1.1.num.int <4 (0x4)>
-  #262.1.1.num.int <5 (0x5)>
-  #263.1.1.num.int <2000 (0x7d0)>
-  #264.1.1.num.int <40000 (0x9c40)>
-  #265.1.1.num.int <7 (0x7)>
-  #266.1.1.num.int <8 (0x8)>
+  #230.2.1.num.int <5 (0x5)>
+  #231.1.1.num.int <4 (0x4)>
+  #232.1.1.num.int <5 (0x5)>
+  #233.1.1.array <size 0, max 16>
+  #234.2.1.num.int <2000 (0x7d0)>
+  #236.2.1.num.int <1 (0x1)>
+  #238.1.1.num.int <30 (0x1e)>
+  #239.1.1.num.int <40 (0x28)>
+  #246.1.1.num.int <100 (0x64)>
+  #247.1.1.num.int <200 (0xc8)>
+  #249.2.1.num.int <10000 (0x2710)>
+  #250.2.1.num.int <20000 (0x4e20)>
+  #252.2.1.num.int <4 (0x4)>
+  #253.2.1.num.int <5 (0x5)>
+  #254.2.1.num.int <30000 (0x7530)>
+  #255.1.1.num.int <1000 (0x3e8)>
+  #257.1.1.num.int <4 (0x4)>
+  #262.1.1.num.int <1000 (0x3e8)>
+  #264.1.1.num.int <4 (0x4)>
+  #265.1.1.num.int <5 (0x5)>
+  #266.1.1.num.int <2000 (0x7d0)>
+  #267.1.1.num.int <40000 (0x9c40)>
+  #268.1.1.num.int <7 (0x7)>
+  #269.1.1.num.int <8 (0x8)>

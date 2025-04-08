@@ -5,6 +5,8 @@ getcanvas getconsole setcanvas getfont exch setcanvas setfont
     10 y setpos
     text show
   }
+
+  /f { self .class }
 ) nil class def
 
 /Widget2 (
@@ -27,3 +29,6 @@ win .draw2
 win .draw2
 
 win .draw1
+
+# should be "Widget2"
+win .f

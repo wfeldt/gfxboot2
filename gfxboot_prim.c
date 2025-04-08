@@ -5224,3 +5224,49 @@ void gfx_prim_new()
     gfx_exec_id(dict.id, pair.id2, 0);
   }
 }
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// get dictionary of current class
+//
+// group: def
+//
+// ( -- hash_1 )
+// hash_1: dictionary of currently running class
+//
+// example:
+//
+// /Foo (
+//   /x 0
+//   /init { }
+//   /bar  { x }
+// ) nil class def
+//
+// /foo Foo ( /x 100 ) new def
+//
+// foo .bar
+//
+void gfx_prim_self()
+{
+  context_t *context = gfx_obj_context_ptr(gfxboot_data->vm.program.context);
+
+  if(!context) {
+    GFX_ERROR(err_internal);
+    return;
+  }
+
+  obj_id_t self_id = 0;
+
+  do {
+    hash_t *dict = gfx_obj_hash_ptr(context->dict_id);
+    if(!dict) continue;
+
+    obj_t *ptr = gfx_obj_ptr(dict->parent_id);
+    if(ptr && ptr->base_type == OTYPE_HASH && ptr->flags.hash_is_class) {
+      self_id = dict->parent_id;
+      break;
+    }
+  } while((context = gfx_obj_context_ptr(context->parent_id)));
+
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, self_id, 1);
+}

@@ -335,51 +335,51 @@ GC: ++#xxxx.1.10.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.ref.ro <#xxxx.1.11.mem.ro, "hash_1">
+  [0] #xxxx.2.1.mem.ref.ro <#xxxx.1.11.mem.ro, "hash_1">
 GC: ++#xxxx.1.1.num.prim
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.11.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.1.2.num.prim <4 (0x4)>
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.11.mem.ro, "hash_1">
+  [1] #xxxx.2.1.mem.ref.ro <#xxxx.1.11.mem.ro, "hash_1">
 GC: ++#xxxx.1.11.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "cc">
+  [0] #xxxx.2.1.mem.str.ro <#xxxx.1.12.mem.ro, "cc">
   [1] #xxxx.1.2.num.prim <4 (0x4)>
-  [2] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "hash_1">
+  [2] #xxxx.2.1.mem.ref.ro <#xxxx.1.12.mem.ro, "hash_1">
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.2.1.num.int <400 (0x190)>
-  [1] #xxxx.1.1.mem.str.ro <#xxxx.1.12.mem.ro, "cc">
+  [1] #xxxx.2.1.mem.str.ro <#xxxx.1.12.mem.ro, "cc">
   [2] #xxxx.1.2.num.prim <4 (0x4)>
-  [3] #xxxx.1.1.mem.ref.ro <#xxxx.1.12.mem.ro, "hash_1">
+  [3] #xxxx.2.1.mem.ref.ro <#xxxx.1.12.mem.ro, "hash_1">
 GC: ++#xxxx.1.12.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.2.1.mem.str.ro <#xxxx.1.13.mem.ro, "bb">
   [1] #xxxx.2.1.num.int <400 (0x190)>
-  [2] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "cc">
+  [2] #xxxx.2.1.mem.str.ro <#xxxx.1.13.mem.ro, "cc">
   [3] #xxxx.1.2.num.prim <4 (0x4)>
-  [4] #xxxx.1.1.mem.ref.ro <#xxxx.1.13.mem.ro, "hash_1">
+  [4] #xxxx.2.1.mem.ref.ro <#xxxx.1.13.mem.ro, "hash_1">
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.2.1.num.int <500 (0x1f4)>
   [1] #xxxx.2.1.mem.str.ro <#xxxx.1.13.mem.ro, "bb">
   [2] #xxxx.2.1.num.int <400 (0x190)>
-  [3] #xxxx.1.1.mem.str.ro <#xxxx.1.13.mem.ro, "cc">
+  [3] #xxxx.2.1.mem.str.ro <#xxxx.1.13.mem.ro, "cc">
   [4] #xxxx.1.2.num.prim <4 (0x4)>
-  [5] #xxxx.1.1.mem.ref.ro <#xxxx.1.13.mem.ro, "hash_1">
+  [5] #xxxx.2.1.mem.ref.ro <#xxxx.1.13.mem.ro, "hash_1">
 GC: --#xxxx.1.2.num.prim
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.2.1.hash <size 2, max 2>
-  [1] #xxxx.1.1.mem.ref.ro <#xxxx.1.13.mem.ro, "hash_1">
+  [1] #xxxx.2.1.mem.ref.ro <#xxxx.1.13.mem.ro, "hash_1">
 GC: ++#xxxx.1.1.mem.str.ro
 GC: ++#xxxx.1.1.num.int
 GC: ++#xxxx.1.1.mem.str.ro
@@ -388,9 +388,9 @@ GC: ++#xxxx.1.1.mem.str.ro
 GC: ++#xxxx.1.1.num.int
 GC: ++#xxxx.2.1.mem.str.ro
 GC: ++#xxxx.2.1.num.int
-GC: ++#xxxx.1.1.mem.str.ro
+GC: ++#xxxx.2.1.mem.str.ro
 GC: ++#xxxx.2.1.num.int
-GC: ++#xxxx.1.1.mem.ref.ro
+GC: ++#xxxx.2.1.mem.ref.ro
 GC: ++#xxxx.2.1.hash
 GC: --#xxxx.1.1.mem.ref.ro
 GC: --#xxxx.1.13.mem.ro
@@ -405,9 +405,9 @@ GC: --#xxxx.2.2.hash
 GC: --#xxxx.2.1.hash
 GC: --#xxxx.2.2.mem.str.ro
 GC: --#xxxx.2.2.num.int
-GC: --#xxxx.1.2.mem.str.ro
+GC: --#xxxx.2.2.mem.str.ro
 GC: --#xxxx.2.2.num.int
-GC: --#xxxx.1.2.mem.ref.ro
+GC: --#xxxx.2.2.mem.ref.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.12.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
@@ -626,14 +626,14 @@ GC: ++#xxxx.2.1.num.int
   [11] #xxxx.1.2.mem.str <size 7, "1234abc">
   [12] #xxxx.1.2.num.bool <1 (0x1)>
   [13] #xxxx.1.2.num.int <3000 (0xbb8)>
-GC: ++#xxxx.1.1.mem.str.ro
+GC: ++#xxxx.2.1.mem.str.ro
 GC: ++#xxxx.2.1.num.int
 == backtrace ==
   [0] #xxxx.2.1.ctx.forall <code #xxxx.2.1.mem.code.ro, index 3, iterate #xxxx.2.2.hash>
   [1] #xxxx.1.1.ctx.func <code #xxxx.1.13.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.2.2.num.int <400 (0x190)>
-  [1] #xxxx.1.2.mem.str.ro <#xxxx.1.13.mem.ro, "cc">
+  [1] #xxxx.2.2.mem.str.ro <#xxxx.1.13.mem.ro, "cc">
   [2] #xxxx.2.2.num.int <500 (0x1f4)>
   [3] #xxxx.2.2.mem.str.ro <#xxxx.1.13.mem.ro, "bb">
   [4] #xxxx.1.2.num.int <100 (0x64)>
@@ -657,7 +657,7 @@ GC: ++#xxxx.1.1.num.int
   [0] #xxxx.1.2.num.int <300 (0x12c)>
   [1] #xxxx.1.2.mem.str.ro <#xxxx.1.13.mem.ro, "dd">
   [2] #xxxx.2.2.num.int <400 (0x190)>
-  [3] #xxxx.1.2.mem.str.ro <#xxxx.1.13.mem.ro, "cc">
+  [3] #xxxx.2.2.mem.str.ro <#xxxx.1.13.mem.ro, "cc">
   [4] #xxxx.2.2.num.int <500 (0x1f4)>
   [5] #xxxx.2.2.mem.str.ro <#xxxx.1.13.mem.ro, "bb">
   [6] #xxxx.1.2.num.int <100 (0x64)>
@@ -683,7 +683,7 @@ GC: ++#xxxx.1.1.num.int
   [2] #xxxx.1.2.num.int <300 (0x12c)>
   [3] #xxxx.1.2.mem.str.ro <#xxxx.1.13.mem.ro, "dd">
   [4] #xxxx.2.2.num.int <400 (0x190)>
-  [5] #xxxx.1.2.mem.str.ro <#xxxx.1.13.mem.ro, "cc">
+  [5] #xxxx.2.2.mem.str.ro <#xxxx.1.13.mem.ro, "cc">
   [6] #xxxx.2.2.num.int <500 (0x1f4)>
   [7] #xxxx.2.2.mem.str.ro <#xxxx.1.13.mem.ro, "bb">
   [8] #xxxx.1.2.num.int <100 (0x64)>
@@ -712,7 +712,7 @@ GC: --#xxxx.1.13.mem.ro
   [2] #xxxx.1.2.num.int <300 (0x12c)>
   [3] #xxxx.1.2.mem.str.ro <#xxxx.1.12.mem.ro, "dd">
   [4] #xxxx.2.2.num.int <400 (0x190)>
-  [5] #xxxx.1.2.mem.str.ro <#xxxx.1.12.mem.ro, "cc">
+  [5] #xxxx.2.2.mem.str.ro <#xxxx.1.12.mem.ro, "cc">
   [6] #xxxx.2.2.num.int <500 (0x1f4)>
   [7] #xxxx.2.2.mem.str.ro <#xxxx.1.12.mem.ro, "bb">
   [8] #xxxx.1.2.num.int <100 (0x64)>

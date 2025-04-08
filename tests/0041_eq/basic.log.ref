@@ -485,7 +485,7 @@ GC: --#xxxx.1.2.mem.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <3 (0x3)>
+  [0] #xxxx.2.1.num.int <3 (0x3)>
   [1] #0.0.nil <nil>
   [2] #xxxx.1.1.num.bool <1 (0x1)>
   [3] #xxxx.1.1.num.bool <0 (0x0)>
@@ -500,11 +500,11 @@ GC: --#xxxx.1.2.mem.ro
   [12] #xxxx.1.1.num.bool <0 (0x0)>
   [13] #xxxx.1.1.num.bool <0 (0x0)>
   [14] #xxxx.1.1.num.bool <1 (0x1)>
-GC: --#xxxx.1.1.num.int
+GC: --#xxxx.2.1.num.int
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.bool <0 (0x0)>
+  [0] #xxxx.2.1.num.bool <0 (0x0)>
   [1] #xxxx.1.1.num.bool <1 (0x1)>
   [2] #xxxx.1.1.num.bool <0 (0x0)>
   [3] #xxxx.1.1.num.bool <0 (0x0)>
@@ -522,7 +522,7 @@ GC: --#xxxx.1.1.num.int
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.2.1.num.int <5 (0x5)>
-  [1] #xxxx.1.1.num.bool <0 (0x0)>
+  [1] #xxxx.2.1.num.bool <0 (0x0)>
   [2] #xxxx.1.1.num.bool <1 (0x1)>
   [3] #xxxx.1.1.num.bool <0 (0x0)>
   [4] #xxxx.1.1.num.bool <0 (0x0)>
@@ -542,7 +542,7 @@ GC: ++#xxxx.1.1.mem.ro
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.2.1.mem.str.ro <#xxxx.1.2.mem.ro, "abc">
   [1] #xxxx.2.1.num.int <5 (0x5)>
-  [2] #xxxx.1.1.num.bool <0 (0x0)>
+  [2] #xxxx.2.1.num.bool <0 (0x0)>
   [3] #xxxx.1.1.num.bool <1 (0x1)>
   [4] #xxxx.1.1.num.bool <0 (0x0)>
   [5] #xxxx.1.1.num.bool <0 (0x0)>
@@ -563,7 +563,7 @@ GC: --#xxxx.2.1.num.int
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.2.1.num.bool <0 (0x0)>
-  [1] #xxxx.1.1.num.bool <0 (0x0)>
+  [1] #xxxx.2.1.num.bool <0 (0x0)>
   [2] #xxxx.1.1.num.bool <1 (0x1)>
   [3] #xxxx.1.1.num.bool <0 (0x0)>
   [4] #xxxx.1.1.num.bool <0 (0x0)>
@@ -583,7 +583,7 @@ GC: ++#xxxx.1.1.mem.ro
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.2.1.mem.code.ro <#xxxx.1.2.mem.ro>
   [1] #xxxx.2.1.num.bool <0 (0x0)>
-  [2] #xxxx.1.1.num.bool <0 (0x0)>
+  [2] #xxxx.2.1.num.bool <0 (0x0)>
   [3] #xxxx.1.1.num.bool <1 (0x1)>
   [4] #xxxx.1.1.num.bool <0 (0x0)>
   [5] #xxxx.1.1.num.bool <0 (0x0)>
@@ -604,7 +604,7 @@ GC: ++#xxxx.1.2.mem.ro
   [0] #xxxx.2.1.mem.code.ro <#xxxx.1.3.mem.ro>
   [1] #xxxx.2.1.mem.code.ro <#xxxx.1.3.mem.ro>
   [2] #xxxx.2.1.num.bool <0 (0x0)>
-  [3] #xxxx.1.1.num.bool <0 (0x0)>
+  [3] #xxxx.2.1.num.bool <0 (0x0)>
   [4] #xxxx.1.1.num.bool <1 (0x1)>
   [5] #xxxx.1.1.num.bool <0 (0x0)>
   [6] #xxxx.1.1.num.bool <0 (0x0)>
@@ -627,7 +627,7 @@ GC: --#xxxx.1.2.mem.ro
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.2.1.num.bool <1 (0x1)>
   [1] #xxxx.2.1.num.bool <0 (0x0)>
-  [2] #xxxx.1.1.num.bool <0 (0x0)>
+  [2] #xxxx.2.1.num.bool <0 (0x0)>
   [3] #xxxx.1.1.num.bool <1 (0x1)>
   [4] #xxxx.1.1.num.bool <0 (0x0)>
   [5] #xxxx.1.1.num.bool <0 (0x0)>
@@ -648,7 +648,7 @@ GC: ++#xxxx.1.1.mem.ro
   [0] #xxxx.2.1.mem.ref.ro <#xxxx.1.2.mem.ro, "foo_1">
   [1] #xxxx.2.1.num.bool <1 (0x1)>
   [2] #xxxx.2.1.num.bool <0 (0x0)>
-  [3] #xxxx.1.1.num.bool <0 (0x0)>
+  [3] #xxxx.2.1.num.bool <0 (0x0)>
   [4] #xxxx.1.1.num.bool <1 (0x1)>
   [5] #xxxx.1.1.num.bool <0 (0x0)>
   [6] #xxxx.1.1.num.bool <0 (0x0)>
@@ -670,7 +670,7 @@ GC: ++#xxxx.1.1.num.prim
   [1] #xxxx.2.1.mem.ref.ro <#xxxx.1.2.mem.ro, "foo_1">
   [2] #xxxx.2.1.num.bool <1 (0x1)>
   [3] #xxxx.2.1.num.bool <0 (0x0)>
-  [4] #xxxx.1.1.num.bool <0 (0x0)>
+  [4] #xxxx.2.1.num.bool <0 (0x0)>
   [5] #xxxx.1.1.num.bool <1 (0x1)>
   [6] #xxxx.1.1.num.bool <0 (0x0)>
   [7] #xxxx.1.1.num.bool <0 (0x0)>
@@ -692,7 +692,7 @@ GC: ++#xxxx.1.1.num.prim
   [2] #xxxx.2.1.mem.ref.ro <#xxxx.1.2.mem.ro, "foo_1">
   [3] #xxxx.2.1.num.bool <1 (0x1)>
   [4] #xxxx.2.1.num.bool <0 (0x0)>
-  [5] #xxxx.1.1.num.bool <0 (0x0)>
+  [5] #xxxx.2.1.num.bool <0 (0x0)>
   [6] #xxxx.1.1.num.bool <1 (0x1)>
   [7] #xxxx.1.1.num.bool <0 (0x0)>
   [8] #xxxx.1.1.num.bool <0 (0x0)>
@@ -715,7 +715,7 @@ GC: ++#xxxx.1.1.num.prim
   [3] #xxxx.2.1.mem.ref.ro <#xxxx.1.2.mem.ro, "foo_1">
   [4] #xxxx.2.1.num.bool <1 (0x1)>
   [5] #xxxx.2.1.num.bool <0 (0x0)>
-  [6] #xxxx.1.1.num.bool <0 (0x0)>
+  [6] #xxxx.2.1.num.bool <0 (0x0)>
   [7] #xxxx.1.1.num.bool <1 (0x1)>
   [8] #xxxx.1.1.num.bool <0 (0x0)>
   [9] #xxxx.1.1.num.bool <0 (0x0)>
@@ -739,7 +739,7 @@ GC: ++#xxxx.1.1.num.prim
   [4] #xxxx.2.1.mem.ref.ro <#xxxx.1.2.mem.ro, "foo_1">
   [5] #xxxx.2.1.num.bool <1 (0x1)>
   [6] #xxxx.2.1.num.bool <0 (0x0)>
-  [7] #xxxx.1.1.num.bool <0 (0x0)>
+  [7] #xxxx.2.1.num.bool <0 (0x0)>
   [8] #xxxx.1.1.num.bool <1 (0x1)>
   [9] #xxxx.1.1.num.bool <0 (0x0)>
   [10] #xxxx.1.1.num.bool <0 (0x0)>
@@ -761,7 +761,7 @@ GC: --#xxxx.1.2.num.prim
   [1] #xxxx.2.1.mem.ref.ro <#xxxx.1.2.mem.ro, "foo_1">
   [2] #xxxx.2.1.num.bool <1 (0x1)>
   [3] #xxxx.2.1.num.bool <0 (0x0)>
-  [4] #xxxx.1.1.num.bool <0 (0x0)>
+  [4] #xxxx.2.1.num.bool <0 (0x0)>
   [5] #xxxx.1.1.num.bool <1 (0x1)>
   [6] #xxxx.1.1.num.bool <0 (0x0)>
   [7] #xxxx.1.1.num.bool <0 (0x0)>
@@ -784,7 +784,7 @@ GC: --#xxxx.2.2.mem.ref.ro
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.2.1.num.bool <1 (0x1)>
   [1] #xxxx.2.1.num.bool <0 (0x0)>
-  [2] #xxxx.1.1.num.bool <0 (0x0)>
+  [2] #xxxx.2.1.num.bool <0 (0x0)>
   [3] #xxxx.1.1.num.bool <1 (0x1)>
   [4] #xxxx.1.1.num.bool <0 (0x0)>
   [5] #xxxx.1.1.num.bool <0 (0x0)>
@@ -805,7 +805,7 @@ GC: ++#xxxx.1.2.mem.ro
   [0] #xxxx.2.1.mem.ref.ro <#xxxx.1.3.mem.ro, "foo_2">
   [1] #xxxx.2.1.num.bool <1 (0x1)>
   [2] #xxxx.2.1.num.bool <0 (0x0)>
-  [3] #xxxx.1.1.num.bool <0 (0x0)>
+  [3] #xxxx.2.1.num.bool <0 (0x0)>
   [4] #xxxx.1.1.num.bool <1 (0x1)>
   [5] #xxxx.1.1.num.bool <0 (0x0)>
   [6] #xxxx.1.1.num.bool <0 (0x0)>
@@ -827,7 +827,7 @@ GC: ++#xxxx.2.1.array
   [1] #xxxx.2.1.mem.ref.ro <#xxxx.1.3.mem.ro, "foo_2">
   [2] #xxxx.2.1.num.bool <1 (0x1)>
   [3] #xxxx.2.1.num.bool <0 (0x0)>
-  [4] #xxxx.1.1.num.bool <0 (0x0)>
+  [4] #xxxx.2.1.num.bool <0 (0x0)>
   [5] #xxxx.1.1.num.bool <1 (0x1)>
   [6] #xxxx.1.1.num.bool <0 (0x0)>
   [7] #xxxx.1.1.num.bool <0 (0x0)>
@@ -850,7 +850,7 @@ GC: --#xxxx.2.2.mem.ref.ro
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.2.1.num.bool <1 (0x1)>
   [1] #xxxx.2.1.num.bool <0 (0x0)>
-  [2] #xxxx.1.1.num.bool <0 (0x0)>
+  [2] #xxxx.2.1.num.bool <0 (0x0)>
   [3] #xxxx.1.1.num.bool <1 (0x1)>
   [4] #xxxx.1.1.num.bool <0 (0x0)>
   [5] #xxxx.1.1.num.bool <0 (0x0)>
@@ -871,7 +871,7 @@ GC: ++#xxxx.2.2.array
   [0] #xxxx.2.3.array <size 3, max 3>
   [1] #xxxx.2.1.num.bool <1 (0x1)>
   [2] #xxxx.2.1.num.bool <0 (0x0)>
-  [3] #xxxx.1.1.num.bool <0 (0x0)>
+  [3] #xxxx.2.1.num.bool <0 (0x0)>
   [4] #xxxx.1.1.num.bool <1 (0x1)>
   [5] #xxxx.1.1.num.bool <0 (0x0)>
   [6] #xxxx.1.1.num.bool <0 (0x0)>
@@ -893,7 +893,7 @@ GC: ++#xxxx.2.3.array
   [1] #xxxx.2.4.array <size 3, max 3>
   [2] #xxxx.2.1.num.bool <1 (0x1)>
   [3] #xxxx.2.1.num.bool <0 (0x0)>
-  [4] #xxxx.1.1.num.bool <0 (0x0)>
+  [4] #xxxx.2.1.num.bool <0 (0x0)>
   [5] #xxxx.1.1.num.bool <1 (0x1)>
   [6] #xxxx.1.1.num.bool <0 (0x0)>
   [7] #xxxx.1.1.num.bool <0 (0x0)>
@@ -915,7 +915,7 @@ GC: --#xxxx.2.3.array
   [0] #xxxx.2.1.num.bool <1 (0x1)>
   [1] #xxxx.2.1.num.bool <1 (0x1)>
   [2] #xxxx.2.1.num.bool <0 (0x0)>
-  [3] #xxxx.1.1.num.bool <0 (0x0)>
+  [3] #xxxx.2.1.num.bool <0 (0x0)>
   [4] #xxxx.1.1.num.bool <1 (0x1)>
   [5] #xxxx.1.1.num.bool <0 (0x0)>
   [6] #xxxx.1.1.num.bool <0 (0x0)>
@@ -937,7 +937,7 @@ GC: ++#xxxx.1.1.num.prim
   [1] #xxxx.2.1.num.bool <1 (0x1)>
   [2] #xxxx.2.1.num.bool <1 (0x1)>
   [3] #xxxx.2.1.num.bool <0 (0x0)>
-  [4] #xxxx.1.1.num.bool <0 (0x0)>
+  [4] #xxxx.2.1.num.bool <0 (0x0)>
   [5] #xxxx.1.1.num.bool <1 (0x1)>
   [6] #xxxx.1.1.num.bool <0 (0x0)>
   [7] #xxxx.1.1.num.bool <0 (0x0)>
@@ -959,7 +959,7 @@ GC: ++#xxxx.1.1.num.prim
   [2] #xxxx.2.1.num.bool <1 (0x1)>
   [3] #xxxx.2.1.num.bool <1 (0x1)>
   [4] #xxxx.2.1.num.bool <0 (0x0)>
-  [5] #xxxx.1.1.num.bool <0 (0x0)>
+  [5] #xxxx.2.1.num.bool <0 (0x0)>
   [6] #xxxx.1.1.num.bool <1 (0x1)>
   [7] #xxxx.1.1.num.bool <0 (0x0)>
   [8] #xxxx.1.1.num.bool <0 (0x0)>
@@ -981,7 +981,7 @@ GC: --#xxxx.1.2.num.prim
   [1] #xxxx.2.1.num.bool <1 (0x1)>
   [2] #xxxx.2.1.num.bool <1 (0x1)>
   [3] #xxxx.2.1.num.bool <0 (0x0)>
-  [4] #xxxx.1.1.num.bool <0 (0x0)>
+  [4] #xxxx.2.1.num.bool <0 (0x0)>
   [5] #xxxx.1.1.num.bool <1 (0x1)>
   [6] #xxxx.1.1.num.bool <0 (0x0)>
   [7] #xxxx.1.1.num.bool <0 (0x0)>
@@ -1004,7 +1004,7 @@ GC: ++#xxxx.1.1.num.prim
   [2] #xxxx.2.1.num.bool <1 (0x1)>
   [3] #xxxx.2.1.num.bool <1 (0x1)>
   [4] #xxxx.2.1.num.bool <0 (0x0)>
-  [5] #xxxx.1.1.num.bool <0 (0x0)>
+  [5] #xxxx.2.1.num.bool <0 (0x0)>
   [6] #xxxx.1.1.num.bool <1 (0x1)>
   [7] #xxxx.1.1.num.bool <0 (0x0)>
   [8] #xxxx.1.1.num.bool <0 (0x0)>
@@ -1027,7 +1027,7 @@ GC: ++#xxxx.1.1.num.prim
   [3] #xxxx.2.1.num.bool <1 (0x1)>
   [4] #xxxx.2.1.num.bool <1 (0x1)>
   [5] #xxxx.2.1.num.bool <0 (0x0)>
-  [6] #xxxx.1.1.num.bool <0 (0x0)>
+  [6] #xxxx.2.1.num.bool <0 (0x0)>
   [7] #xxxx.1.1.num.bool <1 (0x1)>
   [8] #xxxx.1.1.num.bool <0 (0x0)>
   [9] #xxxx.1.1.num.bool <0 (0x0)>
@@ -1050,7 +1050,7 @@ GC: --#xxxx.1.2.num.prim
   [2] #xxxx.2.1.num.bool <1 (0x1)>
   [3] #xxxx.2.1.num.bool <1 (0x1)>
   [4] #xxxx.2.1.num.bool <0 (0x0)>
-  [5] #xxxx.1.1.num.bool <0 (0x0)>
+  [5] #xxxx.2.1.num.bool <0 (0x0)>
   [6] #xxxx.1.1.num.bool <1 (0x1)>
   [7] #xxxx.1.1.num.bool <0 (0x0)>
   [8] #xxxx.1.1.num.bool <0 (0x0)>
@@ -1075,7 +1075,7 @@ GC: --#xxxx.2.1.num.int
   [1] #xxxx.2.1.num.bool <1 (0x1)>
   [2] #xxxx.2.1.num.bool <1 (0x1)>
   [3] #xxxx.2.1.num.bool <0 (0x0)>
-  [4] #xxxx.1.1.num.bool <0 (0x0)>
+  [4] #xxxx.2.1.num.bool <0 (0x0)>
   [5] #xxxx.1.1.num.bool <1 (0x1)>
   [6] #xxxx.1.1.num.bool <0 (0x0)>
   [7] #xxxx.1.1.num.bool <0 (0x0)>

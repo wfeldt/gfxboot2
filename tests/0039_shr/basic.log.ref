@@ -433,7 +433,7 @@ GC: --#xxxx.1.1.num.int
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [0] #xxxx.2.1.num.int <-1 (0xffffffffffffffff)>
   [1] #xxxx.1.1.num.int <4611686018427387903 (0x3fffffffffffffff)>
   [2] #xxxx.1.1.num.int <65 (0x41)>
   [3] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
@@ -452,8 +452,8 @@ GC: --#xxxx.1.1.num.int
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <65 (0x41)>
-  [1] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [0] #xxxx.2.1.num.int <65 (0x41)>
+  [1] #xxxx.2.1.num.int <-1 (0xffffffffffffffff)>
   [2] #xxxx.1.1.num.int <4611686018427387903 (0x3fffffffffffffff)>
   [3] #xxxx.1.1.num.int <65 (0x41)>
   [4] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
@@ -469,8 +469,8 @@ GC: --#xxxx.1.1.num.int
   [14] #xxxx.1.1.num.int <-16 (0xfffffffffffffff0)>
   [15] #xxxx.1.1.num.int <16 (0x10)>
   [16] #xxxx.1.1.num.int <4096 (0x1000)>
-GC: --#xxxx.1.1.num.int
-GC: --#xxxx.1.1.num.int
+GC: --#xxxx.2.1.num.int
+GC: --#xxxx.2.1.num.int
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.1.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==

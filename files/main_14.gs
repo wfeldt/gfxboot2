@@ -1,3 +1,12 @@
+/f {
+  /zapp 7 def
+
+  true {
+    /a 200 def
+    /xxx self gdef
+  } if
+} def
+
 /Object (
   /type { class }
 ) nil class def
@@ -6,7 +15,7 @@
   /xfoo 0
   /ybar 0
 
-  /foo { xfoo }
+  /foo { f }
 
   /init { /ybar 200 def /xfoo xfoo 2 mul def }
 ) Object class def

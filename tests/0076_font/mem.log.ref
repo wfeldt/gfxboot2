@@ -1,35 +1,35 @@
 # ---  mem  ---
 ===  memory dump  ===
    0: 0x0000000c[      56] [11854484/      68]  #2.1.2.font <glyphs 256, size 8x16, line height 16, base 0>
-   1: 0x00000050[    6200] [      68/    6212]  #0.1.*.olist <size 240, next 229, max 258>
+   1: 0x00000050[    6200] [      68/    6212]  #0.1.*.olist <size 242, next 253, max 258>
    2: 0x00001894[     584] [    6212/     596]  #3.1.1.canv <geo 0x0_8x16, region 0x0_8x16, chk 0x8fb344e0>
    3: 0x00001ae8[ 1920072] [     596/ 1920084]  #4.1.1.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5d9feeb4>
    4: 0x001d673c[ 1920072] [ 1920084/ 1920084]  #5.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5d9feeb4>
    5: 0x003ab390[ 1024072] [ 1920084/ 1024084]  #6.1.1.canv <geo 80x100_640x400, region 0x0_640x400, chk 0x8ccedc00>
    6: 0x004a53e4[      72] [ 1024084/      84]  #7.1.1.array <size 1, max 16>
-   7: 0x004a5438[      72] [      84/      84]  #216.1.1.array <size 0, max 16>
-   8: 0x004a548c[      56] [      84/      68]  #217.1.1.ctx.func <code #215.1.10.mem.ro, ip 0x345 (0x345), dict #8.1.2.hash>
+   7: 0x004a5438[      72] [      84/      84]  #218.1.1.array <size 0, max 16>
+   8: 0x004a548c[      56] [      84/      68]  #219.1.1.ctx.func <code #217.1.10.mem.ro, ip 0x345 (0x345), dict #8.1.2.hash>
    9* 0x004a54d0[      20] [      68/      32]
-  10: 0x004a54f0[      72] [      32/      84]  #223.1.1.array <size 0, max 16>
-  11: 0x004a5544[      56] [      84/      68]  #224.1.1.font <glyphs 191, size 0x29, line height 31, base 6>
-  12: 0x004a5588[      56] [      68/      68]  #230.1.1.font <glyphs 191, size 10x16, line height 16, base 3>
-  13: 0x004a55cc[      56] [      68/      68]  #236.1.1.font <glyphs 191, size 0x17, line height 19, base 3>
-  14: 0x004a5610[      56] [      68/      68]  #242.1.2.font <glyphs 184, size 0x33, line height 35, base 10>
+  10: 0x004a54f0[      72] [      32/      84]  #225.1.1.array <size 0, max 16>
+  11: 0x004a5544[      56] [      84/      68]  #226.1.1.font <glyphs 191, size 0x29, line height 31, base 6>
+  12: 0x004a5588[      56] [      68/      68]  #232.1.1.font <glyphs 191, size 10x16, line height 16, base 3>
+  13: 0x004a55cc[      56] [      68/      68]  #238.1.1.font <glyphs 191, size 0x17, line height 19, base 3>
+  14: 0x004a5610[      56] [      68/      68]  #244.1.2.font <glyphs 184, size 0x33, line height 35, base 10>
   15: 0x004a5654[     280] [      68/     292]
-  16: 0x004a5778[    1044] [     292/    1056]  #8.1.2.hash <size 110, max 129>
-  17: 0x004a5b98[     840] [    1056/     852]  #215.1.10.mem.ro <size 837>
-  18: 0x004a5eec[   13676] [     852/   13688]  #222.1.1.mem <size 13673>
-  19: 0x004a9464[    2856] [   13688/    2868]  #225.1.1.canv <geo 0x0_14x18, region 0x0_24x29, chk 0xce87eda2>
-  20: 0x004a9f98[    7132] [    2868/    7144]  #229.1.1.mem <size 7132>
-  21: 0x004abb80[     712] [    7144/     724]  #231.1.1.canv <geo 0x0_10x16, region 0x0_10x16, chk 0xdf266770>
-  22: 0x004abe54[    7116] [     724/    7128]  #235.1.1.mem <size 7116>
-  23: 0x004ada2c[    1092] [    7128/    1104]  #237.1.1.canv <geo 0x0_8x10, region 0x0_15x17, chk 0xc91bf3b8>
-  24: 0x004ade7c[   13124] [    1104/   13136]  #241.1.1.mem <size 13122>
-  25: 0x004b11cc[    2976] [   13136/    2988]  #243.1.1.canv <geo 0x0_0x0, region 0x0_22x33, chk 0x00000000>
+  16: 0x004a5778[    1044] [     292/    1056]  #8.1.2.hash <size 111, max 129>
+  17: 0x004a5b98[     840] [    1056/     852]  #217.1.10.mem.ro <size 837>
+  18: 0x004a5eec[   13676] [     852/   13688]  #224.1.1.mem <size 13673>
+  19: 0x004a9464[    2856] [   13688/    2868]  #227.1.1.canv <geo 0x0_14x18, region 0x0_24x29, chk 0xce87eda2>
+  20: 0x004a9f98[    7132] [    2868/    7144]  #231.1.1.mem <size 7132>
+  21: 0x004abb80[     712] [    7144/     724]  #233.1.1.canv <geo 0x0_10x16, region 0x0_10x16, chk 0xdf266770>
+  22: 0x004abe54[    7116] [     724/    7128]  #237.1.1.mem <size 7116>
+  23: 0x004ada2c[    1092] [    7128/    1104]  #239.1.1.canv <geo 0x0_8x10, region 0x0_15x17, chk 0xc91bf3b8>
+  24: 0x004ade7c[   13124] [    1104/   13136]  #243.1.1.mem <size 13122>
+  25: 0x004b11cc[    2976] [   13136/    2988]  #245.1.1.canv <geo 0x0_0x0, region 0x0_22x33, chk 0x00000000>
   26: 0x004b1d78[11854472] [    2988/11854484]
 == object dump (id #0.1.*.olist) ==
-  #0.1.*.olist <size 240, next 229, max 258>
-  #0.1.*.olist <size 240, next 229, max 258>
+  #0.1.*.olist <size 242, next 253, max 258>
+  #0.1.*.olist <size 242, next 253, max 258>
   #1.1.1.mem.ro <size 4947>
     72 b5 4a 86 00 00 00 00 20 00 00 00 01 00 00 00  r.J..... .......
     00 01 00 00 10 00 00 00 10 00 00 00 08 00 00 00  ................
@@ -395,7 +395,7 @@
     |   ...,,,::::   ...,,,:::,   ...,,:::+.  ...,,,:::+   ...,,,:::+   ...,,,::::  .|
   #5.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5d9feeb4>
     cursor 1014x550_0x35, draw_mode 0, max 800x600
-    color #702fff90, bg_color #903070a0, font #242.1.2.font
+    color #702fff90, bg_color #903070a0, font #244.1.2.font
     unit 10x30
     | ,:::,,+:++o:..,.,,:+++o+: ,,,::++:++++ .,.:::+++o+:, ,.::,+:+++.,,,:,+:,::::   |
     | ..,,,,:::++:  ....,:::++: ,.,,,::::++,..,,,::::+++.. ..,,,:::++...,,,,:,::::   |
@@ -443,7 +443,7 @@
     |................................................................................|
   #7.1.1.array <size 1, max 16>
     [ 0] #5.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5d9feeb4>
-  #8.1.2.hash <size 110, max 129>
+  #8.1.2.hash <size 111, max 129>
     #18.1.1.mem.ref.ro <size 1, "("> => #17.1.1.num.prim <4 (0x4)>
     #20.1.1.mem.ref.ro <size 1, ")"> => #19.1.1.num.prim <5 (0x5)>
     #14.1.1.mem.ref.ro <size 1, "["> => #13.1.1.num.prim <2 (0x2)>
@@ -452,16 +452,16 @@
     #70.1.1.mem.ref.ro <size 3, "add"> => #69.1.1.num.prim <30 (0x1e)>
     #72.1.1.mem.ref.ro <size 4, "add!"> => #71.1.1.num.prim <31 (0x1f)>
     #92.1.1.mem.ref.ro <size 3, "and"> => #91.1.1.num.prim <41 (0x29)>
-    #238.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0xd9, size 8, "bar-font"> => #242.1.2.font <glyphs 184, size 0x33, line height 35, base 10>
+    #240.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0xd9, size 8, "bar-font"> => #244.1.2.font <glyphs 184, size 0x33, line height 35, base 10>
     #180.1.1.mem.ref.ro <size 3, "blt"> => #179.1.1.num.prim <85 (0x55)>
     #212.1.1.mem.ref.ro <size 5, "class"> => #211.1.1.num.prim <101 (0x65)>
     #116.1.1.mem.ref.ro <size 3, "cmp"> => #115.1.1.num.prim <53 (0x35)>
-    #218.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0xa, size 12, "console-font"> => #2.1.2.font <glyphs 256, size 8x16, line height 16, base 0>
+    #220.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0xa, size 12, "console-font"> => #2.1.2.font <glyphs 256, size 8x16, line height 16, base 0>
     #182.1.1.mem.ref.ro <size 5, "debug"> => #181.1.1.num.prim <86 (0x56)>
     #210.1.1.mem.ref.ro <size 8, "debugcmd"> => #209.1.1.num.prim <100 (0x64)>
     #192.1.1.mem.ref.ro <size 10, "decodeutf8"> => #191.1.1.num.prim <91 (0x5b)>
     #22.1.1.mem.ref.ro <size 3, "def"> => #21.1.1.num.prim <6 (0x6)>
-    #219.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0x52, size 14, "dejavu-sans-24"> => #224.1.1.font <glyphs 191, size 0x29, line height 31, base 6>
+    #221.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0x52, size 14, "dejavu-sans-24"> => #226.1.1.font <glyphs 191, size 0x29, line height 31, base 6>
     #50.1.1.mem.ref.ro <size 6, "delete"> => #49.1.1.num.prim <20 (0x14)>
     #172.1.1.mem.ref.ro <size 3, "dim"> => #171.1.1.num.prim <81 (0x51)>
     #80.1.1.mem.ref.ro <size 3, "div"> => #79.1.1.num.prim <35 (0x23)>
@@ -473,7 +473,7 @@
     #68.1.1.mem.ref.ro <size 4, "exec"> => #67.1.1.num.prim <29 (0x1d)>
     #40.1.1.mem.ref.ro <size 4, "exit"> => #39.1.1.num.prim <15 (0xf)>
     #190.1.1.mem.ref.ro <size 8, "fillrect"> => #189.1.1.num.prim <90 (0x5a)>
-    #232.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0xb3, size 8, "foo-font"> => #236.1.1.font <glyphs 191, size 0x17, line height 19, base 3>
+    #234.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0xb3, size 8, "foo-font"> => #238.1.1.font <glyphs 191, size 0x17, line height 19, base 3>
     #36.1.1.mem.ref.ro <size 3, "for"> => #35.1.1.num.prim <13 (0xd)>
     #38.1.1.mem.ref.ro <size 6, "forall"> => #37.1.1.num.prim <14 (0xe)>
     #196.1.1.mem.ref.ro <size 6, "format"> => #195.1.1.num.prim <93 (0x5d)>
@@ -496,7 +496,7 @@
     #138.1.1.mem.ref.ro <size 6, "getpos"> => #137.1.1.num.prim <64 (0x40)>
     #148.1.1.mem.ref.ro <size 9, "getregion"> => #147.1.1.num.prim <69 (0x45)>
     #108.1.1.mem.ref.ro <size 2, "gt"> => #107.1.1.num.prim <49 (0x31)>
-    #226.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0x8a, size 7, "hack-14"> => #230.1.1.font <glyphs 191, size 10x16, line height 16, base 3>
+    #228.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0x8a, size 7, "hack-14"> => #232.1.1.font <glyphs 191, size 10x16, line height 16, base 3>
     #28.1.1.mem.ref.ro <size 2, "if"> => #27.1.1.num.prim <9 (0x9)>
     #30.1.1.mem.ref.ro <size 6, "ifelse"> => #29.1.1.num.prim <10 (0xa)>
     #66.1.1.mem.ref.ro <size 5, "index"> => #65.1.1.num.prim <28 (0x1c)>
@@ -527,6 +527,7 @@
     #62.1.1.mem.ref.ro <size 4, "roll"> => #61.1.1.num.prim <26 (0x1a)>
     #60.1.1.mem.ref.ro <size 3, "rot"> => #59.1.1.num.prim <25 (0x19)>
     #174.1.1.mem.ref.ro <size 3, "run"> => #173.1.1.num.prim <82 (0x52)>
+    #216.1.1.mem.ref.ro <size 4, "self"> => #215.1.1.num.prim <103 (0x67)>
     #136.1.1.mem.ref.ro <size 10, "setbgcolor"> => #135.1.1.num.prim <63 (0x3f)>
     #164.1.1.mem.ref.ro <size 9, "setcanvas"> => #163.1.1.num.prim <77 (0x4d)>
     #132.1.1.mem.ref.ro <size 8, "setcolor"> => #131.1.1.num.prim <61 (0x3d)>
@@ -547,8 +548,8 @@
     #44.1.1.mem.ref.ro <size 6, "string"> => #43.1.1.num.prim <17 (0x11)>
     #74.1.1.mem.ref.ro <size 3, "sub"> => #73.1.1.num.prim <32 (0x20)>
     #76.1.1.mem.ref.ro <size 4, "sub!"> => #75.1.1.num.prim <33 (0x21)>
-    #246.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0x14a, size 4, "test"> => #247.1.1.mem.code.ro <#215.1.10.mem.ro, ofs 0x151, size 332>
-    #244.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0xff, size 4, "text"> => #245.1.1.mem.str.ro <#215.1.10.mem.ro, ofs 0x105, size 64, "ABC &%$ *+~ ÄÖß|| 12345 xyA_z_AjzjxjJ # * % & § öäüß €">
+    #248.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0x14a, size 4, "test"> => #249.1.1.mem.code.ro <#217.1.10.mem.ro, ofs 0x151, size 332>
+    #246.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0xff, size 4, "text"> => #247.1.1.mem.str.ro <#217.1.10.mem.ro, ofs 0x105, size 64, "ABC &%$ *+~ ÄÖß|| 12345 xyA_z_AjzjxjJ # * % & § öäüß €">
     #178.1.1.mem.ref.ro <size 11, "unpackimage"> => #177.1.1.num.prim <84 (0x54)>
     #202.1.1.mem.ref.ro <size 12, "updatescreen"> => #201.1.1.num.prim <96 (0x60)>
     #96.1.1.mem.ref.ro <size 3, "xor"> => #95.1.1.num.prim <43 (0x2b)>
@@ -863,7 +864,10 @@
   #213.1.1.num.prim <102 (0x66)>
   #214.1.1.mem.ref.ro <size 3, "new">
     6e 65 77                                         new
-  #215.1.10.mem.ro <size 837>
+  #215.1.1.num.prim <103 (0x67)>
+  #216.1.1.mem.ref.ro <size 4, "self">
+    73 65 6c 66                                      self
+  #217.1.10.mem.ro <size 837>
     75 51 12 a9 42 7a ad 60 c9 0c 63 6f 6e 73 6f 6c  uQ..Bz.`..consol
     65 2d 66 6f 6e 74 98 67 65 74 63 61 6e 76 61 73  e-font.getcanvas
     a8 67 65 74 63 6f 6e 73 6f 6c 65 98 73 65 74 63  .getconsole.setc
@@ -917,18 +921,18 @@
     91 90 01 88 66 6f 6f 2d 66 6f 6e 74 48 74 65 73  ....foo-fontHtes
     74 91 90 01 91 90 01 88 62 61 72 2d 66 6f 6e 74  t.......bar-font
     48 74 65 73 74                                   Htest
-  #216.1.1.array <size 0, max 16>
-  #217.1.1.ctx.func <code #215.1.10.mem.ro, ip 0x345 (0x345), dict #8.1.2.hash>
+  #218.1.1.array <size 0, max 16>
+  #219.1.1.ctx.func <code #217.1.10.mem.ro, ip 0x345 (0x345), dict #8.1.2.hash>
     type 17, ip 0x345 (0x345)
-    code #215.1.10.mem.ro
+    code #217.1.10.mem.ro
     parent #0.0.nil
     dict #8.1.2.hash
     iterate #0.0.nil
-  #218.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0xa, size 12, "console-font">
+  #220.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0xa, size 12, "console-font">
     63 6f 6e 73 6f 6c 65 2d 66 6f 6e 74              console-font
-  #219.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0x52, size 14, "dejavu-sans-24">
+  #221.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0x52, size 14, "dejavu-sans-24">
     64 65 6a 61 76 75 2d 73 61 6e 73 2d 32 34        dejavu-sans-24
-  #222.1.1.mem <size 13673>
+  #224.1.1.mem <size 13673>
     23 91 2a a4 00 00 00 18 18 1d 1f 06 bf 00 00 00  #.*.............
     20 00 60 79 00 21 00 e0 79 00 22 00 60 7d 00 23   .`y.!..y.".`}.#
     00 00 81 00 24 00 80 8b 00 25 00 e0 95 00 26 00  ....$....%....&.
@@ -1784,16 +1788,16 @@
     0d 60 ff e1 d1 46 3f 68 a3 fb be ea d9 6f f9 aa  .`...F?h.....o..
     db 0f d1 5d 7e c8 e6 70 85 39 a2 9b 2b 20 8c d3  ...]~..p.9..+ ..
     23 fc 63 f1 99 76 af 01 00                       #.c..v...
-  #223.1.1.array <size 0, max 16>
-  #224.1.1.font <glyphs 191, size 0x29, line height 31, base 6>
+  #225.1.1.array <size 0, max 16>
+  #226.1.1.font <glyphs 191, size 0x29, line height 31, base 6>
     type 2, glyphs 191
     font size 0x29, line height 31, baseline 6
     bitmap size 24x29
     bitmap table: offset 971, size 12702
     char index: offset 16, size 955
-    data_id #222.1.1.mem
-    glyph_id #225.1.1.canv
-  #225.1.1.canv <geo 0x0_14x18, region 0x0_24x29, chk 0xce87eda2>
+    data_id #224.1.1.mem
+    glyph_id #227.1.1.canv
+  #227.1.1.canv <geo 0x0_14x18, region 0x0_24x29, chk 0xce87eda2>
     cursor 0x0_0x0, draw_mode 0, max 24x29
     color #00000000, bg_color #00000000, font #0.0.nil
     unit 1x1
@@ -1815,9 +1819,9 @@
     |    ++:.   .:,|
     |     :++++++: |
     |      .:++:.  |
-  #226.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0x8a, size 7, "hack-14">
+  #228.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0x8a, size 7, "hack-14">
     68 61 63 6b 2d 31 34                             hack-14
-  #229.1.1.mem <size 7132>
+  #231.1.1.mem <size 7132>
     23 91 2a a4 0a 00 00 09 0f 10 10 03 bf 00 00 00  #.*.............
     20 00 60 79 00 21 00 e0 79 00 22 00 40 7c 00 23   .`y.!..y.".@|.#
     00 00 7e 00 24 00 c0 82 00 25 00 c0 87 00 26 00  ..~.$....%....&.
@@ -2264,15 +2268,15 @@
     c1 f5 54 4b 44 00 be 02 11 29 00 10 40 24 b7 06  ..TKD....)..@$..
     c0 a6 04 09 54 bb ee c3 00 91 1a 11 00 f7 09 80  ....T...........
     b8 8e f0 48 8b 4f 77 c4 c4 81 dc 1a              ...H.Ow.....
-  #230.1.1.font <glyphs 191, size 10x16, line height 16, base 3>
+  #232.1.1.font <glyphs 191, size 10x16, line height 16, base 3>
     type 2, glyphs 191
     font size 10x16, line height 16, baseline 3
     bitmap size 10x16
     bitmap table: offset 971, size 6161
     char index: offset 16, size 955
-    data_id #229.1.1.mem
-    glyph_id #231.1.1.canv
-  #231.1.1.canv <geo 0x0_10x16, region 0x0_10x16, chk 0xdf266770>
+    data_id #231.1.1.mem
+    glyph_id #233.1.1.canv
+  #233.1.1.canv <geo 0x0_10x16, region 0x0_10x16, chk 0xdf266770>
     cursor 0x0_0x0, draw_mode 0, max 10x16
     color #00000000, bg_color #00000000, font #0.0.nil
     unit 1x1
@@ -2292,9 +2296,9 @@
     |          |
     |          |
     |          |
-  #232.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0xb3, size 8, "foo-font">
+  #234.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0xb3, size 8, "foo-font">
     66 6f 6f 2d 66 6f 6e 74                          foo-font
-  #235.1.1.mem <size 7116>
+  #237.1.1.mem <size 7116>
     23 91 2a a4 00 00 00 0f 0e 11 13 03 bf 00 00 00  #.*.............
     20 00 60 79 00 21 00 e0 79 00 22 00 60 7b 00 23   .`y.!..y.".`{.#
     00 20 7d 00 24 00 00 82 00 25 00 c0 86 00 26 00  . }.$....%....&.
@@ -2740,15 +2744,15 @@
     f5 1c 87 83 7a 1c d2 e5 a9 97 02 11 29 00 12 40  ....z.......)..@
     1c b7 12 c0 aa 80 20 54 bb f6 85 00 99 ae fd a0  ...... T........
     a3 da 17 4d be e3 01 41 87 71 2b 01              ...M...A.q+.
-  #236.1.1.font <glyphs 191, size 0x17, line height 19, base 3>
+  #238.1.1.font <glyphs 191, size 0x17, line height 19, base 3>
     type 2, glyphs 191
     font size 0x17, line height 19, baseline 3
     bitmap size 15x17
     bitmap table: offset 971, size 6145
     char index: offset 16, size 955
-    data_id #235.1.1.mem
-    glyph_id #237.1.1.canv
-  #237.1.1.canv <geo 0x0_8x10, region 0x0_15x17, chk 0xc91bf3b8>
+    data_id #237.1.1.mem
+    glyph_id #239.1.1.canv
+  #239.1.1.canv <geo 0x0_8x10, region 0x0_15x17, chk 0xc91bf3b8>
     cursor 0x0_0x0, draw_mode 0, max 15x17
     color #00000000, bg_color #00000000, font #0.0.nil
     unit 1x1
@@ -2762,9 +2766,9 @@
     |  +.    |
     |  ,:   ,|
     |   .:+:.|
-  #238.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0xd9, size 8, "bar-font">
+  #240.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0xd9, size 8, "bar-font">
     62 61 72 2d 66 6f 6e 74                          bar-font
-  #241.1.1.mem <size 13122>
+  #243.1.1.mem <size 13122>
     23 91 2a a4 00 00 00 16 1f 21 23 0a b8 00 00 00  #.*......!#.....
     20 00 00 75 00 21 00 80 75 00 22 00 40 78 00 23   ..u.!..u.".@x.#
     00 60 7b 00 24 00 20 84 00 25 00 00 91 00 26 00  .`{.$. ..%....&.
@@ -3586,28 +3590,28 @@
     1b 30 dd 02 40 e4 61 ed bd 6e 66 2e 8f b5 23 9a  .0..@.a..nf...#.
     c7 15 01 99 11 39 a8 01 63 15 00 a1 ac 02 a1 ad  .....9..c.......
     e5 00                                            ..
-  #242.1.2.font <glyphs 184, size 0x33, line height 35, base 10>
+  #244.1.2.font <glyphs 184, size 0x33, line height 35, base 10>
     type 2, glyphs 184
     font size 0x33, line height 35, baseline 10
     bitmap size 22x33
     bitmap table: offset 936, size 12186
     char index: offset 16, size 920
-    data_id #241.1.1.mem
-    glyph_id #243.1.1.canv
-  #243.1.1.canv <geo 0x0_0x0, region 0x0_22x33, chk 0x00000000>
+    data_id #243.1.1.mem
+    glyph_id #245.1.1.canv
+  #245.1.1.canv <geo 0x0_0x0, region 0x0_22x33, chk 0x00000000>
     cursor 0x0_0x0, draw_mode 0, max 22x33
     color #00000000, bg_color #00000000, font #0.0.nil
     unit 1x1
-  #244.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0xff, size 4, "text">
+  #246.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0xff, size 4, "text">
     74 65 78 74                                      text
-  #245.1.1.mem.str.ro <#215.1.10.mem.ro, ofs 0x105, size 64, "ABC &%$ *+~ ÄÖß|| 12345 xyA_z_AjzjxjJ # * % & § öäüß €">
+  #247.1.1.mem.str.ro <#217.1.10.mem.ro, ofs 0x105, size 64, "ABC &%$ *+~ ÄÖß|| 12345 xyA_z_AjzjxjJ # * % & § öäüß €">
     41 42 43 20 26 25 24 20 2a 2b 7e 20 c3 84 c3 96  ABC &%$ *+~ ....
     c3 9f 7c 7c 20 31 32 33 34 35 20 78 79 41 5f 7a  ..|| 12345 xyA_z
     5f 41 6a 7a 6a 78 6a 4a 20 23 20 2a 20 25 20 26  _AjzjxjJ # * % &
     20 c2 a7 20 c3 b6 c3 a4 c3 bc c3 9f 20 e2 82 ac   .. ........ ...
-  #246.1.1.mem.ref.ro <#215.1.10.mem.ro, ofs 0x14a, size 4, "test">
+  #248.1.1.mem.ref.ro <#217.1.10.mem.ro, ofs 0x14a, size 4, "test">
     74 65 73 74                                      test
-  #247.1.1.mem.code.ro <#215.1.10.mem.ro, ofs 0x151, size 332>
+  #249.1.1.mem.code.ro <#217.1.10.mem.ro, ofs 0x151, size 332>
     78 73 65 74 66 6f 6e 74 19 79 48 65 78 63 68 38  xsetfont.yHexch8
     64 65 66 19 78 48 65 78 63 68 38 64 65 66 c1 00  def.xHexch8def..
     00 00 ff 00 a8 73 65 74 62 67 63 6f 6c 6f 72 b1  .....setbgcolor.

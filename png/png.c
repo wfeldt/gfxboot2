@@ -8,11 +8,21 @@
 // Define WITH_Z_LOG to get lots of debug output.
 //
 
+#define WITH_PNG_LOG	1
+
 #ifdef WITH_Z_LOG
 #include <stdio.h>
 #define Z_LOG(a...) fprintf(stderr, a)
 #else
 #define Z_LOG(a...)
+#endif
+
+
+#ifdef WITH_PNG_LOG
+#include <stdio.h>
+#define PNG_LOG(a...) fprintf(stderr, a)
+#else
+#define PNG_LOG(a...)
 #endif
 
 
@@ -22,6 +32,8 @@
 
 typedef __UINT8_TYPE__ uint8_t;
 typedef __UINT16_TYPE__ uint16_t;
+typedef __UINT32_TYPE__ uint32_t;
+typedef __UINT64_TYPE__ uint64_t;
 
 typedef struct {
   struct {
@@ -477,6 +489,139 @@ void z_inflate(z_inflate_state_t *inflate_state)
 }
 
 
+#define PNG_CHUNK_IHDR		0x49484452
+#define PNG_CHUNK_IEND		0x49454e44
+#define PNG_CHUNK_IDAT		0x49444154
+#define PNG_CHUNK_PLTE		0x504c5445
+
+typedef struct {
+  unsigned type, len, crc;
+  uint8_t *buf;
+} png_chunk_t;
+
+
+typedef struct {
+  struct {
+    uint8_t *buf;
+    unsigned len, pos;
+    png_chunk_t chunk;
+  } input;
+  struct {
+    uint8_t *buf;
+    unsigned len, pos;
+  } output;
+  unsigned width, height, pixel_bytes;
+  unsigned bad;
+  z_inflate_state_t *z;
+} png_image_state_t;
+
+
+uint32_t png_get_uint32(uint8_t *buf)
+{
+  return (buf[0] << 24) + (buf[1] << 16) + (buf[2] << 8) + buf[3];
+}
+
+png_chunk_t *png_get_chunk(png_image_state_t *image_state)
+{
+  unsigned pos = image_state->input.pos;
+
+  if(pos + 12 > image_state->input.len) {
+    image_state->bad = __LINE__;
+    return NULL;
+  }
+
+  unsigned len = png_get_uint32(image_state->input.buf + pos);
+
+  unsigned type = png_get_uint32(image_state->input.buf + pos + 4);
+
+  PNG_LOG("+++ chunk: type 0x%04x '%c%c%c%c', len %u\n", type, (type >> 24) & 0xff, (type >> 16) & 0xff, (type >> 8) & 0xff, type & 0xff, len);
+
+  if(image_state->input.pos + 12 + len > image_state->input.len) {
+    image_state->bad = __LINE__;
+    return NULL;
+  }
+
+  unsigned crc = png_get_uint32(image_state->input.buf + pos + 8 + len);
+
+  image_state->input.chunk.len = len;
+  image_state->input.chunk.type = type;
+  image_state->input.chunk.crc = crc;
+  image_state->input.chunk.buf = image_state->input.buf + pos + 8;
+
+  image_state->input.pos += 12 + len;
+
+  return &image_state->input.chunk;
+}
+
+
+void png_decode(png_image_state_t *image_state)
+{
+  png_chunk_t *chunk;
+
+  while((chunk = png_get_chunk(image_state))) {
+    if(chunk->type == PNG_CHUNK_IEND) break;
+
+    if(chunk->type == PNG_CHUNK_IDAT) {
+      fwrite(chunk->buf, chunk->len, 1, stdout);
+    }
+
+
+  }
+}
+
+
+void png_get_size(png_image_state_t *image_state)
+{
+  if(image_state->input.len < 8) {
+    image_state->bad = __LINE__;
+    return;
+  }
+
+  uint64_t signature = ((uint64_t) png_get_uint32(image_state->input.buf) << 32) + png_get_uint32(image_state->input.buf + 4);
+
+  PNG_LOG("+++ sig = 0x%016llx\n", (unsigned long long) signature);
+
+  if(signature != 0x89504e470d0a1a0a) {
+    image_state->bad = __LINE__;
+    return;
+  }
+
+  image_state->input.pos = 8;
+
+  png_chunk_t *chunk = png_get_chunk(image_state);
+
+  if(!chunk) return;
+
+  if(chunk->type != PNG_CHUNK_IHDR || chunk->len != 13) {
+    image_state->bad = __LINE__;
+    return;
+  }
+
+  unsigned width = png_get_uint32(chunk->buf);
+  unsigned height = png_get_uint32(chunk->buf + 4);
+
+  unsigned bits = chunk->buf[8];
+  unsigned color_type = chunk->buf[9];
+  unsigned compression = chunk->buf[10];
+  unsigned filter = chunk->buf[11];
+  unsigned interlace = chunk->buf[12];
+
+  PNG_LOG(
+    "+++ width %u, hwight %u, bits %u, color_type %u, compression %u, filter %u, interlace %u\n",
+    width, height, bits, color_type, compression, filter, interlace
+  );
+
+  if(bits != 8 || !(color_type == 2 || color_type == 6) || compression != 0 || filter != 0 || interlace != 0) {
+    image_state->bad = __LINE__;
+    return;
+  }
+
+  image_state->width = width;
+  image_state->height = height;
+  image_state->pixel_bytes = color_type == 2 ? 3 : 4;
+}
+
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -484,33 +629,35 @@ void z_inflate(z_inflate_state_t *inflate_state)
 
 int main()
 {
-  z_inflate_state_t *inflate_state = &(z_inflate_state_t) { };
+  png_image_state_t *image_state = &(png_image_state_t) { };
 
-  inflate_state->input.len = TEST_BUF_SIZE;
-  inflate_state->input.buf = calloc(1, TEST_BUF_SIZE);
+  image_state->input.len = TEST_BUF_SIZE;
+  image_state->input.buf = calloc(1, TEST_BUF_SIZE);
 
-  inflate_state->output.len = TEST_BUF_SIZE;
-  inflate_state->output.buf = calloc(1, TEST_BUF_SIZE);
+  image_state->output.len = TEST_BUF_SIZE;
+  image_state->output.buf = calloc(1, TEST_BUF_SIZE);
 
   for(int i; (i = getchar()) >= 0; ) {
-    inflate_state->input.buf[inflate_state->input.pos++] = i;
-    if(inflate_state->input.pos >= inflate_state->input.len) break;
+    image_state->input.buf[image_state->input.pos++] = i;
+    if(image_state->input.pos >= image_state->input.len) break;
   }
 
-  inflate_state->input.len = inflate_state->input.pos;
-  inflate_state->input.pos = 0;
+  image_state->input.len = image_state->input.pos;
+  image_state->input.pos = 0;
 
-  z_inflate(inflate_state);
+  png_get_size(image_state);
 
-  Z_LOG("+++ in %d, out %d\n", inflate_state->input.pos, inflate_state->output.pos);
+  png_decode(image_state);
 
-  if(inflate_state->bad) {
-    Z_LOG("+++ invalid data at line %u +++\n", inflate_state->bad);
+  PNG_LOG("+++ in %d, out %d\n", image_state->input.pos, image_state->output.pos);
+
+  if(image_state->bad) {
+    PNG_LOG("+++ invalid data at line %u +++\n", image_state->bad);
   }
 
-  for(unsigned u = 0; u < inflate_state->output.pos; u++) {
-    putchar(inflate_state->output.buf[u]);
+  for(unsigned u = 0; u < image_state->output.pos; u++) {
+    putchar(image_state->output.buf[u]);
   }
 
-  return inflate_state->bad ? 1 : 0;
+  return image_state->bad ? 1 : 0;
 }

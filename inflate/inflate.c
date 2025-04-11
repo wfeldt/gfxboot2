@@ -2,6 +2,9 @@
 //
 // See rfc 1950 and rfc 1951 for technical details.
 //
+// https://www.ietf.org/rfc/rfc1950.txt
+// https://www.ietf.org/rfc/rfc1951.txt
+//
 // Define WITH_Z_LOG to get lots of debug output.
 //
 

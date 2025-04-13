@@ -19,6 +19,7 @@
 #define Z_MAX_CODE_BITS		15
 #define Z_MAX_SYMS		288
 #define Z_ADLER32_MODULO	65521
+#define Z_WINDOW_SIZE		0x8000
 
 typedef __UINT8_TYPE__ uint8_t;
 typedef __UINT16_TYPE__ uint16_t;
@@ -40,12 +41,17 @@ typedef struct {
     uint8_t *buf;
     unsigned len, pos;
   } output;
+  struct {
+    uint8_t *buf;
+    unsigned pos;
+  } window;
   unsigned bad;
   z_huff_table_t huff_lit, huff_dist, huff_clen;
 } z_inflate_state_t;
 
 
 unsigned z_adler32(z_inflate_state_t *inflate_state);
+void z_out_byte(z_inflate_state_t *inflate_state, unsigned val);
 void z_put_byte(z_inflate_state_t *inflate_state, unsigned val);
 void z_copy_bytes(z_inflate_state_t *inflate_state, unsigned dist, unsigned len);
 unsigned z_get_byte(z_inflate_state_t *inflate_state);
@@ -75,7 +81,7 @@ unsigned z_adler32(z_inflate_state_t *inflate_state)
 }
 
 
-void z_put_byte(z_inflate_state_t *inflate_state, unsigned val)
+void z_out_byte(z_inflate_state_t *inflate_state, unsigned val)
 {
   if(inflate_state->output.pos < inflate_state->output.len) {
     inflate_state->output.buf[inflate_state->output.pos++] = val;
@@ -88,18 +94,21 @@ void z_put_byte(z_inflate_state_t *inflate_state, unsigned val)
 }
 
 
+void z_put_byte(z_inflate_state_t *inflate_state, unsigned val)
+{
+  inflate_state->window.buf[inflate_state->window.pos] = val;
+  inflate_state->window.pos = (inflate_state->window.pos + 1) & (Z_WINDOW_SIZE - 1);
+
+  z_out_byte(inflate_state, val);
+}
+
+
 void z_copy_bytes(z_inflate_state_t *inflate_state, unsigned dist, unsigned len)
 {
   Z_LOG("+++ copy: dist = %u, len = %u\n", dist, len);
 
-  if(inflate_state->output.pos < dist || inflate_state->output.pos + len > inflate_state->output.len) {
-    inflate_state->bad = __LINE__;
-    return;
-  }
-
-  for(unsigned u = inflate_state->output.pos - dist; len; len--) {
-    Z_LOG("<%02x>", inflate_state->output.buf[u]);
-    inflate_state->output.buf[inflate_state->output.pos++] = inflate_state->output.buf[u++];
+  while(len--) {
+    z_put_byte(inflate_state, inflate_state->window.buf[(inflate_state->window.pos - dist) & (Z_WINDOW_SIZE - 1)]);
   }
 }
 
@@ -491,6 +500,8 @@ int main()
 
   inflate_state->output.len = TEST_BUF_SIZE;
   inflate_state->output.buf = calloc(1, TEST_BUF_SIZE);
+
+  inflate_state->window.buf = calloc(1, Z_WINDOW_SIZE);
 
   for(int i; (i = getchar()) >= 0; ) {
     inflate_state->input.buf[inflate_state->input.pos++] = i;

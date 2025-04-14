@@ -16,11 +16,6 @@ typedef enum {
   op_eq, op_ne, op_gt, op_ge, op_lt, op_le, op_cmp
 } cmp_op_t;
 
-typedef struct {
-  obj_id_t id;
-  obj_t *ptr;
-} arg_t;
-
 static arg_t *gfx_arg_1(uint8_t type);
 static arg_t *gfx_arg_n(unsigned argc, uint8_t arg_types[]);
 static int is_true(obj_id_t id);
@@ -34,8 +29,6 @@ static void gfx_prim__add(unsigned direct);
 #define IS_NIL		0x80
 #define IS_RW		0x40
 #define TYPE_MASK	0x3f
-
-static void arg_update(arg_t *arg) { arg->ptr = gfx_obj_ptr(arg->id); }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 arg_t *gfx_arg_1(uint8_t type)

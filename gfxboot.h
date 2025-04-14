@@ -567,6 +567,9 @@ void gfx_show_error(void);
 int gfx_jpeg_decode(uint8_t *jpeg, uint8_t *img, int x_0, int x_1, int y_0, int y_1, int color_bits);
 unsigned gfx_jpeg_getsize(uint8_t *buf);
 
+unsigned gfx_png_getsize(uint8_t *buf, unsigned len);
+unsigned gfx_png_decode(uint8_t *in_buf, unsigned in_len, uint8_t *out_buf, unsigned out_len, uint8_t *window_buf);
+
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // gfxboot_prim.c
@@ -576,3 +579,14 @@ error_id_t gfx_run_prim(unsigned prim);
 void gfx_exec_id(obj_id_t dict, obj_id_t id, int on_stack);
 void gfx_prim_get_x(data_t *key);
 void gfx_prim_put_x(obj_id_t id);
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// general id/ptr pair handling
+//
+typedef struct {
+  obj_id_t id;
+  obj_t *ptr;
+} arg_t;
+
+static void __attribute__((unused)) arg_update(arg_t *arg) { arg->ptr = gfx_obj_ptr(arg->id); }

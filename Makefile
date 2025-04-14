@@ -10,13 +10,14 @@ endif
 
 CC      = gcc
 CFLAGS  = -g -O2 $(OPT_32BIT) -I. -Wall -Wno-pointer-sign -Wsign-conversion -Wsign-compare
+
 LDFLAGS = $(OPT_32BIT)
 
 GFXBOOT_MAIN       ?= files/main.gs
 
 GFXBOOT_LIB_SRC    = gfxboot.c gfxboot_main.c \
                      gfxboot_array.c gfxboot_canvas.c gfxboot_draw.c gfxboot_font.c gfxboot_hash.c gfxboot_context.c \
-                     gfxboot_lib.c gfxboot_malloc.c gfxboot_jpeg.c \
+                     gfxboot_lib.c gfxboot_malloc.c gfxboot_jpeg.c gfxboot_png.c \
                      gfxboot_mem.c gfxboot_num.c gfxboot_obj.c gfxboot_olist.c gfxboot_prim.c gfxboot_debug.c
 GFXBOOT_LIB_OBJ    = $(GFXBOOT_LIB_SRC:.c=.o)
 

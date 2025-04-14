@@ -1,7 +1,6 @@
-diff -r -u grub-2.06.orig/grub-core/Makefile.core.def grub-2.06/grub-core/Makefile.core.def
---- grub-2.06.orig/grub-core/Makefile.core.def	2023-01-30 14:19:42.437138023 +0100
-+++ grub-2.06/grub-core/Makefile.core.def	2023-01-30 14:24:21.848790570 +0100
-@@ -1630,6 +1630,28 @@
+--- a/grub-core/Makefile.core.def
++++ b/grub-core/Makefile.core.def
+@@ -1630,6 +1630,29 @@
  };
  
  module = {
@@ -23,6 +22,7 @@ diff -r -u grub-2.06.orig/grub-core/Makefile.core.def grub-2.06/grub-core/Makefi
 +  common = gfxboot/gfxboot_num.c;
 +  common = gfxboot/gfxboot_obj.c;
 +  common = gfxboot/gfxboot_olist.c;
++  common = gfxboot/gfxboot_png.c;
 +  common = gfxboot/gfxboot_prim.c;
 +};
 +
@@ -30,10 +30,8 @@ diff -r -u grub-2.06.orig/grub-core/Makefile.core.def grub-2.06/grub-core/Makefi
    name = hello;
    common = hello/hello.c;
  };
-Only in grub-2.06/grub-core: Makefile.core.def.orig
-diff -r -u grub-2.06.orig/grub-core/normal/menu.c grub-2.06/grub-core/normal/menu.c
---- grub-2.06.orig/grub-core/normal/menu.c	2023-01-30 14:19:42.325136598 +0100
-+++ grub-2.06/grub-core/normal/menu.c	2023-01-30 14:27:00.495163630 +0100
+--- a/grub-core/normal/menu.c
++++ b/grub-core/normal/menu.c
 @@ -391,6 +391,19 @@
  
  static struct grub_menu_viewer *viewers;
@@ -87,12 +85,8 @@ diff -r -u grub-2.06.orig/grub-core/normal/menu.c grub-2.06/grub-core/normal/men
        /* Negative values are returned on error. */
        if ((c != GRUB_TERM_NO_KEY) && (c > 0))
  	{
-Only in grub-2.06/grub-core/normal: menu.c.orig
-Only in grub-2.06/grub-core/normal: menu.c.rej
-Only in grub-2.06/grub-core/normal: menu.c~
-diff -r -u grub-2.06.orig/grub-core/video/efi_gop.c grub-2.06/grub-core/video/efi_gop.c
---- grub-2.06.orig/grub-core/video/efi_gop.c	2023-01-30 14:19:42.133134156 +0100
-+++ grub-2.06/grub-core/video/efi_gop.c	2023-01-30 14:24:21.848790570 +0100
+--- a/grub-core/video/efi_gop.c
++++ b/grub-core/video/efi_gop.c
 @@ -581,6 +581,24 @@
    return GRUB_ERR_NONE;
  }
@@ -126,10 +120,8 @@ diff -r -u grub-2.06.orig/grub-core/video/efi_gop.c grub-2.06/grub-core/video/ef
      .get_info_and_fini = grub_video_gop_get_info_and_fini,
      .get_edid = grub_video_gop_get_edid,
      .set_palette = grub_video_fb_set_palette,
-Only in grub-2.06/grub-core/video: efi_gop.c.orig
-diff -r -u grub-2.06.orig/grub-core/video/fb/video_fb.c grub-2.06/grub-core/video/fb/video_fb.c
---- grub-2.06.orig/grub-core/video/fb/video_fb.c	2023-01-30 14:19:42.133134156 +0100
-+++ grub-2.06/grub-core/video/fb/video_fb.c	2023-01-30 14:27:46.583853058 +0100
+--- a/grub-core/video/fb/video_fb.c
++++ b/grub-core/video/fb/video_fb.c
 @@ -26,6 +26,7 @@
  #include <grub/bitmap.h>
  #include <grub/dl.h>
@@ -165,12 +157,8 @@ diff -r -u grub-2.06.orig/grub-core/video/fb/video_fb.c grub-2.06/grub-core/vide
  
    return GRUB_ERR_NONE;
  }
-Only in grub-2.06/grub-core/video/fb: video_fb.c.orig
-Only in grub-2.06/grub-core/video/fb: video_fb.c.rej
-Only in grub-2.06/grub-core/video/fb: video_fb.c~
-diff -r -u grub-2.06.orig/grub-core/video/video.c grub-2.06/grub-core/video/video.c
---- grub-2.06.orig/grub-core/video/video.c	2023-01-30 14:19:42.133134156 +0100
-+++ grub-2.06/grub-core/video/video.c	2023-01-30 14:24:21.848790570 +0100
+--- a/grub-core/video/video.c
++++ b/grub-core/video/video.c
 @@ -60,7 +60,28 @@
        return grub_errno;
      }
@@ -210,9 +198,8 @@ diff -r -u grub-2.06.orig/grub-core/video/video.c grub-2.06/grub-core/video/vide
  	  if (err != GRUB_ERR_NONE)
  	    {
  	      p->fini ();
-diff -r -u grub-2.06.orig/include/grub/menu_viewer.h grub-2.06/include/grub/menu_viewer.h
---- grub-2.06.orig/include/grub/menu_viewer.h	2023-01-30 14:19:41.829130288 +0100
-+++ grub-2.06/include/grub/menu_viewer.h	2023-01-30 14:24:21.848790570 +0100
+--- a/include/grub/menu_viewer.h
++++ b/include/grub/menu_viewer.h
 @@ -35,6 +35,7 @@
    void (*clear_timeout) (void *data);
    void (*scroll_chosen_entry) (void *data, int diren);
@@ -221,9 +208,8 @@ diff -r -u grub-2.06.orig/include/grub/menu_viewer.h grub-2.06/include/grub/menu
  };
  
  void grub_menu_register_viewer (struct grub_menu_viewer *viewer);
-diff -r -u grub-2.06.orig/include/grub/video.h grub-2.06/include/grub/video.h
---- grub-2.06.orig/include/grub/video.h	2018-11-24 18:13:02.000000000 +0100
-+++ grub-2.06/include/grub/video.h	2023-01-30 14:24:21.848790570 +0100
+--- a/include/grub/video.h
++++ b/include/grub/video.h
 @@ -331,7 +331,9 @@
                         grub_video_mode_type_t mode_type,
  		       grub_video_mode_type_t mode_mask);
@@ -244,9 +230,8 @@ diff -r -u grub-2.06.orig/include/grub/video.h grub-2.06/include/grub/video.h
  /* Framebuffer address may change as a part of normal operation
     (e.g. double buffering). That's why you need to stop video subsystem to be
     sure that framebuffer address doesn't change. To ensure this abstraction
-diff -r -u grub-2.06.orig/include/grub/video_fb.h grub-2.06/include/grub/video_fb.h
---- grub-2.06.orig/include/grub/video_fb.h	2018-11-24 18:13:02.000000000 +0100
-+++ grub-2.06/include/grub/video_fb.h	2023-01-30 14:24:21.848790570 +0100
+--- a/include/grub/video_fb.h
++++ b/include/grub/video_fb.h
 @@ -42,7 +42,7 @@
  EXPORT_FUNC(grub_video_fb_fini) (void);
  

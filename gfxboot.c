@@ -399,28 +399,76 @@ area_t gfx_font_dim(obj_id_t font_id)
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 obj_id_t gfx_image_open(obj_id_t image_file)
 {
-  data_t *mem = gfx_obj_mem_ptr(image_file);
+  arg_t file = { .id = image_file };
 
-  if(!mem || !mem->size) return 0;
+  arg_update(&file);
 
-  unsigned u = gfx_jpeg_getsize(mem->ptr);
+  if(!file.ptr || file.ptr->base_type != OTYPE_MEM || OBJ_MEM_SIZE_FROM_PTR(file.ptr) == 0) return 0;
+
+  unsigned is_png = 0, is_jpeg = 0;
+
+  unsigned u = gfx_png_getsize(OBJ_MEM_FROM_PTR(file.ptr), OBJ_MEM_SIZE_FROM_PTR(file.ptr));
+
+  if(u) {
+    is_png = 1;
+  }
+  else {
+    u = gfx_jpeg_getsize(OBJ_MEM_FROM_PTR(file.ptr));
+    if(u) is_jpeg = 1;
+  }
 
   int width = u & 0xffff;
   int height = (int) (u >> 16);
 
-  obj_id_t image_id = gfx_obj_canvas_new(width, height);
-  canvas_t *canvas = gfx_obj_canvas_ptr(image_id);
+  if(!(is_png || is_jpeg)) {
+    GFX_ERROR(err_invalid_data);
+    return 0;
+  }
 
-  if(!canvas) {
+  gfxboot_log("is_jpeg = %u, is_png = %u, width = %d, height = %d\n", is_jpeg, is_png, width, height);
+
+  arg_t image = { .id = gfx_obj_canvas_new(width, height) };
+
+  arg_update(&image);
+
+  if(!image.ptr) {
     GFX_ERROR(err_no_memory);
 
     return 0;
   }
 
-  if(gfx_jpeg_decode(mem->ptr, (uint8_t *) &canvas->ptr, 0, canvas->geo.width, 0, canvas->geo.height, 32)) {
-    gfx_obj_ref_dec(image_id);
-    image_id = 0;
-  } 
+  if(is_jpeg) {
+    arg_update(&file);
 
-  return image_id;
+    canvas_t *canvas = OBJ_CANVAS_FROM_PTR(image.ptr);
+
+    if(gfx_jpeg_decode(OBJ_MEM_FROM_PTR(file.ptr), (uint8_t *) &canvas->ptr, 0, canvas->geo.width, 0, canvas->geo.height, 32)) {
+      gfx_obj_ref_dec(image.id);
+      image.id = 0;
+    }
+  }
+  else if(is_png) {
+    arg_t buf_32k = { .id = gfx_obj_mem_new(0x8000, 0) };
+
+    arg_update(&buf_32k);
+    arg_update(&file);
+    arg_update(&image);
+
+    canvas_t *canvas = OBJ_CANVAS_FROM_PTR(image.ptr);
+
+    if(gfx_png_decode(
+      OBJ_MEM_FROM_PTR(file.ptr),
+      OBJ_MEM_SIZE_FROM_PTR(file.ptr),
+      (uint8_t *) &canvas->ptr,
+      (unsigned) canvas->geo.width * (unsigned) canvas->geo.height * 4,
+      OBJ_MEM_FROM_PTR(buf_32k.ptr)
+    )) {
+      gfx_obj_ref_dec(image.id);
+      image.id = 0;
+    }
+
+    gfx_obj_ref_dec(buf_32k.id);
+  }
+
+  return image.id;
 }

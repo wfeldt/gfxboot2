@@ -365,6 +365,7 @@ void z_setup_dynamic_huff_table(z_inflate_state_t *inflate_state)
 
   unsigned all_len = hlit + hdist;
 
+  // not initialized - the following loop sets all values
   uint8_t all_bits[all_len];
 
   Z_LOG("+++ all_len = %3u\n", all_len);

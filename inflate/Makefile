@@ -16,7 +16,7 @@ inflate_debug: inflate.c
 zpipe: zpipe.c
 	$(CC) $(CFLAGS) $< -o $@ -lz
 
-test: inflate $(SAMPLES_INFL)
+test: inflate $(SAMPLES_Z) $(SAMPLES_INFL)
 
 sample_%.z: sample_% zpipe
 	./zpipe < $< > $@

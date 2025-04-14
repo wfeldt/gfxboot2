@@ -1,14 +1,12 @@
-// Implementation of zlib decompression.
+// Implementation of a png decoder
 //
-// See rfc 1950 and rfc 1951 for technical details.
+// See rfc 2083 for technical details.
 //
-// https://www.ietf.org/rfc/rfc1950.txt
-// https://www.ietf.org/rfc/rfc1951.txt
+// https://www.ietf.org/rfc/rfc2083.txt
 //
-// Define WITH_Z_LOG to get lots of debug output.
+// Define WITH_Z_LOG and/or WITH_PNG_LOG to get lots of debug output.
 //
 
-#define WITH_PNG_LOG	1
 
 #ifdef WITH_Z_LOG
 #include <stdio.h>
@@ -16,7 +14,6 @@
 #else
 #define Z_LOG(a...)
 #endif
-
 
 #ifdef WITH_PNG_LOG
 #include <stdio.h>
@@ -32,9 +29,7 @@
 #define Z_WINDOW_SIZE		0x8000
 
 #define PNG_CHUNK_IHDR		0x49484452
-#define PNG_CHUNK_IEND		0x49454e44
 #define PNG_CHUNK_IDAT		0x49444154
-#define PNG_CHUNK_PLTE		0x504c5445
 
 typedef __UINT8_TYPE__ uint8_t;
 typedef __UINT16_TYPE__ uint16_t;
@@ -97,6 +92,7 @@ void z_inflate_compressed_block(z_inflate_state_t *inflate_state);
 void z_inflate_uncompressed_block(z_inflate_state_t *inflate_state);
 void z_inflate(z_inflate_state_t *inflate_state);
 
+unsigned png_paeth(int a, int b, int c);
 uint32_t png_get_uint32(uint8_t *buf);
 png_chunk_t *png_get_chunk(z_inflate_state_t *inflate_state);
 void png_get_size(z_inflate_state_t *inflate_state);
@@ -119,14 +115,58 @@ void z_out_byte(z_inflate_state_t *inflate_state, unsigned val)
     png->got_filter = 1;
     png->filter = val;
 
-    // PNG_LOG("+++ filter[%u] = %u\n", png->y, png->filter);
+    PNG_LOG("+++ filter[%u] = %u\n", png->y, png->filter);
 
     return;
+  }
+
+  // take care of rgb ordering:
+  //   - png order: r, g, b, (a)
+  //   - our order: b, g, r, a
+  static const uint8_t order[4] = { 2, 0, 2, 0 };
+
+  unsigned pos = inflate_state->output.pos ^ order[inflate_state->output.pos & 3];
+
+  // a = left, b = up; c = left + up
+  // internal pixel size is always 4
+  unsigned a = png->x ? inflate_state->output.buf[pos - 4] : 0;
+  unsigned b = png->y ? inflate_state->output.buf[pos - 4 * png->width] : 0;
+  unsigned c = png->x && png->y ? inflate_state->output.buf[pos - 4 * png->width - 4] : 0;
+
+  switch(png->filter) {
+    case 1:
+      val += a;
+      break;
+
+    case 2:
+      val += b;
+      break;
+
+    case 3:
+      val += (a + b) >> 1;
+      break;
+
+    case 4:
+      val += png_paeth((int) a, (int) b, (int) c);
+      break;
+  }
+
+  if(inflate_state->output.pos < inflate_state->output.len) {
+    // watch out: pos is not inflate_state->output.pos
+    inflate_state->output.buf[pos] = val;
+    inflate_state->output.pos++;
+  }
+  else {
+    inflate_state->bad = __LINE__;
   }
 
   if(++png->pixel_byte == png->pixel_bytes) {
     png->pixel_byte = 0;
     png->x++;
+    if(png->pixel_bytes == 3) {
+      // skip alpha
+      inflate_state->output.pos++;
+    }
     if(png->x == png->width) {
       png->x = 0;
       png->y++;
@@ -134,13 +174,6 @@ void z_out_byte(z_inflate_state_t *inflate_state, unsigned val)
   }
 
   png->got_filter = 0;
-
-  if(inflate_state->output.pos < inflate_state->output.len) {
-    inflate_state->output.buf[inflate_state->output.pos++] = val;
-  }
-  else {
-    inflate_state->bad = __LINE__;
-  }
 }
 
 
@@ -541,13 +574,37 @@ void z_inflate(z_inflate_state_t *inflate_state)
     }
   }
 
+  if(!inflate_state->bad && inflate_state->png.pixel_bytes == 4) {
+    // invert alpha values (so that 0 = fully opaque)
+    for(unsigned u = 3; u < inflate_state->output.pos; u += 4) {
+      inflate_state->output.buf[u] = 255 - inflate_state->output.buf[u];
+    }
+  }
+
   return;
+}
+
+
+// use int, not unsigned; necessary for the calculation
+unsigned png_paeth(int a, int b, int c)
+{
+  int p = a + b - c;
+
+  int pa = p - a >= 0 ? p - a : a - p;
+  int pb = p - b >= 0 ? p - b : b - p;
+  int pc = p - c >= 0 ? p - c : c - p;
+
+  if(pa <= pb && pa <= pc) return (unsigned) a;
+
+  if(pb <= pc) return (unsigned) b;
+
+  return (unsigned) c;
 }
 
 
 uint32_t png_get_uint32(uint8_t *buf)
 {
-  return (buf[0] << 24) + (buf[1] << 16) + (buf[2] << 8) + buf[3];
+  return ((unsigned) buf[0] << 24) + (buf[1] << 16) + (buf[2] << 8) + buf[3];
 }
 
 
@@ -557,7 +614,7 @@ png_chunk_t *png_get_chunk(z_inflate_state_t *inflate_state)
 
   if(pos + 12 > inflate_state->input.len) {
     inflate_state->bad = __LINE__;
-    return NULL;
+    return 0;
   }
 
   unsigned len = png_get_uint32(inflate_state->input.buf + pos);
@@ -568,7 +625,7 @@ png_chunk_t *png_get_chunk(z_inflate_state_t *inflate_state)
 
   if(inflate_state->input.pos + 12 + len > inflate_state->input.len) {
     inflate_state->bad = __LINE__;
-    return NULL;
+    return 0;
   }
 
   unsigned crc = png_get_uint32(inflate_state->input.buf + pos + 8 + len);
@@ -670,14 +727,30 @@ int main()
 
   z_inflate(inflate_state);
 
-  PNG_LOG("+++ in %d, out %d\n", inflate_state->input.pos, inflate_state->output.pos);
+  Z_LOG("+++ in %d, out %d\n", inflate_state->input.pos, inflate_state->output.pos);
 
   if(inflate_state->bad) {
-    PNG_LOG("+++ invalid data at line %u +++\n", inflate_state->bad);
+    Z_LOG("+++ invalid data at line %u +++\n", inflate_state->bad);
   }
 
-  for(unsigned u = 0; u < inflate_state->output.pos; u++) {
-    putchar(inflate_state->output.buf[u]);
+  png_data_t *png = &inflate_state->png;
+
+  // output in ImageMagick 'debug' format
+  printf("# ImageMagick pixel debugging: %u,%u,255,srgb", png->width, png->height);
+  if(png->pixel_bytes == 4) printf("a");
+  printf("\n");
+
+  for(unsigned y = 0; y < png->height; y++) {
+    for(unsigned x = 0; x < png->width; x++) {
+      unsigned pos = (png->width * y + x) * 4;
+      unsigned r = inflate_state->output.buf[pos + 2];
+      unsigned g = inflate_state->output.buf[pos + 1];
+      unsigned b = inflate_state->output.buf[pos + 0];
+      unsigned a = inflate_state->output.buf[pos + 3];
+      printf("%u,%u: %u,%u,%u ", x, y, 0x101 * r, 0x101 * g, 0x101 * b);
+      if(png->pixel_bytes == 4) printf(",%u ", 0x101 * (255 - a));
+      printf("\n");
+    }
   }
 
   return inflate_state->bad ? 1 : 0;

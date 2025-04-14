@@ -2,16 +2,19 @@ SAMPLES = $(wildcard sample_?)
 SAMPLES_Z = $(addsuffix .z, $(SAMPLES))
 SAMPLES_INFL = $(addsuffix .infl, $(SAMPLES))
 
+CC = gcc
+CFLAGS = -O2 -Wall -Wno-pointer-sign -Wsign-conversion -Wsign-compare
+
 all: inflate
 
 inflate: inflate.c
-	gcc -O2 -Wall $< -o $@
+	$(CC) $(CFLAGS) $< -o $@
 
 inflate_debug: inflate.c
-	gcc -g -O2 -Wall $< -o $@ -DWITH_Z_LOG
+	$(CC) -g $(CFLAGS) $< -o $@ -DWITH_Z_LOG
 
 zpipe: zpipe.c
-	gcc -O2 -Wall $< -o $@ -lz
+	$(CC) $(CFLAGS) $< -o $@ -lz
 
 test: inflate $(SAMPLES_INFL)
 

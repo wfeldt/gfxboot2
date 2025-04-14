@@ -1,5 +1,6 @@
 SAMPLES = $(wildcard sample_?)
 SAMPLES_Z = $(addsuffix .z, $(SAMPLES))
+SAMPLES_INFL = $(addsuffix .infl, $(SAMPLES))
 
 all: inflate
 
@@ -12,12 +13,14 @@ inflate_debug: inflate.c
 zpipe: zpipe.c
 	gcc -O2 -Wall $< -o $@ -lz
 
-test: inflate zpipe $(SAMPLES_Z)
+test: inflate $(SAMPLES_INFL)
 
-sample_%.z: sample_%
+sample_%.z: sample_% zpipe
 	./zpipe < $< > $@
-	./inflate < $@ > $(<).infl
-	cmp --quiet $(<).infl $<
+
+sample_%.infl: sample_%.z inflate
+	./inflate < $< > $@
+	cmp --quiet $@ $(basename $@)
 
 clean:
 	rm -f inflate inflate_debug zpipe *.o *.z *.infl *~

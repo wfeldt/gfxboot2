@@ -45,12 +45,15 @@ typedef struct {
     uint8_t *buf;
     unsigned pos;
   } window;
+  struct {
+    unsigned low, high;
+  } adler32;
   unsigned bad;
   z_huff_table_t huff_lit, huff_dist, huff_clen;
 } z_inflate_state_t;
 
 
-unsigned z_adler32(z_inflate_state_t *inflate_state);
+void z_adler32_update(z_inflate_state_t *inflate_state, unsigned val);
 void z_out_byte(z_inflate_state_t *inflate_state, unsigned val);
 void z_put_byte(z_inflate_state_t *inflate_state, unsigned val);
 void z_copy_bytes(z_inflate_state_t *inflate_state, unsigned dist, unsigned len);
@@ -65,19 +68,12 @@ void z_inflate_uncompressed_block(z_inflate_state_t *inflate_state);
 void z_inflate(z_inflate_state_t *inflate_state);
 
 
-unsigned z_adler32(z_inflate_state_t *inflate_state)
+void z_adler32_update(z_inflate_state_t *inflate_state, unsigned val)
 {
-  unsigned adler32_1 = 1;
-  unsigned adler32_2 = 0;
-
-  for(unsigned u = 0; u < inflate_state->output.pos; u++) {
-    adler32_1 += inflate_state->output.buf[u];
-    if(adler32_1 >= Z_ADLER32_MODULO) adler32_1 -= Z_ADLER32_MODULO;
-    adler32_2 += adler32_1;
-    if(adler32_2 >= Z_ADLER32_MODULO) adler32_2 -= Z_ADLER32_MODULO;
-  }
-
-  return (adler32_2 << 16) + adler32_1;
+  inflate_state->adler32.low += val;
+  if(inflate_state->adler32.low >= Z_ADLER32_MODULO) inflate_state->adler32.low -= Z_ADLER32_MODULO;
+  inflate_state->adler32.high += inflate_state->adler32.low;
+  if(inflate_state->adler32.high >= Z_ADLER32_MODULO) inflate_state->adler32.high -= Z_ADLER32_MODULO;
 }
 
 
@@ -98,6 +94,8 @@ void z_put_byte(z_inflate_state_t *inflate_state, unsigned val)
 {
   inflate_state->window.buf[inflate_state->window.pos] = val;
   inflate_state->window.pos = (inflate_state->window.pos + 1) & (Z_WINDOW_SIZE - 1);
+
+  z_adler32_update(inflate_state, val);
 
   z_out_byte(inflate_state, val);
 }
@@ -440,6 +438,8 @@ void z_inflate(z_inflate_state_t *inflate_state)
     inflate_state->bad = __LINE__;
   }
 
+  inflate_state->adler32.low = 1;
+
   while(!inflate_state->bad) {
     unsigned bfinal = z_get_bits(inflate_state, 1);
     unsigned btype = z_get_bits(inflate_state, 2);
@@ -473,7 +473,7 @@ void z_inflate(z_inflate_state_t *inflate_state)
 
     Z_LOG("+++ adler32 (stored) = 0x%08x\n", adler32_stored);
 
-    unsigned adler32_calc = z_adler32(inflate_state);
+    unsigned adler32_calc = (inflate_state->adler32.high << 16) + inflate_state->adler32.low;
 
     Z_LOG("+++ adler32 (calc) = 0x%08x\n", adler32_calc);
 

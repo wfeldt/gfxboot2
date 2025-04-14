@@ -31,10 +31,27 @@
 #define Z_ADLER32_MODULO	65521
 #define Z_WINDOW_SIZE		0x8000
 
+#define PNG_CHUNK_IHDR		0x49484452
+#define PNG_CHUNK_IEND		0x49454e44
+#define PNG_CHUNK_IDAT		0x49444154
+#define PNG_CHUNK_PLTE		0x504c5445
+
 typedef __UINT8_TYPE__ uint8_t;
 typedef __UINT16_TYPE__ uint16_t;
 typedef __UINT32_TYPE__ uint32_t;
 typedef __UINT64_TYPE__ uint64_t;
+
+typedef struct {
+  unsigned type, len, pos, crc;
+  uint8_t *buf;
+} png_chunk_t;
+
+typedef struct {
+  png_chunk_t chunk;
+  unsigned width, height, pixel_bytes;
+  unsigned x, y, pixel_byte, filter;
+  unsigned got_filter:1;
+} png_data_t;
 
 typedef struct {
   struct {
@@ -57,12 +74,16 @@ typedef struct {
     uint8_t *buf;
     unsigned pos;
   } window;
+  struct {
+    unsigned low, high;
+  } adler32;
   unsigned bad;
   z_huff_table_t huff_lit, huff_dist, huff_clen;
+  png_data_t png;
 } z_inflate_state_t;
 
 
-unsigned z_adler32(z_inflate_state_t *inflate_state);
+void z_adler32_update(z_inflate_state_t *inflate_state, unsigned val);
 void z_out_byte(z_inflate_state_t *inflate_state, unsigned val);
 void z_put_byte(z_inflate_state_t *inflate_state, unsigned val);
 void z_copy_bytes(z_inflate_state_t *inflate_state, unsigned dist, unsigned len);
@@ -76,33 +97,50 @@ void z_inflate_compressed_block(z_inflate_state_t *inflate_state);
 void z_inflate_uncompressed_block(z_inflate_state_t *inflate_state);
 void z_inflate(z_inflate_state_t *inflate_state);
 
+uint32_t png_get_uint32(uint8_t *buf);
+png_chunk_t *png_get_chunk(z_inflate_state_t *inflate_state);
+void png_get_size(z_inflate_state_t *inflate_state);
 
-unsigned z_adler32(z_inflate_state_t *inflate_state)
+
+void z_adler32_update(z_inflate_state_t *inflate_state, unsigned val)
 {
-  unsigned adler32_1 = 1;
-  unsigned adler32_2 = 0;
-
-  for(unsigned u = 0; u < inflate_state->output.pos; u++) {
-    adler32_1 += inflate_state->output.buf[u];
-    if(adler32_1 >= Z_ADLER32_MODULO) adler32_1 -= Z_ADLER32_MODULO;
-    adler32_2 += adler32_1;
-    if(adler32_2 >= Z_ADLER32_MODULO) adler32_2 -= Z_ADLER32_MODULO;
-  }
-
-  return (adler32_2 << 16) + adler32_1;
+  inflate_state->adler32.low += val;
+  if(inflate_state->adler32.low >= Z_ADLER32_MODULO) inflate_state->adler32.low -= Z_ADLER32_MODULO;
+  inflate_state->adler32.high += inflate_state->adler32.low;
+  if(inflate_state->adler32.high >= Z_ADLER32_MODULO) inflate_state->adler32.high -= Z_ADLER32_MODULO;
 }
 
 
 void z_out_byte(z_inflate_state_t *inflate_state, unsigned val)
 {
+  png_data_t *png = &inflate_state->png;
+
+  if(png->x == 0 && png->pixel_byte == 0 && !png->got_filter) {
+    png->got_filter = 1;
+    png->filter = val;
+
+    // PNG_LOG("+++ filter[%u] = %u\n", png->y, png->filter);
+
+    return;
+  }
+
+  if(++png->pixel_byte == png->pixel_bytes) {
+    png->pixel_byte = 0;
+    png->x++;
+    if(png->x == png->width) {
+      png->x = 0;
+      png->y++;
+    }
+  }
+
+  png->got_filter = 0;
+
   if(inflate_state->output.pos < inflate_state->output.len) {
     inflate_state->output.buf[inflate_state->output.pos++] = val;
   }
   else {
     inflate_state->bad = __LINE__;
   }
-
-  Z_LOG("<%02x>", val);
 }
 
 
@@ -110,6 +148,8 @@ void z_put_byte(z_inflate_state_t *inflate_state, unsigned val)
 {
   inflate_state->window.buf[inflate_state->window.pos] = val;
   inflate_state->window.pos = (inflate_state->window.pos + 1) & (Z_WINDOW_SIZE - 1);
+
+  z_adler32_update(inflate_state, val);
 
   z_out_byte(inflate_state, val);
 }
@@ -129,13 +169,18 @@ unsigned z_get_byte(z_inflate_state_t *inflate_state)
 {
   inflate_state->input.bits = 0;
 
-  if(inflate_state->input.pos < inflate_state->input.len) {
-    return inflate_state->input.buf[inflate_state->input.pos++];
+  png_chunk_t *chunk = &inflate_state->png.chunk;
+
+  if(chunk->pos >= chunk->len) {
+    while((chunk = png_get_chunk(inflate_state)) || chunk->pos >= chunk->len) {
+      if(chunk->type == PNG_CHUNK_IDAT) {
+        break;
+      }
+    }
+    if(!chunk) inflate_state->bad = __LINE__;
   }
 
-  inflate_state->bad = __LINE__;
-
-  return 0;
+  return inflate_state->bad ? 0 : chunk->buf[chunk->pos++];
 }
 
 
@@ -452,6 +497,8 @@ void z_inflate(z_inflate_state_t *inflate_state)
     inflate_state->bad = __LINE__;
   }
 
+  inflate_state->adler32.low = 1;
+
   while(!inflate_state->bad) {
     unsigned bfinal = z_get_bits(inflate_state, 1);
     unsigned btype = z_get_bits(inflate_state, 2);
@@ -485,7 +532,7 @@ void z_inflate(z_inflate_state_t *inflate_state)
 
     Z_LOG("+++ adler32 (stored) = 0x%08x\n", adler32_stored);
 
-    unsigned adler32_calc = z_adler32(inflate_state);
+    unsigned adler32_calc = (inflate_state->adler32.high << 16) + inflate_state->adler32.low;
 
     Z_LOG("+++ adler32 (calc) = 0x%08x\n", adler32_calc);
 
@@ -498,111 +545,70 @@ void z_inflate(z_inflate_state_t *inflate_state)
 }
 
 
-#define PNG_CHUNK_IHDR		0x49484452
-#define PNG_CHUNK_IEND		0x49454e44
-#define PNG_CHUNK_IDAT		0x49444154
-#define PNG_CHUNK_PLTE		0x504c5445
-
-typedef struct {
-  unsigned type, len, crc;
-  uint8_t *buf;
-} png_chunk_t;
-
-
-typedef struct {
-  struct {
-    uint8_t *buf;
-    unsigned len, pos;
-    png_chunk_t chunk;
-  } input;
-  struct {
-    uint8_t *buf;
-    unsigned len, pos;
-  } output;
-  unsigned width, height, pixel_bytes;
-  unsigned bad;
-  z_inflate_state_t z;
-} png_image_state_t;
-
-
 uint32_t png_get_uint32(uint8_t *buf)
 {
   return (buf[0] << 24) + (buf[1] << 16) + (buf[2] << 8) + buf[3];
 }
 
-png_chunk_t *png_get_chunk(png_image_state_t *image_state)
-{
-  unsigned pos = image_state->input.pos;
 
-  if(pos + 12 > image_state->input.len) {
-    image_state->bad = __LINE__;
+png_chunk_t *png_get_chunk(z_inflate_state_t *inflate_state)
+{
+  unsigned pos = inflate_state->input.pos;
+
+  if(pos + 12 > inflate_state->input.len) {
+    inflate_state->bad = __LINE__;
     return NULL;
   }
 
-  unsigned len = png_get_uint32(image_state->input.buf + pos);
+  unsigned len = png_get_uint32(inflate_state->input.buf + pos);
 
-  unsigned type = png_get_uint32(image_state->input.buf + pos + 4);
+  unsigned type = png_get_uint32(inflate_state->input.buf + pos + 4);
 
   PNG_LOG("+++ chunk: type 0x%04x '%c%c%c%c', len %u\n", type, (type >> 24) & 0xff, (type >> 16) & 0xff, (type >> 8) & 0xff, type & 0xff, len);
 
-  if(image_state->input.pos + 12 + len > image_state->input.len) {
-    image_state->bad = __LINE__;
+  if(inflate_state->input.pos + 12 + len > inflate_state->input.len) {
+    inflate_state->bad = __LINE__;
     return NULL;
   }
 
-  unsigned crc = png_get_uint32(image_state->input.buf + pos + 8 + len);
+  unsigned crc = png_get_uint32(inflate_state->input.buf + pos + 8 + len);
 
-  image_state->input.chunk.len = len;
-  image_state->input.chunk.type = type;
-  image_state->input.chunk.crc = crc;
-  image_state->input.chunk.buf = image_state->input.buf + pos + 8;
+  inflate_state->png.chunk.pos = 0;
+  inflate_state->png.chunk.len = len;
+  inflate_state->png.chunk.type = type;
+  inflate_state->png.chunk.crc = crc;
+  inflate_state->png.chunk.buf = inflate_state->input.buf + pos + 8;
 
-  image_state->input.pos += 12 + len;
+  inflate_state->input.pos += 12 + len;
 
-  return &image_state->input.chunk;
+  return &inflate_state->png.chunk;
 }
 
 
-void png_decode(png_image_state_t *image_state)
+void png_get_size(z_inflate_state_t *inflate_state)
 {
-  png_chunk_t *chunk;
-
-  while((chunk = png_get_chunk(image_state))) {
-    if(chunk->type == PNG_CHUNK_IEND) break;
-
-    if(chunk->type == PNG_CHUNK_IDAT) {
-      fwrite(chunk->buf, chunk->len, 1, stdout);
-    }
-
-
-  }
-}
-
-
-void png_get_size(png_image_state_t *image_state)
-{
-  if(image_state->input.len < 8) {
-    image_state->bad = __LINE__;
+  if(inflate_state->input.len < 8) {
+    inflate_state->bad = __LINE__;
     return;
   }
 
-  uint64_t signature = ((uint64_t) png_get_uint32(image_state->input.buf) << 32) + png_get_uint32(image_state->input.buf + 4);
+  uint64_t signature = ((uint64_t) png_get_uint32(inflate_state->input.buf) << 32) + png_get_uint32(inflate_state->input.buf + 4);
 
   PNG_LOG("+++ sig = 0x%016llx\n", (unsigned long long) signature);
 
   if(signature != 0x89504e470d0a1a0a) {
-    image_state->bad = __LINE__;
+    inflate_state->bad = __LINE__;
     return;
   }
 
-  image_state->input.pos = 8;
+  inflate_state->input.pos = 8;
 
-  png_chunk_t *chunk = png_get_chunk(image_state);
+  png_chunk_t *chunk = png_get_chunk(inflate_state);
 
   if(!chunk) return;
 
   if(chunk->type != PNG_CHUNK_IHDR || chunk->len != 13) {
-    image_state->bad = __LINE__;
+    inflate_state->bad = __LINE__;
     return;
   }
 
@@ -615,19 +621,21 @@ void png_get_size(png_image_state_t *image_state)
   unsigned filter = chunk->buf[11];
   unsigned interlace = chunk->buf[12];
 
+  chunk->pos = chunk->len;
+
   PNG_LOG(
-    "+++ width %u, hwight %u, bits %u, color_type %u, compression %u, filter %u, interlace %u\n",
+    "+++ width %u, height %u, bits %u, color_type %u, compression %u, filter %u, interlace %u\n",
     width, height, bits, color_type, compression, filter, interlace
   );
 
   if(bits != 8 || !(color_type == 2 || color_type == 6) || compression != 0 || filter != 0 || interlace != 0) {
-    image_state->bad = __LINE__;
+    inflate_state->bad = __LINE__;
     return;
   }
 
-  image_state->width = width;
-  image_state->height = height;
-  image_state->pixel_bytes = color_type == 2 ? 3 : 4;
+  inflate_state->png.width = width;
+  inflate_state->png.height = height;
+  inflate_state->png.pixel_bytes = color_type == 2 ? 3 : 4;
 }
 
 
@@ -638,37 +646,39 @@ void png_get_size(png_image_state_t *image_state)
 
 int main()
 {
-  png_image_state_t *image_state = &(png_image_state_t) { };
+  z_inflate_state_t *inflate_state = &(z_inflate_state_t) { };
 
-  image_state->input.len = TEST_BUF_SIZE;
-  image_state->input.buf = calloc(1, TEST_BUF_SIZE);
+  inflate_state->input.len = TEST_BUF_SIZE;
+  inflate_state->input.buf = calloc(1, TEST_BUF_SIZE);
 
-  image_state->output.len = TEST_BUF_SIZE;
-  image_state->output.buf = calloc(1, TEST_BUF_SIZE);
-
-  image_state->z.window.buf = calloc(1, Z_WINDOW_SIZE);
+  inflate_state->window.buf = calloc(1, Z_WINDOW_SIZE);
 
   for(int i; (i = getchar()) >= 0; ) {
-    image_state->input.buf[image_state->input.pos++] = i;
-    if(image_state->input.pos >= image_state->input.len) break;
+    inflate_state->input.buf[inflate_state->input.pos++] = i;
+    if(inflate_state->input.pos >= inflate_state->input.len) break;
   }
 
-  image_state->input.len = image_state->input.pos;
-  image_state->input.pos = 0;
+  inflate_state->input.len = inflate_state->input.pos;
+  inflate_state->input.pos = 0;
 
-  png_get_size(image_state);
+  png_get_size(inflate_state);
 
-  png_decode(image_state);
-
-  PNG_LOG("+++ in %d, out %d\n", image_state->input.pos, image_state->output.pos);
-
-  if(image_state->bad) {
-    PNG_LOG("+++ invalid data at line %u +++\n", image_state->bad);
+  if(inflate_state->png.width && inflate_state->png.height) {
+    inflate_state->output.len = inflate_state->png.width * inflate_state->png.height * 4;
+    inflate_state->output.buf = calloc(1, inflate_state->output.len);
   }
 
-  for(unsigned u = 0; u < image_state->output.pos; u++) {
-    putchar(image_state->output.buf[u]);
+  z_inflate(inflate_state);
+
+  PNG_LOG("+++ in %d, out %d\n", inflate_state->input.pos, inflate_state->output.pos);
+
+  if(inflate_state->bad) {
+    PNG_LOG("+++ invalid data at line %u +++\n", inflate_state->bad);
   }
 
-  return image_state->bad ? 1 : 0;
+  for(unsigned u = 0; u < inflate_state->output.pos; u++) {
+    putchar(inflate_state->output.buf[u]);
+  }
+
+  return inflate_state->bad ? 1 : 0;
 }

@@ -7,15 +7,15 @@
    4: 0x001d673c[ 1920072] [ 1920084/ 1920084]  #5.1.2.canv <geo 0x0_800x600, region 0x0_800x600, chk 0x5ae3d880>
    5: 0x003ab390[ 1024072] [ 1920084/ 1024084]  #6.1.1.canv <geo 80x100_640x400, region 0x0_640x400, chk 0x8ccedc00>
    6: 0x004a53e4[      72] [ 1024084/      84]  #7.1.1.array <size 1, max 16>
-   7: 0x004a5438[     288] [      84/     300]  #217.1.8.mem.ro <size 286>
-   8* 0x004a5564[      72] [     300/      84]
-   9: 0x004a55b8[      56] [      84/      68]  #219.1.1.ctx.func <code #217.1.8.mem.ro, ip 0x11e (0x11e), dict #8.1.2.hash>
-  10: 0x004a55fc[      24] [      68/      36]
-  11: 0x004a5620[      88] [      36/     100]  #225.1.1.array <size 11, max 20>
-  12: 0x004a5684[      72] [     100/      84]  #228.1.1.array <size 0, max 16>
-  13: 0x004a56d8[      20] [      84/      32]  #250.1.2.mem.str <size 20, "A1265              X">
-  14: 0x004a56f8[     116] [      32/     128]
-  15: 0x004a5778[    1044] [     128/    1056]  #8.1.2.hash <size 107, max 129>
+   7: 0x004a5438[     328] [      84/     340]  #217.1.8.mem.ro <size 326>
+   8* 0x004a558c[      72] [     340/      84]
+   9: 0x004a55e0[      56] [      84/      68]  #219.1.1.ctx.func <code #217.1.8.mem.ro, ip 0x146 (0x146), dict #8.1.2.hash>
+  10: 0x004a5624[      24] [      68/      36]
+  11: 0x004a5648[      88] [      36/     100]  #225.1.1.array <size 11, max 20>
+  12: 0x004a56ac[      72] [     100/      84]  #228.1.1.array <size 0, max 16>
+  13: 0x004a5700[      20] [      84/      32]  #250.1.2.mem.str <size 20, "A1265              X">
+  14: 0x004a5720[      76] [      32/      88]
+  15: 0x004a5778[    1044] [      88/    1056]  #8.1.2.hash <size 107, max 129>
   16: 0x004a5b98[     164] [    1056/     176]  #242.1.1.hash <size 4, max 19>
   17: 0x004a5c48[     144] [     176/     156]  #218.1.1.array <size 20, max 34>
   18: 0x004a5ce4[11903772] [     156/11903784]
@@ -463,8 +463,8 @@
     #40.1.1.mem.ref.ro <size 4, "exit"> => #39.1.1.num.prim <15 (0xf)>
     #190.1.1.mem.ref.ro <size 8, "fillrect"> => #189.1.1.num.prim <90 (0x5a)>
     #220.1.1.mem.ref.ro <#217.1.8.mem.ro, ofs 0x9, size 5, "foo_1"> => #225.1.1.array <size 11, max 20>
-    #235.1.1.mem.ref.ro <#217.1.8.mem.ro, ofs 0x64, size 5, "foo_2"> => #242.1.1.hash <size 4, max 19>
-    #247.1.1.mem.ref.ro <#217.1.8.mem.ro, ofs 0xa7, size 5, "foo_3"> => #250.1.2.mem.str <size 20, "A1265              X">
+    #235.1.1.mem.ref.ro <#217.1.8.mem.ro, ofs 0x74, size 5, "foo_2"> => #242.1.1.hash <size 4, max 19>
+    #247.1.1.mem.ref.ro <#217.1.8.mem.ro, ofs 0xbf, size 5, "foo_3"> => #250.1.2.mem.str <size 20, "A1265              X">
     #36.1.1.mem.ref.ro <size 3, "for"> => #35.1.1.num.prim <13 (0xd)>
     #38.1.1.mem.ref.ro <size 6, "forall"> => #37.1.1.num.prim <14 (0xe)>
     #196.1.1.mem.ref.ro <size 6, "format"> => #195.1.1.num.prim <93 (0x5d)>
@@ -855,25 +855,28 @@
   #215.1.1.num.prim <103 (0x67)>
   #216.1.1.mem.ref.ro <size 4, "self">
     73 65 6c 66                                      self
-  #217.1.8.mem.ro <size 286>
+  #217.1.8.mem.ro <size 326>
     75 51 12 a9 42 7a ad 60 59 66 6f 6f 5f 31 18 5b  uQ..Bz.`Yfoo_1.[
     81 0a 81 14 81 1e 81 28 18 5d 38 64 65 66 58 66  .......(.]8defXf
-    6f 6f 5f 31 01 81 64 68 69 6e 73 65 72 74 58 66  oo_1..dhinsertXf
-    6f 6f 5f 31 81 ff 91 90 01 68 69 6e 73 65 72 74  oo_1.....hinsert
-    58 66 6f 6f 5f 31 41 91 f4 01 68 69 6e 73 65 72  Xfoo_1A...hinser
-    74 58 66 6f 6f 5f 31 81 0a 91 84 03 68 69 6e 73  tXfoo_1.....hins
-    65 72 74 59 66 6f 6f 5f 32 18 28 27 61 61 81 0b  ertYfoo_2.('aa..
+    6f 6f 5f 31 01 81 64 68 69 6e 73 65 72 74 38 70  oo_1..dhinsert8p
+    6f 70 58 66 6f 6f 5f 31 81 ff 91 90 01 68 69 6e  opXfoo_1.....hin
+    73 65 72 74 38 70 6f 70 58 66 6f 6f 5f 31 41 91  sert8popXfoo_1A.
+    f4 01 68 69 6e 73 65 72 74 38 70 6f 70 58 66 6f  ..hinsert8popXfo
+    6f 5f 31 81 0a 91 84 03 68 69 6e 73 65 72 74 38  o_1.....hinsert8
+    70 6f 70 59 66 6f 6f 5f 32 18 28 27 61 61 81 0b  popYfoo_2.('aa..
     27 62 62 81 16 27 63 63 81 21 18 29 38 64 65 66  'bb..'cc.!.)8def
     58 66 6f 6f 5f 32 27 62 62 91 de 00 68 69 6e 73  Xfoo_2'bb...hins
-    65 72 74 58 66 6f 6f 5f 32 27 64 64 91 bc 01 68  ertXfoo_2'dd...h
-    69 6e 73 65 72 74 59 66 6f 6f 5f 33 27 31 32 07  insertYfoo_3'12.
-    38 61 64 64 38 64 65 66 58 66 6f 6f 5f 33 01 81  8add8defXfoo_3..
-    41 68 69 6e 73 65 72 74 58 66 6f 6f 5f 33 31 81  AhinsertXfoo_31.
-    35 68 69 6e 73 65 72 74 58 66 6f 6f 5f 33 81 ff  5hinsertXfoo_3..
-    81 36 68 69 6e 73 65 72 74 58 66 6f 6f 5f 33 81  .6hinsertXfoo_3.
-    13 81 58 68 69 6e 73 65 72 74 58 66 6f 6f 5f 31  ..XhinsertXfoo_1
-    16 13 68 66 6f 72 61 6c 6c 58 66 6f 6f 5f 32 16  ..hforallXfoo_2.
-    13 68 66 6f 72 61 6c 6c 58 66 6f 6f 5f 33        .hforallXfoo_3
+    65 72 74 38 70 6f 70 58 66 6f 6f 5f 32 27 64 64  ert8popXfoo_2'dd
+    91 bc 01 68 69 6e 73 65 72 74 38 70 6f 70 59 66  ...hinsert8popYf
+    6f 6f 5f 33 27 31 32 07 38 61 64 64 38 64 65 66  oo_3'12.8add8def
+    58 66 6f 6f 5f 33 01 81 41 68 69 6e 73 65 72 74  Xfoo_3..Ahinsert
+    38 70 6f 70 58 66 6f 6f 5f 33 31 81 35 68 69 6e  8popXfoo_31.5hin
+    73 65 72 74 38 70 6f 70 58 66 6f 6f 5f 33 81 ff  sert8popXfoo_3..
+    81 36 68 69 6e 73 65 72 74 38 70 6f 70 58 66 6f  .6hinsert8popXfo
+    6f 5f 33 81 13 81 58 68 69 6e 73 65 72 74 38 70  o_3...Xhinsert8p
+    6f 70 58 66 6f 6f 5f 31 16 13 68 66 6f 72 61 6c  opXfoo_1..hforal
+    6c 58 66 6f 6f 5f 32 16 13 68 66 6f 72 61 6c 6c  lXfoo_2..hforall
+    58 66 6f 6f 5f 33                                Xfoo_3
   #218.1.1.array <size 20, max 34>
     [ 0] #227.1.2.num.int <100 (0x64)>
     [ 1] #221.1.2.num.int <10 (0xa)>
@@ -886,17 +889,17 @@
     [ 8] #0.0.nil <nil>
     [ 9] #0.0.nil <nil>
     [10] #234.1.2.num.int <900 (0x384)>
-    [11] #236.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x6c, size 2, "aa">
+    [11] #236.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x7c, size 2, "aa">
     [12] #237.1.2.num.int <11 (0xb)>
-    [13] #243.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x87, size 2, "bb">
+    [13] #243.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x97, size 2, "bb">
     [14] #244.1.2.num.int <222 (0xde)>
-    [15] #240.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x76, size 2, "cc">
+    [15] #240.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x86, size 2, "cc">
     [16] #241.1.2.num.int <33 (0x21)>
-    [17] #245.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x9a, size 2, "dd">
+    [17] #245.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0xae, size 2, "dd">
     [18] #246.1.2.num.int <444 (0x1bc)>
     [19] #250.1.2.mem.str <size 20, "A1265              X">
-  #219.1.1.ctx.func <code #217.1.8.mem.ro, ip 0x11e (0x11e), dict #8.1.2.hash>
-    type 17, ip 0x11e (0x11e)
+  #219.1.1.ctx.func <code #217.1.8.mem.ro, ip 0x146 (0x146), dict #8.1.2.hash>
+    type 17, ip 0x146 (0x146)
     code #217.1.8.mem.ro
     parent #0.0.nil
     dict #8.1.2.hash
@@ -924,26 +927,26 @@
   #230.1.2.num.int <400 (0x190)>
   #232.1.2.num.int <500 (0x1f4)>
   #234.1.2.num.int <900 (0x384)>
-  #235.1.1.mem.ref.ro <#217.1.8.mem.ro, ofs 0x64, size 5, "foo_2">
+  #235.1.1.mem.ref.ro <#217.1.8.mem.ro, ofs 0x74, size 5, "foo_2">
     66 6f 6f 5f 32                                   foo_2
-  #236.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x6c, size 2, "aa">
+  #236.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x7c, size 2, "aa">
     61 61                                            aa
   #237.1.2.num.int <11 (0xb)>
-  #240.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x76, size 2, "cc">
+  #240.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x86, size 2, "cc">
     63 63                                            cc
   #241.1.2.num.int <33 (0x21)>
   #242.1.1.hash <size 4, max 19>
-    #236.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x6c, size 2, "aa"> => #237.1.2.num.int <11 (0xb)>
-    #243.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x87, size 2, "bb"> => #244.1.2.num.int <222 (0xde)>
-    #240.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x76, size 2, "cc"> => #241.1.2.num.int <33 (0x21)>
-    #245.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x9a, size 2, "dd"> => #246.1.2.num.int <444 (0x1bc)>
-  #243.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x87, size 2, "bb">
+    #236.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x7c, size 2, "aa"> => #237.1.2.num.int <11 (0xb)>
+    #243.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x97, size 2, "bb"> => #244.1.2.num.int <222 (0xde)>
+    #240.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x86, size 2, "cc"> => #241.1.2.num.int <33 (0x21)>
+    #245.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0xae, size 2, "dd"> => #246.1.2.num.int <444 (0x1bc)>
+  #243.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x97, size 2, "bb">
     62 62                                            bb
   #244.1.2.num.int <222 (0xde)>
-  #245.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0x9a, size 2, "dd">
+  #245.1.2.mem.str.ro <#217.1.8.mem.ro, ofs 0xae, size 2, "dd">
     64 64                                            dd
   #246.1.2.num.int <444 (0x1bc)>
-  #247.1.1.mem.ref.ro <#217.1.8.mem.ro, ofs 0xa7, size 5, "foo_3">
+  #247.1.1.mem.ref.ro <#217.1.8.mem.ro, ofs 0xbf, size 5, "foo_3">
     66 6f 6f 5f 33                                   foo_3
   #250.1.2.mem.str <size 20, "A1265              X">
     41 31 32 36 35 00 00 00 00 00 00 00 00 00 00 00  A1265...........

@@ -1,4 +1,4 @@
-## files dejavu-sans-24.fnt katze_*.jpg katze_*.png
+## files dejavu-sans-24.fnt katze_*.jpg katze_*.png sample_2.png
 
 /eventhandler_vars ( /type 0 /key 0 /action 0 ) def
 
@@ -99,20 +99,20 @@
 
     cursor_index buf length ge {
       # append
-      buf cursor_index key insert
+      buf cursor_index key insert pop
       cursor_x cursor_index get x_shift sub 0 setpos
       key show
       /cursor_index 1 add!
       cursor_x cursor_index getpos pop x_shift add put
     } {
       # insert
-      buf cursor_index key insert
+      buf cursor_index key insert pop
       cursor_x cursor_index get x_shift sub 0 setpos
       getpos pop
       key show
       getpos pop sub
       /d exch ldef
-      cursor_x cursor_index getpos pop x_shift add d add insert
+      cursor_x cursor_index getpos pop x_shift add d add insert pop
       /cursor_index 1 add!
       cursor_index 1 buf length {
         cursor_x exch over over get d sub put
@@ -342,5 +342,15 @@ title show
 /edit Edit ( /x 100 /y 550 /width 600 /height 30 ) new def
 
 /eventhandler seteventhandler
+
+/sample_2 "sample_2.png" readfile unpackimage def
+
+0 0 setpos getcanvas sample_2 blt
+
+getcompose [ sample_2 ] add setcompose
+
+getcanvas sample_2 setcanvas 200 600 256 sub setlocation setcanvas
+
+0 0 getcanvas dim updatescreen
 
 0 0 setpos

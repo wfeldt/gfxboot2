@@ -1,6 +1,6 @@
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# code: 73 entries (73 - 0)
+# code: 83 entries (83 - 0)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # line i index  offset   type   hex                      word
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -17,63 +17,73 @@
             10  0x0001f  int    01                       0
             11  0x00020  int    81 64                    100
             12  0x00022  prim   83 63                    insert
-     4      13  0x00024  xref   84 0b                    foo_1
-            14  0x00026  int    81 ff                    -1
-            15  0x00028  int    91 90 01                 400
-            16  0x0002b  prim   83 63                    insert
-     5      17  0x0002d  xref   84 14                    foo_1
-            18  0x0002f  int    41                       4
-            19  0x00030  int    91 f4 01                 500
-            20  0x00033  prim   83 63                    insert
-     6      21  0x00035  xref   84 1c                    foo_1
-            22  0x00037  int    81 0a                    10
-            23  0x00039  int    91 84 03                 900
-            24  0x0003c  prim   83 63                    insert
-     8      25  0x0003e  ref    59 66 6f 6f 5f 32        /foo_2
-            26  0x00044  prim   43                       (
-            27  0x00045  str    27 61 61                   "aa"
-            28  0x00048  int    81 0b                      11
-            29  0x0004a  str    27 62 62                   "bb"
-            30  0x0004d  int    81 16                      22
-            31  0x0004f  str    27 63 63                   "cc"
-            32  0x00052  int    81 21                      33
-            33  0x00054  prim   53                       )
-            34  0x00055  prim   63                       def
-    10      35  0x00056  word   58 66 6f 6f 5f 32        foo_2
-            36  0x0005c  xref   84 12                    "bb"
-            37  0x0005e  int    91 de 00                 222
-            38  0x00061  prim   83 63                    insert
-    11      39  0x00063  xref   84 0d                    foo_2
-            40  0x00065  str    27 64 64                 "dd"
-            41  0x00068  int    91 bc 01                 444
-            42  0x0006b  prim   83 63                    insert
-    13      43  0x0006d  ref    59 66 6f 6f 5f 33        /foo_3
-            44  0x00073  str    27 31 32                 "12"
-            45  0x00076  str    07                       ""
-            46  0x00077  prim   83 1e                    add
-            47  0x00079  prim   63                       def
-    15      48  0x0007a  word   58 66 6f 6f 5f 33        foo_3
-            49  0x00080  int    01                       0
-            50  0x00081  int    81 41                    'A'
-            51  0x00083  prim   83 63                    insert
-    16      52  0x00085  xref   84 0b                    foo_3
-            53  0x00087  int    31                       3
-            54  0x00088  int    81 35                    '5'
-            55  0x0008a  prim   83 63                    insert
-    17      56  0x0008c  xref   84 12                    foo_3
-            57  0x0008e  int    81 ff                    -1
-            58  0x00090  int    81 36                    '6'
-            59  0x00092  prim   83 63                    insert
-    18      60  0x00094  xref   84 1a                    foo_3
-            61  0x00096  int    81 13                    19
-            62  0x00098  int    81 58                    'X'
-            63  0x0009a  prim   83 63                    insert
-    20      64  0x0009c  xref   84 83                    foo_1
-            65  0x0009e  code   16                       {
-            66  0x0009f  prim   13                       }
-            67  0x000a0  prim   83 0e                    forall
-    21      68  0x000a2  xref   84 4c                    foo_2
-            69  0x000a4  code   16                       {
-            70  0x000a5  prim   13                       }
-            71  0x000a6  prim   83 0e                    forall
-    22      72  0x000a8  xref   84 2e                    foo_3
+            13  0x00024  prim   83 17                    pop
+     4      14  0x00026  xref   84 0d                    foo_1
+            15  0x00028  int    81 ff                    -1
+            16  0x0002a  int    91 90 01                 400
+            17  0x0002d  prim   83 63                    insert
+            18  0x0002f  prim   83 17                    pop
+     5      19  0x00031  xref   84 18                    foo_1
+            20  0x00033  int    41                       4
+            21  0x00034  int    91 f4 01                 500
+            22  0x00037  prim   83 63                    insert
+            23  0x00039  prim   83 17                    pop
+     6      24  0x0003b  xref   84 22                    foo_1
+            25  0x0003d  int    81 0a                    10
+            26  0x0003f  int    91 84 03                 900
+            27  0x00042  prim   83 63                    insert
+            28  0x00044  prim   83 17                    pop
+     8      29  0x00046  ref    59 66 6f 6f 5f 32        /foo_2
+            30  0x0004c  prim   43                       (
+            31  0x0004d  str    27 61 61                   "aa"
+            32  0x00050  int    81 0b                      11
+            33  0x00052  str    27 62 62                   "bb"
+            34  0x00055  int    81 16                      22
+            35  0x00057  str    27 63 63                   "cc"
+            36  0x0005a  int    81 21                      33
+            37  0x0005c  prim   53                       )
+            38  0x0005d  prim   63                       def
+    10      39  0x0005e  word   58 66 6f 6f 5f 32        foo_2
+            40  0x00064  xref   84 12                    "bb"
+            41  0x00066  int    91 de 00                 222
+            42  0x00069  prim   83 63                    insert
+            43  0x0006b  prim   83 17                    pop
+    11      44  0x0006d  xref   84 0f                    foo_2
+            45  0x0006f  str    27 64 64                 "dd"
+            46  0x00072  int    91 bc 01                 444
+            47  0x00075  prim   83 63                    insert
+            48  0x00077  prim   83 17                    pop
+    13      49  0x00079  ref    59 66 6f 6f 5f 33        /foo_3
+            50  0x0007f  str    27 31 32                 "12"
+            51  0x00082  str    07                       ""
+            52  0x00083  prim   83 1e                    add
+            53  0x00085  prim   63                       def
+    15      54  0x00086  word   58 66 6f 6f 5f 33        foo_3
+            55  0x0008c  int    01                       0
+            56  0x0008d  int    81 41                    'A'
+            57  0x0008f  prim   83 63                    insert
+            58  0x00091  prim   83 17                    pop
+    16      59  0x00093  xref   84 0d                    foo_3
+            60  0x00095  int    31                       3
+            61  0x00096  int    81 35                    '5'
+            62  0x00098  prim   83 63                    insert
+            63  0x0009a  prim   83 17                    pop
+    17      64  0x0009c  xref   84 16                    foo_3
+            65  0x0009e  int    81 ff                    -1
+            66  0x000a0  int    81 36                    '6'
+            67  0x000a2  prim   83 63                    insert
+            68  0x000a4  prim   83 17                    pop
+    18      69  0x000a6  xref   84 20                    foo_3
+            70  0x000a8  int    81 13                    19
+            71  0x000aa  int    81 58                    'X'
+            72  0x000ac  prim   83 63                    insert
+            73  0x000ae  prim   83 17                    pop
+    20      74  0x000b0  xref   84 97                    foo_1
+            75  0x000b2  code   16                       {
+            76  0x000b3  prim   13                       }
+            77  0x000b4  prim   83 0e                    forall
+    21      78  0x000b6  xref   84 58                    foo_2
+            79  0x000b8  code   16                       {
+            80  0x000b9  prim   13                       }
+            81  0x000ba  prim   83 0e                    forall
+    22      82  0x000bc  xref   84 36                    foo_3

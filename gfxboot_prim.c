@@ -1388,22 +1388,22 @@ void gfx_prim_put()
 //
 // group: get
 //
-// ( array_1 int_1 any_1  -- )
+// ( array_1 int_1 any_1  -- array_1 )
 // array_1: array to modify
 // int_1: element index
 // any_1: new value
 //
-// ( hash_1 string_1 any_2  -- )
+// ( hash_1 string_1 any_1  -- hash_1 )
 // hash_1: hash to modify
 // string_1: key
-// any_2: new value
+// any_1: new value
 //
-// ( string_2 int_2 int_3  -- )
-// string_2: string to modify
-// int_2: element index
-// int_3: new value
+// ( string_1 int_1 int_2  -- string_1 )
+// string_1: string to modify
+// int_1: element index
+// int_2: new value
 //
-// Insert an element into array_1, hash_1, or string_2 at the respective position.
+// Insert an element into array_1, hash_1, or string_1 at the respective position.
 //
 // Note that string constants are read-only and cannot be modified.
 //
@@ -1415,7 +1415,7 @@ void gfx_prim_put()
 // /y ( "foo" 10 "bar" 20 ) def
 // y "bar" 40 insert                    # y is now ( "foo" 10 "bar" 40 )
 //
-// /z "ABC" mem def                     # mem is needed to create a writable copy
+// /z "ABC" string def                  # string is needed to create a writable copy
 // z 1 68 insert                        # z is now "ADBC"
 //
 void gfx_prim_insert()
@@ -1456,7 +1456,7 @@ void gfx_prim_insert()
       break;
   }
 
-  gfx_obj_array_pop_n(3, gfxboot_data->vm.program.pstack, 1);
+  gfx_obj_array_pop_n(2, gfxboot_data->vm.program.pstack, 1);
 }
 
 

@@ -75,6 +75,10 @@ GC: ++#xxxx.1.1.array
 GC: ++#xxxx.1.1.num.int
 GC: --#xxxx.1.2.num.int
 GC: --#xxxx.1.1.num.int
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.array <size 5, max 20>
 GC: --#xxxx.1.2.array
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.ro, dict #xxxx.1.2.hash>
@@ -98,6 +102,10 @@ GC: ++#xxxx.1.1.array
 GC: ++#xxxx.1.1.num.int
 GC: --#xxxx.1.2.num.int
 GC: --#xxxx.1.1.num.int
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.array <size 6, max 20>
 GC: --#xxxx.1.2.array
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.ro, dict #xxxx.1.2.hash>
@@ -121,6 +129,10 @@ GC: ++#xxxx.1.1.array
 GC: ++#xxxx.1.1.num.int
 GC: --#xxxx.1.2.num.int
 GC: --#xxxx.1.1.num.int
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.array <size 7, max 20>
 GC: --#xxxx.1.2.array
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.ro, dict #xxxx.1.2.hash>
@@ -144,6 +156,10 @@ GC: ++#xxxx.1.1.array
 GC: ++#xxxx.1.1.num.int
 GC: --#xxxx.1.2.num.int
 GC: --#xxxx.1.1.num.int
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.array <size 11, max 20>
 GC: --#xxxx.1.2.array
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.2.mem.ro, dict #xxxx.1.2.hash>
@@ -250,6 +266,10 @@ GC: --#xxxx.1.7.mem.ro
 GC: --#xxxx.1.1.num.int
 GC: --#xxxx.1.2.num.int
 GC: --#xxxx.1.2.mem.str.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.hash <size 3, max 3>
 GC: --#xxxx.1.2.hash
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.6.mem.ro, dict #xxxx.1.2.hash>
@@ -275,6 +295,10 @@ GC: ++#xxxx.1.1.mem.str.ro
 GC: ++#xxxx.1.1.num.int
 GC: --#xxxx.1.2.num.int
 GC: --#xxxx.1.2.mem.str.ro
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.7.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.hash <size 4, max 19>
 GC: --#xxxx.1.2.hash
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.7.mem.ro, dict #xxxx.1.2.hash>
@@ -331,6 +355,10 @@ GC: ++#xxxx.1.1.mem.str
   [2] #xxxx.1.2.mem.str <size 2, "12">
 GC: --#xxxx.1.1.num.int
 GC: --#xxxx.1.1.num.int
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.mem.str <size 3, "A12">
 GC: --#xxxx.1.2.mem.str
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
@@ -353,6 +381,10 @@ GC: ++#xxxx.1.1.mem.str
   [2] #xxxx.1.2.mem.str <size 3, "A12">
 GC: --#xxxx.1.1.num.int
 GC: --#xxxx.1.1.num.int
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.mem.str <size 4, "A125">
 GC: --#xxxx.1.2.mem.str
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
@@ -375,6 +407,10 @@ GC: ++#xxxx.1.1.mem.str
   [2] #xxxx.1.2.mem.str <size 4, "A125">
 GC: --#xxxx.1.1.num.int
 GC: --#xxxx.1.1.num.int
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.mem.str <size 5, "A1265">
 GC: --#xxxx.1.2.mem.str
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
@@ -397,6 +433,10 @@ GC: ++#xxxx.1.1.mem.str
   [2] #xxxx.1.2.mem.str <size 5, "A1265">
 GC: --#xxxx.2.1.num.int
 GC: --#xxxx.1.1.num.int
+== backtrace ==
+  [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
+== stack (#xxxx.1.1.array) ==
+  [0] #xxxx.1.2.mem.str <size 20, "A1265              X">
 GC: --#xxxx.1.2.mem.str
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>

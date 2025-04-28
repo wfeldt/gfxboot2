@@ -27,6 +27,7 @@ static struct {
   { "d", debug_cmd_dump },
   { "defrag", debug_cmd_defrag },
   { "dump", debug_cmd_dump },
+  { "f", debug_cmd_run },
   { "find", debug_cmd_find },
   { "hex", debug_cmd_hex },
   { "i", debug_cmd_dump },
@@ -781,6 +782,15 @@ void debug_cmd_run(int argc, char **argv)
 
   if(*argv[0] == 't') steps = 1;
   if(*argv[0] == 's') gfxboot_data->vm.program.wait_for_context = gfxboot_data->vm.program.context;
+  if(*argv[0] == 'f') {
+    gfxboot_data->vm.program.wait_for_context = gfxboot_data->vm.program.context;
+    if(gfxboot_data->vm.program.wait_for_context) {
+      context_t *context_ptr = gfx_obj_context_ptr(gfxboot_data->vm.program.wait_for_context);
+      if(context_ptr) {
+        gfxboot_data->vm.program.wait_for_context = context_ptr->parent_id;
+      }
+    }
+  }
 
   if(argv[1]) steps = (unsigned) gfx_strtol(argv[1], 0, 0);
 

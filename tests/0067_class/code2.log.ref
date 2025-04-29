@@ -5,31 +5,31 @@
 # line i index  offset   type   hex                      word
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
              0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
-     1       1  0x00008  prim   83 4c                    getcanvas
-             2  0x0000a  prim   83 4e                    getconsole
-             3  0x0000c  prim   83 4d                    setcanvas
-             4  0x0000e  prim   83 42                    getfont
+     1       1  0x00008  prim   83 4e                    getcanvas
+             2  0x0000a  prim   83 50                    getconsole
+             3  0x0000c  prim   83 4f                    setcanvas
+             4  0x0000e  prim   83 44                    getfont
              5  0x00010  prim   83 18                    exch
-             6  0x00012  prim   83 4d                    setcanvas
-             7  0x00014  prim   83 43                    setfont
+             6  0x00012  prim   83 4f                    setcanvas
+             7  0x00014  prim   83 45                    setfont
      3       8  0x00016  ref    79 57 69 64 67 65 74 31  /Widget1
              9  0x0001e  prim   43                       (
      4      10  0x0001f  ref    59 64 72 61 77 31          /draw1
             11  0x00025  code   c6 0e                      {
      5      12  0x00027  int    81 0a                        10
             13  0x00029  word   18 79                        y
-            14  0x0002b  prim   83 41                        setpos
+            14  0x0002b  prim   83 43                        setpos
      6      15  0x0002d  word   48 74 65 78 74               text
-            16  0x00032  prim   83 50                        show
+            16  0x00032  prim   83 52                        show
      7      17  0x00034  prim   13                         }
      9      18  0x00035  ref    19 66                      /f
             19  0x00037  code   96                         {
-            20  0x00038  prim   83 67                        self
+            20  0x00038  prim   83 69                        self
             21  0x0003a  get    5a 63 6c 61 73 73            .class
             22  0x00040  prim   13                         }
     10      23  0x00041  prim   53                       )
             24  0x00042  nil    00                       nil
-            25  0x00043  prim   83 65                    class
+            25  0x00043  prim   83 67                    class
             26  0x00045  prim   63                       def
     12      27  0x00046  ref    79 57 69 64 67 65 74 32  /Widget2
             28  0x0004e  prim   43                       (
@@ -41,18 +41,18 @@
             34  0x0005e  code   c6 1f                      {
     16      35  0x00060  int    81 0a                        10
             36  0x00062  word   18 79                        y
-            37  0x00064  prim   83 41                        setpos
+            37  0x00064  prim   83 43                        setpos
     17      38  0x00066  xref   84 39                        text
-            39  0x00068  prim   83 50                        show
+            39  0x00068  prim   83 52                        show
     18      40  0x0006a  ref    19 79                        /y
             41  0x0006c  word   18 79                        y
             42  0x0006e  int    81 14                        20
-            43  0x00070  prim   83 1e                        add
+            43  0x00070  prim   83 20                        add
             44  0x00072  prim   63                           def
     19      45  0x00073  xref   84 21                        /text
             46  0x00075  xref   84 48                        text
             47  0x00077  str    37 20 58 58                  " XX"
-            48  0x0007b  prim   83 1e                        add
+            48  0x0007b  prim   83 20                        add
             49  0x0007d  prim   63                           def
     20      50  0x0007e  prim   13                         }
     22      51  0x0007f  ref    49 69 6e 69 74             /init
@@ -63,7 +63,7 @@
             56  0x0008b  prim   13                         }
     23      57  0x0008c  prim   53                       )
             58  0x0008d  word   78 57 69 64 67 65 74 31  Widget1
-            59  0x00095  prim   83 65                    class
+            59  0x00095  prim   83 67                    class
             60  0x00097  prim   63                       def
     25      61  0x00098  ref    39 77 69 6e              /win
             62  0x0009c  word   78 57 69 64 67 65 74 32  Widget2
@@ -71,7 +71,7 @@
             64  0x000a5  ref    19 79                      /y
             65  0x000a7  int    81 14                      20
             66  0x000a9  prim   53                       )
-            67  0x000aa  prim   83 66                    new
+            67  0x000aa  prim   83 68                    new
             68  0x000ac  prim   63                       def
     27      69  0x000ad  word   38 77 69 6e              win
             70  0x000b1  get    5a 64 72 61 77 32        .draw2

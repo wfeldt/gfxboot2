@@ -15,7 +15,7 @@
                                 20 7c 25 2b 36 2e 32 73
                                 7c 20 20 7c 25 36 2e 32
                                 64 7c
-             7  0x00031  prim   83 5d                    format
+             7  0x00031  prim   83 5f                    format
      2       8  0x00033  prim   23                       [
              9  0x00034  int    81 7b                      123
             10  0x00036  int    91 ea 00                   234
@@ -26,7 +26,7 @@
                                 20 7c 25 2d 35 64 7c 20
                                 20 7c 25 2b 36 64 7c 20
                                 20 7c 25 36 64 7c
-            15  0x0005e  prim   83 5d                    format
+            15  0x0005e  prim   83 5f                    format
      3      16  0x00060  prim   23                       [
             17  0x00061  int    81 85                      -123
             18  0x00063  int    91 16 ff                   -234
@@ -37,7 +37,7 @@
                                 7c 25 2d 35 64 7c 20 20
                                 7c 25 2b 36 64 7c 20 20
                                 7c 25 36 64 7c
-            23  0x0008a  prim   83 5d                    format
+            23  0x0008a  prim   83 5f                    format
      4      24  0x0008c  prim   23                       [
             25  0x0008d  str    37 61 62 63                "abc"
             26  0x00091  str    37 64 65 66                "def"
@@ -48,7 +48,7 @@
                                 20 7c 25 2d 35 73 7c 20
                                 20 7c 25 2b 36 73 7c 20
                                 20 7c 25 36 73 7c
-            31  0x000bc  prim   83 5d                    format
+            31  0x000bc  prim   83 5f                    format
      5      32  0x000be  prim   23                       [
             33  0x000bf  xref   84 32                      "abc"
             34  0x000c1  xref   84 30                      "def"
@@ -60,4 +60,4 @@
                                 7c 20 20 7c 25 2e 32 73
                                 7c 20 20 20 20 20 20 7c
                                 25 36 2e 32 73 7c
-            39  0x000ee  prim   83 5d                    format
+            39  0x000ee  prim   83 5f                    format

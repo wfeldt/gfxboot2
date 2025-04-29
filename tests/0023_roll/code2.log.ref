@@ -14,13 +14,13 @@
              7  0x0000e  int    71                       7
      2       8  0x0000f  int    71                       7
              9  0x00010  int    11                       1
-            10  0x00011  prim   83 1a                    roll
+            10  0x00011  prim   83 1b                    roll
      3      11  0x00013  int    51                       5
             12  0x00014  int    81 fe                    -2
-            13  0x00016  prim   83 1a                    roll
+            13  0x00016  prim   83 1b                    roll
      4      14  0x00018  int    01                       0
             15  0x00019  int    01                       0
-            16  0x0001a  prim   83 1a                    roll
+            16  0x0001a  prim   83 1b                    roll
      5      17  0x0001c  int    71                       7
             18  0x0001d  int    01                       0
-            19  0x0001e  prim   83 1a                    roll
+            19  0x0001e  prim   83 1b                    roll

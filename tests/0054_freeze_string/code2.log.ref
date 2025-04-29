@@ -10,7 +10,7 @@
              3  0x00013  prim   83 11                    string
              4  0x00015  prim   63                       def
      2       5  0x00016  word   38 66 6f 6f              foo
-             6  0x0001a  prim   83 3a                    freeze
+             6  0x0001a  prim   83 3c                    freeze
      4       7  0x0001c  xref   64                       foo
              8  0x0001d  int    41                       4
              9  0x0001e  int    81 63                    'c'

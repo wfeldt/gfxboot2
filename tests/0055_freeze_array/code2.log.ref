@@ -13,7 +13,7 @@
              6  0x00011  prim   33                       ]
              7  0x00012  prim   63                       def
      2       8  0x00013  word   48 7a 61 70 70           zapp
-             9  0x00018  prim   83 3a                    freeze
+             9  0x00018  prim   83 3c                    freeze
      4      10  0x0001a  xref   74                       zapp
             11  0x0001b  int    11                       1
             12  0x0001c  int    81 0a                    10

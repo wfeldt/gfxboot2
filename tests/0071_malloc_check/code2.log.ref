@@ -15,17 +15,17 @@
              7  0x0001d  word   98 72 61 6e 64 5f 73 65    rand_seed
                                 65 64
              8  0x00027  int    d1 ff ff ff ff ff 00       0xffffffffff
-             9  0x0002e  prim   83 29                      and
+             9  0x0002e  prim   83 2b                      and
             10  0x00030  int    a1 19 99 01                104729
-            11  0x00034  prim   83 1e                      add
+            11  0x00034  prim   83 20                      add
             12  0x00036  int    a1 fd d4 13                1299709
-            13  0x0003a  prim   83 22                      mul
+            13  0x0003a  prim   83 24                      mul
             14  0x0003c  int    31                         3
-            15  0x0003d  prim   83 2e                      shr
+            15  0x0003d  prim   83 30                      shr
             16  0x0003f  prim   63                         def
      7      17  0x00040  xref   84 23                      rand_seed
             18  0x00042  prim   83 18                      exch
-            19  0x00044  prim   83 24                      mod
+            19  0x00044  prim   83 26                      mod
      8      20  0x00046  prim   13                       }
             21  0x00047  prim   63                       def
     10      22  0x00048  ref    19 61                    /a

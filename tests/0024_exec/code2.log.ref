@@ -24,25 +24,25 @@
             17  0x00036  prim   53                       )
             18  0x00037  prim   63                       def
      5      19  0x00038  xref   84 30                    /foo_1
-            20  0x0003a  prim   83 1d                    exec
+            20  0x0003a  prim   83 1f                    exec
      7      21  0x0003c  code   76                       {
             22  0x0003d  int    91 2c 01                   300
             23  0x00040  int    91 90 01                   400
             24  0x00043  prim   13                       }
-            25  0x00044  prim   83 1d                    exec
+            25  0x00044  prim   83 1f                    exec
      9      26  0x00046  xref   84 31                    /foo_2
-            27  0x00048  prim   83 1d                    exec
+            27  0x00048  prim   83 1f                    exec
     10      28  0x0004a  word   58 66 6f 6f 5f 32        foo_2
-            29  0x00050  prim   83 1d                    exec
+            29  0x00050  prim   83 1f                    exec
     11      30  0x00052  xref   84 34                    /foo_3
-            31  0x00054  prim   83 1d                    exec
+            31  0x00054  prim   83 1f                    exec
     13      32  0x00056  str    37 61 62 63              "abc"
-            33  0x0005a  prim   83 1d                    exec
+            33  0x0005a  prim   83 1f                    exec
     14      34  0x0005c  int    81 1e                    30
-            35  0x0005e  prim   83 1d                    exec
+            35  0x0005e  prim   83 1f                    exec
     15      36  0x00060  nil    00                       nil
-            37  0x00061  prim   83 1d                    exec
+            37  0x00061  prim   83 1f                    exec
     16      38  0x00063  word   58 66 6f 6f 5f 34        foo_4
             39  0x00069  xref   84 3b                    "foo_5"
             40  0x0006b  prim   83 12                    get
-            41  0x0006d  prim   83 1d                    exec
+            41  0x0006d  prim   83 1f                    exec

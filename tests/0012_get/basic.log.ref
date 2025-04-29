@@ -728,7 +728,7 @@ GC: --#xxxx.1.2.mem.str.ro
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <65 (0x41)>
+  [0] #xxxx.2.1.num.int <65 (0x41)>
   [1] #xxxx.1.1.num.int <53 (0x35)>
   [2] #0.0.nil <nil>
   [3] #0.0.nil <nil>

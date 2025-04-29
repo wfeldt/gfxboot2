@@ -7,56 +7,56 @@
              0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
      1       1  0x00008  int    51                       5
              2  0x00009  int    51                       5
-             3  0x0000a  prim   83 32                    ge
+             3  0x0000a  prim   83 34                    ge
      2       4  0x0000c  int    51                       5
              5  0x0000d  int    61                       6
-             6  0x0000e  prim   83 32                    ge
+             6  0x0000e  prim   83 34                    ge
      3       7  0x00010  int    61                       6
              8  0x00011  int    51                       5
-             9  0x00012  prim   83 32                    ge
+             9  0x00012  prim   83 34                    ge
      4      10  0x00014  str    37 61 62 63              "abc"
             11  0x00018  xref   44                       "abc"
-            12  0x00019  prim   83 32                    ge
+            12  0x00019  prim   83 34                    ge
      5      13  0x0001b  xref   74                       "abc"
             14  0x0001c  str    37 61 62 64              "abd"
-            15  0x00020  prim   83 32                    ge
+            15  0x00020  prim   83 34                    ge
      6      16  0x00022  xref   84 0e                    "abc"
             17  0x00024  str    47 61 62 63 31           "abc1"
-            18  0x00029  prim   83 32                    ge
+            18  0x00029  prim   83 34                    ge
      7      19  0x0002b  xref   84 0f                    "abd"
             20  0x0002d  xref   84 19                    "abc"
-            21  0x0002f  prim   83 32                    ge
+            21  0x0002f  prim   83 34                    ge
      8      22  0x00031  xref   84 0d                    "abc1"
             23  0x00033  xref   84 1f                    "abc"
-            24  0x00035  prim   83 32                    ge
+            24  0x00035  prim   83 34                    ge
      9      25  0x00037  str    07                       ""
             26  0x00038  str    07                       ""
-            27  0x00039  prim   83 32                    ge
+            27  0x00039  prim   83 34                    ge
     10      28  0x0003b  str    07                       ""
             29  0x0003c  str    17 61                    "a"
-            30  0x0003e  prim   83 32                    ge
+            30  0x0003e  prim   83 34                    ge
     11      31  0x00040  xref   44                       "a"
             32  0x00041  str    07                       ""
-            33  0x00042  prim   83 32                    ge
+            33  0x00042  prim   83 34                    ge
     12      34  0x00044  ref    39 66 6f 6f              /foo
             35  0x00048  str    37 66 6f 6f              "foo"
-            36  0x0004c  prim   83 32                    ge
+            36  0x0004c  prim   83 34                    ge
     13      37  0x0004e  nil    00                       nil
             38  0x0004f  nil    00                       nil
-            39  0x00050  prim   83 32                    ge
+            39  0x00050  prim   83 34                    ge
     14      40  0x00052  nil    00                       nil
             41  0x00053  int    31                       3
-            42  0x00054  prim   83 32                    ge
+            42  0x00054  prim   83 34                    ge
     15      43  0x00056  int    51                       5
             44  0x00057  xref   84 43                    "abc"
-            45  0x00059  prim   83 32                    ge
+            45  0x00059  prim   83 34                    ge
     16      46  0x0005b  code   36                       {
             47  0x0005c  int    81 0a                      10
             48  0x0005e  prim   13                       }
             49  0x0005f  code   36                       {
             50  0x00060  int    81 0a                      10
             51  0x00062  prim   13                       }
-            52  0x00063  prim   83 32                    ge
+            52  0x00063  prim   83 34                    ge
     17      53  0x00065  ref    59 66 6f 6f 5f 31        /foo_1
             54  0x0006b  prim   23                       [
             55  0x0006c  int    11                         1
@@ -69,11 +69,11 @@
             62  0x0007d  prim   63                       def
     19      63  0x0007e  xref   74                       foo_1
             64  0x0007f  word   58 66 6f 6f 5f 32        foo_2
-            65  0x00085  prim   83 32                    ge
+            65  0x00085  prim   83 34                    ge
     20      66  0x00087  prim   23                       [
             67  0x00088  int    61                         6
             68  0x00089  prim   33                       ]
             69  0x0008a  prim   23                       [
             70  0x0008b  int    61                         6
             71  0x0008c  prim   33                       ]
-            72  0x0008d  prim   83 32                    ge
+            72  0x0008d  prim   83 34                    ge

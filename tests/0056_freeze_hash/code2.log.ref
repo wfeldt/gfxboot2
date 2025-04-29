@@ -14,7 +14,7 @@
              7  0x00017  prim   53                       )
              8  0x00018  prim   63                       def
      2       9  0x00019  word   38 62 61 72              bar
-            10  0x0001d  prim   83 3a                    freeze
+            10  0x0001d  prim   83 3c                    freeze
      4      11  0x0001f  xref   64                       bar
             12  0x00020  xref   84 0e                    "bb"
             13  0x00022  int    81 21                    33

@@ -11,8 +11,8 @@
              4  0x00010  int    91 90 01                 400
              5  0x00013  int    91 f4 01                 500
      3       6  0x00016  int    01                       0
-             7  0x00017  prim   83 1c                    index
+             7  0x00017  prim   83 1d                    index
      4       8  0x00019  int    21                       2
-             9  0x0001a  prim   83 1c                    index
+             9  0x0001a  prim   83 1d                    index
      5      10  0x0001c  int    61                       6
-            11  0x0001d  prim   83 1c                    index
+            11  0x0001d  prim   83 1d                    index

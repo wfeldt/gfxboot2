@@ -1,1063 +1,1063 @@
 # ---  trace  ---
-IP: #217:0x0, type 5, 1[7]
+IP: #221:0x0, type 5, 1[7]
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x8 (0x0), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-IP: #217:0x8, type 1, 10 (0xa)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x8 (0x0), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+IP: #221:0x8, type 1, 10 (0xa)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0xa (0x8), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #220.1.1.num.int <10 (0xa)>
-IP: #217:0xa, type 1, 2 (0x2)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0xa (0x8), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #224.1.1.num.int <10 (0xa)>
+IP: #221:0xa, type 1, 2 (0x2)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0xb (0xa), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #221.1.1.num.int <2 (0x2)>
-  [1] #220.1.1.num.int <10 (0xa)>
-IP: #217:0xb, type 1, 20 (0x14)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0xb (0xa), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #225.1.1.num.int <2 (0x2)>
+  [1] #224.1.1.num.int <10 (0xa)>
+IP: #221:0xb, type 1, 20 (0x14)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0xd (0xb), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #222.1.1.num.int <20 (0x14)>
-  [1] #221.1.1.num.int <2 (0x2)>
-  [2] #220.1.1.num.int <10 (0xa)>
-IP: #217:0xd, type 6, 14[1]
-GC: ++#217.1.1.mem.ro
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0xd (0xb), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #226.1.1.num.int <20 (0x14)>
+  [1] #225.1.1.num.int <2 (0x2)>
+  [2] #224.1.1.num.int <10 (0xa)>
+IP: #221:0xd, type 6, 14[1]
+GC: ++#221.1.1.mem.ro
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0xf (0xd), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #223.1.1.mem.code.ro <#217.1.2.mem.ro, ofs 0xe, size 1>
-  [1] #222.1.1.num.int <20 (0x14)>
-  [2] #221.1.1.num.int <2 (0x2)>
-  [3] #220.1.1.num.int <10 (0xa)>
-IP: #217:0xf, type 8, 16[3]
-GC: ++#223.1.1.mem.code.ro
-GC: --#223.1.2.mem.code.ro
-GC: --#222.1.1.num.int
-GC: --#221.1.1.num.int
+  [0] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0xf (0xd), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #227.1.1.mem.code.ro <#221.1.2.mem.ro, ofs 0xe, size 1>
+  [1] #226.1.1.num.int <20 (0x14)>
+  [2] #225.1.1.num.int <2 (0x2)>
+  [3] #224.1.1.num.int <10 (0xa)>
+IP: #221:0xf, type 8, 16[3]
+GC: ++#227.1.1.mem.code.ro
+GC: --#227.1.2.mem.code.ro
+GC: --#226.1.1.num.int
+GC: --#225.1.1.num.int
 == backtrace ==
-  [0] #224.1.1.ctx.for <code #223.1.1.mem.code.ro, ip 0x0 (0x0), index 10, inc 2, max 20>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x13 (0xf), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #220.1.1.num.int <10 (0xa)>
-IP: #223:0x0, type 3, 1 (0x1)
+  [0] #228.1.1.ctx.for <code #227.1.1.mem.code.ro, ip 0x0 (0x0), index 10, inc 2, max 20>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x13 (0xf), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #224.1.1.num.int <10 (0xa)>
+IP: #227:0x0, type 3, 1 (0x1)
 == backtrace ==
-  [0] #224.1.1.ctx.for <code #223.1.1.mem.code.ro, ip 0x0 (0x0), index 12, inc 2, max 20>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x13 (0xf), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #226.1.1.num.int <12 (0xc)>
-  [1] #220.1.1.num.int <10 (0xa)>
-IP: #223:0x0, type 3, 1 (0x1)
+  [0] #228.1.1.ctx.for <code #227.1.1.mem.code.ro, ip 0x0 (0x0), index 12, inc 2, max 20>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x13 (0xf), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #230.1.1.num.int <12 (0xc)>
+  [1] #224.1.1.num.int <10 (0xa)>
+IP: #227:0x0, type 3, 1 (0x1)
 == backtrace ==
-  [0] #224.1.1.ctx.for <code #223.1.1.mem.code.ro, ip 0x0 (0x0), index 14, inc 2, max 20>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x13 (0xf), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #227.1.1.num.int <14 (0xe)>
-  [1] #226.1.1.num.int <12 (0xc)>
-  [2] #220.1.1.num.int <10 (0xa)>
-IP: #223:0x0, type 3, 1 (0x1)
+  [0] #228.1.1.ctx.for <code #227.1.1.mem.code.ro, ip 0x0 (0x0), index 14, inc 2, max 20>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x13 (0xf), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #231.1.1.num.int <14 (0xe)>
+  [1] #230.1.1.num.int <12 (0xc)>
+  [2] #224.1.1.num.int <10 (0xa)>
+IP: #227:0x0, type 3, 1 (0x1)
 == backtrace ==
-  [0] #224.1.1.ctx.for <code #223.1.1.mem.code.ro, ip 0x0 (0x0), index 16, inc 2, max 20>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x13 (0xf), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #228.1.1.num.int <16 (0x10)>
-  [1] #227.1.1.num.int <14 (0xe)>
-  [2] #226.1.1.num.int <12 (0xc)>
-  [3] #220.1.1.num.int <10 (0xa)>
-IP: #223:0x0, type 3, 1 (0x1)
+  [0] #228.1.1.ctx.for <code #227.1.1.mem.code.ro, ip 0x0 (0x0), index 16, inc 2, max 20>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x13 (0xf), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #232.1.1.num.int <16 (0x10)>
+  [1] #231.1.1.num.int <14 (0xe)>
+  [2] #230.1.1.num.int <12 (0xc)>
+  [3] #224.1.1.num.int <10 (0xa)>
+IP: #227:0x0, type 3, 1 (0x1)
 == backtrace ==
-  [0] #224.1.1.ctx.for <code #223.1.1.mem.code.ro, ip 0x0 (0x0), index 18, inc 2, max 20>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x13 (0xf), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #229.1.1.num.int <18 (0x12)>
-  [1] #228.1.1.num.int <16 (0x10)>
-  [2] #227.1.1.num.int <14 (0xe)>
-  [3] #226.1.1.num.int <12 (0xc)>
-  [4] #220.1.1.num.int <10 (0xa)>
-IP: #223:0x0, type 3, 1 (0x1)
+  [0] #228.1.1.ctx.for <code #227.1.1.mem.code.ro, ip 0x0 (0x0), index 18, inc 2, max 20>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x13 (0xf), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #233.1.1.num.int <18 (0x12)>
+  [1] #232.1.1.num.int <16 (0x10)>
+  [2] #231.1.1.num.int <14 (0xe)>
+  [3] #230.1.1.num.int <12 (0xc)>
+  [4] #224.1.1.num.int <10 (0xa)>
+IP: #227:0x0, type 3, 1 (0x1)
 == backtrace ==
-  [0] #224.1.1.ctx.for <code #223.1.1.mem.code.ro, ip 0x0 (0x0), index 20, inc 2, max 20>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x13 (0xf), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #230.1.1.num.int <20 (0x14)>
-  [1] #229.1.1.num.int <18 (0x12)>
-  [2] #228.1.1.num.int <16 (0x10)>
-  [3] #227.1.1.num.int <14 (0xe)>
-  [4] #226.1.1.num.int <12 (0xc)>
-  [5] #220.1.1.num.int <10 (0xa)>
-IP: #223:0x0, type 3, 1 (0x1)
-GC: ++#219.1.1.ctx.func
-GC: --#224.1.1.ctx.for
-GC: --#219.1.2.ctx.func
-GC: --#223.1.1.mem.code.ro
-GC: --#217.1.2.mem.ro
+  [0] #228.1.1.ctx.for <code #227.1.1.mem.code.ro, ip 0x0 (0x0), index 20, inc 2, max 20>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x13 (0xf), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #234.1.1.num.int <20 (0x14)>
+  [1] #233.1.1.num.int <18 (0x12)>
+  [2] #232.1.1.num.int <16 (0x10)>
+  [3] #231.1.1.num.int <14 (0xe)>
+  [4] #230.1.1.num.int <12 (0xc)>
+  [5] #224.1.1.num.int <10 (0xa)>
+IP: #227:0x0, type 3, 1 (0x1)
+GC: ++#223.1.1.ctx.func
+GC: --#228.1.1.ctx.for
+GC: --#223.1.2.ctx.func
+GC: --#227.1.1.mem.code.ro
+GC: --#221.1.2.mem.ro
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x13 (0xf), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #230.1.1.num.int <20 (0x14)>
-  [1] #229.1.1.num.int <18 (0x12)>
-  [2] #228.1.1.num.int <16 (0x10)>
-  [3] #227.1.1.num.int <14 (0xe)>
-  [4] #226.1.1.num.int <12 (0xc)>
-  [5] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x13, type 1, 100 (0x64)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x13 (0xf), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #234.1.1.num.int <20 (0x14)>
+  [1] #233.1.1.num.int <18 (0x12)>
+  [2] #232.1.1.num.int <16 (0x10)>
+  [3] #231.1.1.num.int <14 (0xe)>
+  [4] #230.1.1.num.int <12 (0xc)>
+  [5] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x13, type 1, 100 (0x64)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x15 (0x13), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #231.1.1.num.int <100 (0x64)>
-  [1] #230.1.1.num.int <20 (0x14)>
-  [2] #229.1.1.num.int <18 (0x12)>
-  [3] #228.1.1.num.int <16 (0x10)>
-  [4] #227.1.1.num.int <14 (0xe)>
-  [5] #226.1.1.num.int <12 (0xc)>
-  [6] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x15, type 1, 2 (0x2)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x15 (0x13), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #235.1.1.num.int <100 (0x64)>
+  [1] #234.1.1.num.int <20 (0x14)>
+  [2] #233.1.1.num.int <18 (0x12)>
+  [3] #232.1.1.num.int <16 (0x10)>
+  [4] #231.1.1.num.int <14 (0xe)>
+  [5] #230.1.1.num.int <12 (0xc)>
+  [6] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x15, type 1, 2 (0x2)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x16 (0x15), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #232.1.1.num.int <2 (0x2)>
-  [1] #231.1.1.num.int <100 (0x64)>
-  [2] #230.1.1.num.int <20 (0x14)>
-  [3] #229.1.1.num.int <18 (0x12)>
-  [4] #228.1.1.num.int <16 (0x10)>
-  [5] #227.1.1.num.int <14 (0xe)>
-  [6] #226.1.1.num.int <12 (0xc)>
-  [7] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x16, type 1, 107 (0x6b)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x16 (0x15), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #236.1.1.num.int <2 (0x2)>
+  [1] #235.1.1.num.int <100 (0x64)>
+  [2] #234.1.1.num.int <20 (0x14)>
+  [3] #233.1.1.num.int <18 (0x12)>
+  [4] #232.1.1.num.int <16 (0x10)>
+  [5] #231.1.1.num.int <14 (0xe)>
+  [6] #230.1.1.num.int <12 (0xc)>
+  [7] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x16, type 1, 107 (0x6b)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x18 (0x16), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #233.1.1.num.int <107 (0x6b)>
-  [1] #232.1.1.num.int <2 (0x2)>
-  [2] #231.1.1.num.int <100 (0x64)>
-  [3] #230.1.1.num.int <20 (0x14)>
-  [4] #229.1.1.num.int <18 (0x12)>
-  [5] #228.1.1.num.int <16 (0x10)>
-  [6] #227.1.1.num.int <14 (0xe)>
-  [7] #226.1.1.num.int <12 (0xc)>
-  [8] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x18, type 6, 25[1]
-GC: ++#217.1.1.mem.ro
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x18 (0x16), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #237.1.1.num.int <107 (0x6b)>
+  [1] #236.1.1.num.int <2 (0x2)>
+  [2] #235.1.1.num.int <100 (0x64)>
+  [3] #234.1.1.num.int <20 (0x14)>
+  [4] #233.1.1.num.int <18 (0x12)>
+  [5] #232.1.1.num.int <16 (0x10)>
+  [6] #231.1.1.num.int <14 (0xe)>
+  [7] #230.1.1.num.int <12 (0xc)>
+  [8] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x18, type 6, 25[1]
+GC: ++#221.1.1.mem.ro
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x1a (0x18), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #234.1.1.mem.code.ro <#217.1.2.mem.ro, ofs 0x19, size 1>
-  [1] #233.1.1.num.int <107 (0x6b)>
-  [2] #232.1.1.num.int <2 (0x2)>
-  [3] #231.1.1.num.int <100 (0x64)>
-  [4] #230.1.1.num.int <20 (0x14)>
-  [5] #229.1.1.num.int <18 (0x12)>
-  [6] #228.1.1.num.int <16 (0x10)>
-  [7] #227.1.1.num.int <14 (0xe)>
-  [8] #226.1.1.num.int <12 (0xc)>
-  [9] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x1a, type 8, 27[3]
-GC: ++#234.1.1.mem.code.ro
-GC: --#234.1.2.mem.code.ro
-GC: --#233.1.1.num.int
-GC: --#232.1.1.num.int
+  [0] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x1a (0x18), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #238.1.1.mem.code.ro <#221.1.2.mem.ro, ofs 0x19, size 1>
+  [1] #237.1.1.num.int <107 (0x6b)>
+  [2] #236.1.1.num.int <2 (0x2)>
+  [3] #235.1.1.num.int <100 (0x64)>
+  [4] #234.1.1.num.int <20 (0x14)>
+  [5] #233.1.1.num.int <18 (0x12)>
+  [6] #232.1.1.num.int <16 (0x10)>
+  [7] #231.1.1.num.int <14 (0xe)>
+  [8] #230.1.1.num.int <12 (0xc)>
+  [9] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x1a, type 8, 27[3]
+GC: ++#238.1.1.mem.code.ro
+GC: --#238.1.2.mem.code.ro
+GC: --#237.1.1.num.int
+GC: --#236.1.1.num.int
 == backtrace ==
-  [0] #235.1.1.ctx.for <code #234.1.1.mem.code.ro, ip 0x0 (0x0), index 100, inc 2, max 107>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x1e (0x1a), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #231.1.1.num.int <100 (0x64)>
-  [1] #230.1.1.num.int <20 (0x14)>
-  [2] #229.1.1.num.int <18 (0x12)>
-  [3] #228.1.1.num.int <16 (0x10)>
-  [4] #227.1.1.num.int <14 (0xe)>
-  [5] #226.1.1.num.int <12 (0xc)>
-  [6] #220.1.1.num.int <10 (0xa)>
-IP: #234:0x0, type 3, 1 (0x1)
+  [0] #239.1.1.ctx.for <code #238.1.1.mem.code.ro, ip 0x0 (0x0), index 100, inc 2, max 107>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x1e (0x1a), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #235.1.1.num.int <100 (0x64)>
+  [1] #234.1.1.num.int <20 (0x14)>
+  [2] #233.1.1.num.int <18 (0x12)>
+  [3] #232.1.1.num.int <16 (0x10)>
+  [4] #231.1.1.num.int <14 (0xe)>
+  [5] #230.1.1.num.int <12 (0xc)>
+  [6] #224.1.1.num.int <10 (0xa)>
+IP: #238:0x0, type 3, 1 (0x1)
 == backtrace ==
-  [0] #235.1.1.ctx.for <code #234.1.1.mem.code.ro, ip 0x0 (0x0), index 102, inc 2, max 107>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x1e (0x1a), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #236.1.1.num.int <102 (0x66)>
-  [1] #231.1.1.num.int <100 (0x64)>
-  [2] #230.1.1.num.int <20 (0x14)>
-  [3] #229.1.1.num.int <18 (0x12)>
-  [4] #228.1.1.num.int <16 (0x10)>
-  [5] #227.1.1.num.int <14 (0xe)>
-  [6] #226.1.1.num.int <12 (0xc)>
-  [7] #220.1.1.num.int <10 (0xa)>
-IP: #234:0x0, type 3, 1 (0x1)
+  [0] #239.1.1.ctx.for <code #238.1.1.mem.code.ro, ip 0x0 (0x0), index 102, inc 2, max 107>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x1e (0x1a), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #240.1.1.num.int <102 (0x66)>
+  [1] #235.1.1.num.int <100 (0x64)>
+  [2] #234.1.1.num.int <20 (0x14)>
+  [3] #233.1.1.num.int <18 (0x12)>
+  [4] #232.1.1.num.int <16 (0x10)>
+  [5] #231.1.1.num.int <14 (0xe)>
+  [6] #230.1.1.num.int <12 (0xc)>
+  [7] #224.1.1.num.int <10 (0xa)>
+IP: #238:0x0, type 3, 1 (0x1)
 == backtrace ==
-  [0] #235.1.1.ctx.for <code #234.1.1.mem.code.ro, ip 0x0 (0x0), index 104, inc 2, max 107>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x1e (0x1a), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #237.1.1.num.int <104 (0x68)>
-  [1] #236.1.1.num.int <102 (0x66)>
-  [2] #231.1.1.num.int <100 (0x64)>
-  [3] #230.1.1.num.int <20 (0x14)>
-  [4] #229.1.1.num.int <18 (0x12)>
-  [5] #228.1.1.num.int <16 (0x10)>
-  [6] #227.1.1.num.int <14 (0xe)>
-  [7] #226.1.1.num.int <12 (0xc)>
-  [8] #220.1.1.num.int <10 (0xa)>
-IP: #234:0x0, type 3, 1 (0x1)
+  [0] #239.1.1.ctx.for <code #238.1.1.mem.code.ro, ip 0x0 (0x0), index 104, inc 2, max 107>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x1e (0x1a), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #241.1.1.num.int <104 (0x68)>
+  [1] #240.1.1.num.int <102 (0x66)>
+  [2] #235.1.1.num.int <100 (0x64)>
+  [3] #234.1.1.num.int <20 (0x14)>
+  [4] #233.1.1.num.int <18 (0x12)>
+  [5] #232.1.1.num.int <16 (0x10)>
+  [6] #231.1.1.num.int <14 (0xe)>
+  [7] #230.1.1.num.int <12 (0xc)>
+  [8] #224.1.1.num.int <10 (0xa)>
+IP: #238:0x0, type 3, 1 (0x1)
 == backtrace ==
-  [0] #235.1.1.ctx.for <code #234.1.1.mem.code.ro, ip 0x0 (0x0), index 106, inc 2, max 107>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x1e (0x1a), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #238.1.1.num.int <106 (0x6a)>
-  [1] #237.1.1.num.int <104 (0x68)>
-  [2] #236.1.1.num.int <102 (0x66)>
-  [3] #231.1.1.num.int <100 (0x64)>
-  [4] #230.1.1.num.int <20 (0x14)>
-  [5] #229.1.1.num.int <18 (0x12)>
-  [6] #228.1.1.num.int <16 (0x10)>
-  [7] #227.1.1.num.int <14 (0xe)>
-  [8] #226.1.1.num.int <12 (0xc)>
-  [9] #220.1.1.num.int <10 (0xa)>
-IP: #234:0x0, type 3, 1 (0x1)
-GC: ++#219.1.1.ctx.func
-GC: --#235.1.1.ctx.for
-GC: --#219.1.2.ctx.func
-GC: --#234.1.1.mem.code.ro
-GC: --#217.1.2.mem.ro
+  [0] #239.1.1.ctx.for <code #238.1.1.mem.code.ro, ip 0x0 (0x0), index 106, inc 2, max 107>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x1e (0x1a), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #242.1.1.num.int <106 (0x6a)>
+  [1] #241.1.1.num.int <104 (0x68)>
+  [2] #240.1.1.num.int <102 (0x66)>
+  [3] #235.1.1.num.int <100 (0x64)>
+  [4] #234.1.1.num.int <20 (0x14)>
+  [5] #233.1.1.num.int <18 (0x12)>
+  [6] #232.1.1.num.int <16 (0x10)>
+  [7] #231.1.1.num.int <14 (0xe)>
+  [8] #230.1.1.num.int <12 (0xc)>
+  [9] #224.1.1.num.int <10 (0xa)>
+IP: #238:0x0, type 3, 1 (0x1)
+GC: ++#223.1.1.ctx.func
+GC: --#239.1.1.ctx.for
+GC: --#223.1.2.ctx.func
+GC: --#238.1.1.mem.code.ro
+GC: --#221.1.2.mem.ro
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x1e (0x1a), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #238.1.1.num.int <106 (0x6a)>
-  [1] #237.1.1.num.int <104 (0x68)>
-  [2] #236.1.1.num.int <102 (0x66)>
-  [3] #231.1.1.num.int <100 (0x64)>
-  [4] #230.1.1.num.int <20 (0x14)>
-  [5] #229.1.1.num.int <18 (0x12)>
-  [6] #228.1.1.num.int <16 (0x10)>
-  [7] #227.1.1.num.int <14 (0xe)>
-  [8] #226.1.1.num.int <12 (0xc)>
-  [9] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x1e, type 1, 1100 (0x44c)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x1e (0x1a), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #242.1.1.num.int <106 (0x6a)>
+  [1] #241.1.1.num.int <104 (0x68)>
+  [2] #240.1.1.num.int <102 (0x66)>
+  [3] #235.1.1.num.int <100 (0x64)>
+  [4] #234.1.1.num.int <20 (0x14)>
+  [5] #233.1.1.num.int <18 (0x12)>
+  [6] #232.1.1.num.int <16 (0x10)>
+  [7] #231.1.1.num.int <14 (0xe)>
+  [8] #230.1.1.num.int <12 (0xc)>
+  [9] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x1e, type 1, 1100 (0x44c)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x21 (0x1e), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #239.1.1.num.int <1100 (0x44c)>
-  [1] #238.1.1.num.int <106 (0x6a)>
-  [2] #237.1.1.num.int <104 (0x68)>
-  [3] #236.1.1.num.int <102 (0x66)>
-  [4] #231.1.1.num.int <100 (0x64)>
-  [5] #230.1.1.num.int <20 (0x14)>
-  [6] #229.1.1.num.int <18 (0x12)>
-  [7] #228.1.1.num.int <16 (0x10)>
-  [8] #227.1.1.num.int <14 (0xe)>
-  [9] #226.1.1.num.int <12 (0xc)>
-  [10] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x21, type 1, -2 (0xfffffffffffffffe)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x21 (0x1e), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #243.1.1.num.int <1100 (0x44c)>
+  [1] #242.1.1.num.int <106 (0x6a)>
+  [2] #241.1.1.num.int <104 (0x68)>
+  [3] #240.1.1.num.int <102 (0x66)>
+  [4] #235.1.1.num.int <100 (0x64)>
+  [5] #234.1.1.num.int <20 (0x14)>
+  [6] #233.1.1.num.int <18 (0x12)>
+  [7] #232.1.1.num.int <16 (0x10)>
+  [8] #231.1.1.num.int <14 (0xe)>
+  [9] #230.1.1.num.int <12 (0xc)>
+  [10] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x21, type 1, -2 (0xfffffffffffffffe)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x23 (0x21), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #240.1.1.num.int <-2 (0xfffffffffffffffe)>
-  [1] #239.1.1.num.int <1100 (0x44c)>
-  [2] #238.1.1.num.int <106 (0x6a)>
-  [3] #237.1.1.num.int <104 (0x68)>
-  [4] #236.1.1.num.int <102 (0x66)>
-  [5] #231.1.1.num.int <100 (0x64)>
-  [6] #230.1.1.num.int <20 (0x14)>
-  [7] #229.1.1.num.int <18 (0x12)>
-  [8] #228.1.1.num.int <16 (0x10)>
-  [9] #227.1.1.num.int <14 (0xe)>
-  [10] #226.1.1.num.int <12 (0xc)>
-  [11] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x23, type 1, 1090 (0x442)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x23 (0x21), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #244.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [1] #243.1.1.num.int <1100 (0x44c)>
+  [2] #242.1.1.num.int <106 (0x6a)>
+  [3] #241.1.1.num.int <104 (0x68)>
+  [4] #240.1.1.num.int <102 (0x66)>
+  [5] #235.1.1.num.int <100 (0x64)>
+  [6] #234.1.1.num.int <20 (0x14)>
+  [7] #233.1.1.num.int <18 (0x12)>
+  [8] #232.1.1.num.int <16 (0x10)>
+  [9] #231.1.1.num.int <14 (0xe)>
+  [10] #230.1.1.num.int <12 (0xc)>
+  [11] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x23, type 1, 1090 (0x442)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x26 (0x23), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #241.1.1.num.int <1090 (0x442)>
-  [1] #240.1.1.num.int <-2 (0xfffffffffffffffe)>
-  [2] #239.1.1.num.int <1100 (0x44c)>
-  [3] #238.1.1.num.int <106 (0x6a)>
-  [4] #237.1.1.num.int <104 (0x68)>
-  [5] #236.1.1.num.int <102 (0x66)>
-  [6] #231.1.1.num.int <100 (0x64)>
-  [7] #230.1.1.num.int <20 (0x14)>
-  [8] #229.1.1.num.int <18 (0x12)>
-  [9] #228.1.1.num.int <16 (0x10)>
-  [10] #227.1.1.num.int <14 (0xe)>
-  [11] #226.1.1.num.int <12 (0xc)>
-  [12] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x26, type 6, 39[1]
-GC: ++#217.1.1.mem.ro
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x26 (0x23), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #245.1.1.num.int <1090 (0x442)>
+  [1] #244.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [2] #243.1.1.num.int <1100 (0x44c)>
+  [3] #242.1.1.num.int <106 (0x6a)>
+  [4] #241.1.1.num.int <104 (0x68)>
+  [5] #240.1.1.num.int <102 (0x66)>
+  [6] #235.1.1.num.int <100 (0x64)>
+  [7] #234.1.1.num.int <20 (0x14)>
+  [8] #233.1.1.num.int <18 (0x12)>
+  [9] #232.1.1.num.int <16 (0x10)>
+  [10] #231.1.1.num.int <14 (0xe)>
+  [11] #230.1.1.num.int <12 (0xc)>
+  [12] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x26, type 6, 39[1]
+GC: ++#221.1.1.mem.ro
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x28 (0x26), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #242.1.1.mem.code.ro <#217.1.2.mem.ro, ofs 0x27, size 1>
-  [1] #241.1.1.num.int <1090 (0x442)>
-  [2] #240.1.1.num.int <-2 (0xfffffffffffffffe)>
-  [3] #239.1.1.num.int <1100 (0x44c)>
-  [4] #238.1.1.num.int <106 (0x6a)>
-  [5] #237.1.1.num.int <104 (0x68)>
-  [6] #236.1.1.num.int <102 (0x66)>
-  [7] #231.1.1.num.int <100 (0x64)>
-  [8] #230.1.1.num.int <20 (0x14)>
-  [9] #229.1.1.num.int <18 (0x12)>
-  [10] #228.1.1.num.int <16 (0x10)>
-  [11] #227.1.1.num.int <14 (0xe)>
-  [12] #226.1.1.num.int <12 (0xc)>
-  [13] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x28, type 8, 41[3]
-GC: ++#242.1.1.mem.code.ro
-GC: --#242.1.2.mem.code.ro
-GC: --#241.1.1.num.int
-GC: --#240.1.1.num.int
+  [0] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x28 (0x26), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #246.1.1.mem.code.ro <#221.1.2.mem.ro, ofs 0x27, size 1>
+  [1] #245.1.1.num.int <1090 (0x442)>
+  [2] #244.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [3] #243.1.1.num.int <1100 (0x44c)>
+  [4] #242.1.1.num.int <106 (0x6a)>
+  [5] #241.1.1.num.int <104 (0x68)>
+  [6] #240.1.1.num.int <102 (0x66)>
+  [7] #235.1.1.num.int <100 (0x64)>
+  [8] #234.1.1.num.int <20 (0x14)>
+  [9] #233.1.1.num.int <18 (0x12)>
+  [10] #232.1.1.num.int <16 (0x10)>
+  [11] #231.1.1.num.int <14 (0xe)>
+  [12] #230.1.1.num.int <12 (0xc)>
+  [13] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x28, type 8, 41[3]
+GC: ++#246.1.1.mem.code.ro
+GC: --#246.1.2.mem.code.ro
+GC: --#245.1.1.num.int
+GC: --#244.1.1.num.int
 == backtrace ==
-  [0] #243.1.1.ctx.for <code #242.1.1.mem.code.ro, ip 0x0 (0x0), index 1100, inc -2, max 1090>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x2c (0x28), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #239.1.1.num.int <1100 (0x44c)>
-  [1] #238.1.1.num.int <106 (0x6a)>
-  [2] #237.1.1.num.int <104 (0x68)>
-  [3] #236.1.1.num.int <102 (0x66)>
-  [4] #231.1.1.num.int <100 (0x64)>
-  [5] #230.1.1.num.int <20 (0x14)>
-  [6] #229.1.1.num.int <18 (0x12)>
-  [7] #228.1.1.num.int <16 (0x10)>
-  [8] #227.1.1.num.int <14 (0xe)>
-  [9] #226.1.1.num.int <12 (0xc)>
-  [10] #220.1.1.num.int <10 (0xa)>
-IP: #242:0x0, type 3, 1 (0x1)
+  [0] #247.1.1.ctx.for <code #246.1.1.mem.code.ro, ip 0x0 (0x0), index 1100, inc -2, max 1090>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x2c (0x28), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #243.1.1.num.int <1100 (0x44c)>
+  [1] #242.1.1.num.int <106 (0x6a)>
+  [2] #241.1.1.num.int <104 (0x68)>
+  [3] #240.1.1.num.int <102 (0x66)>
+  [4] #235.1.1.num.int <100 (0x64)>
+  [5] #234.1.1.num.int <20 (0x14)>
+  [6] #233.1.1.num.int <18 (0x12)>
+  [7] #232.1.1.num.int <16 (0x10)>
+  [8] #231.1.1.num.int <14 (0xe)>
+  [9] #230.1.1.num.int <12 (0xc)>
+  [10] #224.1.1.num.int <10 (0xa)>
+IP: #246:0x0, type 3, 1 (0x1)
 == backtrace ==
-  [0] #243.1.1.ctx.for <code #242.1.1.mem.code.ro, ip 0x0 (0x0), index 1098, inc -2, max 1090>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x2c (0x28), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #244.1.1.num.int <1098 (0x44a)>
-  [1] #239.1.1.num.int <1100 (0x44c)>
-  [2] #238.1.1.num.int <106 (0x6a)>
-  [3] #237.1.1.num.int <104 (0x68)>
-  [4] #236.1.1.num.int <102 (0x66)>
-  [5] #231.1.1.num.int <100 (0x64)>
-  [6] #230.1.1.num.int <20 (0x14)>
-  [7] #229.1.1.num.int <18 (0x12)>
-  [8] #228.1.1.num.int <16 (0x10)>
-  [9] #227.1.1.num.int <14 (0xe)>
-  [10] #226.1.1.num.int <12 (0xc)>
-  [11] #220.1.1.num.int <10 (0xa)>
-IP: #242:0x0, type 3, 1 (0x1)
+  [0] #247.1.1.ctx.for <code #246.1.1.mem.code.ro, ip 0x0 (0x0), index 1098, inc -2, max 1090>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x2c (0x28), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #248.1.1.num.int <1098 (0x44a)>
+  [1] #243.1.1.num.int <1100 (0x44c)>
+  [2] #242.1.1.num.int <106 (0x6a)>
+  [3] #241.1.1.num.int <104 (0x68)>
+  [4] #240.1.1.num.int <102 (0x66)>
+  [5] #235.1.1.num.int <100 (0x64)>
+  [6] #234.1.1.num.int <20 (0x14)>
+  [7] #233.1.1.num.int <18 (0x12)>
+  [8] #232.1.1.num.int <16 (0x10)>
+  [9] #231.1.1.num.int <14 (0xe)>
+  [10] #230.1.1.num.int <12 (0xc)>
+  [11] #224.1.1.num.int <10 (0xa)>
+IP: #246:0x0, type 3, 1 (0x1)
 == backtrace ==
-  [0] #243.1.1.ctx.for <code #242.1.1.mem.code.ro, ip 0x0 (0x0), index 1096, inc -2, max 1090>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x2c (0x28), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #245.1.1.num.int <1096 (0x448)>
-  [1] #244.1.1.num.int <1098 (0x44a)>
-  [2] #239.1.1.num.int <1100 (0x44c)>
-  [3] #238.1.1.num.int <106 (0x6a)>
-  [4] #237.1.1.num.int <104 (0x68)>
-  [5] #236.1.1.num.int <102 (0x66)>
-  [6] #231.1.1.num.int <100 (0x64)>
-  [7] #230.1.1.num.int <20 (0x14)>
-  [8] #229.1.1.num.int <18 (0x12)>
-  [9] #228.1.1.num.int <16 (0x10)>
-  [10] #227.1.1.num.int <14 (0xe)>
-  [11] #226.1.1.num.int <12 (0xc)>
-  [12] #220.1.1.num.int <10 (0xa)>
-IP: #242:0x0, type 3, 1 (0x1)
+  [0] #247.1.1.ctx.for <code #246.1.1.mem.code.ro, ip 0x0 (0x0), index 1096, inc -2, max 1090>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x2c (0x28), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #249.1.1.num.int <1096 (0x448)>
+  [1] #248.1.1.num.int <1098 (0x44a)>
+  [2] #243.1.1.num.int <1100 (0x44c)>
+  [3] #242.1.1.num.int <106 (0x6a)>
+  [4] #241.1.1.num.int <104 (0x68)>
+  [5] #240.1.1.num.int <102 (0x66)>
+  [6] #235.1.1.num.int <100 (0x64)>
+  [7] #234.1.1.num.int <20 (0x14)>
+  [8] #233.1.1.num.int <18 (0x12)>
+  [9] #232.1.1.num.int <16 (0x10)>
+  [10] #231.1.1.num.int <14 (0xe)>
+  [11] #230.1.1.num.int <12 (0xc)>
+  [12] #224.1.1.num.int <10 (0xa)>
+IP: #246:0x0, type 3, 1 (0x1)
 == backtrace ==
-  [0] #243.1.1.ctx.for <code #242.1.1.mem.code.ro, ip 0x0 (0x0), index 1094, inc -2, max 1090>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x2c (0x28), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #246.1.1.num.int <1094 (0x446)>
-  [1] #245.1.1.num.int <1096 (0x448)>
-  [2] #244.1.1.num.int <1098 (0x44a)>
-  [3] #239.1.1.num.int <1100 (0x44c)>
-  [4] #238.1.1.num.int <106 (0x6a)>
-  [5] #237.1.1.num.int <104 (0x68)>
-  [6] #236.1.1.num.int <102 (0x66)>
-  [7] #231.1.1.num.int <100 (0x64)>
-  [8] #230.1.1.num.int <20 (0x14)>
-  [9] #229.1.1.num.int <18 (0x12)>
-  [10] #228.1.1.num.int <16 (0x10)>
-  [11] #227.1.1.num.int <14 (0xe)>
-  [12] #226.1.1.num.int <12 (0xc)>
-  [13] #220.1.1.num.int <10 (0xa)>
-IP: #242:0x0, type 3, 1 (0x1)
+  [0] #247.1.1.ctx.for <code #246.1.1.mem.code.ro, ip 0x0 (0x0), index 1094, inc -2, max 1090>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x2c (0x28), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #250.1.1.num.int <1094 (0x446)>
+  [1] #249.1.1.num.int <1096 (0x448)>
+  [2] #248.1.1.num.int <1098 (0x44a)>
+  [3] #243.1.1.num.int <1100 (0x44c)>
+  [4] #242.1.1.num.int <106 (0x6a)>
+  [5] #241.1.1.num.int <104 (0x68)>
+  [6] #240.1.1.num.int <102 (0x66)>
+  [7] #235.1.1.num.int <100 (0x64)>
+  [8] #234.1.1.num.int <20 (0x14)>
+  [9] #233.1.1.num.int <18 (0x12)>
+  [10] #232.1.1.num.int <16 (0x10)>
+  [11] #231.1.1.num.int <14 (0xe)>
+  [12] #230.1.1.num.int <12 (0xc)>
+  [13] #224.1.1.num.int <10 (0xa)>
+IP: #246:0x0, type 3, 1 (0x1)
 == backtrace ==
-  [0] #243.1.1.ctx.for <code #242.1.1.mem.code.ro, ip 0x0 (0x0), index 1092, inc -2, max 1090>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x2c (0x28), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #247.1.1.num.int <1092 (0x444)>
-  [1] #246.1.1.num.int <1094 (0x446)>
-  [2] #245.1.1.num.int <1096 (0x448)>
-  [3] #244.1.1.num.int <1098 (0x44a)>
-  [4] #239.1.1.num.int <1100 (0x44c)>
-  [5] #238.1.1.num.int <106 (0x6a)>
-  [6] #237.1.1.num.int <104 (0x68)>
-  [7] #236.1.1.num.int <102 (0x66)>
-  [8] #231.1.1.num.int <100 (0x64)>
-  [9] #230.1.1.num.int <20 (0x14)>
-  [10] #229.1.1.num.int <18 (0x12)>
-  [11] #228.1.1.num.int <16 (0x10)>
-  [12] #227.1.1.num.int <14 (0xe)>
-  [13] #226.1.1.num.int <12 (0xc)>
-  [14] #220.1.1.num.int <10 (0xa)>
-IP: #242:0x0, type 3, 1 (0x1)
+  [0] #247.1.1.ctx.for <code #246.1.1.mem.code.ro, ip 0x0 (0x0), index 1092, inc -2, max 1090>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x2c (0x28), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #251.1.1.num.int <1092 (0x444)>
+  [1] #250.1.1.num.int <1094 (0x446)>
+  [2] #249.1.1.num.int <1096 (0x448)>
+  [3] #248.1.1.num.int <1098 (0x44a)>
+  [4] #243.1.1.num.int <1100 (0x44c)>
+  [5] #242.1.1.num.int <106 (0x6a)>
+  [6] #241.1.1.num.int <104 (0x68)>
+  [7] #240.1.1.num.int <102 (0x66)>
+  [8] #235.1.1.num.int <100 (0x64)>
+  [9] #234.1.1.num.int <20 (0x14)>
+  [10] #233.1.1.num.int <18 (0x12)>
+  [11] #232.1.1.num.int <16 (0x10)>
+  [12] #231.1.1.num.int <14 (0xe)>
+  [13] #230.1.1.num.int <12 (0xc)>
+  [14] #224.1.1.num.int <10 (0xa)>
+IP: #246:0x0, type 3, 1 (0x1)
 == backtrace ==
-  [0] #243.1.1.ctx.for <code #242.1.1.mem.code.ro, ip 0x0 (0x0), index 1090, inc -2, max 1090>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x2c (0x28), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #248.1.1.num.int <1090 (0x442)>
-  [1] #247.1.1.num.int <1092 (0x444)>
-  [2] #246.1.1.num.int <1094 (0x446)>
-  [3] #245.1.1.num.int <1096 (0x448)>
-  [4] #244.1.1.num.int <1098 (0x44a)>
-  [5] #239.1.1.num.int <1100 (0x44c)>
-  [6] #238.1.1.num.int <106 (0x6a)>
-  [7] #237.1.1.num.int <104 (0x68)>
-  [8] #236.1.1.num.int <102 (0x66)>
-  [9] #231.1.1.num.int <100 (0x64)>
-  [10] #230.1.1.num.int <20 (0x14)>
-  [11] #229.1.1.num.int <18 (0x12)>
-  [12] #228.1.1.num.int <16 (0x10)>
-  [13] #227.1.1.num.int <14 (0xe)>
-  [14] #226.1.1.num.int <12 (0xc)>
-  [15] #220.1.1.num.int <10 (0xa)>
-IP: #242:0x0, type 3, 1 (0x1)
-GC: ++#219.1.1.ctx.func
-GC: --#243.1.1.ctx.for
-GC: --#219.1.2.ctx.func
-GC: --#242.1.1.mem.code.ro
-GC: --#217.1.2.mem.ro
+  [0] #247.1.1.ctx.for <code #246.1.1.mem.code.ro, ip 0x0 (0x0), index 1090, inc -2, max 1090>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x2c (0x28), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #252.1.1.num.int <1090 (0x442)>
+  [1] #251.1.1.num.int <1092 (0x444)>
+  [2] #250.1.1.num.int <1094 (0x446)>
+  [3] #249.1.1.num.int <1096 (0x448)>
+  [4] #248.1.1.num.int <1098 (0x44a)>
+  [5] #243.1.1.num.int <1100 (0x44c)>
+  [6] #242.1.1.num.int <106 (0x6a)>
+  [7] #241.1.1.num.int <104 (0x68)>
+  [8] #240.1.1.num.int <102 (0x66)>
+  [9] #235.1.1.num.int <100 (0x64)>
+  [10] #234.1.1.num.int <20 (0x14)>
+  [11] #233.1.1.num.int <18 (0x12)>
+  [12] #232.1.1.num.int <16 (0x10)>
+  [13] #231.1.1.num.int <14 (0xe)>
+  [14] #230.1.1.num.int <12 (0xc)>
+  [15] #224.1.1.num.int <10 (0xa)>
+IP: #246:0x0, type 3, 1 (0x1)
+GC: ++#223.1.1.ctx.func
+GC: --#247.1.1.ctx.for
+GC: --#223.1.2.ctx.func
+GC: --#246.1.1.mem.code.ro
+GC: --#221.1.2.mem.ro
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x2c (0x28), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #248.1.1.num.int <1090 (0x442)>
-  [1] #247.1.1.num.int <1092 (0x444)>
-  [2] #246.1.1.num.int <1094 (0x446)>
-  [3] #245.1.1.num.int <1096 (0x448)>
-  [4] #244.1.1.num.int <1098 (0x44a)>
-  [5] #239.1.1.num.int <1100 (0x44c)>
-  [6] #238.1.1.num.int <106 (0x6a)>
-  [7] #237.1.1.num.int <104 (0x68)>
-  [8] #236.1.1.num.int <102 (0x66)>
-  [9] #231.1.1.num.int <100 (0x64)>
-  [10] #230.1.1.num.int <20 (0x14)>
-  [11] #229.1.1.num.int <18 (0x12)>
-  [12] #228.1.1.num.int <16 (0x10)>
-  [13] #227.1.1.num.int <14 (0xe)>
-  [14] #226.1.1.num.int <12 (0xc)>
-  [15] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x2c, type 1, 11000 (0x2af8)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x2c (0x28), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #252.1.1.num.int <1090 (0x442)>
+  [1] #251.1.1.num.int <1092 (0x444)>
+  [2] #250.1.1.num.int <1094 (0x446)>
+  [3] #249.1.1.num.int <1096 (0x448)>
+  [4] #248.1.1.num.int <1098 (0x44a)>
+  [5] #243.1.1.num.int <1100 (0x44c)>
+  [6] #242.1.1.num.int <106 (0x6a)>
+  [7] #241.1.1.num.int <104 (0x68)>
+  [8] #240.1.1.num.int <102 (0x66)>
+  [9] #235.1.1.num.int <100 (0x64)>
+  [10] #234.1.1.num.int <20 (0x14)>
+  [11] #233.1.1.num.int <18 (0x12)>
+  [12] #232.1.1.num.int <16 (0x10)>
+  [13] #231.1.1.num.int <14 (0xe)>
+  [14] #230.1.1.num.int <12 (0xc)>
+  [15] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x2c, type 1, 11000 (0x2af8)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x2f (0x2c), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #249.1.1.num.int <11000 (0x2af8)>
-  [1] #248.1.1.num.int <1090 (0x442)>
-  [2] #247.1.1.num.int <1092 (0x444)>
-  [3] #246.1.1.num.int <1094 (0x446)>
-  [4] #245.1.1.num.int <1096 (0x448)>
-  [5] #244.1.1.num.int <1098 (0x44a)>
-  [6] #239.1.1.num.int <1100 (0x44c)>
-  [7] #238.1.1.num.int <106 (0x6a)>
-  [8] #237.1.1.num.int <104 (0x68)>
-  [9] #236.1.1.num.int <102 (0x66)>
-  [10] #231.1.1.num.int <100 (0x64)>
-  [11] #230.1.1.num.int <20 (0x14)>
-  [12] #229.1.1.num.int <18 (0x12)>
-  [13] #228.1.1.num.int <16 (0x10)>
-  [14] #227.1.1.num.int <14 (0xe)>
-  [15] #226.1.1.num.int <12 (0xc)>
-  [16] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x2f, type 1, -2 (0xfffffffffffffffe)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x2f (0x2c), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #253.1.1.num.int <11000 (0x2af8)>
+  [1] #252.1.1.num.int <1090 (0x442)>
+  [2] #251.1.1.num.int <1092 (0x444)>
+  [3] #250.1.1.num.int <1094 (0x446)>
+  [4] #249.1.1.num.int <1096 (0x448)>
+  [5] #248.1.1.num.int <1098 (0x44a)>
+  [6] #243.1.1.num.int <1100 (0x44c)>
+  [7] #242.1.1.num.int <106 (0x6a)>
+  [8] #241.1.1.num.int <104 (0x68)>
+  [9] #240.1.1.num.int <102 (0x66)>
+  [10] #235.1.1.num.int <100 (0x64)>
+  [11] #234.1.1.num.int <20 (0x14)>
+  [12] #233.1.1.num.int <18 (0x12)>
+  [13] #232.1.1.num.int <16 (0x10)>
+  [14] #231.1.1.num.int <14 (0xe)>
+  [15] #230.1.1.num.int <12 (0xc)>
+  [16] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x2f, type 1, -2 (0xfffffffffffffffe)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x31 (0x2f), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #250.1.1.num.int <-2 (0xfffffffffffffffe)>
-  [1] #249.1.1.num.int <11000 (0x2af8)>
-  [2] #248.1.1.num.int <1090 (0x442)>
-  [3] #247.1.1.num.int <1092 (0x444)>
-  [4] #246.1.1.num.int <1094 (0x446)>
-  [5] #245.1.1.num.int <1096 (0x448)>
-  [6] #244.1.1.num.int <1098 (0x44a)>
-  [7] #239.1.1.num.int <1100 (0x44c)>
-  [8] #238.1.1.num.int <106 (0x6a)>
-  [9] #237.1.1.num.int <104 (0x68)>
-  [10] #236.1.1.num.int <102 (0x66)>
-  [11] #231.1.1.num.int <100 (0x64)>
-  [12] #230.1.1.num.int <20 (0x14)>
-  [13] #229.1.1.num.int <18 (0x12)>
-  [14] #228.1.1.num.int <16 (0x10)>
-  [15] #227.1.1.num.int <14 (0xe)>
-  [16] #226.1.1.num.int <12 (0xc)>
-  [17] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x31, type 1, 10993 (0x2af1)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x31 (0x2f), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #254.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [1] #253.1.1.num.int <11000 (0x2af8)>
+  [2] #252.1.1.num.int <1090 (0x442)>
+  [3] #251.1.1.num.int <1092 (0x444)>
+  [4] #250.1.1.num.int <1094 (0x446)>
+  [5] #249.1.1.num.int <1096 (0x448)>
+  [6] #248.1.1.num.int <1098 (0x44a)>
+  [7] #243.1.1.num.int <1100 (0x44c)>
+  [8] #242.1.1.num.int <106 (0x6a)>
+  [9] #241.1.1.num.int <104 (0x68)>
+  [10] #240.1.1.num.int <102 (0x66)>
+  [11] #235.1.1.num.int <100 (0x64)>
+  [12] #234.1.1.num.int <20 (0x14)>
+  [13] #233.1.1.num.int <18 (0x12)>
+  [14] #232.1.1.num.int <16 (0x10)>
+  [15] #231.1.1.num.int <14 (0xe)>
+  [16] #230.1.1.num.int <12 (0xc)>
+  [17] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x31, type 1, 10993 (0x2af1)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x34 (0x31), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #251.1.1.num.int <10993 (0x2af1)>
-  [1] #250.1.1.num.int <-2 (0xfffffffffffffffe)>
-  [2] #249.1.1.num.int <11000 (0x2af8)>
-  [3] #248.1.1.num.int <1090 (0x442)>
-  [4] #247.1.1.num.int <1092 (0x444)>
-  [5] #246.1.1.num.int <1094 (0x446)>
-  [6] #245.1.1.num.int <1096 (0x448)>
-  [7] #244.1.1.num.int <1098 (0x44a)>
-  [8] #239.1.1.num.int <1100 (0x44c)>
-  [9] #238.1.1.num.int <106 (0x6a)>
-  [10] #237.1.1.num.int <104 (0x68)>
-  [11] #236.1.1.num.int <102 (0x66)>
-  [12] #231.1.1.num.int <100 (0x64)>
-  [13] #230.1.1.num.int <20 (0x14)>
-  [14] #229.1.1.num.int <18 (0x12)>
-  [15] #228.1.1.num.int <16 (0x10)>
-  [16] #227.1.1.num.int <14 (0xe)>
-  [17] #226.1.1.num.int <12 (0xc)>
-  [18] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x34, type 6, 53[1]
-GC: ++#217.1.1.mem.ro
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x34 (0x31), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #255.1.1.num.int <10993 (0x2af1)>
+  [1] #254.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [2] #253.1.1.num.int <11000 (0x2af8)>
+  [3] #252.1.1.num.int <1090 (0x442)>
+  [4] #251.1.1.num.int <1092 (0x444)>
+  [5] #250.1.1.num.int <1094 (0x446)>
+  [6] #249.1.1.num.int <1096 (0x448)>
+  [7] #248.1.1.num.int <1098 (0x44a)>
+  [8] #243.1.1.num.int <1100 (0x44c)>
+  [9] #242.1.1.num.int <106 (0x6a)>
+  [10] #241.1.1.num.int <104 (0x68)>
+  [11] #240.1.1.num.int <102 (0x66)>
+  [12] #235.1.1.num.int <100 (0x64)>
+  [13] #234.1.1.num.int <20 (0x14)>
+  [14] #233.1.1.num.int <18 (0x12)>
+  [15] #232.1.1.num.int <16 (0x10)>
+  [16] #231.1.1.num.int <14 (0xe)>
+  [17] #230.1.1.num.int <12 (0xc)>
+  [18] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x34, type 6, 53[1]
+GC: ++#221.1.1.mem.ro
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x36 (0x34), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #252.1.1.mem.code.ro <#217.1.2.mem.ro, ofs 0x35, size 1>
-  [1] #251.1.1.num.int <10993 (0x2af1)>
-  [2] #250.1.1.num.int <-2 (0xfffffffffffffffe)>
-  [3] #249.1.1.num.int <11000 (0x2af8)>
-  [4] #248.1.1.num.int <1090 (0x442)>
-  [5] #247.1.1.num.int <1092 (0x444)>
-  [6] #246.1.1.num.int <1094 (0x446)>
-  [7] #245.1.1.num.int <1096 (0x448)>
-  [8] #244.1.1.num.int <1098 (0x44a)>
-  [9] #239.1.1.num.int <1100 (0x44c)>
-  [10] #238.1.1.num.int <106 (0x6a)>
-  [11] #237.1.1.num.int <104 (0x68)>
-  [12] #236.1.1.num.int <102 (0x66)>
-  [13] #231.1.1.num.int <100 (0x64)>
-  [14] #230.1.1.num.int <20 (0x14)>
-  [15] #229.1.1.num.int <18 (0x12)>
-  [16] #228.1.1.num.int <16 (0x10)>
-  [17] #227.1.1.num.int <14 (0xe)>
-  [18] #226.1.1.num.int <12 (0xc)>
-  [19] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x36, type 8, 55[3]
-GC: ++#252.1.1.mem.code.ro
-GC: --#252.1.2.mem.code.ro
-GC: --#251.1.1.num.int
-GC: --#250.1.1.num.int
+  [0] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x36 (0x34), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #256.1.1.mem.code.ro <#221.1.2.mem.ro, ofs 0x35, size 1>
+  [1] #255.1.1.num.int <10993 (0x2af1)>
+  [2] #254.1.1.num.int <-2 (0xfffffffffffffffe)>
+  [3] #253.1.1.num.int <11000 (0x2af8)>
+  [4] #252.1.1.num.int <1090 (0x442)>
+  [5] #251.1.1.num.int <1092 (0x444)>
+  [6] #250.1.1.num.int <1094 (0x446)>
+  [7] #249.1.1.num.int <1096 (0x448)>
+  [8] #248.1.1.num.int <1098 (0x44a)>
+  [9] #243.1.1.num.int <1100 (0x44c)>
+  [10] #242.1.1.num.int <106 (0x6a)>
+  [11] #241.1.1.num.int <104 (0x68)>
+  [12] #240.1.1.num.int <102 (0x66)>
+  [13] #235.1.1.num.int <100 (0x64)>
+  [14] #234.1.1.num.int <20 (0x14)>
+  [15] #233.1.1.num.int <18 (0x12)>
+  [16] #232.1.1.num.int <16 (0x10)>
+  [17] #231.1.1.num.int <14 (0xe)>
+  [18] #230.1.1.num.int <12 (0xc)>
+  [19] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x36, type 8, 55[3]
+GC: ++#256.1.1.mem.code.ro
+GC: --#256.1.2.mem.code.ro
+GC: --#255.1.1.num.int
+GC: --#254.1.1.num.int
 == backtrace ==
-  [0] #253.1.1.ctx.for <code #252.1.1.mem.code.ro, ip 0x0 (0x0), index 11000, inc -2, max 10993>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x3a (0x36), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #249.1.1.num.int <11000 (0x2af8)>
-  [1] #248.1.1.num.int <1090 (0x442)>
-  [2] #247.1.1.num.int <1092 (0x444)>
-  [3] #246.1.1.num.int <1094 (0x446)>
-  [4] #245.1.1.num.int <1096 (0x448)>
-  [5] #244.1.1.num.int <1098 (0x44a)>
-  [6] #239.1.1.num.int <1100 (0x44c)>
-  [7] #238.1.1.num.int <106 (0x6a)>
-  [8] #237.1.1.num.int <104 (0x68)>
-  [9] #236.1.1.num.int <102 (0x66)>
-  [10] #231.1.1.num.int <100 (0x64)>
-  [11] #230.1.1.num.int <20 (0x14)>
-  [12] #229.1.1.num.int <18 (0x12)>
-  [13] #228.1.1.num.int <16 (0x10)>
-  [14] #227.1.1.num.int <14 (0xe)>
-  [15] #226.1.1.num.int <12 (0xc)>
-  [16] #220.1.1.num.int <10 (0xa)>
-IP: #252:0x0, type 3, 1 (0x1)
+  [0] #257.1.1.ctx.for <code #256.1.1.mem.code.ro, ip 0x0 (0x0), index 11000, inc -2, max 10993>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x3a (0x36), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #253.1.1.num.int <11000 (0x2af8)>
+  [1] #252.1.1.num.int <1090 (0x442)>
+  [2] #251.1.1.num.int <1092 (0x444)>
+  [3] #250.1.1.num.int <1094 (0x446)>
+  [4] #249.1.1.num.int <1096 (0x448)>
+  [5] #248.1.1.num.int <1098 (0x44a)>
+  [6] #243.1.1.num.int <1100 (0x44c)>
+  [7] #242.1.1.num.int <106 (0x6a)>
+  [8] #241.1.1.num.int <104 (0x68)>
+  [9] #240.1.1.num.int <102 (0x66)>
+  [10] #235.1.1.num.int <100 (0x64)>
+  [11] #234.1.1.num.int <20 (0x14)>
+  [12] #233.1.1.num.int <18 (0x12)>
+  [13] #232.1.1.num.int <16 (0x10)>
+  [14] #231.1.1.num.int <14 (0xe)>
+  [15] #230.1.1.num.int <12 (0xc)>
+  [16] #224.1.1.num.int <10 (0xa)>
+IP: #256:0x0, type 3, 1 (0x1)
 == backtrace ==
-  [0] #253.1.1.ctx.for <code #252.1.1.mem.code.ro, ip 0x0 (0x0), index 10998, inc -2, max 10993>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x3a (0x36), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #254.1.1.num.int <10998 (0x2af6)>
-  [1] #249.1.1.num.int <11000 (0x2af8)>
-  [2] #248.1.1.num.int <1090 (0x442)>
-  [3] #247.1.1.num.int <1092 (0x444)>
-  [4] #246.1.1.num.int <1094 (0x446)>
-  [5] #245.1.1.num.int <1096 (0x448)>
-  [6] #244.1.1.num.int <1098 (0x44a)>
-  [7] #239.1.1.num.int <1100 (0x44c)>
-  [8] #238.1.1.num.int <106 (0x6a)>
-  [9] #237.1.1.num.int <104 (0x68)>
-  [10] #236.1.1.num.int <102 (0x66)>
-  [11] #231.1.1.num.int <100 (0x64)>
-  [12] #230.1.1.num.int <20 (0x14)>
-  [13] #229.1.1.num.int <18 (0x12)>
-  [14] #228.1.1.num.int <16 (0x10)>
-  [15] #227.1.1.num.int <14 (0xe)>
-  [16] #226.1.1.num.int <12 (0xc)>
-  [17] #220.1.1.num.int <10 (0xa)>
-IP: #252:0x0, type 3, 1 (0x1)
+  [0] #257.1.1.ctx.for <code #256.1.1.mem.code.ro, ip 0x0 (0x0), index 10998, inc -2, max 10993>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x3a (0x36), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #225.2.1.num.int <10998 (0x2af6)>
+  [1] #253.1.1.num.int <11000 (0x2af8)>
+  [2] #252.1.1.num.int <1090 (0x442)>
+  [3] #251.1.1.num.int <1092 (0x444)>
+  [4] #250.1.1.num.int <1094 (0x446)>
+  [5] #249.1.1.num.int <1096 (0x448)>
+  [6] #248.1.1.num.int <1098 (0x44a)>
+  [7] #243.1.1.num.int <1100 (0x44c)>
+  [8] #242.1.1.num.int <106 (0x6a)>
+  [9] #241.1.1.num.int <104 (0x68)>
+  [10] #240.1.1.num.int <102 (0x66)>
+  [11] #235.1.1.num.int <100 (0x64)>
+  [12] #234.1.1.num.int <20 (0x14)>
+  [13] #233.1.1.num.int <18 (0x12)>
+  [14] #232.1.1.num.int <16 (0x10)>
+  [15] #231.1.1.num.int <14 (0xe)>
+  [16] #230.1.1.num.int <12 (0xc)>
+  [17] #224.1.1.num.int <10 (0xa)>
+IP: #256:0x0, type 3, 1 (0x1)
 == backtrace ==
-  [0] #253.1.1.ctx.for <code #252.1.1.mem.code.ro, ip 0x0 (0x0), index 10996, inc -2, max 10993>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x3a (0x36), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #255.1.1.num.int <10996 (0x2af4)>
-  [1] #254.1.1.num.int <10998 (0x2af6)>
-  [2] #249.1.1.num.int <11000 (0x2af8)>
-  [3] #248.1.1.num.int <1090 (0x442)>
-  [4] #247.1.1.num.int <1092 (0x444)>
-  [5] #246.1.1.num.int <1094 (0x446)>
-  [6] #245.1.1.num.int <1096 (0x448)>
-  [7] #244.1.1.num.int <1098 (0x44a)>
-  [8] #239.1.1.num.int <1100 (0x44c)>
-  [9] #238.1.1.num.int <106 (0x6a)>
-  [10] #237.1.1.num.int <104 (0x68)>
-  [11] #236.1.1.num.int <102 (0x66)>
-  [12] #231.1.1.num.int <100 (0x64)>
-  [13] #230.1.1.num.int <20 (0x14)>
-  [14] #229.1.1.num.int <18 (0x12)>
-  [15] #228.1.1.num.int <16 (0x10)>
-  [16] #227.1.1.num.int <14 (0xe)>
-  [17] #226.1.1.num.int <12 (0xc)>
-  [18] #220.1.1.num.int <10 (0xa)>
-IP: #252:0x0, type 3, 1 (0x1)
+  [0] #257.1.1.ctx.for <code #256.1.1.mem.code.ro, ip 0x0 (0x0), index 10996, inc -2, max 10993>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x3a (0x36), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #226.2.1.num.int <10996 (0x2af4)>
+  [1] #225.2.1.num.int <10998 (0x2af6)>
+  [2] #253.1.1.num.int <11000 (0x2af8)>
+  [3] #252.1.1.num.int <1090 (0x442)>
+  [4] #251.1.1.num.int <1092 (0x444)>
+  [5] #250.1.1.num.int <1094 (0x446)>
+  [6] #249.1.1.num.int <1096 (0x448)>
+  [7] #248.1.1.num.int <1098 (0x44a)>
+  [8] #243.1.1.num.int <1100 (0x44c)>
+  [9] #242.1.1.num.int <106 (0x6a)>
+  [10] #241.1.1.num.int <104 (0x68)>
+  [11] #240.1.1.num.int <102 (0x66)>
+  [12] #235.1.1.num.int <100 (0x64)>
+  [13] #234.1.1.num.int <20 (0x14)>
+  [14] #233.1.1.num.int <18 (0x12)>
+  [15] #232.1.1.num.int <16 (0x10)>
+  [16] #231.1.1.num.int <14 (0xe)>
+  [17] #230.1.1.num.int <12 (0xc)>
+  [18] #224.1.1.num.int <10 (0xa)>
+IP: #256:0x0, type 3, 1 (0x1)
 == backtrace ==
-  [0] #253.1.1.ctx.for <code #252.1.1.mem.code.ro, ip 0x0 (0x0), index 10994, inc -2, max 10993>
-  [1] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x3a (0x36), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #256.1.1.num.int <10994 (0x2af2)>
-  [1] #255.1.1.num.int <10996 (0x2af4)>
-  [2] #254.1.1.num.int <10998 (0x2af6)>
-  [3] #249.1.1.num.int <11000 (0x2af8)>
-  [4] #248.1.1.num.int <1090 (0x442)>
-  [5] #247.1.1.num.int <1092 (0x444)>
-  [6] #246.1.1.num.int <1094 (0x446)>
-  [7] #245.1.1.num.int <1096 (0x448)>
-  [8] #244.1.1.num.int <1098 (0x44a)>
-  [9] #239.1.1.num.int <1100 (0x44c)>
-  [10] #238.1.1.num.int <106 (0x6a)>
-  [11] #237.1.1.num.int <104 (0x68)>
-  [12] #236.1.1.num.int <102 (0x66)>
-  [13] #231.1.1.num.int <100 (0x64)>
-  [14] #230.1.1.num.int <20 (0x14)>
-  [15] #229.1.1.num.int <18 (0x12)>
-  [16] #228.1.1.num.int <16 (0x10)>
-  [17] #227.1.1.num.int <14 (0xe)>
-  [18] #226.1.1.num.int <12 (0xc)>
-  [19] #220.1.1.num.int <10 (0xa)>
-IP: #252:0x0, type 3, 1 (0x1)
-GC: ++#219.1.1.ctx.func
-GC: --#253.1.1.ctx.for
-GC: --#219.1.2.ctx.func
-GC: --#252.1.1.mem.code.ro
-GC: --#217.1.2.mem.ro
+  [0] #257.1.1.ctx.for <code #256.1.1.mem.code.ro, ip 0x0 (0x0), index 10994, inc -2, max 10993>
+  [1] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x3a (0x36), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #227.2.1.num.int <10994 (0x2af2)>
+  [1] #226.2.1.num.int <10996 (0x2af4)>
+  [2] #225.2.1.num.int <10998 (0x2af6)>
+  [3] #253.1.1.num.int <11000 (0x2af8)>
+  [4] #252.1.1.num.int <1090 (0x442)>
+  [5] #251.1.1.num.int <1092 (0x444)>
+  [6] #250.1.1.num.int <1094 (0x446)>
+  [7] #249.1.1.num.int <1096 (0x448)>
+  [8] #248.1.1.num.int <1098 (0x44a)>
+  [9] #243.1.1.num.int <1100 (0x44c)>
+  [10] #242.1.1.num.int <106 (0x6a)>
+  [11] #241.1.1.num.int <104 (0x68)>
+  [12] #240.1.1.num.int <102 (0x66)>
+  [13] #235.1.1.num.int <100 (0x64)>
+  [14] #234.1.1.num.int <20 (0x14)>
+  [15] #233.1.1.num.int <18 (0x12)>
+  [16] #232.1.1.num.int <16 (0x10)>
+  [17] #231.1.1.num.int <14 (0xe)>
+  [18] #230.1.1.num.int <12 (0xc)>
+  [19] #224.1.1.num.int <10 (0xa)>
+IP: #256:0x0, type 3, 1 (0x1)
+GC: ++#223.1.1.ctx.func
+GC: --#257.1.1.ctx.for
+GC: --#223.1.2.ctx.func
+GC: --#256.1.1.mem.code.ro
+GC: --#221.1.2.mem.ro
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x3a (0x36), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #256.1.1.num.int <10994 (0x2af2)>
-  [1] #255.1.1.num.int <10996 (0x2af4)>
-  [2] #254.1.1.num.int <10998 (0x2af6)>
-  [3] #249.1.1.num.int <11000 (0x2af8)>
-  [4] #248.1.1.num.int <1090 (0x442)>
-  [5] #247.1.1.num.int <1092 (0x444)>
-  [6] #246.1.1.num.int <1094 (0x446)>
-  [7] #245.1.1.num.int <1096 (0x448)>
-  [8] #244.1.1.num.int <1098 (0x44a)>
-  [9] #239.1.1.num.int <1100 (0x44c)>
-  [10] #238.1.1.num.int <106 (0x6a)>
-  [11] #237.1.1.num.int <104 (0x68)>
-  [12] #236.1.1.num.int <102 (0x66)>
-  [13] #231.1.1.num.int <100 (0x64)>
-  [14] #230.1.1.num.int <20 (0x14)>
-  [15] #229.1.1.num.int <18 (0x12)>
-  [16] #228.1.1.num.int <16 (0x10)>
-  [17] #227.1.1.num.int <14 (0xe)>
-  [18] #226.1.1.num.int <12 (0xc)>
-  [19] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x3a, type 1, 200 (0xc8)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x3a (0x36), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #227.2.1.num.int <10994 (0x2af2)>
+  [1] #226.2.1.num.int <10996 (0x2af4)>
+  [2] #225.2.1.num.int <10998 (0x2af6)>
+  [3] #253.1.1.num.int <11000 (0x2af8)>
+  [4] #252.1.1.num.int <1090 (0x442)>
+  [5] #251.1.1.num.int <1092 (0x444)>
+  [6] #250.1.1.num.int <1094 (0x446)>
+  [7] #249.1.1.num.int <1096 (0x448)>
+  [8] #248.1.1.num.int <1098 (0x44a)>
+  [9] #243.1.1.num.int <1100 (0x44c)>
+  [10] #242.1.1.num.int <106 (0x6a)>
+  [11] #241.1.1.num.int <104 (0x68)>
+  [12] #240.1.1.num.int <102 (0x66)>
+  [13] #235.1.1.num.int <100 (0x64)>
+  [14] #234.1.1.num.int <20 (0x14)>
+  [15] #233.1.1.num.int <18 (0x12)>
+  [16] #232.1.1.num.int <16 (0x10)>
+  [17] #231.1.1.num.int <14 (0xe)>
+  [18] #230.1.1.num.int <12 (0xc)>
+  [19] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x3a, type 1, 200 (0xc8)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x3d (0x3a), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #257.1.1.num.int <200 (0xc8)>
-  [1] #256.1.1.num.int <10994 (0x2af2)>
-  [2] #255.1.1.num.int <10996 (0x2af4)>
-  [3] #254.1.1.num.int <10998 (0x2af6)>
-  [4] #249.1.1.num.int <11000 (0x2af8)>
-  [5] #248.1.1.num.int <1090 (0x442)>
-  [6] #247.1.1.num.int <1092 (0x444)>
-  [7] #246.1.1.num.int <1094 (0x446)>
-  [8] #245.1.1.num.int <1096 (0x448)>
-  [9] #244.1.1.num.int <1098 (0x44a)>
-  [10] #239.1.1.num.int <1100 (0x44c)>
-  [11] #238.1.1.num.int <106 (0x6a)>
-  [12] #237.1.1.num.int <104 (0x68)>
-  [13] #236.1.1.num.int <102 (0x66)>
-  [14] #231.1.1.num.int <100 (0x64)>
-  [15] #230.1.1.num.int <20 (0x14)>
-  [16] #229.1.1.num.int <18 (0x12)>
-  [17] #228.1.1.num.int <16 (0x10)>
-  [18] #227.1.1.num.int <14 (0xe)>
-  [19] #226.1.1.num.int <12 (0xc)>
-  [20] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x3d, type 1, 1 (0x1)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x3d (0x3a), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #228.2.1.num.int <200 (0xc8)>
+  [1] #227.2.1.num.int <10994 (0x2af2)>
+  [2] #226.2.1.num.int <10996 (0x2af4)>
+  [3] #225.2.1.num.int <10998 (0x2af6)>
+  [4] #253.1.1.num.int <11000 (0x2af8)>
+  [5] #252.1.1.num.int <1090 (0x442)>
+  [6] #251.1.1.num.int <1092 (0x444)>
+  [7] #250.1.1.num.int <1094 (0x446)>
+  [8] #249.1.1.num.int <1096 (0x448)>
+  [9] #248.1.1.num.int <1098 (0x44a)>
+  [10] #243.1.1.num.int <1100 (0x44c)>
+  [11] #242.1.1.num.int <106 (0x6a)>
+  [12] #241.1.1.num.int <104 (0x68)>
+  [13] #240.1.1.num.int <102 (0x66)>
+  [14] #235.1.1.num.int <100 (0x64)>
+  [15] #234.1.1.num.int <20 (0x14)>
+  [16] #233.1.1.num.int <18 (0x12)>
+  [17] #232.1.1.num.int <16 (0x10)>
+  [18] #231.1.1.num.int <14 (0xe)>
+  [19] #230.1.1.num.int <12 (0xc)>
+  [20] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x3d, type 1, 1 (0x1)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x3e (0x3d), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #221.2.1.num.int <1 (0x1)>
-  [1] #257.1.1.num.int <200 (0xc8)>
-  [2] #256.1.1.num.int <10994 (0x2af2)>
-  [3] #255.1.1.num.int <10996 (0x2af4)>
-  [4] #254.1.1.num.int <10998 (0x2af6)>
-  [5] #249.1.1.num.int <11000 (0x2af8)>
-  [6] #248.1.1.num.int <1090 (0x442)>
-  [7] #247.1.1.num.int <1092 (0x444)>
-  [8] #246.1.1.num.int <1094 (0x446)>
-  [9] #245.1.1.num.int <1096 (0x448)>
-  [10] #244.1.1.num.int <1098 (0x44a)>
-  [11] #239.1.1.num.int <1100 (0x44c)>
-  [12] #238.1.1.num.int <106 (0x6a)>
-  [13] #237.1.1.num.int <104 (0x68)>
-  [14] #236.1.1.num.int <102 (0x66)>
-  [15] #231.1.1.num.int <100 (0x64)>
-  [16] #230.1.1.num.int <20 (0x14)>
-  [17] #229.1.1.num.int <18 (0x12)>
-  [18] #228.1.1.num.int <16 (0x10)>
-  [19] #227.1.1.num.int <14 (0xe)>
-  [20] #226.1.1.num.int <12 (0xc)>
-  [21] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x3e, type 1, 190 (0xbe)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x3e (0x3d), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #236.2.1.num.int <1 (0x1)>
+  [1] #228.2.1.num.int <200 (0xc8)>
+  [2] #227.2.1.num.int <10994 (0x2af2)>
+  [3] #226.2.1.num.int <10996 (0x2af4)>
+  [4] #225.2.1.num.int <10998 (0x2af6)>
+  [5] #253.1.1.num.int <11000 (0x2af8)>
+  [6] #252.1.1.num.int <1090 (0x442)>
+  [7] #251.1.1.num.int <1092 (0x444)>
+  [8] #250.1.1.num.int <1094 (0x446)>
+  [9] #249.1.1.num.int <1096 (0x448)>
+  [10] #248.1.1.num.int <1098 (0x44a)>
+  [11] #243.1.1.num.int <1100 (0x44c)>
+  [12] #242.1.1.num.int <106 (0x6a)>
+  [13] #241.1.1.num.int <104 (0x68)>
+  [14] #240.1.1.num.int <102 (0x66)>
+  [15] #235.1.1.num.int <100 (0x64)>
+  [16] #234.1.1.num.int <20 (0x14)>
+  [17] #233.1.1.num.int <18 (0x12)>
+  [18] #232.1.1.num.int <16 (0x10)>
+  [19] #231.1.1.num.int <14 (0xe)>
+  [20] #230.1.1.num.int <12 (0xc)>
+  [21] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x3e, type 1, 190 (0xbe)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x41 (0x3e), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #222.2.1.num.int <190 (0xbe)>
-  [1] #221.2.1.num.int <1 (0x1)>
-  [2] #257.1.1.num.int <200 (0xc8)>
-  [3] #256.1.1.num.int <10994 (0x2af2)>
-  [4] #255.1.1.num.int <10996 (0x2af4)>
-  [5] #254.1.1.num.int <10998 (0x2af6)>
-  [6] #249.1.1.num.int <11000 (0x2af8)>
-  [7] #248.1.1.num.int <1090 (0x442)>
-  [8] #247.1.1.num.int <1092 (0x444)>
-  [9] #246.1.1.num.int <1094 (0x446)>
-  [10] #245.1.1.num.int <1096 (0x448)>
-  [11] #244.1.1.num.int <1098 (0x44a)>
-  [12] #239.1.1.num.int <1100 (0x44c)>
-  [13] #238.1.1.num.int <106 (0x6a)>
-  [14] #237.1.1.num.int <104 (0x68)>
-  [15] #236.1.1.num.int <102 (0x66)>
-  [16] #231.1.1.num.int <100 (0x64)>
-  [17] #230.1.1.num.int <20 (0x14)>
-  [18] #229.1.1.num.int <18 (0x12)>
-  [19] #228.1.1.num.int <16 (0x10)>
-  [20] #227.1.1.num.int <14 (0xe)>
-  [21] #226.1.1.num.int <12 (0xc)>
-  [22] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x41, type 6, 66[1]
-GC: ++#217.1.1.mem.ro
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x41 (0x3e), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #237.2.1.num.int <190 (0xbe)>
+  [1] #236.2.1.num.int <1 (0x1)>
+  [2] #228.2.1.num.int <200 (0xc8)>
+  [3] #227.2.1.num.int <10994 (0x2af2)>
+  [4] #226.2.1.num.int <10996 (0x2af4)>
+  [5] #225.2.1.num.int <10998 (0x2af6)>
+  [6] #253.1.1.num.int <11000 (0x2af8)>
+  [7] #252.1.1.num.int <1090 (0x442)>
+  [8] #251.1.1.num.int <1092 (0x444)>
+  [9] #250.1.1.num.int <1094 (0x446)>
+  [10] #249.1.1.num.int <1096 (0x448)>
+  [11] #248.1.1.num.int <1098 (0x44a)>
+  [12] #243.1.1.num.int <1100 (0x44c)>
+  [13] #242.1.1.num.int <106 (0x6a)>
+  [14] #241.1.1.num.int <104 (0x68)>
+  [15] #240.1.1.num.int <102 (0x66)>
+  [16] #235.1.1.num.int <100 (0x64)>
+  [17] #234.1.1.num.int <20 (0x14)>
+  [18] #233.1.1.num.int <18 (0x12)>
+  [19] #232.1.1.num.int <16 (0x10)>
+  [20] #231.1.1.num.int <14 (0xe)>
+  [21] #230.1.1.num.int <12 (0xc)>
+  [22] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x41, type 6, 66[1]
+GC: ++#221.1.1.mem.ro
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x43 (0x41), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #223.2.1.mem.code.ro <#217.1.2.mem.ro, ofs 0x42, size 1>
-  [1] #222.2.1.num.int <190 (0xbe)>
-  [2] #221.2.1.num.int <1 (0x1)>
-  [3] #257.1.1.num.int <200 (0xc8)>
-  [4] #256.1.1.num.int <10994 (0x2af2)>
-  [5] #255.1.1.num.int <10996 (0x2af4)>
-  [6] #254.1.1.num.int <10998 (0x2af6)>
-  [7] #249.1.1.num.int <11000 (0x2af8)>
-  [8] #248.1.1.num.int <1090 (0x442)>
-  [9] #247.1.1.num.int <1092 (0x444)>
-  [10] #246.1.1.num.int <1094 (0x446)>
-  [11] #245.1.1.num.int <1096 (0x448)>
-  [12] #244.1.1.num.int <1098 (0x44a)>
-  [13] #239.1.1.num.int <1100 (0x44c)>
-  [14] #238.1.1.num.int <106 (0x6a)>
-  [15] #237.1.1.num.int <104 (0x68)>
-  [16] #236.1.1.num.int <102 (0x66)>
-  [17] #231.1.1.num.int <100 (0x64)>
-  [18] #230.1.1.num.int <20 (0x14)>
-  [19] #229.1.1.num.int <18 (0x12)>
-  [20] #228.1.1.num.int <16 (0x10)>
-  [21] #227.1.1.num.int <14 (0xe)>
-  [22] #226.1.1.num.int <12 (0xc)>
-  [23] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x43, type 8, 68[3]
-GC: --#223.2.1.mem.code.ro
-GC: --#217.1.2.mem.ro
-GC: --#222.2.1.num.int
-GC: --#221.2.1.num.int
-GC: --#257.1.1.num.int
+  [0] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x43 (0x41), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #238.2.1.mem.code.ro <#221.1.2.mem.ro, ofs 0x42, size 1>
+  [1] #237.2.1.num.int <190 (0xbe)>
+  [2] #236.2.1.num.int <1 (0x1)>
+  [3] #228.2.1.num.int <200 (0xc8)>
+  [4] #227.2.1.num.int <10994 (0x2af2)>
+  [5] #226.2.1.num.int <10996 (0x2af4)>
+  [6] #225.2.1.num.int <10998 (0x2af6)>
+  [7] #253.1.1.num.int <11000 (0x2af8)>
+  [8] #252.1.1.num.int <1090 (0x442)>
+  [9] #251.1.1.num.int <1092 (0x444)>
+  [10] #250.1.1.num.int <1094 (0x446)>
+  [11] #249.1.1.num.int <1096 (0x448)>
+  [12] #248.1.1.num.int <1098 (0x44a)>
+  [13] #243.1.1.num.int <1100 (0x44c)>
+  [14] #242.1.1.num.int <106 (0x6a)>
+  [15] #241.1.1.num.int <104 (0x68)>
+  [16] #240.1.1.num.int <102 (0x66)>
+  [17] #235.1.1.num.int <100 (0x64)>
+  [18] #234.1.1.num.int <20 (0x14)>
+  [19] #233.1.1.num.int <18 (0x12)>
+  [20] #232.1.1.num.int <16 (0x10)>
+  [21] #231.1.1.num.int <14 (0xe)>
+  [22] #230.1.1.num.int <12 (0xc)>
+  [23] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x43, type 8, 68[3]
+GC: --#238.2.1.mem.code.ro
+GC: --#221.1.2.mem.ro
+GC: --#237.2.1.num.int
+GC: --#236.2.1.num.int
+GC: --#228.2.1.num.int
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x47 (0x43), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #256.1.1.num.int <10994 (0x2af2)>
-  [1] #255.1.1.num.int <10996 (0x2af4)>
-  [2] #254.1.1.num.int <10998 (0x2af6)>
-  [3] #249.1.1.num.int <11000 (0x2af8)>
-  [4] #248.1.1.num.int <1090 (0x442)>
-  [5] #247.1.1.num.int <1092 (0x444)>
-  [6] #246.1.1.num.int <1094 (0x446)>
-  [7] #245.1.1.num.int <1096 (0x448)>
-  [8] #244.1.1.num.int <1098 (0x44a)>
-  [9] #239.1.1.num.int <1100 (0x44c)>
-  [10] #238.1.1.num.int <106 (0x6a)>
-  [11] #237.1.1.num.int <104 (0x68)>
-  [12] #236.1.1.num.int <102 (0x66)>
-  [13] #231.1.1.num.int <100 (0x64)>
-  [14] #230.1.1.num.int <20 (0x14)>
-  [15] #229.1.1.num.int <18 (0x12)>
-  [16] #228.1.1.num.int <16 (0x10)>
-  [17] #227.1.1.num.int <14 (0xe)>
-  [18] #226.1.1.num.int <12 (0xc)>
-  [19] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x47, type 1, 200 (0xc8)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x47 (0x43), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #227.2.1.num.int <10994 (0x2af2)>
+  [1] #226.2.1.num.int <10996 (0x2af4)>
+  [2] #225.2.1.num.int <10998 (0x2af6)>
+  [3] #253.1.1.num.int <11000 (0x2af8)>
+  [4] #252.1.1.num.int <1090 (0x442)>
+  [5] #251.1.1.num.int <1092 (0x444)>
+  [6] #250.1.1.num.int <1094 (0x446)>
+  [7] #249.1.1.num.int <1096 (0x448)>
+  [8] #248.1.1.num.int <1098 (0x44a)>
+  [9] #243.1.1.num.int <1100 (0x44c)>
+  [10] #242.1.1.num.int <106 (0x6a)>
+  [11] #241.1.1.num.int <104 (0x68)>
+  [12] #240.1.1.num.int <102 (0x66)>
+  [13] #235.1.1.num.int <100 (0x64)>
+  [14] #234.1.1.num.int <20 (0x14)>
+  [15] #233.1.1.num.int <18 (0x12)>
+  [16] #232.1.1.num.int <16 (0x10)>
+  [17] #231.1.1.num.int <14 (0xe)>
+  [18] #230.1.1.num.int <12 (0xc)>
+  [19] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x47, type 1, 200 (0xc8)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x4a (0x47), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #224.2.1.num.int <200 (0xc8)>
-  [1] #256.1.1.num.int <10994 (0x2af2)>
-  [2] #255.1.1.num.int <10996 (0x2af4)>
-  [3] #254.1.1.num.int <10998 (0x2af6)>
-  [4] #249.1.1.num.int <11000 (0x2af8)>
-  [5] #248.1.1.num.int <1090 (0x442)>
-  [6] #247.1.1.num.int <1092 (0x444)>
-  [7] #246.1.1.num.int <1094 (0x446)>
-  [8] #245.1.1.num.int <1096 (0x448)>
-  [9] #244.1.1.num.int <1098 (0x44a)>
-  [10] #239.1.1.num.int <1100 (0x44c)>
-  [11] #238.1.1.num.int <106 (0x6a)>
-  [12] #237.1.1.num.int <104 (0x68)>
-  [13] #236.1.1.num.int <102 (0x66)>
-  [14] #231.1.1.num.int <100 (0x64)>
-  [15] #230.1.1.num.int <20 (0x14)>
-  [16] #229.1.1.num.int <18 (0x12)>
-  [17] #228.1.1.num.int <16 (0x10)>
-  [18] #227.1.1.num.int <14 (0xe)>
-  [19] #226.1.1.num.int <12 (0xc)>
-  [20] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x4a, type 1, -1 (0xffffffffffffffff)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x4a (0x47), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #239.2.1.num.int <200 (0xc8)>
+  [1] #227.2.1.num.int <10994 (0x2af2)>
+  [2] #226.2.1.num.int <10996 (0x2af4)>
+  [3] #225.2.1.num.int <10998 (0x2af6)>
+  [4] #253.1.1.num.int <11000 (0x2af8)>
+  [5] #252.1.1.num.int <1090 (0x442)>
+  [6] #251.1.1.num.int <1092 (0x444)>
+  [7] #250.1.1.num.int <1094 (0x446)>
+  [8] #249.1.1.num.int <1096 (0x448)>
+  [9] #248.1.1.num.int <1098 (0x44a)>
+  [10] #243.1.1.num.int <1100 (0x44c)>
+  [11] #242.1.1.num.int <106 (0x6a)>
+  [12] #241.1.1.num.int <104 (0x68)>
+  [13] #240.1.1.num.int <102 (0x66)>
+  [14] #235.1.1.num.int <100 (0x64)>
+  [15] #234.1.1.num.int <20 (0x14)>
+  [16] #233.1.1.num.int <18 (0x12)>
+  [17] #232.1.1.num.int <16 (0x10)>
+  [18] #231.1.1.num.int <14 (0xe)>
+  [19] #230.1.1.num.int <12 (0xc)>
+  [20] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x4a, type 1, -1 (0xffffffffffffffff)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x4c (0x4a), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #232.2.1.num.int <-1 (0xffffffffffffffff)>
-  [1] #224.2.1.num.int <200 (0xc8)>
-  [2] #256.1.1.num.int <10994 (0x2af2)>
-  [3] #255.1.1.num.int <10996 (0x2af4)>
-  [4] #254.1.1.num.int <10998 (0x2af6)>
-  [5] #249.1.1.num.int <11000 (0x2af8)>
-  [6] #248.1.1.num.int <1090 (0x442)>
-  [7] #247.1.1.num.int <1092 (0x444)>
-  [8] #246.1.1.num.int <1094 (0x446)>
-  [9] #245.1.1.num.int <1096 (0x448)>
-  [10] #244.1.1.num.int <1098 (0x44a)>
-  [11] #239.1.1.num.int <1100 (0x44c)>
-  [12] #238.1.1.num.int <106 (0x6a)>
-  [13] #237.1.1.num.int <104 (0x68)>
-  [14] #236.1.1.num.int <102 (0x66)>
-  [15] #231.1.1.num.int <100 (0x64)>
-  [16] #230.1.1.num.int <20 (0x14)>
-  [17] #229.1.1.num.int <18 (0x12)>
-  [18] #228.1.1.num.int <16 (0x10)>
-  [19] #227.1.1.num.int <14 (0xe)>
-  [20] #226.1.1.num.int <12 (0xc)>
-  [21] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x4c, type 1, 210 (0xd2)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x4c (0x4a), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #244.2.1.num.int <-1 (0xffffffffffffffff)>
+  [1] #239.2.1.num.int <200 (0xc8)>
+  [2] #227.2.1.num.int <10994 (0x2af2)>
+  [3] #226.2.1.num.int <10996 (0x2af4)>
+  [4] #225.2.1.num.int <10998 (0x2af6)>
+  [5] #253.1.1.num.int <11000 (0x2af8)>
+  [6] #252.1.1.num.int <1090 (0x442)>
+  [7] #251.1.1.num.int <1092 (0x444)>
+  [8] #250.1.1.num.int <1094 (0x446)>
+  [9] #249.1.1.num.int <1096 (0x448)>
+  [10] #248.1.1.num.int <1098 (0x44a)>
+  [11] #243.1.1.num.int <1100 (0x44c)>
+  [12] #242.1.1.num.int <106 (0x6a)>
+  [13] #241.1.1.num.int <104 (0x68)>
+  [14] #240.1.1.num.int <102 (0x66)>
+  [15] #235.1.1.num.int <100 (0x64)>
+  [16] #234.1.1.num.int <20 (0x14)>
+  [17] #233.1.1.num.int <18 (0x12)>
+  [18] #232.1.1.num.int <16 (0x10)>
+  [19] #231.1.1.num.int <14 (0xe)>
+  [20] #230.1.1.num.int <12 (0xc)>
+  [21] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x4c, type 1, 210 (0xd2)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x4f (0x4c), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #233.2.1.num.int <210 (0xd2)>
-  [1] #232.2.1.num.int <-1 (0xffffffffffffffff)>
-  [2] #224.2.1.num.int <200 (0xc8)>
-  [3] #256.1.1.num.int <10994 (0x2af2)>
-  [4] #255.1.1.num.int <10996 (0x2af4)>
-  [5] #254.1.1.num.int <10998 (0x2af6)>
-  [6] #249.1.1.num.int <11000 (0x2af8)>
-  [7] #248.1.1.num.int <1090 (0x442)>
-  [8] #247.1.1.num.int <1092 (0x444)>
-  [9] #246.1.1.num.int <1094 (0x446)>
-  [10] #245.1.1.num.int <1096 (0x448)>
-  [11] #244.1.1.num.int <1098 (0x44a)>
-  [12] #239.1.1.num.int <1100 (0x44c)>
-  [13] #238.1.1.num.int <106 (0x6a)>
-  [14] #237.1.1.num.int <104 (0x68)>
-  [15] #236.1.1.num.int <102 (0x66)>
-  [16] #231.1.1.num.int <100 (0x64)>
-  [17] #230.1.1.num.int <20 (0x14)>
-  [18] #229.1.1.num.int <18 (0x12)>
-  [19] #228.1.1.num.int <16 (0x10)>
-  [20] #227.1.1.num.int <14 (0xe)>
-  [21] #226.1.1.num.int <12 (0xc)>
-  [22] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x4f, type 6, 80[1]
-GC: ++#217.1.1.mem.ro
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x4f (0x4c), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #245.2.1.num.int <210 (0xd2)>
+  [1] #244.2.1.num.int <-1 (0xffffffffffffffff)>
+  [2] #239.2.1.num.int <200 (0xc8)>
+  [3] #227.2.1.num.int <10994 (0x2af2)>
+  [4] #226.2.1.num.int <10996 (0x2af4)>
+  [5] #225.2.1.num.int <10998 (0x2af6)>
+  [6] #253.1.1.num.int <11000 (0x2af8)>
+  [7] #252.1.1.num.int <1090 (0x442)>
+  [8] #251.1.1.num.int <1092 (0x444)>
+  [9] #250.1.1.num.int <1094 (0x446)>
+  [10] #249.1.1.num.int <1096 (0x448)>
+  [11] #248.1.1.num.int <1098 (0x44a)>
+  [12] #243.1.1.num.int <1100 (0x44c)>
+  [13] #242.1.1.num.int <106 (0x6a)>
+  [14] #241.1.1.num.int <104 (0x68)>
+  [15] #240.1.1.num.int <102 (0x66)>
+  [16] #235.1.1.num.int <100 (0x64)>
+  [17] #234.1.1.num.int <20 (0x14)>
+  [18] #233.1.1.num.int <18 (0x12)>
+  [19] #232.1.1.num.int <16 (0x10)>
+  [20] #231.1.1.num.int <14 (0xe)>
+  [21] #230.1.1.num.int <12 (0xc)>
+  [22] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x4f, type 6, 80[1]
+GC: ++#221.1.1.mem.ro
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x51 (0x4f), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #234.2.1.mem.code.ro <#217.1.2.mem.ro, ofs 0x50, size 1>
-  [1] #233.2.1.num.int <210 (0xd2)>
-  [2] #232.2.1.num.int <-1 (0xffffffffffffffff)>
-  [3] #224.2.1.num.int <200 (0xc8)>
-  [4] #256.1.1.num.int <10994 (0x2af2)>
-  [5] #255.1.1.num.int <10996 (0x2af4)>
-  [6] #254.1.1.num.int <10998 (0x2af6)>
-  [7] #249.1.1.num.int <11000 (0x2af8)>
-  [8] #248.1.1.num.int <1090 (0x442)>
-  [9] #247.1.1.num.int <1092 (0x444)>
-  [10] #246.1.1.num.int <1094 (0x446)>
-  [11] #245.1.1.num.int <1096 (0x448)>
-  [12] #244.1.1.num.int <1098 (0x44a)>
-  [13] #239.1.1.num.int <1100 (0x44c)>
-  [14] #238.1.1.num.int <106 (0x6a)>
-  [15] #237.1.1.num.int <104 (0x68)>
-  [16] #236.1.1.num.int <102 (0x66)>
-  [17] #231.1.1.num.int <100 (0x64)>
-  [18] #230.1.1.num.int <20 (0x14)>
-  [19] #229.1.1.num.int <18 (0x12)>
-  [20] #228.1.1.num.int <16 (0x10)>
-  [21] #227.1.1.num.int <14 (0xe)>
-  [22] #226.1.1.num.int <12 (0xc)>
-  [23] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x51, type 8, 82[3]
-GC: --#234.2.1.mem.code.ro
-GC: --#217.1.2.mem.ro
-GC: --#233.2.1.num.int
-GC: --#232.2.1.num.int
-GC: --#224.2.1.num.int
+  [0] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x51 (0x4f), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #246.2.1.mem.code.ro <#221.1.2.mem.ro, ofs 0x50, size 1>
+  [1] #245.2.1.num.int <210 (0xd2)>
+  [2] #244.2.1.num.int <-1 (0xffffffffffffffff)>
+  [3] #239.2.1.num.int <200 (0xc8)>
+  [4] #227.2.1.num.int <10994 (0x2af2)>
+  [5] #226.2.1.num.int <10996 (0x2af4)>
+  [6] #225.2.1.num.int <10998 (0x2af6)>
+  [7] #253.1.1.num.int <11000 (0x2af8)>
+  [8] #252.1.1.num.int <1090 (0x442)>
+  [9] #251.1.1.num.int <1092 (0x444)>
+  [10] #250.1.1.num.int <1094 (0x446)>
+  [11] #249.1.1.num.int <1096 (0x448)>
+  [12] #248.1.1.num.int <1098 (0x44a)>
+  [13] #243.1.1.num.int <1100 (0x44c)>
+  [14] #242.1.1.num.int <106 (0x6a)>
+  [15] #241.1.1.num.int <104 (0x68)>
+  [16] #240.1.1.num.int <102 (0x66)>
+  [17] #235.1.1.num.int <100 (0x64)>
+  [18] #234.1.1.num.int <20 (0x14)>
+  [19] #233.1.1.num.int <18 (0x12)>
+  [20] #232.1.1.num.int <16 (0x10)>
+  [21] #231.1.1.num.int <14 (0xe)>
+  [22] #230.1.1.num.int <12 (0xc)>
+  [23] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x51, type 8, 82[3]
+GC: --#246.2.1.mem.code.ro
+GC: --#221.1.2.mem.ro
+GC: --#245.2.1.num.int
+GC: --#244.2.1.num.int
+GC: --#239.2.1.num.int
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x55 (0x51), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #256.1.1.num.int <10994 (0x2af2)>
-  [1] #255.1.1.num.int <10996 (0x2af4)>
-  [2] #254.1.1.num.int <10998 (0x2af6)>
-  [3] #249.1.1.num.int <11000 (0x2af8)>
-  [4] #248.1.1.num.int <1090 (0x442)>
-  [5] #247.1.1.num.int <1092 (0x444)>
-  [6] #246.1.1.num.int <1094 (0x446)>
-  [7] #245.1.1.num.int <1096 (0x448)>
-  [8] #244.1.1.num.int <1098 (0x44a)>
-  [9] #239.1.1.num.int <1100 (0x44c)>
-  [10] #238.1.1.num.int <106 (0x6a)>
-  [11] #237.1.1.num.int <104 (0x68)>
-  [12] #236.1.1.num.int <102 (0x66)>
-  [13] #231.1.1.num.int <100 (0x64)>
-  [14] #230.1.1.num.int <20 (0x14)>
-  [15] #229.1.1.num.int <18 (0x12)>
-  [16] #228.1.1.num.int <16 (0x10)>
-  [17] #227.1.1.num.int <14 (0xe)>
-  [18] #226.1.1.num.int <12 (0xc)>
-  [19] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x55, type 1, 0 (0x0)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x55 (0x51), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #227.2.1.num.int <10994 (0x2af2)>
+  [1] #226.2.1.num.int <10996 (0x2af4)>
+  [2] #225.2.1.num.int <10998 (0x2af6)>
+  [3] #253.1.1.num.int <11000 (0x2af8)>
+  [4] #252.1.1.num.int <1090 (0x442)>
+  [5] #251.1.1.num.int <1092 (0x444)>
+  [6] #250.1.1.num.int <1094 (0x446)>
+  [7] #249.1.1.num.int <1096 (0x448)>
+  [8] #248.1.1.num.int <1098 (0x44a)>
+  [9] #243.1.1.num.int <1100 (0x44c)>
+  [10] #242.1.1.num.int <106 (0x6a)>
+  [11] #241.1.1.num.int <104 (0x68)>
+  [12] #240.1.1.num.int <102 (0x66)>
+  [13] #235.1.1.num.int <100 (0x64)>
+  [14] #234.1.1.num.int <20 (0x14)>
+  [15] #233.1.1.num.int <18 (0x12)>
+  [16] #232.1.1.num.int <16 (0x10)>
+  [17] #231.1.1.num.int <14 (0xe)>
+  [18] #230.1.1.num.int <12 (0xc)>
+  [19] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x55, type 1, 0 (0x0)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x56 (0x55), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #235.2.1.num.int <0 (0x0)>
-  [1] #256.1.1.num.int <10994 (0x2af2)>
-  [2] #255.1.1.num.int <10996 (0x2af4)>
-  [3] #254.1.1.num.int <10998 (0x2af6)>
-  [4] #249.1.1.num.int <11000 (0x2af8)>
-  [5] #248.1.1.num.int <1090 (0x442)>
-  [6] #247.1.1.num.int <1092 (0x444)>
-  [7] #246.1.1.num.int <1094 (0x446)>
-  [8] #245.1.1.num.int <1096 (0x448)>
-  [9] #244.1.1.num.int <1098 (0x44a)>
-  [10] #239.1.1.num.int <1100 (0x44c)>
-  [11] #238.1.1.num.int <106 (0x6a)>
-  [12] #237.1.1.num.int <104 (0x68)>
-  [13] #236.1.1.num.int <102 (0x66)>
-  [14] #231.1.1.num.int <100 (0x64)>
-  [15] #230.1.1.num.int <20 (0x14)>
-  [16] #229.1.1.num.int <18 (0x12)>
-  [17] #228.1.1.num.int <16 (0x10)>
-  [18] #227.1.1.num.int <14 (0xe)>
-  [19] #226.1.1.num.int <12 (0xc)>
-  [20] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x56, type 1, 0 (0x0)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x56 (0x55), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #247.2.1.num.int <0 (0x0)>
+  [1] #227.2.1.num.int <10994 (0x2af2)>
+  [2] #226.2.1.num.int <10996 (0x2af4)>
+  [3] #225.2.1.num.int <10998 (0x2af6)>
+  [4] #253.1.1.num.int <11000 (0x2af8)>
+  [5] #252.1.1.num.int <1090 (0x442)>
+  [6] #251.1.1.num.int <1092 (0x444)>
+  [7] #250.1.1.num.int <1094 (0x446)>
+  [8] #249.1.1.num.int <1096 (0x448)>
+  [9] #248.1.1.num.int <1098 (0x44a)>
+  [10] #243.1.1.num.int <1100 (0x44c)>
+  [11] #242.1.1.num.int <106 (0x6a)>
+  [12] #241.1.1.num.int <104 (0x68)>
+  [13] #240.1.1.num.int <102 (0x66)>
+  [14] #235.1.1.num.int <100 (0x64)>
+  [15] #234.1.1.num.int <20 (0x14)>
+  [16] #233.1.1.num.int <18 (0x12)>
+  [17] #232.1.1.num.int <16 (0x10)>
+  [18] #231.1.1.num.int <14 (0xe)>
+  [19] #230.1.1.num.int <12 (0xc)>
+  [20] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x56, type 1, 0 (0x0)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x57 (0x56), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #240.2.1.num.int <0 (0x0)>
-  [1] #235.2.1.num.int <0 (0x0)>
-  [2] #256.1.1.num.int <10994 (0x2af2)>
-  [3] #255.1.1.num.int <10996 (0x2af4)>
-  [4] #254.1.1.num.int <10998 (0x2af6)>
-  [5] #249.1.1.num.int <11000 (0x2af8)>
-  [6] #248.1.1.num.int <1090 (0x442)>
-  [7] #247.1.1.num.int <1092 (0x444)>
-  [8] #246.1.1.num.int <1094 (0x446)>
-  [9] #245.1.1.num.int <1096 (0x448)>
-  [10] #244.1.1.num.int <1098 (0x44a)>
-  [11] #239.1.1.num.int <1100 (0x44c)>
-  [12] #238.1.1.num.int <106 (0x6a)>
-  [13] #237.1.1.num.int <104 (0x68)>
-  [14] #236.1.1.num.int <102 (0x66)>
-  [15] #231.1.1.num.int <100 (0x64)>
-  [16] #230.1.1.num.int <20 (0x14)>
-  [17] #229.1.1.num.int <18 (0x12)>
-  [18] #228.1.1.num.int <16 (0x10)>
-  [19] #227.1.1.num.int <14 (0xe)>
-  [20] #226.1.1.num.int <12 (0xc)>
-  [21] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x57, type 1, 100 (0x64)
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x57 (0x56), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #254.2.1.num.int <0 (0x0)>
+  [1] #247.2.1.num.int <0 (0x0)>
+  [2] #227.2.1.num.int <10994 (0x2af2)>
+  [3] #226.2.1.num.int <10996 (0x2af4)>
+  [4] #225.2.1.num.int <10998 (0x2af6)>
+  [5] #253.1.1.num.int <11000 (0x2af8)>
+  [6] #252.1.1.num.int <1090 (0x442)>
+  [7] #251.1.1.num.int <1092 (0x444)>
+  [8] #250.1.1.num.int <1094 (0x446)>
+  [9] #249.1.1.num.int <1096 (0x448)>
+  [10] #248.1.1.num.int <1098 (0x44a)>
+  [11] #243.1.1.num.int <1100 (0x44c)>
+  [12] #242.1.1.num.int <106 (0x6a)>
+  [13] #241.1.1.num.int <104 (0x68)>
+  [14] #240.1.1.num.int <102 (0x66)>
+  [15] #235.1.1.num.int <100 (0x64)>
+  [16] #234.1.1.num.int <20 (0x14)>
+  [17] #233.1.1.num.int <18 (0x12)>
+  [18] #232.1.1.num.int <16 (0x10)>
+  [19] #231.1.1.num.int <14 (0xe)>
+  [20] #230.1.1.num.int <12 (0xc)>
+  [21] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x57, type 1, 100 (0x64)
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x59 (0x57), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #241.2.1.num.int <100 (0x64)>
-  [1] #240.2.1.num.int <0 (0x0)>
-  [2] #235.2.1.num.int <0 (0x0)>
-  [3] #256.1.1.num.int <10994 (0x2af2)>
-  [4] #255.1.1.num.int <10996 (0x2af4)>
-  [5] #254.1.1.num.int <10998 (0x2af6)>
-  [6] #249.1.1.num.int <11000 (0x2af8)>
-  [7] #248.1.1.num.int <1090 (0x442)>
-  [8] #247.1.1.num.int <1092 (0x444)>
-  [9] #246.1.1.num.int <1094 (0x446)>
-  [10] #245.1.1.num.int <1096 (0x448)>
-  [11] #244.1.1.num.int <1098 (0x44a)>
-  [12] #239.1.1.num.int <1100 (0x44c)>
-  [13] #238.1.1.num.int <106 (0x6a)>
-  [14] #237.1.1.num.int <104 (0x68)>
-  [15] #236.1.1.num.int <102 (0x66)>
-  [16] #231.1.1.num.int <100 (0x64)>
-  [17] #230.1.1.num.int <20 (0x14)>
-  [18] #229.1.1.num.int <18 (0x12)>
-  [19] #228.1.1.num.int <16 (0x10)>
-  [20] #227.1.1.num.int <14 (0xe)>
-  [21] #226.1.1.num.int <12 (0xc)>
-  [22] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x59, type 6, 90[1]
-GC: ++#217.1.1.mem.ro
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x59 (0x57), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #255.2.1.num.int <100 (0x64)>
+  [1] #254.2.1.num.int <0 (0x0)>
+  [2] #247.2.1.num.int <0 (0x0)>
+  [3] #227.2.1.num.int <10994 (0x2af2)>
+  [4] #226.2.1.num.int <10996 (0x2af4)>
+  [5] #225.2.1.num.int <10998 (0x2af6)>
+  [6] #253.1.1.num.int <11000 (0x2af8)>
+  [7] #252.1.1.num.int <1090 (0x442)>
+  [8] #251.1.1.num.int <1092 (0x444)>
+  [9] #250.1.1.num.int <1094 (0x446)>
+  [10] #249.1.1.num.int <1096 (0x448)>
+  [11] #248.1.1.num.int <1098 (0x44a)>
+  [12] #243.1.1.num.int <1100 (0x44c)>
+  [13] #242.1.1.num.int <106 (0x6a)>
+  [14] #241.1.1.num.int <104 (0x68)>
+  [15] #240.1.1.num.int <102 (0x66)>
+  [16] #235.1.1.num.int <100 (0x64)>
+  [17] #234.1.1.num.int <20 (0x14)>
+  [18] #233.1.1.num.int <18 (0x12)>
+  [19] #232.1.1.num.int <16 (0x10)>
+  [20] #231.1.1.num.int <14 (0xe)>
+  [21] #230.1.1.num.int <12 (0xc)>
+  [22] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x59, type 6, 90[1]
+GC: ++#221.1.1.mem.ro
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.2.mem.ro, ip 0x5b (0x59), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #242.2.1.mem.code.ro <#217.1.2.mem.ro, ofs 0x5a, size 1>
-  [1] #241.2.1.num.int <100 (0x64)>
-  [2] #240.2.1.num.int <0 (0x0)>
-  [3] #235.2.1.num.int <0 (0x0)>
-  [4] #256.1.1.num.int <10994 (0x2af2)>
-  [5] #255.1.1.num.int <10996 (0x2af4)>
-  [6] #254.1.1.num.int <10998 (0x2af6)>
-  [7] #249.1.1.num.int <11000 (0x2af8)>
-  [8] #248.1.1.num.int <1090 (0x442)>
-  [9] #247.1.1.num.int <1092 (0x444)>
-  [10] #246.1.1.num.int <1094 (0x446)>
-  [11] #245.1.1.num.int <1096 (0x448)>
-  [12] #244.1.1.num.int <1098 (0x44a)>
-  [13] #239.1.1.num.int <1100 (0x44c)>
-  [14] #238.1.1.num.int <106 (0x6a)>
-  [15] #237.1.1.num.int <104 (0x68)>
-  [16] #236.1.1.num.int <102 (0x66)>
-  [17] #231.1.1.num.int <100 (0x64)>
-  [18] #230.1.1.num.int <20 (0x14)>
-  [19] #229.1.1.num.int <18 (0x12)>
-  [20] #228.1.1.num.int <16 (0x10)>
-  [21] #227.1.1.num.int <14 (0xe)>
-  [22] #226.1.1.num.int <12 (0xc)>
-  [23] #220.1.1.num.int <10 (0xa)>
-IP: #217:0x5b, type 8, 92[3]
-GC: --#242.2.1.mem.code.ro
-GC: --#217.1.2.mem.ro
-GC: --#241.2.1.num.int
-GC: --#240.2.1.num.int
-GC: --#235.2.1.num.int
+  [0] #223.1.1.ctx.func <code #221.1.2.mem.ro, ip 0x5b (0x59), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #256.2.1.mem.code.ro <#221.1.2.mem.ro, ofs 0x5a, size 1>
+  [1] #255.2.1.num.int <100 (0x64)>
+  [2] #254.2.1.num.int <0 (0x0)>
+  [3] #247.2.1.num.int <0 (0x0)>
+  [4] #227.2.1.num.int <10994 (0x2af2)>
+  [5] #226.2.1.num.int <10996 (0x2af4)>
+  [6] #225.2.1.num.int <10998 (0x2af6)>
+  [7] #253.1.1.num.int <11000 (0x2af8)>
+  [8] #252.1.1.num.int <1090 (0x442)>
+  [9] #251.1.1.num.int <1092 (0x444)>
+  [10] #250.1.1.num.int <1094 (0x446)>
+  [11] #249.1.1.num.int <1096 (0x448)>
+  [12] #248.1.1.num.int <1098 (0x44a)>
+  [13] #243.1.1.num.int <1100 (0x44c)>
+  [14] #242.1.1.num.int <106 (0x6a)>
+  [15] #241.1.1.num.int <104 (0x68)>
+  [16] #240.1.1.num.int <102 (0x66)>
+  [17] #235.1.1.num.int <100 (0x64)>
+  [18] #234.1.1.num.int <20 (0x14)>
+  [19] #233.1.1.num.int <18 (0x12)>
+  [20] #232.1.1.num.int <16 (0x10)>
+  [21] #231.1.1.num.int <14 (0xe)>
+  [22] #230.1.1.num.int <12 (0xc)>
+  [23] #224.1.1.num.int <10 (0xa)>
+IP: #221:0x5b, type 8, 92[3]
+GC: --#256.2.1.mem.code.ro
+GC: --#221.1.2.mem.ro
+GC: --#255.2.1.num.int
+GC: --#254.2.1.num.int
+GC: --#247.2.1.num.int
 == backtrace ==
-  [0] #219.1.1.ctx.func <code #217.1.1.mem.ro, ip 0x5f (0x5b), dict #8.1.2.hash>
-== stack (#218.1.1.array) ==
-  [0] #256.1.1.num.int <10994 (0x2af2)>
-  [1] #255.1.1.num.int <10996 (0x2af4)>
-  [2] #254.1.1.num.int <10998 (0x2af6)>
-  [3] #249.1.1.num.int <11000 (0x2af8)>
-  [4] #248.1.1.num.int <1090 (0x442)>
-  [5] #247.1.1.num.int <1092 (0x444)>
-  [6] #246.1.1.num.int <1094 (0x446)>
-  [7] #245.1.1.num.int <1096 (0x448)>
-  [8] #244.1.1.num.int <1098 (0x44a)>
-  [9] #239.1.1.num.int <1100 (0x44c)>
-  [10] #238.1.1.num.int <106 (0x6a)>
-  [11] #237.1.1.num.int <104 (0x68)>
-  [12] #236.1.1.num.int <102 (0x66)>
-  [13] #231.1.1.num.int <100 (0x64)>
-  [14] #230.1.1.num.int <20 (0x14)>
-  [15] #229.1.1.num.int <18 (0x12)>
-  [16] #228.1.1.num.int <16 (0x10)>
-  [17] #227.1.1.num.int <14 (0xe)>
-  [18] #226.1.1.num.int <12 (0xc)>
-  [19] #220.1.1.num.int <10 (0xa)>
+  [0] #223.1.1.ctx.func <code #221.1.1.mem.ro, ip 0x5f (0x5b), dict #8.1.2.hash>
+== stack (#222.1.1.array) ==
+  [0] #227.2.1.num.int <10994 (0x2af2)>
+  [1] #226.2.1.num.int <10996 (0x2af4)>
+  [2] #225.2.1.num.int <10998 (0x2af6)>
+  [3] #253.1.1.num.int <11000 (0x2af8)>
+  [4] #252.1.1.num.int <1090 (0x442)>
+  [5] #251.1.1.num.int <1092 (0x444)>
+  [6] #250.1.1.num.int <1094 (0x446)>
+  [7] #249.1.1.num.int <1096 (0x448)>
+  [8] #248.1.1.num.int <1098 (0x44a)>
+  [9] #243.1.1.num.int <1100 (0x44c)>
+  [10] #242.1.1.num.int <106 (0x6a)>
+  [11] #241.1.1.num.int <104 (0x68)>
+  [12] #240.1.1.num.int <102 (0x66)>
+  [13] #235.1.1.num.int <100 (0x64)>
+  [14] #234.1.1.num.int <20 (0x14)>
+  [15] #233.1.1.num.int <18 (0x12)>
+  [16] #232.1.1.num.int <16 (0x10)>
+  [17] #231.1.1.num.int <14 (0xe)>
+  [18] #230.1.1.num.int <12 (0xc)>
+  [19] #224.1.1.num.int <10 (0xa)>

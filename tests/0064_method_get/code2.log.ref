@@ -13,7 +13,7 @@
              6  0x00014  code   66                         {
              7  0x00015  word   18 78                        x
              8  0x00017  int    31                           3
-             9  0x00018  prim   83 22                        mul
+             9  0x00018  prim   83 24                        mul
             10  0x0001a  prim   13                         }
      4      11  0x0001b  prim   53                       )
             12  0x0001c  prim   63                       def

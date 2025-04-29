@@ -7,38 +7,38 @@
              0  0x00000  comm   75 51 12 a9 42 7a ad 60  # gfxboot magic
      1       1  0x00008  ref    c9 0c 63 6f 6e 73 6f 6c  /console-font
                                 65 2d 66 6f 6e 74
-             2  0x00016  prim   83 4c                    getcanvas
-             3  0x00018  prim   83 4e                    getconsole
-             4  0x0001a  prim   83 4d                    setcanvas
-             5  0x0001c  prim   83 42                    getfont
+             2  0x00016  prim   83 4e                    getcanvas
+             3  0x00018  prim   83 50                    getconsole
+             4  0x0001a  prim   83 4f                    setcanvas
+             5  0x0001c  prim   83 44                    getfont
              6  0x0001e  prim   83 18                    exch
-             7  0x00020  prim   83 4d                    setcanvas
+             7  0x00020  prim   83 4f                    setcanvas
              8  0x00022  prim   63                       def
      3       9  0x00023  ref    c9 0e 64 65 6a 61 76 75  /dejavu-sans-24
                                 2d 73 61 6e 73 2d 32 34
             10  0x00033  str    c7 12 64 65 6a 61 76 75  "dejavu-sans-24.fnt"
                                 2d 73 61 6e 73 2d 32 34
                                 2e 66 6e 74
-            11  0x00047  prim   83 53                    readfile
-            12  0x00049  prim   83 44                    newfont
+            11  0x00047  prim   83 55                    readfile
+            12  0x00049  prim   83 46                    newfont
             13  0x0004b  prim   63                       def
      4      14  0x0004c  ref    79 68 61 63 6b 2d 31 34  /hack-14
             15  0x00054  str    b7 68 61 63 6b 2d 31 34  "hack-14.fnt"
                                 2e 66 6e 74
-            16  0x00060  prim   83 53                    readfile
-            17  0x00062  prim   83 44                    newfont
+            16  0x00060  prim   83 55                    readfile
+            17  0x00062  prim   83 46                    newfont
             18  0x00064  prim   63                       def
      6      19  0x00065  ref    89 66 6f 6f 2d 66 6f 6e  /foo-font
                                 74
             20  0x0006e  str    77 66 6f 6f 2e 66 6e 74  "foo.fnt"
-            21  0x00076  prim   83 53                    readfile
-            22  0x00078  prim   83 44                    newfont
+            21  0x00076  prim   83 55                    readfile
+            22  0x00078  prim   83 46                    newfont
             23  0x0007a  prim   63                       def
      7      24  0x0007b  ref    89 62 61 72 2d 66 6f 6e  /bar-font
                                 74
             25  0x00084  str    77 62 61 72 2e 66 6e 74  "bar.fnt"
-            26  0x0008c  prim   83 53                    readfile
-            27  0x0008e  prim   83 44                    newfont
+            26  0x0008c  prim   83 55                    readfile
+            27  0x0008e  prim   83 46                    newfont
             28  0x00090  prim   63                       def
      9      29  0x00091  ref    49 74 65 78 74           /text
             30  0x00096  str    c7 40 41 42 43 20 26 25  "ABC &%$ *+~ ÄÖß|| 12345 xyA_z_AjzjxjJ # * % & § öäüß €"
@@ -53,7 +53,7 @@
             31  0x000d8  prim   63                       def
     11      32  0x000d9  ref    49 74 65 73 74           /test
             33  0x000de  code   c6 ab                    {
-    12      34  0x000e0  prim   83 43                      setfont
+    12      34  0x000e0  prim   83 45                      setfont
             35  0x000e2  ref    19 79                      /y
             36  0x000e4  prim   83 18                      exch
             37  0x000e6  prim   63                         def
@@ -61,71 +61,71 @@
             39  0x000e9  prim   83 18                      exch
             40  0x000eb  prim   63                         def
     13      41  0x000ec  int    c1 00 00 00 ff 00          0xff000000
-            42  0x000f2  prim   83 3f                      setbgcolor
+            42  0x000f2  prim   83 41                      setbgcolor
     14      43  0x000f4  int    b1 ff ff ff 00             0x00ffffff
-            44  0x000f9  prim   83 3d                      setcolor
+            44  0x000f9  prim   83 3f                      setcolor
             45  0x000fb  word   18 78                      x
             46  0x000fd  word   18 79                      y
-            47  0x000ff  prim   83 41                      setpos
+            47  0x000ff  prim   83 43                      setpos
             48  0x00101  word   48 74 65 78 74             text
-            49  0x00106  prim   83 50                      show
+            49  0x00106  prim   83 52                      show
     15      50  0x00108  int    a1 90 60 20                0x00206090
-            51  0x0010c  prim   83 3d                      setcolor
+            51  0x0010c  prim   83 3f                      setcolor
             52  0x0010e  word   18 78                      x
             53  0x00110  int    21                         2
-            54  0x00111  prim   83 1e                      add
+            54  0x00111  prim   83 20                      add
             55  0x00113  word   18 79                      y
             56  0x00115  int    81 1e                      30
-            57  0x00117  prim   83 1e                      add
-            58  0x00119  prim   83 41                      setpos
+            57  0x00117  prim   83 20                      add
+            58  0x00119  prim   83 43                      setpos
             59  0x0011b  xref   84 1a                      text
-            60  0x0011d  prim   83 50                      show
+            60  0x0011d  prim   83 52                      show
     16      61  0x0011f  int    c1 20 ff ff 90 00          0x90ffff20
-            62  0x00125  prim   83 3d                      setcolor
+            62  0x00125  prim   83 3f                      setcolor
             63  0x00127  word   18 78                      x
             64  0x00129  int    41                         4
-            65  0x0012a  prim   83 1e                      add
+            65  0x0012a  prim   83 20                      add
             66  0x0012c  word   18 79                      y
             67  0x0012e  int    81 3c                      60
-            68  0x00130  prim   83 1e                      add
-            69  0x00132  prim   83 41                      setpos
+            68  0x00130  prim   83 20                      add
+            69  0x00132  prim   83 43                      setpos
             70  0x00134  xref   84 33                      text
-            71  0x00136  prim   83 50                      show
+            71  0x00136  prim   83 52                      show
     17      72  0x00138  int    c1 a0 70 30 90 00          0x903070a0
-            73  0x0013e  prim   83 3f                      setbgcolor
+            73  0x0013e  prim   83 41                      setbgcolor
     18      74  0x00140  int    a1 ff ff 00                0x0000ffff
-            75  0x00144  prim   83 3d                      setcolor
+            75  0x00144  prim   83 3f                      setcolor
             76  0x00146  word   18 78                      x
             77  0x00148  int    61                         6
-            78  0x00149  prim   83 1e                      add
+            78  0x00149  prim   83 20                      add
             79  0x0014b  word   18 79                      y
             80  0x0014d  int    81 5a                      90
-            81  0x0014f  prim   83 1e                      add
-            82  0x00151  prim   83 41                      setpos
+            81  0x0014f  prim   83 20                      add
+            82  0x00151  prim   83 43                      setpos
             83  0x00153  xref   84 52                      text
-            84  0x00155  prim   83 50                      show
+            84  0x00155  prim   83 52                      show
     19      85  0x00157  int    b1 90 60 a0 00             0x00a06090
-            86  0x0015c  prim   83 3d                      setcolor
+            86  0x0015c  prim   83 3f                      setcolor
             87  0x0015e  word   18 78                      x
             88  0x00160  int    81 08                      8
-            89  0x00162  prim   83 1e                      add
+            89  0x00162  prim   83 20                      add
             90  0x00164  word   18 79                      y
             91  0x00166  int    81 78                      120
-            92  0x00168  prim   83 1e                      add
-            93  0x0016a  prim   83 41                      setpos
+            92  0x00168  prim   83 20                      add
+            93  0x0016a  prim   83 43                      setpos
             94  0x0016c  xref   84 6b                      text
-            95  0x0016e  prim   83 50                      show
+            95  0x0016e  prim   83 52                      show
     20      96  0x00170  int    b1 90 ff 2f 70             0x702fff90
-            97  0x00175  prim   83 3d                      setcolor
+            97  0x00175  prim   83 3f                      setcolor
             98  0x00177  word   18 78                      x
             99  0x00179  int    81 0a                      10
-           100  0x0017b  prim   83 1e                      add
+           100  0x0017b  prim   83 20                      add
            101  0x0017d  word   18 79                      y
            102  0x0017f  int    91 96 00                   150
-           103  0x00182  prim   83 1e                      add
-           104  0x00184  prim   83 41                      setpos
+           103  0x00182  prim   83 20                      add
+           104  0x00184  prim   83 43                      setpos
            105  0x00186  xref   84 85                      text
-           106  0x00188  prim   83 50                      show
+           106  0x00188  prim   83 52                      show
     21     107  0x0018a  prim   13                       }
            108  0x0018b  prim   63                       def
     23     109  0x0018c  int    01                       0
@@ -138,17 +138,17 @@
     25     116  0x00198  int    01                         0x000000
            117  0x00199  word   18 78                      x
            118  0x0019b  int    81 7f                      0x7f
-           119  0x0019d  prim   83 29                      and
+           119  0x0019d  prim   83 2b                      and
            120  0x0019f  int    91 01 01                   0x101
-           121  0x001a2  prim   83 22                      mul
-           122  0x001a4  prim   83 1e                      add
-           123  0x001a6  prim   83 3d                      setcolor
+           121  0x001a2  prim   83 24                      mul
+           122  0x001a4  prim   83 20                      add
+           123  0x001a6  prim   83 3f                      setcolor
     26     124  0x001a8  word   18 78                      x
            125  0x001aa  int    01                         0
-           126  0x001ab  prim   83 41                      setpos
+           126  0x001ab  prim   83 43                      setpos
            127  0x001ad  word   18 78                      x
            128  0x001af  int    91 57 02                   599
-           129  0x001b2  prim   83 59                      drawline
+           129  0x001b2  prim   83 5b                      drawline
     27     130  0x001b4  prim   13                       }
            131  0x001b5  prim   83 0d                    for
     29     132  0x001b7  int    81 0a                    10

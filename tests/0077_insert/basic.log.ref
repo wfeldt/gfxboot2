@@ -376,10 +376,10 @@ GC: ++#xxxx.1.1.mem.str
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <53 (0x35)>
+  [0] #xxxx.2.1.num.int <53 (0x35)>
   [1] #xxxx.1.1.num.int <3 (0x3)>
   [2] #xxxx.1.2.mem.str <size 3, "A12">
-GC: --#xxxx.1.1.num.int
+GC: --#xxxx.2.1.num.int
 GC: --#xxxx.1.1.num.int
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
@@ -397,16 +397,16 @@ GC: ++#xxxx.1.1.mem.str
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [0] #xxxx.2.1.num.int <-1 (0xffffffffffffffff)>
   [1] #xxxx.1.2.mem.str <size 4, "A125">
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <54 (0x36)>
-  [1] #xxxx.1.1.num.int <-1 (0xffffffffffffffff)>
+  [0] #xxxx.2.1.num.int <54 (0x36)>
+  [1] #xxxx.2.1.num.int <-1 (0xffffffffffffffff)>
   [2] #xxxx.1.2.mem.str <size 4, "A125">
-GC: --#xxxx.1.1.num.int
-GC: --#xxxx.1.1.num.int
+GC: --#xxxx.2.1.num.int
+GC: --#xxxx.2.1.num.int
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
@@ -423,16 +423,16 @@ GC: ++#xxxx.1.1.mem.str
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
-  [0] #xxxx.1.1.num.int <19 (0x13)>
+  [0] #xxxx.2.1.num.int <19 (0x13)>
   [1] #xxxx.1.2.mem.str <size 5, "A1265">
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==
   [0] #xxxx.2.1.num.int <88 (0x58)>
-  [1] #xxxx.1.1.num.int <19 (0x13)>
+  [1] #xxxx.2.1.num.int <19 (0x13)>
   [2] #xxxx.1.2.mem.str <size 5, "A1265">
 GC: --#xxxx.2.1.num.int
-GC: --#xxxx.1.1.num.int
+GC: --#xxxx.2.1.num.int
 == backtrace ==
   [0] #xxxx.1.1.ctx.func <code #xxxx.1.8.mem.ro, dict #xxxx.1.2.hash>
 == stack (#xxxx.1.1.array) ==

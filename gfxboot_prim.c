@@ -1745,6 +1745,38 @@ void gfx_prim_rot()
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// reverse rotate upper three stack elements
+//
+// group: stack
+//
+// ( any_1 any_2 any_3 -- any_3 any_1 any_2 )
+//
+// Rotate any_3 down. This is the same as applying rot twice.
+//
+// example:
+//
+// 10 20 30 rot         # 30 10 20
+//
+void gfx_prim_n_rot()
+{
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < 3) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  obj_id_t id1 = pstack->ptr[pstack->size - 3];
+  obj_id_t id2 = pstack->ptr[pstack->size - 2];
+  obj_id_t id3 = pstack->ptr[pstack->size - 1];
+
+  gfx_obj_array_set(gfxboot_data->vm.program.pstack, id3, (int) pstack->size - 3, 0);
+  gfx_obj_array_set(gfxboot_data->vm.program.pstack, id1, (int) pstack->size - 2, 0);
+  gfx_obj_array_set(gfxboot_data->vm.program.pstack, id2, (int) pstack->size - 1, 0);
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // rotate stack elements
 //
 // group: stack
@@ -1813,6 +1845,91 @@ void gfx_prim_roll()
       pstack->ptr[(int) pstack->size - len + i] = pstack->ptr[(int) pstack->size - len + i + 1];
     }
     pstack->ptr[pstack->size - 1] = tmp_id;
+  }
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// permutate stack elements
+//
+// group: stack
+//
+// ( any_1 ... any_n int_1 -- any_a ... any_b )
+//
+// int_1: permutation specification
+//
+// Remove n elements and put a permutation of these elements back on the stack.
+//
+// n is the value of the highest hex digit plus number of non-leading 0's
+// in the permutation spec.
+//
+// For each non-zero hex digit, an element is put back on the stack. The hex
+// digit is the original stack position of the element.
+//
+// 0's are ignored except for determining the number of elements to remove.
+//
+// examples:
+//
+// 10          0x11 perm               # 10 10
+// 10 20       0x1212 perm             # 10 20 10 20
+// 10 20 30 40 0x4321 perm             # 40 30 20 10
+// 10 20 30 40 0x113322244 perm        # 10 10 30 30 20 20 20 40 40
+// 10 20 30 40 0x4 perm                # 40
+// 10 20 30 40 0x1000 perm             # 10
+// 10 20 30 40 0x24 perm               # 20 40
+// 10 20 30 40 0x320 perm              # 30 20
+// 10 20 30 40 0x302 perm              # 30 20
+// 10 20 30 40 0x32 perm               # 10 40 30
+//
+void gfx_prim_perm()
+{
+  arg_t *argv = gfx_arg_1(OTYPE_NUM);
+
+  if(!argv) return;
+
+  uint64_t perm = (uint64_t) OBJ_VALUE_FROM_PTR(argv[0].ptr);
+
+  obj_id_t id_list[16] = { };
+  unsigned idx_list[16] = { };
+  unsigned old_ids = 0;
+  unsigned new_ids = 0;
+  unsigned zeros = 0;
+
+  for(; new_ids < 16 && perm; new_ids++, perm >>= 4) {
+    unsigned idx = perm & 0xf;
+    if(idx) {
+      if(idx > old_ids) old_ids = idx;
+      idx_list[new_ids - zeros] = idx;
+    }
+    else {
+      zeros++;
+    }
+  }
+
+  new_ids -= zeros;
+
+  // gfxboot_log("new_ids = %u, old_ids = %u, zeros = %u, x == 0 = %d\n", new_ids, old_ids, zeros, x == 0);
+
+  array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
+
+  if(!pstack || pstack->size < old_ids + zeros + 1) {
+    GFX_ERROR(err_stack_underflow);
+    return;
+  }
+
+  gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+  if(new_ids == 0) return;
+
+  for(unsigned u = 0; u < new_ids ; u++) {
+    id_list[u] = gfx_obj_array_get(gfxboot_data->vm.program.pstack, (int) (pstack->size - old_ids - zeros + idx_list[u] - 1));
+    gfx_obj_ref_inc(id_list[u]);
+  }
+
+  gfx_obj_array_pop_n(old_ids + zeros, gfxboot_data->vm.program.pstack, 1);
+
+  for(unsigned u = 0; u < new_ids ; u++) {
+    gfx_obj_array_push(gfxboot_data->vm.program.pstack, id_list[new_ids - u - 1], 0);
   }
 }
 

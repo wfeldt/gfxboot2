@@ -30,9 +30,11 @@ dup
 pop
 exch
 rot
+-rot	n_rot
 roll
 over
 index
+perm
 exec
 add
 add!	add_direct

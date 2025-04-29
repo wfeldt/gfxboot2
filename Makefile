@@ -35,9 +35,11 @@ ifneq "$(vm)" ""
   VM = --$(vm)
 endif
 
-.PHONY: all grub-bios grub-efi grub-iso test-bios test-efi test-x11 archive clean tests
+.PHONY: all grub-bios grub-efi grub-iso test-bios test-efi test-x11 archive clean test tests
 
 all: gfxboot-x11 gfxboot-compile gfxboot-font
+
+test: tests
 
 changelog: $(GITDEPS)
 	$(GIT2LOG) --changelog changelog

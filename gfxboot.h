@@ -321,7 +321,7 @@ typedef struct {
     obj_id_t list_id;		// array of canvas ids
   } compose;
 
-  obj_id_t event_handler_id;	// event handler (keyboard, timer, ...)
+  obj_id_t system_id;		// system class; contains e.g. event handler
 
   struct {
     int nested;

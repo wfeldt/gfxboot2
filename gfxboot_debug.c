@@ -349,19 +349,21 @@ int gfx_program_process_key(unsigned key)
 
   gfxboot_debug(2, 2, "gfx_program_process_key: 0x%x\n", key);
 
-  if(!key || !gfxboot_data->event_handler_id) return 0;
+  if(!key || !gfxboot_data->system_id) return 0;
 
-  if(gfx_program_init(gfxboot_data->event_handler_id)) {
-    gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(key, t_int), 0);
-    gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(1, t_int), 0);
-    gfx_program_run();
-    if(!gfxboot_data->vm.debug.console.show) {
-      array_t *pstack = gfx_obj_array_ptr(gfxboot_data->vm.program.pstack);
-      if(pstack && pstack->size >= 1) {
-        int64_t *val = gfx_obj_num_subtype_ptr(pstack->ptr[pstack->size - 1], t_int);
-        if(val) action = *val;
-      }
-    }
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfx_obj_num_new(key, t_int), 0);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfxboot_data->system_id, 1);
+  data_t keyevent = { .ptr = "keyevent", .size = sizeof "keyevent" - 1 };
+  gfx_prim_get_x(&keyevent);
+  gfx_program_run();
+
+  // FIXME: this is action code vs. command line string
+  if(!gfxboot_data->vm.debug.console.show) {
+    int64_t *val = gfx_obj_num_subtype_ptr(gfx_obj_array_get(gfxboot_data->vm.program.pstack, -1), t_int);
+    if(val) action = *val;
+    gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
+
+    // gfxboot_log("+++ action = %d\n", action);
   }
 
   return action;
@@ -480,8 +482,8 @@ void gfx_status_dump()
   gfxboot_log("  garbage collector = ");
   gfx_obj_dump(gfxboot_data->vm.gc_list, (dump_style_t) { .inspect = 1 });
 
-  gfxboot_log("  event handler = ");
-  gfx_obj_dump(gfxboot_data->event_handler_id, (dump_style_t) { .inspect = 1 });
+  gfxboot_log("  system class = ");
+  gfx_obj_dump(gfxboot_data->system_id, (dump_style_t) { .inspect = 1 });
 
   gfxboot_log("program:\n");
   gfxboot_log(
@@ -622,8 +624,8 @@ void debug_cmd_dump(int argc, char **argv)
     else if(!gfx_strcmp(argv[1], "compose")) {
       id = gfxboot_data->compose.list_id;
     }
-    else if(!gfx_strcmp(argv[1], "eventhandler")) {
-      id = gfxboot_data->event_handler_id;
+    else if(!gfx_strcmp(argv[1], "system")) {
+      id = gfxboot_data->system_id;
     }
     else if(!gfx_strcmp(argv[1], "ip")) {
       gfxboot_log("ip = %s\n", gfx_debug_get_ip());
@@ -910,9 +912,9 @@ void debug_cmd_set(int argc, char **argv)
     gfxboot_data->compose.list_id = gfx_obj_ref_inc(id);
     gfx_obj_ref_dec(old);
   }
-  else if(!gfx_strcmp(argv[0], "eventhandler")) {
-    obj_id_t old = gfxboot_data->event_handler_id;
-    gfxboot_data->event_handler_id = gfx_obj_ref_inc(id);
+  else if(!gfx_strcmp(argv[0], "system")) {
+    obj_id_t old = gfxboot_data->system_id;
+    gfxboot_data->system_id = gfx_obj_ref_inc(id);
     gfx_obj_ref_dec(old);
   }
   else if(!gfx_strcmp(argv[0], "ip")) {

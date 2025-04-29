@@ -103,8 +103,8 @@ format
 getcompose
 setcompose
 updatescreen
-geteventhandler
-seteventhandler
+getsystem
+setsystem
 insert
 debugcmd
 class

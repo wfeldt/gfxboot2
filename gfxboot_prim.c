@@ -5135,64 +5135,57 @@ void gfx_prim_updatescreen()
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// get event handler
+// get system class
 //
 // group: system
 //
-// ( -- code_1 )
+// ( -- hash_1 )
 // ( -- nil )
 //
-// Get current event handler. If none has been set, return nil.
+// Get current system class. If none has been set, return nil.
 //
-// The event handler is a reference to a code blöck or function.
+// The system class contains for example the key event handler.
 //
 // example:
 //
-// /current_handler geteventhandler def                   # get current event handler
+// /current_system_class getsystem def                   # get currently active system class
 //
-void gfx_prim_geteventhandler()
+void gfx_prim_getsystem()
 {
-  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfxboot_data->event_handler_id, 1);
+  gfx_obj_array_push(gfxboot_data->vm.program.pstack, gfxboot_data->system_id, 1);
 }
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// set event handler
+// set system class
 //
 // group: system
 //
-// ( code_1 -- )
+// ( hash_1 -- )
 // ( nil -- )
 //
-// Set current event handler. If nil is passed, the current event handler is removed.
+// Set current system class. If nil is passed, the current system class is removed.
 //
-// The event handler is a reference to a code blöck or function.
+// The system class should have a 'keyevent' method for handling key press events.
 //
 // example:
 //
-// /old_handler geteventhandler def             # save current event handler
+// /current_system_class getsystem def                   # save currently active system class
 // ...
-// old_handler seteventhandler                  # restore event handler
+// current_system_class setsystem                        # restore system class
 //
-void gfx_prim_seteventhandler()
+void gfx_prim_setsystem()
 {
-  arg_t *argv = gfx_arg_1(OTYPE_MEM | IS_NIL);
+  arg_t *argv = gfx_arg_1(OTYPE_HASH | IS_NIL);
 
-  if(!argv) return;
+  if(!argv || argv[0].id == 0) return;
 
-  arg_t code = argv[0];
-
-  if(code.ptr && code.ptr->sub_type == t_ref) {
-    code.id = gfx_lookup_dict(OBJ_DATA_FROM_PTR(code.ptr)).id2;
-    arg_update(&code);
-  }
-
-  if(code.ptr && code.ptr->sub_type != t_code) {
+  if(!argv[0].ptr->flags.hash_is_class) {
     GFX_ERROR(err_invalid_arguments);
     return;
   }
 
-  OBJ_ID_ASSIGN(gfxboot_data->event_handler_id, code.id);
+  OBJ_ID_ASSIGN(gfxboot_data->system_id, argv[0].id);
 
   gfx_obj_array_pop(gfxboot_data->vm.program.pstack, 1);
 }

@@ -131,6 +131,22 @@ If there's an odd number of elements on the stack, the last value is nil.
 +
 See also: xref:code_start[+{+], xref:code_end[+}+], xref:hash_start[+(+], xref:array_start[+[+], xref:array_end[+]+], xref:getdict[+getdict+], xref:getparent[+getparent+], xref:setdict[+setdict+], xref:setparent[+setparent+]
 
+* **+-rot+** - reverse rotate upper three stack elements [[n_rot]]
++
+--
+** ( __any~1~__ __any~2~__ __any~3~__ -- __any~3~__ __any~1~__ __any~2~__ )
+--
++
+Rotate __any~3~__ down. This is the same as applying rot twice.
++
+.Examples
+```
+
+10 20 30 rot         # 30 10 20
+```
++
+See also: xref:dup[+dup+], xref:exch[+exch+], xref:index[+index+], xref:over[+over+], xref:perm[+perm+], xref:pop[+pop+], xref:roll[+roll+], xref:rot[+rot+]
+
 * **+[+** - start array definition [[array_start]]
 +
 --
@@ -333,7 +349,7 @@ Define class Bar, derived from Foo:
 ) Foo class def
 ```
 +
-See also: xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+], xref:new[+new+]
+See also: xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+], xref:new[+new+], xref:self[+self+]
 
 * **+cmp+** - compare [[cmp]]
 +
@@ -397,7 +413,7 @@ doesn't resume program execution. Use the `run` (or `r`) console command for thi
 foo                                  # activate debug console when 'foo' is run
 ```
 +
-See also: xref:class[+class+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+], xref:new[+new+]
+See also: xref:class[+class+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+], xref:new[+new+], xref:self[+self+]
 
 * **+debugcmd+** - run debug command [[debugcmd]]
 +
@@ -420,7 +436,7 @@ If false is passed, turn off debug console.
 foo                                  # activate debug console and show current stack
 ```
 +
-See also: xref:class[+class+], xref:debug[+debug+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+], xref:new[+new+]
+See also: xref:class[+class+], xref:debug[+debug+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+], xref:new[+new+], xref:self[+self+]
 
 * **+decodeutf8+** - decode Unicode string [[decodeutf8]]
 +
@@ -461,7 +477,7 @@ If __word~1~__ does already exist, redefine __word~1~__ in the context in which 
 /neg { -1 mul } def  # define a function that negates its argument
 ```
 +
-See also: xref:class[+class+], xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:gdef[+gdef+], xref:ldef[+ldef+], xref:new[+new+]
+See also: xref:class[+class+], xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:gdef[+gdef+], xref:ldef[+ldef+], xref:new[+new+], xref:self[+self+]
 
 * **+delete+** - delete an array, hash, or string element [[delete]]
 +
@@ -591,7 +607,7 @@ Duplicate the top-of-stack element.
 10 dup               # 10 10
 ```
 +
-See also: xref:exch[+exch+], xref:index[+index+], xref:over[+over+], xref:pop[+pop+], xref:roll[+roll+], xref:rot[+rot+]
+See also: xref:n_rot[+-rot+], xref:exch[+exch+], xref:index[+index+], xref:over[+over+], xref:perm[+perm+], xref:pop[+pop+], xref:roll[+roll+], xref:rot[+rot+]
 
 * **+encodeutf8+** - encode Unicode string [[encodeutf8]]
 +
@@ -672,7 +688,7 @@ Swap the two topmost stack elements.
 10 20 exch            # 20 10
 ```
 +
-See also: xref:dup[+dup+], xref:index[+index+], xref:over[+over+], xref:pop[+pop+], xref:roll[+roll+], xref:rot[+rot+]
+See also: xref:n_rot[+-rot+], xref:dup[+dup+], xref:index[+index+], xref:over[+over+], xref:perm[+perm+], xref:pop[+pop+], xref:roll[+roll+], xref:rot[+rot+]
 
 * **+exec+** - execute object [[exec]]
 +
@@ -851,7 +867,7 @@ Define __word~1~__ in the global context.
 /foo 300 gdef        # define global word foo as 300
 ```
 +
-See also: xref:class[+class+], xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:ldef[+ldef+], xref:new[+new+]
+See also: xref:class[+class+], xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:ldef[+ldef+], xref:new[+new+], xref:self[+self+]
 
 * **+ge+** - greater or equal [[ge]]
 +
@@ -1082,25 +1098,6 @@ getdrawmode                             # 0 ('merge' mode)
 +
 See also: xref:blt[+blt+], xref:dim[+dim+], xref:drawline[+drawline+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getcompose[+getcompose+], xref:getconsole[+getconsole+], xref:getfont[+getfont+], xref:getlocation[+getlocation+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:newcanvas[+newcanvas+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setcompose[+setcompose+], xref:setconsole[+setconsole+], xref:setdrawmode[+setdrawmode+], xref:setfont[+setfont+], xref:setlocation[+setlocation+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+], xref:updatescreen[+updatescreen+]
 
-* **+geteventhandler+** - get event handler [[geteventhandler]]
-+
---
-** ( -- __code~1~__ )
-** ( -- __nil__ )
---
-+
-Get current event handler. If none has been set, return __nil__.
-+
-The event handler is a reference to a code blöck or function.
-+
-.Examples
-```
-
-/current_handler geteventhandler def                   # get current event handler
-```
-+
-See also: xref:seteventhandler[+seteventhandler+]
-
 * **+getfont+** - get font [[getfont]]
 +
 --
@@ -1245,6 +1242,25 @@ getregion                  # 0 0 800 600
 +
 See also: xref:blt[+blt+], xref:dim[+dim+], xref:drawline[+drawline+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getcompose[+getcompose+], xref:getconsole[+getconsole+], xref:getdrawmode[+getdrawmode+], xref:getfont[+getfont+], xref:getlocation[+getlocation+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:newcanvas[+newcanvas+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setcompose[+setcompose+], xref:setconsole[+setconsole+], xref:setdrawmode[+setdrawmode+], xref:setfont[+setfont+], xref:setlocation[+setlocation+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+], xref:updatescreen[+updatescreen+]
 
+* **+getsystem+** - get system class [[getsystem]]
++
+--
+** ( -- __hash~1~__ )
+** ( -- __nil__ )
+--
++
+Get current system class. If none has been set, return __nil__.
++
+The system class contains for example the key event handler.
++
+.Examples
+```
+
+/current_system_class getsystem def                   # get currently active system class
+```
++
+See also: xref:setsystem[+setsystem+]
+
 * **+gt+** - greater than [[gt]]
 +
 --
@@ -1352,12 +1368,12 @@ Copy the __int~1~__-th-from-top element on the top-of-stack.
 /over { 1 index } def        # definition of 'over'
 ```
 +
-See also: xref:dup[+dup+], xref:exch[+exch+], xref:over[+over+], xref:pop[+pop+], xref:roll[+roll+], xref:rot[+rot+]
+See also: xref:n_rot[+-rot+], xref:dup[+dup+], xref:exch[+exch+], xref:over[+over+], xref:perm[+perm+], xref:pop[+pop+], xref:roll[+roll+], xref:rot[+rot+]
 
 * **+insert+** - set array, hash, or string element [[insert]]
 +
 --
-** ( __array~1~__ __int~1~__ __any~1~__  -- )
+** ( __array~1~__ __int~1~__ __any~1~__  -- __array~1~__ )
 +
 __array~1~__: array to modify
 +
@@ -1365,24 +1381,24 @@ __int~1~__: element index
 +
 __any~1~__: new value
 +
-** ( __hash~1~__ __string~1~__ __any~2~__  -- )
+** ( __hash~1~__ __string~1~__ __any~1~__  -- __hash~1~__ )
 +
 __hash~1~__: hash to modify
 +
 __string~1~__: key
 +
-__any~2~__: new value
+__any~1~__: new value
 +
-** ( __string~2~__ __int~2~__ __int~3~__  -- )
+** ( __string~1~__ __int~1~__ __int~2~__  -- __string~1~__ )
 +
-__string~2~__: string to modify
+__string~1~__: string to modify
 +
-__int~2~__: element index
+__int~1~__: element index
 +
-__int~3~__: new value
+__int~2~__: new value
 --
 +
-Insert an element into __array~1~__, __hash~1~__, or __string~2~__ at the respective position.
+Insert an element into __array~1~__, __hash~1~__, or __string~1~__ at the respective position.
 +
 Note that string constants are read-only and cannot be modified.
 +
@@ -1395,7 +1411,7 @@ x 2 40 insert                        # x is now [ 10 20 40 30 ]
 /y ( "foo" 10 "bar" 20 ) def
 y "bar" 40 insert                    # y is now ( "foo" 10 "bar" 40 )
 
-/z "ABC" mem def                     # mem is needed to create a writable copy
+/z "ABC" string def                  # string is needed to create a writable copy
 z 1 68 insert                        # z is now "ADBC"
 ```
 +
@@ -1414,7 +1430,7 @@ Define __word~1~__ in the current local context.
 /foo 200 ldef        # define local word foo as 200
 ```
 +
-See also: xref:class[+class+], xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+], xref:new[+new+]
+See also: xref:class[+class+], xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+], xref:new[+new+], xref:self[+self+]
 
 * **+le+** - less or equal [[le]]
 +
@@ -1730,7 +1746,7 @@ Initialize a new class instance.
 foo .bar
 ```
 +
-See also: xref:class[+class+], xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+]
+See also: xref:class[+class+], xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+], xref:self[+self+]
 
 * **+newcanvas+** - create canvas [[newcanvas]]
 +
@@ -1832,7 +1848,42 @@ Put a copy of the second-from-top element on the top-of-stack.
 10 20 over           # 10 20 10
 ```
 +
-See also: xref:dup[+dup+], xref:exch[+exch+], xref:index[+index+], xref:pop[+pop+], xref:roll[+roll+], xref:rot[+rot+]
+See also: xref:n_rot[+-rot+], xref:dup[+dup+], xref:exch[+exch+], xref:index[+index+], xref:perm[+perm+], xref:pop[+pop+], xref:roll[+roll+], xref:rot[+rot+]
+
+* **+perm+** - permutate stack elements [[perm]]
++
+--
+** ( __any~1~__ ... __any~n~__ __int~1~__ -- __any~a~__ ... __any~b~__ )
++
+__int~1~__: permutation specification
+--
++
+Remove n elements and put a permutation of these elements back on the stack.
++
+n is the value of the highest hex digit plus number of non-leading 0's
+in the permutation spec.
++
+For each non-zero hex digit, an element is put back on the stack. The hex
+digit is the original stack position of the element.
++
+0's are ignored except for determining the number of elements to remove.
++
+.Examples
+```
+
+10          0x11 perm               # 10 10
+10 20       0x1212 perm             # 10 20 10 20
+10 20 30 40 0x4321 perm             # 40 30 20 10
+10 20 30 40 0x113322244 perm        # 10 10 30 30 20 20 20 40 40
+10 20 30 40 0x4 perm                # 40
+10 20 30 40 0x1000 perm             # 10
+10 20 30 40 0x24 perm               # 20 40
+10 20 30 40 0x320 perm              # 30 20
+10 20 30 40 0x302 perm              # 30 20
+10 20 30 40 0x32 perm               # 10 40 30
+```
++
+See also: xref:n_rot[+-rot+], xref:dup[+dup+], xref:exch[+exch+], xref:index[+index+], xref:over[+over+], xref:pop[+pop+], xref:roll[+roll+], xref:rot[+rot+]
 
 * **+pop+** - remove TOS [[pop]]
 +
@@ -1848,7 +1899,7 @@ Remove the top-of-stack element.
 10 20 pop            # 10
 ```
 +
-See also: xref:dup[+dup+], xref:exch[+exch+], xref:index[+index+], xref:over[+over+], xref:roll[+roll+], xref:rot[+rot+]
+See also: xref:n_rot[+-rot+], xref:dup[+dup+], xref:exch[+exch+], xref:index[+index+], xref:over[+over+], xref:perm[+perm+], xref:roll[+roll+], xref:rot[+rot+]
 
 * **+put+** - set array, hash, or string element [[put]]
 +
@@ -1992,7 +2043,7 @@ This can be seen as rotating __int~1~__ elements up by __int~2~__ resp. down by 
 /rot { 3 -1 roll } def       # definition of 'rot'
 ```
 +
-See also: xref:dup[+dup+], xref:exch[+exch+], xref:index[+index+], xref:over[+over+], xref:pop[+pop+], xref:rot[+rot+]
+See also: xref:n_rot[+-rot+], xref:dup[+dup+], xref:exch[+exch+], xref:index[+index+], xref:over[+over+], xref:perm[+perm+], xref:pop[+pop+], xref:rot[+rot+]
 
 * **+rot+** - rotate upper three stack elements [[rot]]
 +
@@ -2008,7 +2059,7 @@ Rotate __any~1~__ to the top-of-stack.
 10 20 30 rot         # 20 30 10
 ```
 +
-See also: xref:dup[+dup+], xref:exch[+exch+], xref:index[+index+], xref:over[+over+], xref:pop[+pop+], xref:roll[+roll+]
+See also: xref:n_rot[+-rot+], xref:dup[+dup+], xref:exch[+exch+], xref:index[+index+], xref:over[+over+], xref:perm[+perm+], xref:pop[+pop+], xref:roll[+roll+]
 
 * **+run+** - run code [[run]]
 +
@@ -2030,6 +2081,31 @@ currently running code with the new one.
 ```
 +
 See also: xref:exec[+exec+], xref:exit[+exit+], xref:for[+for+], xref:forall[+forall+], xref:loop[+loop+], xref:repeat[+repeat+], xref:return[+return+]
+
+* **+self+** - get dictionary of current class [[self]]
++
+--
+** ( -- __hash~1~__ )
++
+__hash~1~__: dictionary of currently running class
++
+--
++
+.Examples
+```
+
+/Foo (
+  /x 0
+  /init { }
+  /bar  { x }
+) nil class def
+
+/foo Foo ( /x 100 ) new def
+
+foo .bar
+```
++
+See also: xref:class[+class+], xref:debug[+debug+], xref:debugcmd[+debugcmd+], xref:def[+def+], xref:gdef[+gdef+], xref:ldef[+ldef+], xref:new[+new+]
 
 * **+setbgcolor+** - set background color [[setbgcolor]]
 +
@@ -2179,27 +2255,6 @@ Drawing mode is either 0 (merge mode) or 1 (direct mode).
 +
 See also: xref:blt[+blt+], xref:dim[+dim+], xref:drawline[+drawline+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getcompose[+getcompose+], xref:getconsole[+getconsole+], xref:getdrawmode[+getdrawmode+], xref:getfont[+getfont+], xref:getlocation[+getlocation+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:newcanvas[+newcanvas+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setcompose[+setcompose+], xref:setconsole[+setconsole+], xref:setfont[+setfont+], xref:setlocation[+setlocation+], xref:setpos[+setpos+], xref:setregion[+setregion+], xref:show[+show+], xref:unpackimage[+unpackimage+], xref:updatescreen[+updatescreen+]
 
-* **+seteventhandler+** - set event handler [[seteventhandler]]
-+
---
-** ( __code~1~__ -- )
-** ( __nil__ -- )
---
-+
-Set current event handler. If __nil__ is passed, the current event handler is removed.
-+
-The event handler is a reference to a code blöck or function.
-+
-.Examples
-```
-
-/old_handler geteventhandler def             # save current event handler
-...
-old_handler seteventhandler                  # restore event handler
-```
-+
-See also: xref:geteventhandler[+geteventhandler+]
-
 * **+setfont+** - set font [[setfont]]
 +
 --
@@ -2330,6 +2385,27 @@ region boundaries.
 ```
 +
 See also: xref:blt[+blt+], xref:dim[+dim+], xref:drawline[+drawline+], xref:fillrect[+fillrect+], xref:getbgcolor[+getbgcolor+], xref:getcanvas[+getcanvas+], xref:getcolor[+getcolor+], xref:getcompose[+getcompose+], xref:getconsole[+getconsole+], xref:getdrawmode[+getdrawmode+], xref:getfont[+getfont+], xref:getlocation[+getlocation+], xref:getpixel[+getpixel+], xref:getpos[+getpos+], xref:getregion[+getregion+], xref:newcanvas[+newcanvas+], xref:newfont[+newfont+], xref:putpixel[+putpixel+], xref:setbgcolor[+setbgcolor+], xref:setcanvas[+setcanvas+], xref:setcolor[+setcolor+], xref:setcompose[+setcompose+], xref:setconsole[+setconsole+], xref:setdrawmode[+setdrawmode+], xref:setfont[+setfont+], xref:setlocation[+setlocation+], xref:setpos[+setpos+], xref:show[+show+], xref:unpackimage[+unpackimage+], xref:updatescreen[+updatescreen+]
+
+* **+setsystem+** - set system class [[setsystem]]
++
+--
+** ( __hash~1~__ -- )
+** ( __nil__ -- )
+--
++
+Set current system class. If __nil__ is passed, the current system class is removed.
++
+The system class should have a 'keyevent' method for handling key press events.
++
+.Examples
+```
+
+/current_system_class getsystem def                   # save currently active system class
+...
+current_system_class setsystem                        # restore system class
+```
++
+See also: xref:getsystem[+getsystem+]
 
 * **+shl+** - shift left [[shl]]
 +

@@ -471,13 +471,13 @@
     #170.1.1.mem.ref.ro <size 10, "getconsole"> => #169.1.1.num.prim <80 (0x50)>
     #126.1.1.mem.ref.ro <size 7, "getdict"> => #125.1.1.num.prim <58 (0x3a)>
     #160.1.1.mem.ref.ro <size 11, "getdrawmode"> => #159.1.1.num.prim <75 (0x4b)>
-    #208.1.1.mem.ref.ro <size 15, "geteventhandler"> => #207.1.1.num.prim <99 (0x63)>
     #146.1.1.mem.ref.ro <size 7, "getfont"> => #145.1.1.num.prim <68 (0x44)>
     #156.1.1.mem.ref.ro <size 11, "getlocation"> => #155.1.1.num.prim <73 (0x49)>
     #122.1.1.mem.ref.ro <size 9, "getparent"> => #121.1.1.num.prim <56 (0x38)>
     #188.1.1.mem.ref.ro <size 8, "getpixel"> => #187.1.1.num.prim <89 (0x59)>
     #142.1.1.mem.ref.ro <size 6, "getpos"> => #141.1.1.num.prim <66 (0x42)>
     #152.1.1.mem.ref.ro <size 9, "getregion"> => #151.1.1.num.prim <71 (0x47)>
+    #208.1.1.mem.ref.ro <size 9, "getsystem"> => #207.1.1.num.prim <99 (0x63)>
     #112.1.1.mem.ref.ro <size 2, "gt"> => #111.1.1.num.prim <51 (0x33)>
     #28.1.1.mem.ref.ro <size 2, "if"> => #27.1.1.num.prim <9 (0x9)>
     #30.1.1.mem.ref.ro <size 6, "ifelse"> => #29.1.1.num.prim <10 (0xa)>
@@ -518,12 +518,12 @@
     #172.1.1.mem.ref.ro <size 10, "setconsole"> => #171.1.1.num.prim <81 (0x51)>
     #128.1.1.mem.ref.ro <size 7, "setdict"> => #127.1.1.num.prim <59 (0x3b)>
     #162.1.1.mem.ref.ro <size 11, "setdrawmode"> => #161.1.1.num.prim <76 (0x4c)>
-    #210.1.1.mem.ref.ro <size 15, "seteventhandler"> => #209.1.1.num.prim <100 (0x64)>
     #148.1.1.mem.ref.ro <size 7, "setfont"> => #147.1.1.num.prim <69 (0x45)>
     #158.1.1.mem.ref.ro <size 11, "setlocation"> => #157.1.1.num.prim <74 (0x4a)>
     #124.1.1.mem.ref.ro <size 9, "setparent"> => #123.1.1.num.prim <57 (0x39)>
     #144.1.1.mem.ref.ro <size 6, "setpos"> => #143.1.1.num.prim <67 (0x43)>
     #154.1.1.mem.ref.ro <size 9, "setregion"> => #153.1.1.num.prim <72 (0x48)>
+    #210.1.1.mem.ref.ro <size 9, "setsystem"> => #209.1.1.num.prim <100 (0x64)>
     #104.1.1.mem.ref.ro <size 3, "shl"> => #103.1.1.num.prim <47 (0x2f)>
     #174.1.1.mem.ref.ro <size 4, "show"> => #173.1.1.num.prim <82 (0x52)>
     #106.1.1.mem.ref.ro <size 3, "shr"> => #105.1.1.num.prim <48 (0x30)>
@@ -834,11 +834,11 @@
   #206.1.1.mem.ref.ro <size 12, "updatescreen">
     75 70 64 61 74 65 73 63 72 65 65 6e              updatescreen
   #207.1.1.num.prim <99 (0x63)>
-  #208.1.1.mem.ref.ro <size 15, "geteventhandler">
-    67 65 74 65 76 65 6e 74 68 61 6e 64 6c 65 72     geteventhandler
+  #208.1.1.mem.ref.ro <size 9, "getsystem">
+    67 65 74 73 79 73 74 65 6d                       getsystem
   #209.1.1.num.prim <100 (0x64)>
-  #210.1.1.mem.ref.ro <size 15, "seteventhandler">
-    73 65 74 65 76 65 6e 74 68 61 6e 64 6c 65 72     seteventhandler
+  #210.1.1.mem.ref.ro <size 9, "setsystem">
+    73 65 74 73 79 73 74 65 6d                       setsystem
   #211.1.1.num.prim <101 (0x65)>
   #212.1.1.mem.ref.ro <size 6, "insert">
     69 6e 73 65 72 74                                insert

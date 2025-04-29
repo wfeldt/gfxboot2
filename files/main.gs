@@ -1,18 +1,23 @@
 ## include system.gs
 ## files dejavu-sans-24.fnt katze_*.jpg katze_*.png sample_2.png
 
-/eventhandler_vars ( /type 0 /key 0 /action 0 ) def
+/System (
+  /key 0
+  /action 0
 
-/eventhandler {
-  eventhandler_vars setdict
+  # ( int_1 -- int_2 )
+  # int_1: key
+  # int_2: action
+  #
+  /keyevent {
+    /key exch def
 
-  /type exch def
-  /key exch def
+    key edit .input
 
-  key edit .input
+    action
+  }
+) nil class def
 
-  action
-} def
 
 # - - - - - - - - - - - - - - -
 
@@ -43,7 +48,7 @@ getcanvas dim pop title dim pop sub 2 div 50 setpos
 
 0x90000000 setcolor
 -10 -5 setrpos
-title dim 10 add exch 20 add exch fillrect
+title dim 20 10 add2 fillrect
 10 5 setrpos
 
 0xffffff setcolor
@@ -51,7 +56,7 @@ title show
 
 /edit Edit ( /x 100 /y 550 /width 600 /height 30 ) new def
 
-/eventhandler seteventhandler
+System ( ) new setsystem
 
 /sample_2 "sample_2.png" readfile unpackimage def
 

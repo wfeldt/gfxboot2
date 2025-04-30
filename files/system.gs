@@ -37,6 +37,7 @@
 
 # - - - - - - - - - - - - - - -
 /kEnter 0x0d def
+/kESC   0x1b def
 /kLeft  0x80004b def
 /kRight 0x80004d def
 /kHome  0x800047 def
@@ -245,8 +246,10 @@
     cursor_off
 
     key kEnter eq {
-      text
-      debug
+      return
+    } if
+
+    key kESC eq {
       return
     } if
 

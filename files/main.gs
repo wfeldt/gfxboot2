@@ -1,9 +1,17 @@
 ## include system.gs
 ## files dejavu-sans-24.fnt katze_*.jpg katze_*.png sample_2.png
 
+
 /System (
   /key 0
   /action 0
+
+  # if ((action & 0x01)) menu_fini ();
+  # if ((action & 0x02)) *auto_boot = 1;
+  # if ((action & 0x04)) grub_cmdline_run (1, 0);
+  # if ((action & 0x08)) goto refresh;
+  # if ((action & 0x10)) return action >> 8;
+
 
   # ( int_1 -- int_2 )
   # int_1: key
@@ -13,6 +21,11 @@
     /key exch def
 
     key edit .input
+
+    key kEnter eq {
+      edit .text
+      /action 4 def
+    } if
 
     action
   }
@@ -27,7 +40,7 @@
 
 /title "ABC 12345ijklmn xyz # * % & § öäüß €" def
 
-/katze [ getcanvas dim pop ] "katze_%04u.png" format readfile
+/katze [ getcanvas dim pop ] "katze_%04u.jpg" format readfile
  dup nil eq { console-font setfont 0 20 setpos 0xff0000 setcolor "Error: no backgound image" show return } if
 unpackimage def
 

@@ -24,7 +24,8 @@
 
     key kEnter eq {
       edit .text
-      /action 1 def
+      /action 0x11 def	# '\n'
+      # /action 0x0d def	# 'c'
     } if
 
     action

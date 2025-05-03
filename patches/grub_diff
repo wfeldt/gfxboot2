@@ -1,6 +1,32 @@
-#! /bin/bash
+#! /usr/bin/bash
 
-cd ~/g/.build.packages/BUILD
+dir=$(realpath ~/g/.build.packages/BUILD)
 
-diff -ru grub-2.06{.orig,}/include >/tmp/dif
-diff -ru -x Makefile.core.am -x Makefile.in -x ChangeLog grub-2.06{.orig,}/grub-core >>/tmp/dif
+grub=$(echo $dir/grub-2.??)
+
+if [ ! -d "$grub" ] ; then
+  echo "$dir: has no grub sub dir" >&2
+  exit 1
+fi
+
+if [ ! -d "$grub.orig" ] ; then
+  echo "$dir: has no grub .orig sub dir" >&2
+  exit 1
+fi
+
+grub=${grub##*/}
+
+(
+  cd ~/g/.build.packages/BUILD
+  diff -ru ${grub}{.orig,}/include >/tmp/dif
+  diff -ru -x Makefile.core.am -x Makefile.in -x ChangeLog ${grub}{.orig,}/grub-core >>/tmp/dif
+)
+
+if [ -d patches ] ; then
+  file=patches/${grub}-$(date --iso-8601).diff
+  fixudiff --strip 1 --git --sort /tmp/dif > "$file"
+  echo "created patch: $file"
+else
+  echo "patches: no such dir" >&2
+  exit 1
+fi

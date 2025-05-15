@@ -607,7 +607,7 @@ png_chunk_t *png_get_chunk(z_inflate_state_t *inflate_state)
 {
   unsigned pos = inflate_state->input.pos;
 
-  if(pos + 12 > inflate_state->input.len) {
+  if(inflate_state->input.len - pos < 12) {
     inflate_state->bad = __LINE__;
     return 0;
   }
@@ -618,7 +618,7 @@ png_chunk_t *png_get_chunk(z_inflate_state_t *inflate_state)
 
   PNG_LOG("+++ chunk: type 0x%04x '%c%c%c%c', len %u\n", type, (type >> 24) & 0xff, (type >> 16) & 0xff, (type >> 8) & 0xff, type & 0xff, len);
 
-  if(inflate_state->input.pos + 12 + len > inflate_state->input.len) {
+  if(inflate_state->input.len - pos - 12 < len) {
     inflate_state->bad = __LINE__;
     return 0;
   }

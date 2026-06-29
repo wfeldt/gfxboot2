@@ -16,7 +16,7 @@ png_debug: png.c
 test: png $(SAMPLES_DECODE) $(SAMPLES_DEBUG)
 
 sample_%.debug: sample_%.png
-	convert $< $@
+	magick $< $@
 
 sample_%.decode: sample_%.png sample_%.debug png
 	./png < $< > $@ 2> $(@)_2

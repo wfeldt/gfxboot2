@@ -31,6 +31,10 @@
 #define PNG_CHUNK_IHDR		0x49484452
 #define PNG_CHUNK_IDAT		0x49444154
 
+#define MAX_WIDTH		64*1024
+#define MAX_HEIGHT		64*1024
+#define MAX_PIXEL		64*1024*1024
+
 typedef __UINT8_TYPE__ uint8_t;
 typedef __UINT16_TYPE__ uint16_t;
 typedef __UINT32_TYPE__ uint32_t;
@@ -205,8 +209,8 @@ unsigned z_get_byte(z_inflate_state_t *inflate_state)
   png_chunk_t *chunk = &inflate_state->png.chunk;
 
   if(chunk->pos >= chunk->len) {
-    while((chunk = png_get_chunk(inflate_state)) || chunk->pos >= chunk->len) {
-      if(chunk->type == PNG_CHUNK_IDAT) {
+    while((chunk = png_get_chunk(inflate_state))) {
+      if(chunk->type == PNG_CHUNK_IDAT && chunk->pos < chunk->len) {
         break;
       }
     }
@@ -412,11 +416,11 @@ void z_setup_dynamic_huff_table(z_inflate_state_t *inflate_state)
     Z_LOG("+++ [%3u] - repeat = %3u, bits = %2u\n", u, repeat, bits);
 
     while(repeat--) {
-      all_bits[u++] = bits;
-      if(u > all_len) {
+      if(u >= all_len) {
         inflate_state->bad = __LINE__;
         return;
       }
+      all_bits[u++] = bits;
     }
   }
 
@@ -694,6 +698,10 @@ void png_get_size(z_inflate_state_t *inflate_state)
   inflate_state->png.width = width;
   inflate_state->png.height = height;
   inflate_state->png.pixel_bytes = color_type == 2 ? 3 : 4;
+
+  if(width > MAX_WIDTH || height > MAX_HEIGHT || width * height > MAX_PIXEL) {
+    inflate_state->bad = __LINE__;
+  }
 }
 
 
@@ -720,6 +728,11 @@ int main()
   inflate_state->input.pos = 0;
 
   png_get_size(inflate_state);
+
+  if(inflate_state->bad) {
+    Z_LOG("+++ image too large +++\n");
+    return 1;
+  }
 
   if(inflate_state->png.width && inflate_state->png.height) {
     inflate_state->output.len = inflate_state->png.width * inflate_state->png.height * 4;

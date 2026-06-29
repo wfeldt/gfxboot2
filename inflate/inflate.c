@@ -287,6 +287,8 @@ void z_setup_dynamic_huff_table(z_inflate_state_t *inflate_state)
   for(unsigned u = 0; u < all_len;) {
     unsigned bits = z_get_code(inflate_state, &inflate_state->huff_clen);
 
+    if(inflate_state->bad) return;
+
     if(bits < 16) {
       Z_LOG("+++ [%3u] - bits = %2u\n", u, bits);
 
@@ -320,11 +322,11 @@ void z_setup_dynamic_huff_table(z_inflate_state_t *inflate_state)
     Z_LOG("+++ [%3u] - repeat = %3u, bits = %2u\n", u, repeat, bits);
 
     while(repeat--) {
-      all_bits[u++] = bits;
-      if(u > all_len) {
+      if(u >= all_len) {
         inflate_state->bad = __LINE__;
         return;
       }
+      all_bits[u++] = bits;
     }
   }
 

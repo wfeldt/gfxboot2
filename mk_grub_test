@@ -18,7 +18,7 @@ mods="
   gfxboot gfxterm
   video videoinfo vga vbe
   biosdisk linux
-  ext2 btrfs ext2 xfs jfs reiserfs
+  ext2 btrfs xfs
   all_video boot cat chain configfile echo
   font gzio halt iso9660
   jpeg minicmd normal part_apple part_msdos part_gpt
@@ -30,12 +30,14 @@ efimods="
   gfxboot gfxterm
   video videoinfo efi_gop
   linuxefi
-  ext2 btrfs ext2 xfs jfs reiserfs
+  ext2 btrfs xfs
   all_video boot cat chain configfile echo
   font gzio halt iso9660
   jpeg minicmd normal part_apple part_msdos part_gpt
   password_pbkdf2 png reboot search search_fs_uuid
   search_fs_file search_label sleep test video fat loadenv
+
+  memdisk cryptodisk luks gcry_rijndael gcry_sha1 gcry_sha256
 "
 
 # - - -  lets start...  - - -

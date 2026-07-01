@@ -90,6 +90,7 @@ print $f "\n};\n#endif\n\n";
 
 print $f <<"----"
 #define TYPE_EXPECTS_DATA(a) ((a) >= t_comment)
+#define COMMENT_CHAR '#'
 
 typedef enum {
 ----

@@ -69,7 +69,7 @@ test-console: gfxboot-x11 gfxboot-compile
 	./prepare_files $(GFXBOOT_MAIN) x11
 	./gfxboot-x11 --no-x11 --file - x11
 
-vocabulary.h: vocabulary.def types.def
+vocabulary.h: vocabulary.def types.def mk_vocabulary
 	./mk_vocabulary vocabulary.def types.def $@
 
 $(GFXBOOT_LIB_OBJ): %.o: %.c $(GFXBOOT_HEADER)

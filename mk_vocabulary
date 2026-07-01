@@ -53,7 +53,7 @@ my $list;
 push @$list, "\"$_->{str}\"" for @$vocab;
 print_list $f, $list, 8;
 
-print $f "\n};\n#endif\n\n";
+print $f "\n};\n#define PRIM_WORDS (sizeof prim_names / sizeof *prim_names)\n#endif\n\n";
 
 
 print $f "enum {\n";

@@ -79,6 +79,12 @@ typedef struct {
 typedef struct {
   unsigned real_size;		// allocated entries
   unsigned size;		// used entries
+  dict_t *entries;		// dict entry array
+} dict_list_t;
+
+typedef struct {
+  unsigned real_size;		// allocated entries
+  unsigned size;		// used entries
   code_t *entries;		// code entry array
 } code_list_t;
 
@@ -113,17 +119,9 @@ int optimize_code6(FILE *lf);
 void log_code(FILE *lf, int style);
 int decompile(unsigned char *data, unsigned size);
 
-int config_ok = 0;
-
-file_data_t pscode = {};
-file_data_t dict_file = {};
-
-dict_t *dict = NULL;
-unsigned dict_size = 0;
-unsigned dict_max_size = 0;
-
-unsigned prim_words = sizeof prim_names / sizeof *prim_names;
-
+int config_ok;
+file_data_t pscode;
+dict_list_t dict_list;
 code_list_t code_list;
 
 // current config line
@@ -384,6 +382,12 @@ void encode_number(uint8_t *data, uint64_t val, unsigned len)
 }
 
 
+// Create a new code entry in code entry list.
+//
+// Return pointer to new entry.
+//
+// Note: this may include a realloc() - invalidating any old pointers.
+//
 code_t *new_code()
 {
   if(code_list.size >= code_list.real_size) {
@@ -396,16 +400,21 @@ code_t *new_code()
 }
 
 
-
+// Create a new dictionary entry in dictionary entry list.
+//
+// Return pointer to new entry.
+//
+// Note: this may include a realloc() - invalidating any old pointers.
+//
 dict_t *new_dict()
 {
-  if(dict_size >= dict_max_size) {
-    dict_max_size += 10;
-    dict = realloc(dict, dict_max_size * sizeof *dict);
-    memset(dict + dict_size, 0, (dict_max_size - dict_size) * sizeof *dict);
+  if(dict_list.size >= dict_list.real_size) {
+    dict_list.real_size += 10;
+    dict_list.entries = realloc(dict_list.entries, dict_list.real_size * sizeof *dict_list.entries);
+    memset(dict_list.entries + dict_list.size, 0, (dict_list.real_size - dict_list.size) * sizeof *dict_list.entries);
   }
 
-  return dict + dict_size++;
+  return dict_list.entries + dict_list.size++;
 }
 
 
@@ -767,8 +776,8 @@ int find_in_dict(char *name)
 {
   unsigned u;
 
-  for(u = 0; u < dict_size; u++) {
-    if(dict[u].name && !strcmp(name, dict[u].name)) return (int) u;
+  for(u = 0; u < dict_list.size; u++) {
+    if(dict_list.entries[u].name && !strcmp(name, dict_list.entries[u].name)) return (int) u;
   }
 
   return -1;
@@ -996,7 +1005,7 @@ int parse_config(char *name, char *log_file)
   }
 
   // setup initial vocabulary
-  for(u = 0; u < prim_words; u++) {
+  for(u = 0; u < PRIM_WORDS; u++) {
     d = new_dict();
     d->type = t_prim;
     d->value.u = u;
@@ -1074,11 +1083,11 @@ int parse_config(char *name, char *log_file)
         d->value.p = strdup(word + 1);
         d->value.p_len = strlen(word + 1);
         d->name = strdup(word + 1);
-        c->value.u = dict_size - 1;
+        c->value.u = dict_list.size - 1;
       }
       else {
-        if(dict[i].type == t_nil && !dict[i].value.u) {
-          dict[i].value.u = 1;	// mark as defined
+        if(dict_list.entries[i].type == t_nil && !dict_list.entries[i].value.u) {
+          dict_list.entries[i].value.u = 1;	// mark as defined
         }
         c->value.u = (unsigned) i;
       }
@@ -1142,7 +1151,7 @@ int parse_config(char *name, char *log_file)
             d->type = t_nil;
             d->name = strdup(word);
             c->type = t_word;
-            c->value.u = dict_size - 1;
+            c->value.u = dict_list.size - 1;
             c->value.p = strdup(word);
             c->value.p_len = strlen(word);
           }
@@ -1163,13 +1172,13 @@ int parse_config(char *name, char *log_file)
 
   // check vocabulary
   if(opt.verbose >= 2) {
-    for(i = j = 0; i < (int) dict_size; i++) {
+    for(i = j = 0; i < (int) dict_list.size; i++) {
       if(
-        dict[i].type == t_nil && !dict[i].value.u
+        dict_list.entries[i].type == t_nil && !dict_list.entries[i].value.u
       ) {
         if(!j) fprintf(stderr, "Undefined words:");
         else fprintf(stderr, ",");
-        fprintf(stderr, " %s", dict[i].name);
+        fprintf(stderr, " %s", dict_list.entries[i].name);
         j = 1;
       }
     }
@@ -1226,11 +1235,11 @@ void optimize_dict(FILE *lf)
 {
   unsigned u, old_ofs, new_ofs;
 
-  for(old_ofs = new_ofs = 0; old_ofs < dict_size; old_ofs++) {
-    if(dict[old_ofs].del) continue;
+  for(old_ofs = new_ofs = 0; old_ofs < dict_list.size; old_ofs++) {
+    if(dict_list.entries[old_ofs].del) continue;
     if(old_ofs != new_ofs) {
       if(opt.verbose >= 2 && lf) fprintf(lf, "#   rename %d -> %d\n", old_ofs, new_ofs);
-      dict[new_ofs] = dict[old_ofs];
+      dict_list.entries[new_ofs] = dict_list.entries[old_ofs];
       for(u = 0; u < code_list.size; u++) {
         if(
           (
@@ -1249,7 +1258,7 @@ void optimize_dict(FILE *lf)
     fprintf(lf, "# new dictionary size %d (%d - %d)\n", new_ofs, old_ofs, old_ofs - new_ofs);
   }
 
-  dict_size = new_ofs;
+  dict_list.size = new_ofs;
 }
 
 
@@ -1281,10 +1290,10 @@ int optimize_code(FILE *lf)
   int changed = 0, ind = 0;
   code_t *c;
 
-  for(u = 0; u < dict_size; u++) {
-    dict[u].def = dict[u].def_idx =
-    dict[u].ref = dict[u].ref_idx =
-    dict[u].ref0 =  dict[u].ref0_idx = 0;
+  for(u = 0; u < dict_list.size; u++) {
+    dict_list.entries[u].def = dict_list.entries[u].def_idx =
+    dict_list.entries[u].ref = dict_list.entries[u].ref_idx =
+    dict_list.entries[u].ref0 =  dict_list.entries[u].ref0_idx = 0;
   }
 
   for(u = 0; u < code_list.size; u++) {
@@ -1305,22 +1314,22 @@ int optimize_code(FILE *lf)
         break;
 
       case t_word:
-        if(c->value.u < dict_size) {
-          dict[c->value.u].ref++;
-          dict[c->value.u].ref_idx = (int) u;
-          dict[c->value.u].ref_ind = ind;
-          if(ind == 0 && !dict[c->value.u].ref0) {
-            dict[c->value.u].ref0 = 1;
-            dict[c->value.u].ref0_idx = (int) u;
+        if(c->value.u < dict_list.size) {
+          dict_list.entries[c->value.u].ref++;
+          dict_list.entries[c->value.u].ref_idx = (int) u;
+          dict_list.entries[c->value.u].ref_ind = ind;
+          if(ind == 0 && !dict_list.entries[c->value.u].ref0) {
+            dict_list.entries[c->value.u].ref0 = 1;
+            dict_list.entries[c->value.u].ref0_idx = (int) u;
           }
         }
         break;
 
       case t_ref:
-        if(c->value.u < dict_size) {
-          dict[c->value.u].def++;
-          dict[c->value.u].def_idx = (int) u;
-          dict[c->value.u].def_ind = ind;
+        if(c->value.u < dict_list.size) {
+          dict_list.entries[c->value.u].def++;
+          dict_list.entries[c->value.u].def_idx = (int) u;
+          dict_list.entries[c->value.u].def_ind = ind;
         }
         break;
 
@@ -1350,20 +1359,20 @@ int optimize_code1(FILE *lf)
   int changed = 0;
   code_t *c;
 
-  for(i = 0; i < dict_size; i++) {
+  for(i = 0; i < dict_list.size; i++) {
     if(
-      i < prim_words &&
-      !dict[i].del &&
-      dict[i].def == 0 &&
-      dict[i].ref &&
-      dict[i].type == t_prim
+      i < PRIM_WORDS &&
+      !dict_list.entries[i].del &&
+      dict_list.entries[i].def == 0 &&
+      dict_list.entries[i].ref &&
+      dict_list.entries[i].type == t_prim
     ) {
-      if(opt.verbose >= 2 && lf) fprintf(lf, "#   replacing %s\n", dict[i].name);
+      if(opt.verbose >= 2 && lf) fprintf(lf, "#   replacing %s\n", dict_list.entries[i].name);
       for(j = 0; j < code_list.size; j++) {
         c = code_list.entries + j;
         if(c->type == t_word && c->value.u == i) {
-          c->type = dict[i].type;
-          c->value.u = dict[i].value.u;
+          c->type = dict_list.entries[i].type;
+          c->value.u = dict_list.entries[i].value.u;
           c->value.p = NULL;
           c->value.p_len = 0;
         }
@@ -1392,15 +1401,15 @@ int optimize_code2(FILE *lf)
   int changed = 0;
   code_t *c0, *c1, *c2;
 
-  for(i = 0; i < dict_size; i++) {
+  for(i = 0; i < dict_list.size; i++) {
     if(
-      i >= prim_words &&
-      !dict[i].del &&
-      !dict[i].ref &&
-      dict[i].def == 1 &&
-      dict[i].type == t_nil
+      i >= PRIM_WORDS &&
+      !dict_list.entries[i].del &&
+      !dict_list.entries[i].ref &&
+      dict_list.entries[i].def == 1 &&
+      dict_list.entries[i].type == t_nil
     ) {
-      c0 = code_list.entries + (j = (unsigned) dict[i].def_idx);
+      c0 = code_list.entries + (j = (unsigned) dict_list.entries[i].def_idx);
       c1 = code_list.entries + (j = next_code(j));
       c2 = code_list.entries + (j = next_code(j));
 
@@ -1415,12 +1424,12 @@ int optimize_code2(FILE *lf)
           c1->type == t_ref
         ) &&
         c2->type == t_prim &&
-        !strcmp(dict[c2->value.u].name, "def")
+        !strcmp(dict_list.entries[c2->value.u].name, "def")
       ) {
-        if(opt.verbose >= 2 && lf) fprintf(lf, "#   defined but unused: %s (index %d)\n", dict[i].name, i);
-        if(opt.verbose >= 2 && lf) fprintf(lf, "#   deleting code: %d - %d\n", dict[i].def_idx, j);
+        if(opt.verbose >= 2 && lf) fprintf(lf, "#   defined but unused: %s (index %d)\n", dict_list.entries[i].name, i);
+        if(opt.verbose >= 2 && lf) fprintf(lf, "#   deleting code: %d - %d\n", dict_list.entries[i].def_idx, j);
         c0->type = c1->type = c2->type = t_skip;
-        dict[i].del = 1;
+        dict_list.entries[i].del = 1;
 
         changed = 1;
       }
@@ -1444,15 +1453,15 @@ int optimize_code3(FILE *lf)
   int changed = 0;
   code_t *c0, *c1;
 
-  for(i = 0; i < dict_size; i++) {
+  for(i = 0; i < dict_list.size; i++) {
     if(
-      i >= prim_words &&
-      !dict[i].del &&
-      !dict[i].ref &&
-      dict[i].def == 1 &&
-      dict[i].type == t_nil
+      i >= PRIM_WORDS &&
+      !dict_list.entries[i].del &&
+      !dict_list.entries[i].ref &&
+      dict_list.entries[i].def == 1 &&
+      dict_list.entries[i].type == t_nil
     ) {
-      c0 = code_list.entries + (j = (unsigned) dict[i].def_idx);
+      c0 = code_list.entries + (j = (unsigned) dict_list.entries[i].def_idx);
       c1 = code_list.entries + next_code(j);
 
       if(c1 == c0) continue;
@@ -1462,13 +1471,13 @@ int optimize_code3(FILE *lf)
         c0->value.u == i &&
         c1->type == t_code &&
         code_list.entries[j = skip_code(c1->value.u)].type == t_prim &&
-        !strcmp(dict[code_list.entries[j].value.u].name, "def") &&
-        j > (unsigned) dict[i].def_idx
+        !strcmp(dict_list.entries[code_list.entries[j].value.u].name, "def") &&
+        j > (unsigned) dict_list.entries[i].def_idx
       ) {
-        if(opt.verbose >= 2 && lf) fprintf(lf, "#   defined but unused: %s (index %d)\n", dict[i].name, i);
-        if(opt.verbose >= 2 && lf) fprintf(lf, "#   deleting code: %d - %d\n", dict[i].def_idx, j);
-        for(k = (unsigned) dict[i].def_idx; k <= j; k++) code_list.entries[k].type = t_skip;
-        dict[i].del = 1;
+        if(opt.verbose >= 2 && lf) fprintf(lf, "#   defined but unused: %s (index %d)\n", dict_list.entries[i].name, i);
+        if(opt.verbose >= 2 && lf) fprintf(lf, "#   deleting code: %d - %d\n", dict_list.entries[i].def_idx, j);
+        for(k = (unsigned) dict_list.entries[i].def_idx; k <= j; k++) code_list.entries[k].type = t_skip;
+        dict_list.entries[i].del = 1;
 
         changed = 1;
       }
@@ -1488,16 +1497,16 @@ int optimize_code4(FILE *lf)
   unsigned i;
   int changed = 0;
 
-  for(i = 0; i < dict_size; i++) {
+  for(i = 0; i < dict_list.size; i++) {
     if(
-      i >= prim_words &&
-      !dict[i].del &&
-      !dict[i].ref &&
-      !dict[i].def
+      i >= PRIM_WORDS &&
+      !dict_list.entries[i].del &&
+      !dict_list.entries[i].ref &&
+      !dict_list.entries[i].def
     ) {
-      if(opt.verbose >= 2 && lf) fprintf(lf, "#   unused: %s (index %d)\n", dict[i].name, i);
+      if(opt.verbose >= 2 && lf) fprintf(lf, "#   unused: %s (index %d)\n", dict_list.entries[i].name, i);
 
-      dict[i].del = 1;
+      dict_list.entries[i].del = 1;
 
       changed = 1;
     }
@@ -1517,19 +1526,19 @@ int optimize_code5(FILE *lf)
   code_t *c, *c0, *c1, *c2;
   char *s;
 
-  for(i = 0; i < dict_size; i++) {
+  for(i = 0; i < dict_list.size; i++) {
     if(
-      i >= prim_words &&
-      !dict[i].del &&
-      dict[i].def == 1 &&
-      dict[i].def_ind == 0 &&
+      i >= PRIM_WORDS &&
+      !dict_list.entries[i].del &&
+      dict_list.entries[i].def == 1 &&
+      dict_list.entries[i].def_ind == 0 &&
       (
-        !dict[i].ref0 ||
-        dict[i].ref0_idx >  dict[i].def_idx
+        !dict_list.entries[i].ref0 ||
+        dict_list.entries[i].ref0_idx >  dict_list.entries[i].def_idx
       ) &&
-      dict[i].type == t_nil
+      dict_list.entries[i].type == t_nil
     ) {
-      c0 = code_list.entries + (j = (unsigned) dict[i].def_idx);
+      c0 = code_list.entries + (j = (unsigned) dict_list.entries[i].def_idx);
       c1 = code_list.entries + (j = next_code(j));
       c2 = code_list.entries + (j = next_code(j));
 
@@ -1542,10 +1551,10 @@ int optimize_code5(FILE *lf)
           c1->type == t_bool
         ) &&
         c2->type == t_prim &&
-        !strcmp(dict[c2->value.u].name, "def")
+        !strcmp(dict_list.entries[c2->value.u].name, "def")
       ) {
-        if(opt.verbose >= 2 && lf) fprintf(lf, "#   global constant: %s (index %d)\n", dict[i].name, i);
-        if(opt.verbose >= 2 && lf) fprintf(lf, "#   replacing %s with %s\n", dict[i].name, c1->name);
+        if(opt.verbose >= 2 && lf) fprintf(lf, "#   global constant: %s (index %d)\n", dict_list.entries[i].name, i);
+        if(opt.verbose >= 2 && lf) fprintf(lf, "#   replacing %s with %s\n", dict_list.entries[i].name, c1->name);
         for(k = 0; k < code_list.size; k++) {
           c = code_list.entries + k;
           if(c->type == t_word && c->value.u == i) {
@@ -1569,9 +1578,9 @@ int optimize_code5(FILE *lf)
           }
         }
 
-        dict[i].del = 1;
+        dict_list.entries[i].del = 1;
 
-        if(opt.verbose >= 2 && lf) fprintf(lf, "#   deleting code: %d - %d\n", dict[i].def_idx, j);
+        if(opt.verbose >= 2 && lf) fprintf(lf, "#   deleting code: %d - %d\n", dict_list.entries[i].def_idx, j);
         c0->type = c1->type = c2->type = t_skip;
 
         changed = 1;
@@ -1832,7 +1841,7 @@ int decompile(unsigned char *data, unsigned size)
   unsigned char *arg2;
 
   // setup initial vocabulary
-  for(i = 0; i < prim_words; i++) {
+  for(i = 0; i < PRIM_WORDS; i++) {
     d = new_dict();
     d->type = t_prim;
     d->value.u = i;
@@ -1931,8 +1940,8 @@ int decompile(unsigned char *data, unsigned size)
         break;
 
       case t_prim:
-        if(arg1 < dict_size) {
-          c->name = dict[arg1].name;
+        if(arg1 < dict_list.size) {
+          c->name = dict_list.entries[arg1].name;
         }
         else {
           fprintf(stderr, "error: word %u not in dictionary\n", (unsigned) arg1);

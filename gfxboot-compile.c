@@ -101,7 +101,7 @@ int get_hex(char *s, unsigned len, unsigned *val);
 char *utf8_encode(unsigned uc);
 int utf8_decode(char **s);
 char *utf8_quote(unsigned uc);
-char *next_word(char **ptr, int *len);
+char *next_word(char **ptr, int *len, int *line);
 void parse_include_comment(char *comment, file_data_t *fd);
 int find_in_dict(char *name);
 int translate(int pass);
@@ -123,9 +123,6 @@ int config_ok;
 file_data_t pscode;
 dict_list_t dict_list;
 code_list_t code_list;
-
-// current config line
-int line = 1;
 
 struct {
   unsigned verbose;
@@ -181,6 +178,15 @@ int main(int argc, char **argv)
   }
 
   argc -= optind; argv += optind;
+
+  // implicitly activate logging if verbose is set
+  if(
+    opt.verbose &&
+    !opt.log_file &&
+    (!opt.file || strcmp(opt.file, "-"))
+  ) {
+    opt.log_file = "-";
+  }
 
   if(opt.file && argc <= 1) {
     if(parse_config(argc ? *argv : "-", opt.log_file)) return 1;
@@ -621,7 +627,7 @@ char *utf8_quote(unsigned uc)
 }
 
 
-char *next_word(char **ptr, int *len)
+char *next_word(char **ptr, int *len, int *line)
 {
   char *s, *start, *utf8;
   int is_str, is_comment;
@@ -635,7 +641,7 @@ char *next_word(char **ptr, int *len)
 
   if(len) *len = (int) n;
 
-  while(*s && isspace(*s)) if(*s++ == '\n') line++;
+  while(*s && isspace(*s)) if(*s++ == '\n') (*line)++;
 
   if(!*s) {
     *ptr = s;
@@ -760,7 +766,7 @@ void parse_include_comment(char *comment, file_data_t *fd)
     sscanf(comment, " %255s %255s", arg0, arg1) == 2 &&
     !strcmp(arg0, "include")
   ) {
-    if(opt.verbose) fprintf(stderr, "including \"%s\"\n", arg1);
+    // if(opt.verbose) fprintf(stderr, "including \"%s\"\n", arg1);
     read_file(arg1, fd);
     if(!fd->data) exit(18);
     // add '\0' to make date 0-terminated string
@@ -985,6 +991,7 @@ int parse_config(char *name, char *log_file)
   char *s;
   FILE *lf = NULL;
   int incl_level = 0;
+  int line = 1;
 
   read_file(name, cfg + incl_level);
   add_data(cfg + incl_level, "", 1);
@@ -1012,6 +1019,14 @@ int parse_config(char *name, char *log_file)
     d->name = (char *) prim_names[u];
   }
 
+  if(opt.verbose >= 2) {
+    c = new_code();
+    c->line = line;
+    c->incl_level = incl_level;
+    c->type = t_skip;
+    asprintf(&c->name, "file %s", cfg[incl_level].name);
+  }
+
   c = new_code();
   c->type = t_comment;
   c->value.p_len = 7;
@@ -1024,7 +1039,7 @@ int parse_config(char *name, char *log_file)
       incl_level--;
       line = cfg[incl_level].line;
     }
-    word = next_word((char **) &cfg[incl_level].ptr, &word_len);	// unsigned char **
+    word = next_word((char **) &cfg[incl_level].ptr, &word_len, &line);	// unsigned char **
     if(!word || !word_len) continue;
 
     if(word[0] == COMMENT_CHAR) {
@@ -1040,13 +1055,20 @@ int parse_config(char *name, char *log_file)
             cfg[incl_level].line = line;
             cfg[++incl_level] = incl;
             line = 1;
+            if(opt.verbose >= 2) {
+              c = new_code();
+              c->line = line;
+              c->incl_level = incl_level;
+              c->type = t_skip;
+              asprintf(&c->name, "include %s", cfg[incl_level].name);
+            }
           }
         }
       }
       continue;
     }
 
-    if(opt.verbose >= 2) printf(">%s< [%d] (line %d)\n", word, word_len, line);
+    if(opt.verbose >= 4 && lf) fprintf(lf, ">%s< [%d] (line %d)\n", word, word_len, line);
 
     c = new_code();
     c->line = line;
@@ -1171,7 +1193,7 @@ int parse_config(char *name, char *log_file)
   }
 
   // check vocabulary
-  if(opt.verbose >= 2) {
+  if(opt.verbose >= 3) {
     for(i = j = 0; i < (int) dict_list.size; i++) {
       if(
         dict_list.entries[i].type == t_nil && !dict_list.entries[i].value.u
@@ -1188,14 +1210,14 @@ int parse_config(char *name, char *log_file)
   }
 
   if(opt.optimize) {
-    if(opt.verbose >= 2 && lf) fprintf(lf, "# searching for unused code:\n");
+    if(opt.verbose >= 3 && lf) fprintf(lf, "# searching for unused code:\n");
     for(i = 0; i < 64; i++) {
-      if(opt.verbose >= 2 && lf) fprintf(lf, "# pass %d\n", i + 1);
+      if(opt.verbose >= 3 && lf) fprintf(lf, "# pass %d\n", i + 1);
       if(!optimize_code(lf)) break;
     }
-    if(opt.verbose >= 2 && lf) fprintf(lf, "# %d optimization passes\n", i + 1);
+    if(opt.verbose >= 3 && lf) fprintf(lf, "# %d optimization passes\n", i + 1);
     if(i) {
-      if(opt.verbose >= 2 && lf) fprintf(lf, "# searching for unused dictionary entries:\n");
+      if(opt.verbose >= 3 && lf) fprintf(lf, "# searching for unused dictionary entries:\n");
       optimize_dict(lf);
     }
   }
@@ -1204,7 +1226,7 @@ int parse_config(char *name, char *log_file)
   for(i = 0; i < 100; i++) {
     if(!translate(i)) break;
   }
-  if(opt.verbose >= 2 && lf) fprintf(lf, "# %d encoding passes\n", i + 1);
+  if(opt.verbose >= 3 && lf) fprintf(lf, "# %d encoding passes\n", i + 1);
   if(i == 100) {
     fprintf(stderr, "error: code translation does not converge\n");
     return 1;
@@ -1238,7 +1260,7 @@ void optimize_dict(FILE *lf)
   for(old_ofs = new_ofs = 0; old_ofs < dict_list.size; old_ofs++) {
     if(dict_list.entries[old_ofs].del) continue;
     if(old_ofs != new_ofs) {
-      if(opt.verbose >= 2 && lf) fprintf(lf, "#   rename %d -> %d\n", old_ofs, new_ofs);
+      if(opt.verbose >= 3 && lf) fprintf(lf, "#   rename %d -> %d\n", old_ofs, new_ofs);
       dict_list.entries[new_ofs] = dict_list.entries[old_ofs];
       for(u = 0; u < code_list.size; u++) {
         if(
@@ -1254,7 +1276,7 @@ void optimize_dict(FILE *lf)
     }
     new_ofs++;
   }
-  if(opt.verbose >= 2 && lf && new_ofs != old_ofs) {
+  if(opt.verbose >= 3 && lf && new_ofs != old_ofs) {
     fprintf(lf, "# new dictionary size %d (%d - %d)\n", new_ofs, old_ofs, old_ofs - new_ofs);
   }
 
@@ -1367,7 +1389,7 @@ int optimize_code1(FILE *lf)
       dict_list.entries[i].ref &&
       dict_list.entries[i].type == t_prim
     ) {
-      if(opt.verbose >= 2 && lf) fprintf(lf, "#   replacing %s\n", dict_list.entries[i].name);
+      if(opt.verbose >= 3 && lf) fprintf(lf, "#   replacing %s\n", dict_list.entries[i].name);
       for(j = 0; j < code_list.size; j++) {
         c = code_list.entries + j;
         if(c->type == t_word && c->value.u == i) {
@@ -1426,8 +1448,8 @@ int optimize_code2(FILE *lf)
         c2->type == t_prim &&
         !strcmp(dict_list.entries[c2->value.u].name, "def")
       ) {
-        if(opt.verbose >= 2 && lf) fprintf(lf, "#   defined but unused: %s (index %d)\n", dict_list.entries[i].name, i);
-        if(opt.verbose >= 2 && lf) fprintf(lf, "#   deleting code: %d - %d\n", dict_list.entries[i].def_idx, j);
+        if(opt.verbose >= 3 && lf) fprintf(lf, "#   defined but unused: %s (index %d)\n", dict_list.entries[i].name, i);
+        if(opt.verbose >= 3 && lf) fprintf(lf, "#   deleting code: %d - %d\n", dict_list.entries[i].def_idx, j);
         c0->type = c1->type = c2->type = t_skip;
         dict_list.entries[i].del = 1;
 
@@ -1474,8 +1496,8 @@ int optimize_code3(FILE *lf)
         !strcmp(dict_list.entries[code_list.entries[j].value.u].name, "def") &&
         j > (unsigned) dict_list.entries[i].def_idx
       ) {
-        if(opt.verbose >= 2 && lf) fprintf(lf, "#   defined but unused: %s (index %d)\n", dict_list.entries[i].name, i);
-        if(opt.verbose >= 2 && lf) fprintf(lf, "#   deleting code: %d - %d\n", dict_list.entries[i].def_idx, j);
+        if(opt.verbose >= 3 && lf) fprintf(lf, "#   defined but unused: %s (index %d)\n", dict_list.entries[i].name, i);
+        if(opt.verbose >= 3 && lf) fprintf(lf, "#   deleting code: %d - %d\n", dict_list.entries[i].def_idx, j);
         for(k = (unsigned) dict_list.entries[i].def_idx; k <= j; k++) code_list.entries[k].type = t_skip;
         dict_list.entries[i].del = 1;
 
@@ -1504,7 +1526,7 @@ int optimize_code4(FILE *lf)
       !dict_list.entries[i].ref &&
       !dict_list.entries[i].def
     ) {
-      if(opt.verbose >= 2 && lf) fprintf(lf, "#   unused: %s (index %d)\n", dict_list.entries[i].name, i);
+      if(opt.verbose >= 3 && lf) fprintf(lf, "#   unused: %s (index %d)\n", dict_list.entries[i].name, i);
 
       dict_list.entries[i].del = 1;
 
@@ -1553,8 +1575,8 @@ int optimize_code5(FILE *lf)
         c2->type == t_prim &&
         !strcmp(dict_list.entries[c2->value.u].name, "def")
       ) {
-        if(opt.verbose >= 2 && lf) fprintf(lf, "#   global constant: %s (index %d)\n", dict_list.entries[i].name, i);
-        if(opt.verbose >= 2 && lf) fprintf(lf, "#   replacing %s with %s\n", dict_list.entries[i].name, c1->name);
+        if(opt.verbose >= 3 && lf) fprintf(lf, "#   global constant: %s (index %d)\n", dict_list.entries[i].name, i);
+        if(opt.verbose >= 3 && lf) fprintf(lf, "#   replacing %s with %s\n", dict_list.entries[i].name, c1->name);
         for(k = 0; k < code_list.size; k++) {
           c = code_list.entries + k;
           if(c->type == t_word && c->value.u == i) {
@@ -1580,7 +1602,7 @@ int optimize_code5(FILE *lf)
 
         dict_list.entries[i].del = 1;
 
-        if(opt.verbose >= 2 && lf) fprintf(lf, "#   deleting code: %d - %d\n", dict_list.entries[i].def_idx, j);
+        if(opt.verbose >= 3 && lf) fprintf(lf, "#   deleting code: %d - %d\n", dict_list.entries[i].def_idx, j);
         c0->type = c1->type = c2->type = t_skip;
 
         changed = 1;
@@ -1600,7 +1622,7 @@ int optimize_code6(FILE *lf)
   int changed = 0;
   code_t *c, *c_ref;
 
-  if(opt.verbose >= 2 && lf) fprintf(lf, "#   looking for cross references\n");
+  if(opt.verbose >= 3 && lf) fprintf(lf, "#   looking for cross references\n");
 
   for(i = 0; i < code_list.size; i++) {
     c_ref = code_list.entries + i;
@@ -1621,7 +1643,7 @@ int optimize_code6(FILE *lf)
           !memcmp(c->value.p, c_ref->value.p, c->value.p_len)
         ) {
           c->xref_to = i;
-          if(opt.verbose >= 2 && lf) fprintf(lf, "xref: %d = %d name = >%s<\n", j, i, c->name);
+          if(opt.verbose >= 3 && lf) fprintf(lf, "xref: %d = %d name = >%s<\n", j, i, c->name);
           changed = 1;
         }
       }
@@ -1910,6 +1932,7 @@ int decompile(unsigned char *data, unsigned size)
       unsigned old_ofs = c->ofs;
       c->xref_to = 0;
       asprintf(&c->name, "# -> offset 0x%05x", c_ref->ofs);
+      // FIXME: ???
       if(opt.verbose >= 2) {
         c = new_code();
         *c = *c_ref;

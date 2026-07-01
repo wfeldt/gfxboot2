@@ -27,6 +27,9 @@
 //
 #define CODE_LIST_INCREMENT	(1 << 4)
 
+//
+#define DICT_LIST_INCREMENT	(1 << 4)
+
 // ptr, line: used by parser
 typedef struct {
   unsigned real_size;		// allocated size
@@ -415,7 +418,7 @@ code_t *new_code()
 dict_t *new_dict()
 {
   if(dict_list.size >= dict_list.real_size) {
-    dict_list.real_size += 10;
+    dict_list.real_size += DICT_LIST_INCREMENT;
     dict_list.entries = realloc(dict_list.entries, dict_list.real_size * sizeof *dict_list.entries);
     memset(dict_list.entries + dict_list.size, 0, (dict_list.real_size - dict_list.size) * sizeof *dict_list.entries);
   }

@@ -24,10 +24,10 @@
 // when resizing in add_data(), do it in at least DATA_INCREMENT steps
 #define DATA_INCREMENT		(1 << 16)
 
-//
+// when resizing in new_code(), do it in at least CODE_LIST_INCREMENT steps
 #define CODE_LIST_INCREMENT	(1 << 4)
 
-//
+// when resizing in new_dict(), do it in at least DICT_LIST_INCREMENT steps
 #define DICT_LIST_INCREMENT	(1 << 4)
 
 // ptr, line: used by parser

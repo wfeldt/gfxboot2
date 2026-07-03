@@ -118,8 +118,7 @@ char *next_word(char **ptr, int *len, int *line);
 int parse_include_comment(char *comment, file_data_t *fd);
 int find_in_dict(dict_list_t *dict_list, char *name);
 int translate(code_list_t *code_list, unsigned pass);
-int compile(file_data_t *fd, code_list_t *code_list, dict_list_t *dict_list, file_data_t *fd_src, FILE *log_file);
-int init_parser(code_list_t *code_list, dict_list_t *dict_list);
+int compile(file_data_t *fd, code_list_t *code_list, dict_list_t *dict_list, FILE *log_file);
 int init_code_list(code_list_t *code_list);
 int init_dict_list(dict_list_t *dict_list);
 int free_dict_list(dict_list_t *dict_list);
@@ -139,7 +138,7 @@ int optimize_code5(code_list_t *code_list, dict_list_t *dict_list, FILE *log_fil
 int optimize_code6(code_list_t *code_list, FILE *log_file);
 int log_code(code_list_t *code_list, FILE *log_file, int style);
 unsigned decode_instr(uint8_t *data, type_t *type, int64_t *arg1, uint8_t **arg2);
-int decompile(code_list_t *code_list, uint8_t *data, unsigned size);
+int decompile(code_list_t *code_list, dict_list_t *dict_list, file_data_t *fd);
 
 struct {
   unsigned verbose;
@@ -201,6 +200,11 @@ int main(int argc, char **argv)
 
   argc -= optind; argv += optind;
 
+  if(!argc) {
+    help();
+    return 1;
+  }
+
   // implicitly activate logging (to stdout if no log file is specified) if verbose is set
   if(
     opt.verbose &&
@@ -219,7 +223,7 @@ int main(int argc, char **argv)
 
   if(!opt.output_file && !log_file) log_file = fdopen(dup(fileno(stdout)), "a");
 
-  file_data_t fd = {};
+  file_data_t fd_out = {};
   code_list_t code_list = {};
   dict_list_t dict_list = {};
 
@@ -227,24 +231,24 @@ int main(int argc, char **argv)
 
   file_data_t fd_src = {};
 
-  if(!argc) {
-    err = read_file("-", &fd_src);
-    if(!err) err = compile(&fd, &code_list, &dict_list, &fd_src, log_file);
-  }
-  else {
-    while(!err && argc--) {
-      err = read_file(*argv++, &fd_src);
-      if(err) break;
-      if(file_type(&fd_src) == 1) {
-        err = decompile(&code_list, fd_src.data, fd_src.size);
-      }
-      else {
-        err = compile(&fd, &code_list, &dict_list, &fd_src, log_file);
-      }
+  err = init_code_list(&code_list);
+  if(!err) err = init_dict_list(&dict_list);
+
+  while(!err && argc--) {
+    err = read_file(*argv++, &fd_src);
+    if(err) break;
+    if(file_type(&fd_src) == 1) {
+      err = decompile(&code_list, &dict_list, &fd_src);
+    }
+    else {
+      err = parse_file(&code_list, &dict_list, &fd_src, log_file);
     }
   }
 
-  if(!err && opt.output_file) err = write_file(opt.output_file, &fd);
+  if(!err && opt.output_file) {
+    err = compile(&fd_out, &code_list, &dict_list, log_file);
+    if(!err) err = write_file(opt.output_file, &fd_out);
+  }
 
   if(!err) err = log_code(&code_list, log_file, opt.output_file ? 1 : 0);
 
@@ -1067,13 +1071,9 @@ int translate(code_list_t *code_list, unsigned pass)
 }
 
 
-int compile(file_data_t *fd, code_list_t *code_list, dict_list_t *dict_list, file_data_t *fd_src, FILE *log_file)
+int compile(file_data_t *fd, code_list_t *code_list, dict_list_t *dict_list, FILE *log_file)
 {
   int err = 0;
-
-  err = init_parser(code_list, dict_list);
-
-  if(!err) err = parse_file(code_list, dict_list, fd_src, log_file);
 
   if(!err && opt.optimize) err = optimize(code_list, dict_list, log_file);
 
@@ -1082,21 +1082,6 @@ int compile(file_data_t *fd, code_list_t *code_list, dict_list_t *dict_list, fil
   if(!err) err = encode_code(code_list, log_file);
 
   if(!err) err = write_code(fd, code_list, log_file);
-
-  return err;
-}
-
-
-// Prepare parser.
-//
-// - setup initial vocabulary
-// - insert magic blob indicating file type
-//
-int init_parser(code_list_t *code_list, dict_list_t *dict_list)
-{
-  int err = init_dict_list(dict_list);
-
-  if(!err) err = init_code_list(code_list);
 
   return err;
 }
@@ -1115,6 +1100,8 @@ int init_code_list(code_list_t *code_list)
   c->value.p = calloc(1, 7);
   encode_number(c->value.p, GFXBOOT_MAGIC, 7);
   c->name = strdup("# gfxboot magic");
+
+  translate(code_list, 0);
 
   return 0;
 }
@@ -2157,7 +2144,7 @@ unsigned decode_instr(uint8_t *data, type_t *type, int64_t *arg1, uint8_t **arg2
 
 // Convert binary representation to code list.
 //
-int decompile(code_list_t *code_list, uint8_t *data, unsigned size)
+int decompile(code_list_t *code_list, dict_list_t *dict_list, file_data_t *fd)
 {
   unsigned i, j, inst_size;
   code_t *c;
@@ -2167,29 +2154,46 @@ int decompile(code_list_t *code_list, uint8_t *data, unsigned size)
 
   int err = 0;
 
-  dict_list_t dict_list = {};
+  unsigned start_ofs = 0;
 
-  err = init_dict_list(&dict_list);
-
-  if(err) {
-    free_dict_list(&dict_list);
-    return err;
+  if(code_list->size > 0) {
+    start_ofs = code_list->entries[code_list->size - 1].ofs + code_list->entries[code_list->size - 1].size;
+    // to account for magic header comment
+    start_ofs -= 8;
   }
 
-  for(i = 0; i < size; i += inst_size) {
-    inst_size = decode_instr(data + i, &type, &arg1, &arg2);
+  for(i = 0; i < fd->size; i += inst_size) {
+    inst_size = decode_instr(fd->data + i, &type, &arg1, &arg2);
 
-    if(i + inst_size > size) {
+    // skip first entry but check it is indeed the magic comment
+    if(i == 0) {
+      if(type != t_comment || arg1 != 7 || decode_number(arg2, arg1) != GFXBOOT_MAGIC) {
+        err = 1;
+        fprintf(stderr, "error: gfxboot magic not matching\n");
+
+        return err;
+      }
+
+      // FIXME: >= 1
+      if(opt.verbose >= 2) {
+        c = new_code(code_list);
+        c->type = t_skip;
+        asprintf(&c->name, "file %s", fd->name);
+      }
+
+      continue;
+    }
+
+    if(i + inst_size > fd->size) {
       err = 1;
 
       if(i) {
-        fprintf(stderr, "error: instruction size bounds exceeded: %u > %u\n", i + inst_size, size);
+        fprintf(stderr, "error: instruction size bounds exceeded: %u > %u\n", i + inst_size, fd->size);
       }
       else {
         fprintf(stderr, "error: invalid file format\n");
       }
 
-      free_dict_list(&dict_list);
       return err;
     }
 
@@ -2207,28 +2211,19 @@ int decompile(code_list_t *code_list, uint8_t *data, unsigned size)
 
       fprintf(stderr, "error: invalid file format\n");
 
-      free_dict_list(&dict_list);
       return err;
     }
 
-    c->ofs = i;
+    c->ofs = start_ofs + i;
     c->size = inst_size;
     c->enc = malloc(inst_size);
-    memcpy(c->enc, data + i, inst_size);
+    memcpy(c->enc, fd->data + i, inst_size);
 
     c->value.u = (uint64_t) arg1;
 
     if(arg2) {
       c->value.p = arg2;
       c->value.p_len = arg1;
-    }
-
-    if(i == 0 && decode_number(c->value.p, c->value.p_len) != GFXBOOT_MAGIC) {
-      err = 1;
-      fprintf(stderr, "error: gfxboot magic not matching\n");
-
-      free_dict_list(&dict_list);
-      return err;
     }
 
     if(c->type == t_xref) {
@@ -2242,7 +2237,6 @@ int decompile(code_list_t *code_list, uint8_t *data, unsigned size)
         err = 2;
         fprintf(stderr, "error: invalid cross reference: ofs 0x%x, %d\n", c->ofs, (unsigned) arg1);
 
-        free_dict_list(&dict_list);
         return err;
       }
       code_t *c_ref = code_list->entries + c->xref_to;
@@ -2280,14 +2274,13 @@ int decompile(code_list_t *code_list, uint8_t *data, unsigned size)
         break;
 
       case t_prim:
-        if(arg1 < dict_list.size) {
-          c->name = strdup(dict_list.entries[arg1].name);
+        if(arg1 < dict_list->size) {
+          c->name = strdup(dict_list->entries[arg1].name);
         }
         else {
           err = 1;
           fprintf(stderr, "error: word %u not in dictionary\n", (unsigned) arg1);
 
-          free_dict_list(&dict_list);
           return err;
         }
         break;
@@ -2301,13 +2294,6 @@ int decompile(code_list_t *code_list, uint8_t *data, unsigned size)
         break;
 
       case t_comment:
-        if(
-          c->value.p &&
-          c->value.p_len == 7 &&
-          decode_number(c->value.p, 7) == GFXBOOT_MAGIC
-        ) {
-          if(!c->name) c->name = "# gfxboot magic";
-        }
         break;
 
       case t_xref:
@@ -2317,11 +2303,9 @@ int decompile(code_list_t *code_list, uint8_t *data, unsigned size)
         err = 2;
         fprintf(stderr, "error: type %d not recognized\n", c->type);
 
-        free_dict_list(&dict_list);
         return err;
     }
   }
 
-  free_dict_list(&dict_list);
   return 0;
 }

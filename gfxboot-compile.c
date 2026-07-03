@@ -103,11 +103,13 @@ void help(void);
 int read_file(const char *name, file_data_t *fd);
 int write_file(const char *name, file_data_t *fd);
 void add_data(file_data_t *fd, const void *buffer, unsigned size);
+unsigned file_type(file_data_t *fd);
 uint64_t decode_number(const uint8_t *data, unsigned len);
 void encode_number(uint8_t *data, uint64_t val, unsigned len);
 code_t *new_code(code_list_t *code_list);
 dict_t *new_dict(dict_list_t *dict_list);
-int show_info(char *name);
+uint32_t read_uint32_le(file_data_t *fd, unsigned ofs);
+uint64_t read_uint64_le(file_data_t *fd, unsigned ofs);
 int get_hex(char *s, unsigned len, unsigned *val);
 char *utf8_encode(unsigned uc);
 int utf8_decode(char **s);
@@ -116,7 +118,7 @@ char *next_word(char **ptr, int *len, int *line);
 int parse_include_comment(char *comment, file_data_t *fd);
 int find_in_dict(dict_list_t *dict_list, char *name);
 int translate(code_list_t *code_list, unsigned pass);
-int compile(file_data_t *fd, code_list_t *code_list, dict_list_t *dict_list, char *file_name, char *log_file_name);
+int compile(file_data_t *fd, code_list_t *code_list, dict_list_t *dict_list, file_data_t *fd_src, FILE *log_file);
 int init_parser(code_list_t *code_list, dict_list_t *dict_list);
 int init_code_list(code_list_t *code_list);
 int init_dict_list(dict_list_t *dict_list);
@@ -125,7 +127,7 @@ int optimize(code_list_t *code_list, dict_list_t *dict_list, FILE *log_file);
 int check_vocabulary(dict_list_t *dict_list, FILE *log_file);
 int encode_code(code_list_t *code_list, FILE *log_file);
 int write_code(file_data_t *fd, code_list_t *code_list, FILE *log_file);
-int parse_file(code_list_t *code_list, dict_list_t *dict_list, char *file_name, FILE *log_file);
+int parse_file(code_list_t *code_list, dict_list_t *dict_list, file_data_t *fd, FILE *log_file);
 void optimize_dict(code_list_t *code_list, dict_list_t *dict_list, FILE *log_file);
 unsigned next_code(code_list_t *code_list, unsigned pos);
 int optimize_code(code_list_t *code_list, dict_list_t *dict_list, FILE *log_file);
@@ -208,50 +210,66 @@ int main(int argc, char **argv)
     opt.log_file_name = "-";
   }
 
-  if(opt.output_file) {
-    file_data_t fd = {};
-    code_list_t code_list = {};
-    dict_list_t dict_list = {};
+  FILE *log_file = NULL;
 
-    int err = 0;
+  if(opt.log_file_name && *opt.log_file_name) {
+    // dup stdout so it can later be closed
+    log_file = strcmp(opt.log_file_name, "-") ? fopen(opt.log_file_name, "w") : fdopen(dup(fileno(stdout)), "a");
+  }
 
-    if(!argc) {
-      err = compile(&fd, &code_list, &dict_list, "-", opt.log_file_name);
-    }
-    else {
-      while(!err && argc--) {
-        err = compile(&fd, &code_list, &dict_list, *argv++, opt.log_file_name);
-      }
-    }
+  if(!opt.output_file && !log_file) log_file = fdopen(dup(fileno(stdout)), "a");
 
-    if(!err) err = write_file(opt.output_file, &fd);
+  file_data_t fd = {};
+  code_list_t code_list = {};
+  dict_list_t dict_list = {};
 
-    return err;
+  int err = 0;
+
+  file_data_t fd_src = {};
+
+  if(!argc) {
+    err = read_file("-", &fd_src);
+    if(!err) err = compile(&fd, &code_list, &dict_list, &fd_src, log_file);
   }
   else {
-    int err = show_info(argc ? *argv : "-");
-
-    return err;
+    while(!err && argc--) {
+      err = read_file(*argv++, &fd_src);
+      if(err) break;
+      if(file_type(&fd_src) == 1) {
+        err = decompile(&code_list, fd_src.data, fd_src.size);
+      }
+      else {
+        err = compile(&fd, &code_list, &dict_list, &fd_src, log_file);
+      }
+    }
   }
 
-  help();
+  if(!err && opt.output_file) err = write_file(opt.output_file, &fd);
 
-  return 1;
+  if(!err) err = log_code(&code_list, log_file, opt.output_file ? 1 : 0);
+
+  if(log_file) {
+    fflush(log_file);
+    fclose(log_file);
+  }
+
+  return err;
 }
 
 
 void help()
 {
   fprintf(stderr, "%s",
-    "Usage: gfxboot-compile [OPTIONS] SOURCE\n"
+    "Usage: gfxboot-compile [OPTIONS] SOURCE(s)\n"
     "Compile/decompile gfxboot2 script to byte code.\n"
     "Options:\n"
-    "  -c, --create FILE       Compile SOURCE to FILE.\n"
+    "  -o, --output FILE       Compile SOURCE(s) to FILE.\n"
+    "  -c, --create FILE       Alias for --output.\n"
     "  -l, --log LOGFILE       Write compile log to LOGFILE.\n"
-    "  -s, --show              Decompile SOURCE.\n"
-    "  -L, --lib PATH          Set include file search path to PATH.\n"
+    "  -I, --include PATH      Add PATH to include/library file search path.\n"
+    "  -L, --lib PATH          Alias for --include\n"
     "  -O, --opt LEVEL         Optimization level (0 - 3).\n"
-    "  -v, --verbose           Create more verbose log.\n"
+    "  -v, --verbose           Increase log level (up to 3 times).\n"
     "  -h, --help              Show this help text.\n"
   );
 }
@@ -402,6 +420,17 @@ void add_data(file_data_t *fd, const void *buffer, unsigned size)
 }
 
 
+// File type.
+//
+// 0: text file
+// 1: compiled binary code
+//
+unsigned file_type(file_data_t *fd)
+{
+  return fd && fd->size > 8 && read_uint64_le(fd, 0) == GFXBOOT_MAGIC_64BIT ? 1 : 0;
+}
+
+
 // Decode unsigned 64-bit number.
 //
 // Numbers are encoded little-endian, 1 to 8 bytes.
@@ -482,33 +511,33 @@ dict_t *new_dict(dict_list_t *dict_list)
 
 uint32_t read_uint32_le(file_data_t *fd, unsigned ofs)
 {
-  uint32_t word = 0;
-  unsigned u;
-  for (u = 0; u < 4; u++) {
-    word += (unsigned) fd->data[ofs + u] << (u * 8);
+  uint32_t n = 0;
+
+  if(ofs < fd->size + 4) {
+    uint8_t *b = fd->data + ofs;
+    n = ((unsigned) b[3] << 24) + (b[2] << 16) + (b[1] << 8) + b[0];
   }
-  return word;
+
+  return n;
 }
 
 
-int show_info(char *name)
+uint64_t read_uint64_le(file_data_t *fd, unsigned ofs)
 {
-  file_data_t fd = {};
-  code_list_t code_list = {};
+  uint64_t n = 0;
 
-  int err = read_file(name, &fd);
+  if(ofs < fd->size + 4) {
+    n = ((uint64_t) read_uint32_le(fd, ofs + 4) << 32) + read_uint32_le(fd, ofs);
+  }
 
-  if(!err) err = decompile(&code_list, fd.data, fd.size);
-
-  if(!err) err = log_code(&code_list, stdout, 0);
-
-  return err;
+  return n;
 }
 
 
-/*
- * Convert hex number of excatly len bytes.
- */
+// Parse hex number of exactly len bytes.
+//
+// Used in string parser for \xNN, \uNNN, \UNNNNNNNN.
+//
 int get_hex(char *s, unsigned len, unsigned *val)
 {
   unsigned u;
@@ -1038,19 +1067,13 @@ int translate(code_list_t *code_list, unsigned pass)
 }
 
 
-int compile(file_data_t *fd, code_list_t *code_list, dict_list_t *dict_list, char *file_name, char *log_file_name)
+int compile(file_data_t *fd, code_list_t *code_list, dict_list_t *dict_list, file_data_t *fd_src, FILE *log_file)
 {
-  FILE *log_file = NULL;
   int err = 0;
-
-  if(log_file_name && *log_file_name) {
-    // dup stdout so it can later be closed
-    log_file = strcmp(log_file_name, "-") ? fopen(log_file_name, "w") : fdopen(dup(fileno(stdout)), "a");
-  }
 
   err = init_parser(code_list, dict_list);
 
-  if(!err) err = parse_file(code_list, dict_list, file_name, log_file);
+  if(!err) err = parse_file(code_list, dict_list, fd_src, log_file);
 
   if(!err && opt.optimize) err = optimize(code_list, dict_list, log_file);
 
@@ -1059,8 +1082,6 @@ int compile(file_data_t *fd, code_list_t *code_list, dict_list_t *dict_list, cha
   if(!err) err = encode_code(code_list, log_file);
 
   if(!err) err = write_code(fd, code_list, log_file);
-
-  if(log_file) fclose(log_file);
 
   return err;
 }
@@ -1224,16 +1245,15 @@ int write_code(file_data_t *fd, code_list_t *code_list, FILE *log_file)
   // FIXME: remove
   if(log_file) fputc('\n', log_file);
 
-  int err = log_code(code_list, log_file, 1);
-
-  return err;
+  return 0;
 }
 
 
 // Parse file.
 //
+// Note: this function modifies *fd - it appends one 0 byte.
 //
-int parse_file(code_list_t *code_list, dict_list_t *dict_list, char *name, FILE *log_file)
+int parse_file(code_list_t *code_list, dict_list_t *dict_list, file_data_t *fd, FILE *log_file)
 {
   char *word;
   file_data_t cfg[MAX_INCLUDE];
@@ -1247,8 +1267,8 @@ int parse_file(code_list_t *code_list, dict_list_t *dict_list, char *name, FILE 
   int incl_level = 0;
   int line = 1;
 
-  read_file(name, cfg + incl_level);
-  add_data(cfg + incl_level, "", 1);
+  add_data(fd, "", 1);
+  cfg[incl_level] = *fd;
 
   if(!cfg[incl_level].ptr) {
     fprintf(stderr, "error: no source file\n");

@@ -43,6 +43,7 @@ open my $f, ">", $dst or die "$dst: $!\n";
 
 print $f <<"----"
 #define GFXBOOT_MAGIC 0x60ad7a42a91251L
+#define GFXBOOT_MAGIC_64BIT ((GFXBOOT_MAGIC << 8) + 0x70 + t_comment))
 
 #ifdef WITH_PRIM_NAMES
 const char *prim_names[] = {

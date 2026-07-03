@@ -48,10 +48,12 @@ typedef struct {
 
 struct option options[] = {
   { "create", 1, NULL, 'c' },
+  { "output", 1, NULL, 'o' },
   { "show", 0, NULL, 's' },
   { "log", 1, NULL, 'l' },
   { "opt", 0, NULL, 'O' },
   { "lib", 1, NULL, 'L' },
+  { "include", 1, NULL, 'I' },
   { "xxx", 0, NULL, 'x' },
   { "help", 0, NULL, 'h' },
   { }
@@ -116,13 +118,15 @@ int find_in_dict(dict_list_t *dict_list, char *name);
 int translate(code_list_t *code_list, unsigned pass);
 int compile(file_data_t *fd, code_list_t *code_list, dict_list_t *dict_list, char *file_name, char *log_file_name);
 int init_parser(code_list_t *code_list, dict_list_t *dict_list);
+int init_code_list(code_list_t *code_list);
+int init_dict_list(dict_list_t *dict_list);
+int free_dict_list(dict_list_t *dict_list);
 int optimize(code_list_t *code_list, dict_list_t *dict_list, FILE *log_file);
-int check_vocabulary(dict_list_t *dict_list);
+int check_vocabulary(dict_list_t *dict_list, FILE *log_file);
 int encode_code(code_list_t *code_list, FILE *log_file);
 int write_code(file_data_t *fd, code_list_t *code_list, FILE *log_file);
 int parse_file(code_list_t *code_list, dict_list_t *dict_list, char *file_name, FILE *log_file);
 void optimize_dict(code_list_t *code_list, dict_list_t *dict_list, FILE *log_file);
-unsigned skip_code(code_list_t *code_list, unsigned pos);
 unsigned next_code(code_list_t *code_list, unsigned pos);
 int optimize_code(code_list_t *code_list, dict_list_t *dict_list, FILE *log_file);
 int optimize_code1(code_list_t *code_list, dict_list_t *dict_list, FILE *log_file);
@@ -140,10 +144,11 @@ struct {
   unsigned optimize;
   unsigned show:1;
   unsigned encode_code_end:1;
-  char *file;
+  char *output_file;
   char *log_file_name;
-  char *lib_path[2];
-} opt = { .lib_path = { NULL, "/usr/share/gfxboot" }, .encode_code_end = ENCODE_CODE_END };
+  char *lib_path[16];
+  unsigned lib_path_len;
+} opt = { .encode_code_end = ENCODE_CODE_END };
 
 
 int main(int argc, char **argv)
@@ -152,10 +157,11 @@ int main(int argc, char **argv)
 
   opterr = 0;
 
-  while((i = getopt_long(argc, argv, "c:sfhL:l:O:vx", options, NULL)) != -1) {
+  while((i = getopt_long(argc, argv, "c:sfhI:L:l:O:o:vx", options, NULL)) != -1) {
     switch(i) {
       case 'c':
-        opt.file = optarg;
+      case 'o':
+        opt.output_file = optarg;
         break;
 
       case 's':
@@ -166,8 +172,11 @@ int main(int argc, char **argv)
         opt.log_file_name = optarg;
         break;
 
+      case 'I':
       case 'L':
-        opt.lib_path[0] = optarg;
+        if(opt.lib_path_len < sizeof opt.lib_path / sizeof *opt.lib_path) {
+          opt.lib_path[opt.lib_path_len++] = optarg;
+        }
         break;
 
       case 'O':
@@ -190,28 +199,36 @@ int main(int argc, char **argv)
 
   argc -= optind; argv += optind;
 
-  // implicitly activate logging if verbose is set
+  // implicitly activate logging (to stdout if no log file is specified) if verbose is set
   if(
     opt.verbose &&
     !opt.log_file_name &&
-    (!opt.file || strcmp(opt.file, "-"))
+    (!opt.output_file || strcmp(opt.output_file, "-"))
   ) {
     opt.log_file_name = "-";
   }
 
-  if(opt.file && argc <= 1) {
+  if(opt.output_file) {
     file_data_t fd = {};
     code_list_t code_list = {};
     dict_list_t dict_list = {};
 
-    int err = compile(&fd, &code_list, &dict_list, argc ? *argv : "-", opt.log_file_name);
+    int err = 0;
 
-    if(!err) err = write_file(opt.file, &fd);
+    if(!argc) {
+      err = compile(&fd, &code_list, &dict_list, "-", opt.log_file_name);
+    }
+    else {
+      while(!err && argc--) {
+        err = compile(&fd, &code_list, &dict_list, *argv++, opt.log_file_name);
+      }
+    }
+
+    if(!err) err = write_file(opt.output_file, &fd);
 
     return err;
   }
-
-  if(opt.show && argc <= 1) {
+  else {
     int err = show_info(argc ? *argv : "-");
 
     return err;
@@ -259,18 +276,16 @@ int read_file(const char *name, file_data_t *fd)
 
   if(!f) {
     // file not found; search in library path
-    for(unsigned u = 0; u < sizeof opt.lib_path / sizeof *opt.lib_path; u++) {
-      if(opt.lib_path[u]) {
-        char *s;
-        asprintf(&s, "%s/%s", opt.lib_path[u], name);
-        f = fopen(s, "r");
-        if(f) {
-          fd->name = s;
-          break;
-        }
-        else {
-          free(s);
-        }
+    for(unsigned u = 0; u < opt.lib_path_len; u++) {
+      char *s;
+      asprintf(&s, "%s/%s", opt.lib_path[u], name);
+      f = fopen(s, "r");
+      if(f) {
+        fd->name = s;
+        break;
+      }
+      else {
+        free(s);
       }
     }
   }
@@ -298,7 +313,10 @@ int read_file(const char *name, file_data_t *fd)
     return 1;
   }
 
-  fd->size = fd->real_size = file_size;
+  fd->size = file_size;
+
+  // 1 extra byte to avoid potential future realloc() when appending 1 byte
+  fd->real_size = file_size + 1;
 
   if(fseek(f, 0, SEEK_SET)) {
     perror(fd->name);
@@ -306,7 +324,7 @@ int read_file(const char *name, file_data_t *fd)
     return 1;
   }
 
-  fd->ptr = fd->data = calloc(1, fd->size);
+  fd->ptr = fd->data = calloc(1, fd->real_size);
   if(!fd->data) {
     fprintf(stderr, "read_file: malloc failed\n");
 
@@ -1036,7 +1054,7 @@ int compile(file_data_t *fd, code_list_t *code_list, dict_list_t *dict_list, cha
 
   if(!err && opt.optimize) err = optimize(code_list, dict_list, log_file);
 
-  if(opt.verbose >= 3) check_vocabulary(dict_list);
+  check_vocabulary(dict_list, opt.verbose && log_file ? log_file : stderr);
 
   if(!err) err = encode_code(code_list, log_file);
 
@@ -1055,19 +1073,62 @@ int compile(file_data_t *fd, code_list_t *code_list, dict_list_t *dict_list, cha
 //
 int init_parser(code_list_t *code_list, dict_list_t *dict_list)
 {
-  for(unsigned u = 0; u < PRIM_WORDS; u++) {
-    dict_t *d = new_dict(dict_list);
-    d->type = t_prim;
-    d->value.u = u;
-    d->name = (char *) prim_names[u];
-  }
+  int err = init_dict_list(dict_list);
 
+  if(!err) err = init_code_list(code_list);
+
+  return err;
+}
+
+
+// Insert gfxboot magic instruction.
+//
+// This is technically a comment that serves as 8 bytes file magic at the
+// start of binary code.
+//
+int init_code_list(code_list_t *code_list)
+{
   code_t *c = new_code(code_list);
   c->type = t_comment;
   c->value.p_len = 7;
   c->value.p = calloc(1, 7);
   encode_number(c->value.p, GFXBOOT_MAGIC, 7);
   c->name = strdup("# gfxboot magic");
+
+  return 0;
+}
+
+
+// Setup initial dictionary with primitive words.
+//
+int init_dict_list(dict_list_t *dict_list)
+{
+  for(unsigned u = 0; u < PRIM_WORDS; u++) {
+    dict_t *d = new_dict(dict_list);
+    d->type = t_prim;
+    d->value.u = u;
+    d->name = strdup(prim_names[u]);
+  }
+
+  return 0;
+}
+
+
+// Free dictionary.
+//
+int free_dict_list(dict_list_t *dict_list)
+{
+  if(!dict_list) return 0;
+
+  for(unsigned u = 0; u < dict_list->size; u++) {
+    dict_t *d = dict_list->entries + u;
+    free(d->name);
+    free(d->value.p);
+  }
+
+  free(dict_list->entries);
+
+  *dict_list = (dict_list_t) {};
 
   return 0;
 }
@@ -1099,7 +1160,7 @@ int optimize(code_list_t *code_list, dict_list_t *dict_list, FILE *log_file)
 
 // Warn about words that are not explicitly defined.
 //
-int check_vocabulary(dict_list_t *dict_list)
+int check_vocabulary(dict_list_t *dict_list, FILE *log_file)
 {
   unsigned shown = 0;
 
@@ -1108,17 +1169,17 @@ int check_vocabulary(dict_list_t *dict_list)
       dict_list->entries[u].type == t_nil && !dict_list->entries[u].value.u
     ) {
       if(!shown) {
-        fprintf(stderr, "Undefined words:");
+        fprintf(log_file, "Undefined words:");
         shown = 1;
       }
       else {
-        fprintf(stderr, ",");
+        fprintf(log_file, ",");
       }
-      fprintf(stderr, " %s", dict_list->entries[u].name);
+      fprintf(log_file, " %s", dict_list->entries[u].name);
     }
   }
   if(shown) {
-    fprintf(stderr, "\n");
+    fprintf(log_file, "\n");
   }
 
   return 0;
@@ -1160,6 +1221,7 @@ int write_code(file_data_t *fd, code_list_t *code_list, FILE *log_file)
     add_data(fd, code_list->entries[u].enc, code_list->entries[u].size);
   }
 
+  // FIXME: remove
   if(log_file) fputc('\n', log_file);
 
   int err = log_code(code_list, log_file, 1);
@@ -1194,6 +1256,7 @@ int parse_file(code_list_t *code_list, dict_list_t *dict_list, char *name, FILE 
     return 1;
   }
 
+  // FIXME: >= 1
   if(opt.verbose >= 2) {
     c = new_code(code_list);
     c->line = line;
@@ -1223,6 +1286,7 @@ int parse_file(code_list_t *code_list, dict_list_t *dict_list, char *name, FILE 
             cfg[incl_level].line = line;
             cfg[++incl_level] = incl;
             line = 1;
+            // FIXME: >= 1
             if(opt.verbose >= 2) {
               c = new_code(code_list);
               c->line = line;
@@ -1281,6 +1345,7 @@ int parse_file(code_list_t *code_list, dict_list_t *dict_list, char *name, FILE 
         }
         c->value.u = (unsigned) i;
       }
+
       c->value.p = strdup(word + 1);
       c->value.p_len = strlen(word + 1);
     }
@@ -1293,6 +1358,23 @@ int parse_file(code_list_t *code_list, dict_list_t *dict_list, char *name, FILE 
     else if(*word == '=') {
       c->name = strdup(word + 1);
       c->type = t_set;
+
+      if((i = find_in_dict(dict_list, word + 1)) == -1) {
+        d = new_dict(dict_list);
+        d->type = t_nil;
+        d->value.u = 1;		// mark as defined
+        d->value.p = strdup(word + 1);
+        d->value.p_len = strlen(word + 1);
+        d->name = strdup(word + 1);
+        c->value.u = dict_list->size - 1;
+      }
+      else {
+        if(dict_list->entries[i].type == t_nil && !dict_list->entries[i].value.u) {
+          dict_list->entries[i].value.u = 1;	// mark as defined
+        }
+        c->value.u = (unsigned) i;
+      }
+
       c->value.p = strdup(word + 1);
       c->value.p_len = strlen(word + 1);
     }
@@ -1397,25 +1479,22 @@ void optimize_dict(code_list_t *code_list, dict_list_t *dict_list, FILE *log_fil
 }
 
 
-/*
- * Skip deleted code.
- */
-unsigned skip_code(code_list_t *code_list, unsigned pos)
-{
-  while(pos < code_list->size && code_list->entries[pos].type == t_skip) pos++;
-
-  return pos;
-}
-
-
-/*
- * Return next instruction.
- */
+// Go to next non-deleted instruction.
+//
+// Starting at pos, look for next instruction that is not t_skip.
+//
+// Return index of next code entry that is not t_skip.
+// If there is none, return index of last code entry.
+//
 unsigned next_code(code_list_t *code_list, unsigned pos)
 {
-  if((pos + 1) >= code_list->size) return pos;
+  if(!code_list->size) return 0;
 
-  return skip_code(code_list, ++pos);
+  while(pos < code_list->size && code_list->entries[pos].type == t_skip) pos++;
+
+  if(pos >= code_list->size) pos = code_list->size - 1;
+
+  return pos;
 }
 
 
@@ -1563,8 +1642,8 @@ int optimize_code2(code_list_t *code_list, dict_list_t *dict_list, FILE *log_fil
       unsigned v = (unsigned) d->def_idx;
 
       code_t *c0 = code_list->entries + v;
-      code_t *c1 = code_list->entries + (v = next_code(code_list, v));
-      code_t *c2 = code_list->entries + (v = next_code(code_list, v));
+      code_t *c1 = code_list->entries + (v = next_code(code_list, v + 1));
+      code_t *c2 = code_list->entries + (v = next_code(code_list, v + 1));
 
       if(
         c0->type == t_ref &&
@@ -1624,7 +1703,7 @@ int optimize_code3(code_list_t *code_list, dict_list_t *dict_list, FILE *log_fil
       unsigned v = (unsigned) d->def_idx;
 
       code_t *c0 = code_list->entries + v;
-      code_t *c1 = code_list->entries + next_code(code_list, v);
+      code_t *c1 = code_list->entries + next_code(code_list, v + 1);
 
       if(c1 == c0) continue;
 
@@ -1632,7 +1711,7 @@ int optimize_code3(code_list_t *code_list, dict_list_t *dict_list, FILE *log_fil
         c0->type == t_ref &&
         c0->value.u == u &&
         c1->type == t_code &&
-        code_list->entries[v = skip_code(code_list, c1->value.u)].type == t_prim &&
+        code_list->entries[v = next_code(code_list, c1->value.u)].type == t_prim &&
         !strcmp(dict_list->entries[code_list->entries[v].value.u].name, "def") &&
         v > (unsigned) d->def_idx
       ) {
@@ -1719,8 +1798,8 @@ int optimize_code5(code_list_t *code_list, dict_list_t *dict_list, FILE *log_fil
       unsigned v = (unsigned) d->def_idx;
 
       code_t *c0 = code_list->entries + v;
-      code_t *c1 = code_list->entries + (v = next_code(code_list, v));
-      code_t *c2 = code_list->entries + (v = next_code(code_list, v));
+      code_t *c1 = code_list->entries + (v = next_code(code_list, v + 1));
+      code_t *c2 = code_list->entries + (v = next_code(code_list, v + 1));
 
       if(
         c0->type == t_ref &&
@@ -2061,26 +2140,28 @@ unsigned decode_instr(uint8_t *data, type_t *type, int64_t *arg1, uint8_t **arg2
 int decompile(code_list_t *code_list, uint8_t *data, unsigned size)
 {
   unsigned i, j, inst_size;
-  dict_t *d;
   code_t *c;
   type_t type;
   int64_t arg1;
   unsigned char *arg2;
 
+  int err = 0;
+
   dict_list_t dict_list = {};
 
-  // fill dictionary with primitive words
-  for(i = 0; i < PRIM_WORDS; i++) {
-    d = new_dict(&dict_list);
-    d->type = t_prim;
-    d->value.u = i;
-    d->name = (char *) prim_names[i];
+  err = init_dict_list(&dict_list);
+
+  if(err) {
+    free_dict_list(&dict_list);
+    return err;
   }
 
   for(i = 0; i < size; i += inst_size) {
     inst_size = decode_instr(data + i, &type, &arg1, &arg2);
 
     if(i + inst_size > size) {
+      err = 1;
+
       if(i) {
         fprintf(stderr, "error: instruction size bounds exceeded: %u > %u\n", i + inst_size, size);
       }
@@ -2088,7 +2169,8 @@ int decompile(code_list_t *code_list, uint8_t *data, unsigned size)
         fprintf(stderr, "error: invalid file format\n");
       }
 
-      return 1;
+      free_dict_list(&dict_list);
+      return err;
     }
 
     c = new_code(code_list);
@@ -2101,9 +2183,12 @@ int decompile(code_list_t *code_list, uint8_t *data, unsigned size)
         inst_size == 8
       )
     ) {
+      err = 1;
+
       fprintf(stderr, "error: invalid file format\n");
 
-      return 1;
+      free_dict_list(&dict_list);
+      return err;
     }
 
     c->ofs = i;
@@ -2119,9 +2204,11 @@ int decompile(code_list_t *code_list, uint8_t *data, unsigned size)
     }
 
     if(i == 0 && decode_number(c->value.p, c->value.p_len) != GFXBOOT_MAGIC) {
+      err = 1;
       fprintf(stderr, "error: gfxboot magic not matching\n");
 
-      return 1;
+      free_dict_list(&dict_list);
+      return err;
     }
 
     if(c->type == t_xref) {
@@ -2132,8 +2219,11 @@ int decompile(code_list_t *code_list, uint8_t *data, unsigned size)
         }
       }
       if(!c->xref_to) {
+        err = 2;
         fprintf(stderr, "error: invalid cross reference: ofs 0x%x, %d\n", c->ofs, (unsigned) arg1);
-        return 2;
+
+        free_dict_list(&dict_list);
+        return err;
       }
       code_t *c_ref = code_list->entries + c->xref_to;
       unsigned old_ofs = c->ofs;
@@ -2174,8 +2264,11 @@ int decompile(code_list_t *code_list, uint8_t *data, unsigned size)
           c->name = strdup(dict_list.entries[arg1].name);
         }
         else {
+          err = 1;
           fprintf(stderr, "error: word %u not in dictionary\n", (unsigned) arg1);
-          return 1;
+
+          free_dict_list(&dict_list);
+          return err;
         }
         break;
 
@@ -2201,10 +2294,14 @@ int decompile(code_list_t *code_list, uint8_t *data, unsigned size)
         break;
 
       default:
+        err = 2;
         fprintf(stderr, "error: type %d not recognized\n", c->type);
-        return 2;
+
+        free_dict_list(&dict_list);
+        return err;
     }
   }
 
+  free_dict_list(&dict_list);
   return 0;
 }

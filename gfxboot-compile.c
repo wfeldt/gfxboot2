@@ -54,7 +54,7 @@ struct option options[] = {
   { "opt", 0, NULL, 'O' },
   { "lib", 1, NULL, 'L' },
   { "include", 1, NULL, 'I' },
-  { "xxx", 0, NULL, 'x' },
+  { "no-end", 0, NULL, 'x' },
   { "help", 0, NULL, 'h' },
   { }
 };
@@ -74,10 +74,14 @@ typedef struct {
 typedef struct {
   char *name;
   type_t type;
+  unsigned idx;
   unsigned ofs;
   unsigned size;
   unsigned xref_to;
-  unsigned duplicate:1;
+  unsigned jmp_to;
+  unsigned indent;
+  unsigned skip:1;
+  unsigned no_ofs:1;
   int line, incl_level;
   struct {
     unsigned char *p;
@@ -107,6 +111,7 @@ unsigned file_type(file_data_t *fd);
 uint64_t decode_number(const uint8_t *data, unsigned len);
 void encode_number(uint8_t *data, uint64_t val, unsigned len);
 code_t *new_code(code_list_t *code_list);
+code_t *clone_code(code_list_t *code_list, unsigned code_idx);
 dict_t *new_dict(dict_list_t *dict_list);
 uint32_t read_uint32_le(file_data_t *fd, unsigned ofs);
 uint64_t read_uint64_le(file_data_t *fd, unsigned ofs);
@@ -129,6 +134,7 @@ int write_code(file_data_t *fd, code_list_t *code_list, FILE *log_file);
 int parse_file(code_list_t *code_list, dict_list_t *dict_list, file_data_t *fd, FILE *log_file);
 void optimize_dict(code_list_t *code_list, dict_list_t *dict_list, FILE *log_file);
 unsigned next_code(code_list_t *code_list, unsigned pos);
+code_t *find_code_by_ofs(code_list_t *code_list, unsigned ofs);
 int optimize_code(code_list_t *code_list, dict_list_t *dict_list, FILE *log_file);
 int optimize_code1(code_list_t *code_list, dict_list_t *dict_list, FILE *log_file);
 int optimize_code2(code_list_t *code_list, dict_list_t *dict_list, FILE *log_file);
@@ -185,7 +191,7 @@ int main(int argc, char **argv)
         break;
 
       case 'x':
-        opt.encode_code_end ^= 1;
+        opt.encode_code_end = 0;
         break;
 
       case 'v':
@@ -486,7 +492,37 @@ code_t *new_code(code_list_t *code_list)
     memset(code_list->entries + code_list->size, 0, (code_list->real_size - code_list->size) * sizeof *code_list->entries);
   }
 
+  code_list->entries[code_list->size].idx = code_list->size;
+
   return code_list->entries + code_list->size++;
+}
+
+
+// Clone an existing code entry in code entry list.
+//
+// Return pointer to new entry.
+//
+// Note: this may include a realloc() - invalidating any old pointers.
+//
+code_t *clone_code(code_list_t *code_list, unsigned code_idx)
+{
+  code_t *c = new_code(code_list);
+
+  if(code_idx < code_list->size) {
+    unsigned tmp_idx = c->idx;
+    *c = code_list->entries[code_idx];
+    c->idx = tmp_idx;
+
+    if(c->enc && c->size > 0) {
+      uint8_t *tmp_ptr = malloc(c->size);
+      if(tmp_ptr) {
+        memcpy(tmp_ptr, c->enc, c->size);
+      }
+      c->enc = tmp_ptr;
+    }
+  }
+
+  return c;
 }
 
 
@@ -922,6 +958,8 @@ int translate(code_list_t *code_list, unsigned pass)
     for(u = 0; u < code_list->size; u++) {
       c = code_list->entries + u;
 
+      if(c->skip) continue;
+
       c->ofs = ofs;
 
       is_signed = 0;
@@ -997,6 +1035,7 @@ int translate(code_list_t *code_list, unsigned pass)
           break;
 
         case t_code:
+          // FIXME: why not 1?
           c->size = 2;
           // dummy value
           // really encoded in else branch below during later passes (pass != 0)
@@ -1013,6 +1052,8 @@ int translate(code_list_t *code_list, unsigned pass)
   else {
     for(u = 0; u < code_list->size; u++) {
       c = code_list->entries + u;
+
+      if(c->skip) continue;
 
       if(c->ofs != ofs) changed = 1;
       c->ofs = ofs;
@@ -1039,13 +1080,24 @@ int translate(code_list_t *code_list, unsigned pass)
       }
 
       if(c->type == t_code) {
+        // c->value.u: index of instruction *after* closing '}'
         lenx = c->value.u;
         // we want to encode the length of the code blob, starting *after*
         // the current instruction
+#if 1
+// FIXME
+        fprintf(stderr,
+          "lenx = %d, code_list->size = %d, u = %u, code_list->entries[lenx].ofs = 0x%x, c[1].ofs = 0x%x\n",
+          lenx, code_list->size, u, code_list->entries[lenx].ofs, c[1].ofs
+        );
+#endif
         if(lenx >= code_list->size || u >= code_list->size - 1 || code_list->entries[lenx].ofs < c[1].ofs) {
           fprintf(stderr, "Internal error %d\n", __LINE__);
+          log_code(code_list, stderr, 1);
           exit(11);
         }
+        fprintf(stderr, "No error %d\n", __LINE__);
+        log_code(code_list, stderr, 1);
         lenx = code_list->entries[lenx].ofs - c[1].ofs;
         if(lenx < 12) {
           c->size = 1;
@@ -1221,12 +1273,16 @@ int encode_code(code_list_t *code_list, FILE *log_file)
 int write_code(file_data_t *fd, code_list_t *code_list, FILE *log_file)
 {
   for(unsigned u = 0; u < code_list->size; u++) {
-    if((!code_list->entries[u].enc) && code_list->entries[u].type != t_skip) {
+    code_t *c = code_list->entries + u;
+
+    if(c->skip) continue;
+
+    if((!c->enc) && c->type != t_skip) {
       fprintf(stderr, "error: invalid code list\n");
 
       return 1;
     }
-    add_data(fd, code_list->entries[u].enc, code_list->entries[u].size);
+    add_data(fd, c->enc, c->size);
   }
 
   // FIXME: remove
@@ -1269,6 +1325,7 @@ int parse_file(code_list_t *code_list, dict_list_t *dict_list, file_data_t *fd, 
     c->line = line;
     c->incl_level = incl_level;
     c->type = t_skip;
+    c->skip = 1;
     asprintf(&c->name, "file %s", cfg[incl_level].name);
   }
 
@@ -1299,6 +1356,7 @@ int parse_file(code_list_t *code_list, dict_list_t *dict_list, file_data_t *fd, 
               c->line = line;
               c->incl_level = incl_level;
               c->type = t_skip;
+              c->skip = 1;
               asprintf(&c->name, "include %s", cfg[incl_level].name);
             }
           }
@@ -1497,11 +1555,25 @@ unsigned next_code(code_list_t *code_list, unsigned pos)
 {
   if(!code_list->size) return 0;
 
-  while(pos < code_list->size && code_list->entries[pos].type == t_skip) pos++;
+  while(pos < code_list->size && (code_list->entries[pos].skip || code_list->entries[pos].type == t_skip)) pos++;
 
   if(pos >= code_list->size) pos = code_list->size - 1;
 
   return pos;
+}
+
+
+// Find code list entry for a given offset.
+//
+// Return pointer to code entry or NULL if not found.
+//
+code_t *find_code_by_ofs(code_list_t *code_list, unsigned ofs)
+{
+  for(unsigned u = 0; u < code_list->size; u++) {
+    if(code_list->entries[u].ofs == ofs) return code_list->entries + u;
+  }
+
+  return NULL;
 }
 
 
@@ -1920,16 +1992,18 @@ int log_code(code_list_t *code_list, FILE *log_file, int style)
 {
   int err = 0;
 
-  int i, j, l, line = 0, incl_level = 0;
-  int ind = 0, diff = 0;
+  int i, j, line = 0, incl_level = 0;
+  int ind = 0;
   char *s;
+
+  unsigned hex_len;
 
   int full_log = style || opt.verbose;
 
   if(!log_file) return err;
 
   for(i = j = 0; i < (int) code_list->size; i++) {
-    if(code_list->entries[i].type == t_skip) j++;
+    if(code_list->entries[i].skip || code_list->entries[i].type == t_skip) j++;
   }
 
   if(full_log) {
@@ -1943,10 +2017,7 @@ int log_code(code_list_t *code_list, FILE *log_file, int style)
   }
 
   for(i = 0; i < (int) code_list->size; i++) {
-    if(code_list->entries[i].duplicate) {
-      diff++;
-    }
-    if(code_list->entries[i].type == t_skip && !opt.verbose) continue;
+    if((code_list->entries[i].skip || code_list->entries[i].type == t_skip) && !opt.verbose) continue;
     if(code_list->entries[i].type == t_comment && !full_log) continue;
     if(full_log) {
       if((line != code_list->entries[i].line || incl_level != code_list->entries[i].incl_level) && code_list->entries[i].line) {
@@ -1964,14 +2035,15 @@ int log_code(code_list_t *code_list, FILE *log_file, int style)
         fprintf(log_file, "%9s", "");
       }
       if(opt.verbose) {
-        if(code_list->entries[i].duplicate) {
+        if(code_list->entries[i].skip || code_list->entries[i].type == t_skip) {
           fprintf(log_file, "%5s  ", "");
         }
         else {
-          fprintf(log_file, "%5d  ", i - diff);
+          fprintf(log_file, "%5d  ", i);
         }
+        fprintf(log_file, "[%2u:%4u] ", code_list->entries[i].indent, code_list->entries[i].jmp_to);
       }
-      if(code_list->entries[i].size && !code_list->entries[i].duplicate) {
+      if(code_list->entries[i].size && !code_list->entries[i].no_ofs) {
         fprintf(log_file, "0x%05x  ", code_list->entries[i].ofs);
       }
       else {
@@ -1983,14 +2055,14 @@ int log_code(code_list_t *code_list, FILE *log_file, int style)
       else {
         fprintf(log_file, "<%4u>", code_list->entries[i].type);
       }
-      l = code_list->entries[i].enc ? (int) code_list->entries[i].size : 0;
-      if(l > 8) l = 8;
-      for(j = 0; j < l; j++) {
-        fprintf(log_file, " %02x", code_list->entries[i].enc[j]);
+      hex_len = code_list->entries[i].enc ? code_list->entries[i].size : 0;
+      if(hex_len > 8) hex_len = 8;
+      for(unsigned u = 0; u < hex_len; u++) {
+        fprintf(log_file, " %02x", code_list->entries[i].enc[u]);
       }
     }
     else {
-      l = 8;
+      hex_len = 8;
     }
 
     type_t type = code_list->entries[i].type;
@@ -2007,9 +2079,7 @@ int log_code(code_list_t *code_list, FILE *log_file, int style)
       ) &&
       ind > 0
     ) ind -= 2;
-    fprintf(log_file, "%*s", 3 * (8 - l) + ind + (full_log ? 2 : 0), "");
-
-    if(type == t_skip) fprintf(log_file, "# ");
+    fprintf(log_file, "%*s", 3 * (8 - hex_len) + 2 * code_list->entries[i].indent + (full_log ? 2 : 0), "");
 
     if(
       type == t_code ||
@@ -2021,9 +2091,14 @@ int log_code(code_list_t *code_list, FILE *log_file, int style)
           !strcmp(code_list->entries[i].name, prim_names[prim_idx_code_start])
         )
       )
-    ) ind += 2;
+    ) {
+      ind += 2;
+    }
 
-    if(
+    if(type == t_skip || code_list->entries[i].skip) {
+      fprintf(log_file, "%s", code_list->entries[i].name ?: "");
+    }
+    else if(
       type == t_string ||
       type == t_word ||
       type == t_ref ||
@@ -2141,16 +2216,23 @@ unsigned decode_instr(uint8_t *data, type_t *type, int64_t *arg1, uint8_t **arg2
   return inst_size;
 }
 
+#define MAX_INDENT	256
 
 // Convert binary representation to code list.
 //
 int decompile(code_list_t *code_list, dict_list_t *dict_list, file_data_t *fd)
 {
-  unsigned i, j, inst_size;
+  unsigned i, inst_size;
   code_t *c;
   type_t type;
   int64_t arg1;
   unsigned char *arg2;
+
+  unsigned indent = 0;
+  struct {
+    unsigned start_idx;
+    unsigned end_ofs;
+  } code_block[MAX_INDENT] = {};
 
   int err = 0;
 
@@ -2158,7 +2240,7 @@ int decompile(code_list_t *code_list, dict_list_t *dict_list, file_data_t *fd)
 
   if(code_list->size > 0) {
     start_ofs = code_list->entries[code_list->size - 1].ofs + code_list->entries[code_list->size - 1].size;
-    // to account for magic header comment
+    // to account for magic header comment, which will be removed
     start_ofs -= 8;
   }
 
@@ -2178,10 +2260,27 @@ int decompile(code_list_t *code_list, dict_list_t *dict_list, file_data_t *fd)
       if(opt.verbose >= 2) {
         c = new_code(code_list);
         c->type = t_skip;
+        c->skip = 1;
         asprintf(&c->name, "file %s", fd->name);
       }
 
       continue;
+    }
+
+    if(indent) {
+      if(code_block[indent - 1].end_ofs == start_ofs + i) {
+        indent--;
+        if(
+          code_list->entries[code_list->size - 1].type != t_prim ||
+          code_list->entries[code_list->size - 1].value.u != prim_idx_code_end
+        ) {
+          c = new_code(code_list);
+          c->type = t_prim;
+          c->value.u = prim_idx_code_end;
+          c->name = strdup("}");
+          c->indent = code_list->entries[code_list->size - 2].indent;
+        }
+      }
     }
 
     if(i + inst_size > fd->size) {
@@ -2214,6 +2313,7 @@ int decompile(code_list_t *code_list, dict_list_t *dict_list, file_data_t *fd)
       return err;
     }
 
+    c->indent = indent;
     c->ofs = start_ofs + i;
     c->size = inst_size;
     c->enc = malloc(inst_size);
@@ -2228,35 +2328,50 @@ int decompile(code_list_t *code_list, dict_list_t *dict_list, file_data_t *fd)
 
     if(c->type == t_xref) {
       c->value.u = (uint64_t) arg1;
-      for(j = 0; j < code_list->size - 1; j++) {
-        if(code_list->entries[j].ofs == c->ofs - arg1) {
-          c->xref_to = j;
-        }
+      code_t *c_ref = NULL;
+      if(arg1 > 0 && arg1 < c->ofs) {
+        c_ref = find_code_by_ofs(code_list, c->ofs - arg1);
       }
+      if(c_ref) c->xref_to = c_ref->idx;
       if(!c->xref_to) {
-        err = 2;
         fprintf(stderr, "error: invalid cross reference: ofs 0x%x, %d\n", c->ofs, (unsigned) arg1);
+        err = 2;
 
         return err;
       }
-      code_t *c_ref = code_list->entries + c->xref_to;
-      unsigned old_ofs = c->ofs;
+      unsigned c_old_idx = c->idx;
+      c = clone_code(code_list, c->xref_to);
+      if(!c) {
+        fprintf(stderr, "out of memory\n");
+        err = 2;
+
+        return err;
+      }
+
+      code_t *c_old = code_list->entries + c_old_idx;
+
+      c_old->skip = 1;
+      c->ofs = c_old->ofs;
+      c->indent = c_old->indent;
+      c->no_ofs = 1;
       c->xref_to = 0;
-      asprintf(&c->name, "# -> offset 0x%05x", c_ref->ofs);
-      // FIXME: ???
-      if(opt.verbose >= 2) {
-        c = new_code(code_list);
-        *c = *c_ref;
-        c->duplicate = 1;
-      }
-      else {
-        *c = *c_ref;
-      }
-      c->ofs = old_ofs;
+
+      asprintf(&c_old->name, "# -> ref to %u", c_old->xref_to);
     }
 
     switch(c->type) {
       case t_code:
+        if(indent >= MAX_INDENT) {
+          fprintf(stderr, "code indentation too large\n");
+          err = 2;
+
+          return err;
+        }
+
+        indent++;
+        code_block[indent - 1].start_idx = c->idx;
+        code_block[indent - 1].end_ofs = c->ofs + c->size + c->value.u;
+
         c->name = (char *) prim_names[prim_idx_code_start];
         break;
 
@@ -2282,6 +2397,9 @@ int decompile(code_list_t *code_list, dict_list_t *dict_list, file_data_t *fd)
           fprintf(stderr, "error: word %u not in dictionary\n", (unsigned) arg1);
 
           return err;
+        }
+        if(arg1 == prim_idx_code_end) {
+          if(c->indent) c->indent--;
         }
         break;
 
